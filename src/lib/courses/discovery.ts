@@ -18,6 +18,9 @@ export function parseFilters(params: URLSearchParams): DiscoveryFilters {
   const q = (params.get('q') ?? '').trim();
   const category = (params.get('category') ?? '').trim();
   const centre = params.get('centre') ?? '';
+  const cancellation = params.get('cancellation') ?? '';
+  if (cancellation !== '' && cancellation !== 'hide' && cancellation !== 'only')
+    throw new Error('Invalid cancellation filter');
   if (centre && !/^[a-z0-9-]{1,100}$/.test(centre))
     throw new Error('Invalid centre');
   if (
@@ -39,6 +42,7 @@ export function parseFilters(params: URLSearchParams): DiscoveryFilters {
     q,
     category: canonicalCategory(category),
     centre,
+    cancellation,
     page,
     maxPriceCents: maxPrice ? Math.round(Number(maxPrice) * 100) : null,
   };

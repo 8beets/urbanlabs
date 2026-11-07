@@ -27,6 +27,7 @@ export interface CourseRecord {
   priceCents: number | null;
   currency: 'EUR' | null;
   availability: null;
+  isCancelled: boolean;
   courseLanguage: null;
 }
 

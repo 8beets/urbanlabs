@@ -54,7 +54,7 @@ export function enhanceFilters(form: HTMLFormElement) {
     const target = event.target;
     if (
       !(target instanceof HTMLSelectElement) ||
-      !['region', 'city', 'centre'].includes(target.name)
+      !['region', 'city', 'centre', 'cancellation'].includes(target.name)
     )
       return;
     pending?.abort();
@@ -64,7 +64,7 @@ export function enhanceFilters(form: HTMLFormElement) {
     // Read values before temporarily disabling dependent controls.
     const values = new FormData(form);
     const params = new URLSearchParams({ locale: form.dataset.locale ?? 'es' });
-    for (const key of ['country', 'region', 'city', 'centre'])
+    for (const key of ['country', 'region', 'city', 'centre', 'cancellation'])
       params.set(key, String(values.get(key) ?? ''));
     // Disabled controls are omitted from FormData during a subsequent upstream change.
     params.set('centre', centre.value);

@@ -28,6 +28,7 @@ if (course.category) categoryParams.set('category', course.category);
 ---
 
 <article class="course">
+  {course.is_cancelled === 1 && <p class="cancelled-label">{t.cancelled}</p>}
   {course.category && (
     <a class="course-category" href={`${base}?${categoryParams}`}>
       {categoryLabel(course.category, locale)}
@@ -58,14 +59,18 @@ if (course.category) categoryParams.set('category', course.category);
     </p>
   )}
   <div class="course-action">
-    <p class:list={['price', { 'price-unknown': course.price_cents === null }]}>
-      {course.price_cents === null
-        ? t.unknownPrice
-        : new Intl.NumberFormat(locale, {
-            style: 'currency',
-            currency: course.currency ?? 'EUR',
-          }).format(course.price_cents / 100)}
-    </p>
+    {!(course.is_cancelled === 1 && course.price_cents === 0) && (
+      <p
+        class:list={['price', { 'price-unknown': course.price_cents === null }]}
+      >
+        {course.price_cents === null
+          ? t.unknownPrice
+          : new Intl.NumberFormat(locale, {
+              style: 'currency',
+              currency: course.currency ?? 'EUR',
+            }).format(course.price_cents / 100)}
+      </p>
+    )}
     <a class="source-link" href={course.official_url}>
       {t.source}
       <Icon name="external" />

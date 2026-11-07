@@ -30,5 +30,6 @@ export function hasDiscoveryParams(params: URLSearchParams): boolean {
     'country',
     'region',
     'city',
+    'cancellation',
   ].some((key) => params.has(key));
 }

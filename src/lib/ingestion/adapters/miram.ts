@@ -5,6 +5,7 @@ import {
   parseEuroPrice,
 } from '../normalization/values';
 import { courseRecordSchema } from '../validation/record';
+import { hasCancellationNotice } from '../normalization/cancellation';
 import { createSourceFetcher, type FetchOptions } from '../http';
 import type { CourseRecord, SourceAdapter, SourceConfig } from '../types';
 
@@ -50,10 +51,15 @@ export function parseMiramPage(
     const priceCents = parseEuroPrice(
       paragraphs.find((p) => /^Preu:/u.test(p)) ?? '',
     );
+    const title = cleanText(card.find('h5.card-header').first().text());
+    const notices = card
+      .find('.card-body p, .card-footer')
+      .map((_, el) => cleanText($(el).text()))
+      .get();
     records.push(
       courseRecordSchema.parse({
         externalId,
-        title: cleanText(card.find('h5.card-header').first().text()),
+        title,
         officialUrl: `${pageUrl}#accordion${externalId}`,
         category,
         startDate,
@@ -62,6 +68,7 @@ export function parseMiramPage(
         priceCents,
         currency: priceCents === null ? null : 'EUR',
         availability: null,
+        isCancelled: hasCancellationNotice(title, notices),
         courseLanguage: null,
       }),
     );
@@ -144,6 +151,7 @@ export function createMiramAdapter(options: FetchOptions = {}): SourceAdapter {
             existing &&
             (existing.title !== record.title ||
               existing.startDate !== record.startDate ||
+              existing.isCancelled !== record.isCancelled ||
               existing.priceCents !== record.priceCents)
           )
             throw new Error(

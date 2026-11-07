@@ -5,6 +5,7 @@ import {
 import { canonicalCategory, sourceCategories } from '../courses/categories';
 
 export interface DiscoveryFilters extends GeographicFilters {
+  cancellation?: '' | 'hide' | 'only';
   q: string;
   page: number;
   maxPriceCents: number | null;
@@ -24,6 +25,7 @@ export interface CourseListing {
   schedule_text: string | null;
   price_cents: number | null;
   currency: string | null;
+  is_cancelled: number;
   official_url: string;
   last_successfully_verified_at: string;
 }
@@ -32,7 +34,7 @@ export const PAGE_SIZE = 12;
 const courseColumns = `e.id, coalesce(c.reviewed_title, c.title) AS title,
   c.reviewed_title IS NOT NULL AS title_reviewed, c.category,
   i.name AS institution, i.id AS institution_id, coalesce(p.slug, i.id) AS institution_slug,
-  e.start_date, e.end_date, e.schedule_text, e.price_cents, e.currency,
+  e.start_date, e.end_date, e.schedule_text, e.price_cents, e.currency, e.is_cancelled,
   sr.official_url, sr.last_successfully_verified_at`;
 
 function canonicalListing(course: CourseListing): CourseListing {
@@ -54,7 +56,7 @@ export async function listLatestCourses(
     JOIN course_editions e ON e.id=sr.edition_id
     JOIN courses c ON c.id=e.course_id JOIN institutions i ON i.id=c.institution_id
     LEFT JOIN institution_profiles p ON p.institution_id=i.id
-    WHERE e.end_date IS NULL OR e.end_date >= ?
+    WHERE e.is_cancelled=0 AND (e.end_date IS NULL OR e.end_date >= ?)
     ORDER BY sr.first_seen_at DESC, sr.source_id, sr.external_id LIMIT ?`,
     )
     .bind(today, LATEST_COURSES_LIMIT)
@@ -69,6 +71,8 @@ export async function listCourses(
 ): Promise<{ courses: CourseListing[]; hasNext: boolean }> {
   const conditions: string[] = [];
   const values: (string | number)[] = [];
+  if (filters.cancellation === 'hide') conditions.push('e.is_cancelled=0');
+  if (filters.cancellation === 'only') conditions.push('e.is_cancelled=1');
   const geographic = geographicCondition(filters);
   if (geographic.sql) {
     conditions.push(geographic.sql);
@@ -101,7 +105,7 @@ export async function listCourses(
     LEFT JOIN institution_profiles p ON p.institution_id=i.id
     JOIN source_records sr ON sr.edition_id=e.id
     WHERE ${conditions.join(' AND ')}
-    ORDER BY e.start_date IS NULL, e.start_date, e.id LIMIT ? OFFSET ?`,
+    ORDER BY e.is_cancelled, e.start_date IS NULL, e.start_date, e.id LIMIT ? OFFSET ?`,
     )
     .bind(...values, PAGE_SIZE + 1, (filters.page - 1) * PAGE_SIZE)
     .all<CourseListing>();
@@ -115,7 +119,7 @@ export async function listCategories(
   db: D1Database,
   today = new Date().toLocaleDateString('sv-SE', { timeZone: 'Europe/Madrid' }),
   centre = '',
-  geography: GeographicFilters = {},
+  geography: GeographicFilters & Pick<DiscoveryFilters, 'cancellation'> = {},
 ): Promise<string[]> {
   const geographic = geographicCondition(geography, 'c.institution_id');
   const result = await db
@@ -123,6 +127,7 @@ export async function listCategories(
       `SELECT DISTINCT c.category FROM courses c
     WHERE c.category IS NOT NULL AND c.category <> '' ${centre ? 'AND c.institution_id = ?' : ''} ${geographic.sql ? `AND ${geographic.sql}` : ''} AND EXISTS (
       SELECT 1 FROM course_editions e WHERE e.course_id=c.id
+      ${cancellationCondition(geography.cancellation)}
       AND (e.end_date IS NULL OR e.end_date >= ?)
     ) ORDER BY c.category LIMIT 100`,
     )
@@ -140,17 +145,28 @@ export interface CentreListing {
 export async function listCentres(
   db: D1Database,
   today = new Date().toLocaleDateString('sv-SE', { timeZone: 'Europe/Madrid' }),
-  geography: GeographicFilters = {},
+  geography: GeographicFilters & Pick<DiscoveryFilters, 'cancellation'> = {},
 ): Promise<CentreListing[]> {
   const geographic = geographicCondition(geography);
   const result = await db
     .prepare(
       `SELECT i.id, i.name FROM institutions i WHERE ${geographic.sql ? `${geographic.sql} AND` : ''} EXISTS (
     SELECT 1 FROM courses c JOIN course_editions e ON e.course_id=c.id WHERE c.institution_id=i.id
+    ${cancellationCondition(geography.cancellation)}
     AND (e.end_date IS NULL OR e.end_date >= ?)
   ) ORDER BY i.name LIMIT 100`,
     )
     .bind(...geographic.values, today)
     .all<CentreListing>();
   return result.results;
+}
+
+function cancellationCondition(
+  value: DiscoveryFilters['cancellation'],
+): string {
+  return value === 'hide'
+    ? 'AND e.is_cancelled=0'
+    : value === 'only'
+      ? 'AND e.is_cancelled=1'
+      : '';
 }

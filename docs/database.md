@@ -53,3 +53,16 @@ locations. The interface displays Comunidad Valenciana/Alicante in Spanish and
 Comunitat Valenciana/Alacant in Catalan. No institutions or courses are assigned;
 these filters show an empty state until verified sources are imported. Apply this
 additive migration before deploying the updated location labels.
+
+`0007_cancelled_editions.sql` adds the constrained `course_editions.is_cancelled`
+flag. It records an explicit source cancellation separately from availability. Zero
+means no cancellation has been recorded, not that the course is available. Existing
+rows start at zero and need a successful source refresh to detect notices that were
+not previously extracted. Apply the migration before deploying or running ingestion.
+Failed imports preserve the flag and verification timestamps with the prior snapshot.
+
+Discovery sorts unexpired cancelled editions last before pagination; the homepage
+excludes them. Search accepts `cancellation=hide` or `cancellation=only` (omitting it
+shows all). The filter composes with geography, centre, category, search, and price,
+and narrows dependent centre/category options. Source prices remain stored even when
+a zero price is hidden on a cancelled card.

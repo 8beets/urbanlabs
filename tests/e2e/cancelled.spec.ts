@@ -1,0 +1,89 @@
+import { expect, test } from '@playwright/test';
+
+test.describe('cancelled course discovery without JavaScript', () => {
+  test.use({ javaScriptEnabled: false });
+  for (const locale of ['es', 'ca'] as const) {
+    const search = locale === 'es' ? '/es/buscar' : '/ca/cerca';
+    const label = locale === 'es' ? 'Cancelado' : 'Cancel·lat';
+    test(`${locale}: cancellation labels, prices, ordering and filters`, async ({
+      page,
+      request,
+    }) => {
+      await page.goto(`${search}?centre=cc-pati-llimona`);
+      await expect(page.locator('.course')).toHaveCount(5);
+      await expect(
+        page.locator('.course').nth(2).locator('.cancelled-label'),
+      ).toHaveCount(0);
+      const cancelled = page
+        .locator('.course')
+        .filter({ has: page.locator('.cancelled-label') });
+      await expect(cancelled).toHaveCount(2);
+      await expect(cancelled.locator('.cancelled-label')).toHaveText([
+        label,
+        label,
+      ]);
+      await expect(cancelled.locator('.price')).toHaveCount(0);
+      await expect(cancelled.locator('.source-link')).toHaveCount(2);
+      await page.locator('#cancellation').selectOption('only');
+      await page.locator('button[type="submit"]').click();
+      expect(new URL(page.url()).searchParams.get('cancellation')).toBe('only');
+      await expect(page.locator('.course')).toHaveCount(2);
+      await page
+        .getByRole('link', {
+          name: locale === 'es' ? 'Català' : 'Español',
+          exact: true,
+        })
+        .click();
+      await expect(page.locator('#cancellation')).toHaveValue('only');
+      await expect(page.locator('.cancelled-label')).toHaveText(
+        locale === 'es'
+          ? ['Cancel·lat', 'Cancel·lat']
+          : ['Cancelado', 'Cancelado'],
+      );
+      await page.goto(`${search}?cancellation=hide`);
+      await expect(page.locator('.cancelled-label')).toHaveCount(0);
+      await expect(
+        page.locator('#centre option[value="fab-casa-del-mig"]'),
+      ).toHaveCount(0);
+      await page.goto(`${search}?centre=fab-casa-del-mig&cancellation=only`);
+      await expect(page.locator('.cancelled-label')).toHaveText(label);
+      await expect(page.locator('.price')).toContainText(/41,20/);
+      await page.goto(`${search}?centre=cc-el-sortidor`);
+      await expect(page.locator('.cancelled-label')).toHaveCount(0);
+      await expect(page.locator('.price')).toContainText(/0,00/);
+      await page.goto(`/${locale}/`);
+      await expect(page.locator('.latest-courses .course')).toHaveCount(20);
+      await expect(page.locator('.cancelled-label')).toHaveCount(0);
+      expect(
+        (await request.get(`${search}?cancellation=invalid`)).status(),
+      ).toBe(400);
+      const legacy = await request.get(`/${locale}/?cancellation=only`, {
+        maxRedirects: 0,
+      });
+      expect(legacy.status()).toBe(308);
+      expect(legacy.headers().location).toBe(`${search}?cancellation=only`);
+    });
+  }
+});
+
+test('changing cancellation updates dependent options before explicit submission', async ({
+  page,
+}) => {
+  await page.goto('/es/buscar');
+  if (page.viewportSize()!.width < 800)
+    await page.locator('#filter-panel summary').click();
+  await page.locator('#cancellation').selectOption('only');
+  await expect(page.locator('#centre option')).toHaveCount(3);
+  expect(new URL(page.url()).searchParams.has('cancellation')).toBe(false);
+  await page.locator('#centre').selectOption('fab-casa-del-mig');
+  await expect(page.locator('button[type="submit"]')).toBeEnabled();
+  await page.locator('button[type="submit"]').click();
+  await expect(page.locator('.cancelled-label')).toHaveText('Cancelado');
+  const chip = page.getByRole('link', {
+    name: 'Quitar filtro: Solo cancelados',
+    exact: true,
+  });
+  await chip.click();
+  expect(new URL(page.url()).searchParams.has('cancellation')).toBe(false);
+  await expect(page.locator('#cancellation')).toHaveValue('');
+});

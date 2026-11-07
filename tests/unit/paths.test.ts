@@ -26,6 +26,7 @@ it('identifies legacy filters without moving ordinary homepage links', () => {
     'page',
     'region',
     'city',
+    'cancellation',
   ])
     expect(hasDiscoveryParams(new URLSearchParams(`${key}=`))).toBe(true);
   expect(hasDiscoveryParams(new URLSearchParams())).toBe(false);

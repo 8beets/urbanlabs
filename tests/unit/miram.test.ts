@@ -224,6 +224,7 @@ describe('normalization', () => {
       page: 2,
       category: '',
       centre: '',
+      cancellation: '',
     });
     for (const query of [
       'page=0',

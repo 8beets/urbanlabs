@@ -1,5 +1,17 @@
 # Fixture provenance
 
+`miram-pati-llimona-cancelled.html` contains minimal excerpts of real activities
+`5036` and `5038`, fetched on 2026-11-07 from:
+
+https://patillimona.inscripcionscc.com/MiramModular/buscador/buscador.jsp?g=1&c=1&t=AC&f=11
+
+The source titles explicitly use `CANCEL·LADA` and `CANCEL.LAT`, and both prices
+are `Gratuït`. Descriptions and session contents were removed. The existing FAB Casa
+del Mig fixture preserves activity `674` with its explicit description notice
+`ACTIVITAT ANUL·LADA TEMPORALMENT FINS A NOU AVÍS` and nonzero source price; the same
+notice was verified live on 2026-11-07 for `674` and `666`. E2E changes dates only in
+isolated test state. These fixtures do not assert current availability.
+
 `miram-sant-andreu-languages.html` is an excerpt of the public language-category listing fetched on 2026-11-05:
 
 https://santandreu.inscripcionscc.com/MiramModular/buscador/buscador.jsp?g=1&c=22&t=AC&f=ID

@@ -428,6 +428,12 @@ h3 {
 .course .institution {
   margin-block: 0 18px;
 }
+.cancelled-label {
+  font-weight: 700;
+  border: 1px solid currentColor;
+  padding: 4px 10px;
+  border-radius: 6px;
+}
 .course-action {
   display: flex;
   align-items: flex-start;

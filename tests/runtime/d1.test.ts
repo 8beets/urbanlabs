@@ -60,6 +60,30 @@ it('applies the migration and imports idempotently in the actual local D1 runtim
     expect(
       await db.prepare('SELECT count(*) AS n FROM source_records').first('n'),
     ).toBe(4);
+    const cancelled = { ...records[0]!, isCancelled: true };
+    await runIngestion(
+      db,
+      { fetchRecords: async () => [cancelled] },
+      santAndreu,
+    );
+    const cancellationFilters = {
+      q: '',
+      page: 1,
+      maxPriceCents: null,
+      category: '',
+      centre: '',
+      cancellation: 'only' as const,
+    };
+    const cancelledListing = await listCourses(
+      db,
+      cancellationFilters,
+      '2026-11-06',
+    );
+    expect(cancelledListing.courses).toHaveLength(1);
+    expect(cancelledListing.courses[0]?.is_cancelled).toBe(1);
+    expect(await listLatestCourses(db, '2026-11-06')).toHaveLength(3);
+    // Restore the source record for the remaining category/query contract checks.
+    await runIngestion(db, adapter, santAndreu);
     await runIngestion(
       db,
       {

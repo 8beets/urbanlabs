@@ -47,6 +47,11 @@ if (filters.city) {
 }
 if (filters.q)
   appliedFilters.push({ key: 'q', label: `${t.search}: ${filters.q}` });
+if (filters.cancellation)
+  appliedFilters.push({
+    key: 'cancellation',
+    label: filters.cancellation === 'only' ? t.onlyCancelled : t.hideCancelled,
+  });
 if (filters.centre)
   appliedFilters.push({
     key: 'centre',

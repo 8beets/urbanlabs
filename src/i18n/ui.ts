@@ -2,6 +2,11 @@ import { canonicalCategory } from '../lib/courses/categories';
 
 export const messages = {
   es: {
+    cancelled: 'Cancelado',
+    cancellationFilter: 'Cancelación',
+    allCancellation: 'Todos los cursos',
+    hideCancelled: 'Ocultar cancelados',
+    onlyCancelled: 'Solo cancelados',
     pageNotFound: 'Página no encontrada',
     pageNotFoundIntro:
       'La página que buscas no existe o ha cambiado de dirección. Puedes seguir descubriendo oportunidades de aprendizaje desde estos enlaces.',
@@ -118,6 +123,11 @@ export const messages = {
       'Un proyecto gratuito y de código abierto para descubrir oportunidades de aprendizaje en la comunidad.',
   },
   ca: {
+    cancelled: 'Cancel·lat',
+    cancellationFilter: 'Cancel·lació',
+    allCancellation: 'Tots els cursos',
+    hideCancelled: 'Amagar cancel·lats',
+    onlyCancelled: 'Només cancel·lats',
     pageNotFound: 'Pàgina no trobada',
     pageNotFoundIntro:
       'La pàgina que cerques no existeix o ha canviat d’adreça. Pots continuar descobrint oportunitats d’aprenentatge des d’aquests enllaços.',

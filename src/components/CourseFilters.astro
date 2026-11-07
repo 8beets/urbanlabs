@@ -26,6 +26,7 @@ const formFields = new Set([
   'country',
   'region',
   'city',
+  'cancellation',
 ]);
 const preservedParams = [...Astro.url.searchParams].filter(
   ([key]) => !formFields.has(key),
@@ -69,6 +70,20 @@ const preservedParams = [...Astro.url.searchParams].filter(
       <fieldset class="filter-group">
         <legend>{t.refine}</legend>
         <LocationFilters locale={locale} data={data} />
+        <div>
+          <label for="cancellation">{t.cancellationFilter}</label>
+          <select id="cancellation" name="cancellation">
+            <option value="" selected={!filters.cancellation}>
+              {t.allCancellation}
+            </option>
+            <option value="hide" selected={filters.cancellation === 'hide'}>
+              {t.hideCancelled}
+            </option>
+            <option value="only" selected={filters.cancellation === 'only'}>
+              {t.onlyCancelled}
+            </option>
+          </select>
+        </div>
         <div>
           <label for="centre">{t.centre}</label>
           <select id="centre" name="centre">

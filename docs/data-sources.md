@@ -44,7 +44,7 @@ Verified on 2026-11-06:
 - Address: C/ del Regomir, 3, 08002 Barcelona, confirmed by the official centre and listing footer.
 - `robots.txt` returned 404; the existing per-run policy check applies.
 - The shared adapter fetched and persisted **56 course editions** across nine categories, including photography and cinema workshops.
-- Reviewed external IDs `5036` and `5038` explicitly indicate cancellation; `5088` is a film screening. They are excluded in source configuration.
+- Reviewed external IDs `5036` and `5038` explicitly indicate cancellation. As of issue #13, they are retained and labelled on the next successful import; `5088` remains excluded as a film screening.
 - Minimal real fixtures cover cinema course `5005` and the photography category's plain numbered pagination links. Whitespace around category headings is normalized.
 - The same metadata-only collection and source reuse limitations above apply. Stock photography in the interface is separately licensed and is not scraped from course providers.
 

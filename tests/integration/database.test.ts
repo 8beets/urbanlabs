@@ -188,6 +188,105 @@ describe('SQLite migration and ingestion contract', () => {
     );
     expect(stale.canonicalQuery).toBe('region=catalunya');
   });
+  it('persists cancellation idempotently, filters and deprioritizes it, and excludes it from the homepage', async () => {
+    const active = Array.from({ length: 13 }, (_, index) => ({
+      ...records[0]!,
+      externalId: String(70000 + index),
+      title: `TEST running ${index}`,
+      startDate: '2099-01-01',
+      endDate: '2099-12-31',
+    }));
+    const cancelled = {
+      ...records[0]!,
+      externalId: '71000',
+      title: 'TEST cancelled',
+      isCancelled: true,
+      priceCents: 0,
+      startDate: '2098-01-01',
+      endDate: '2099-12-31',
+      category: 'CUINA',
+    };
+    const adapter = { fetchRecords: async () => [...active, cancelled] };
+    await runIngestion(db, adapter, santAndreu);
+    await runIngestion(db, adapter, santAndreu);
+    expect(
+      sqlite.prepare('SELECT count(*) AS count FROM course_editions').get(),
+    ).toEqual({ count: 14 });
+    const filters = {
+      q: '',
+      centre: '',
+      category: '',
+      maxPriceCents: null,
+      page: 1,
+    };
+    const first = await listCourses(db, filters, '2026-11-07');
+    expect(first.hasNext).toBe(true);
+    expect(first.courses.every((course) => course.is_cancelled === 0)).toBe(
+      true,
+    );
+    const second = await listCourses(db, { ...filters, page: 2 }, '2026-11-07');
+    expect(second.courses.map((course) => course.is_cancelled)).toEqual([0, 1]);
+    const only = await listCourses(
+      db,
+      { ...filters, cancellation: 'only' },
+      '2026-11-07',
+    );
+    expect(only.courses).toHaveLength(1);
+    expect(only.courses[0]).toMatchObject({
+      title: cancelled.title,
+      is_cancelled: 1,
+      price_cents: 0,
+    });
+    const hidden = await listCourses(
+      db,
+      { ...filters, cancellation: 'hide', page: 2 },
+      '2026-11-07',
+    );
+    expect(hidden.courses).toHaveLength(1);
+    expect(hidden.courses[0]?.is_cancelled).toBe(0);
+    expect(
+      (await listLatestCourses(db, '2026-11-07')).every(
+        (course) => course.is_cancelled === 0,
+      ),
+    ).toBe(true);
+    const options = await loadFilterOptions(
+      db,
+      new URLSearchParams('cancellation=only'),
+    );
+    expect(options.categories).toEqual(['CUINA']);
+    expect(options.centres.map((centre) => centre.id)).toEqual([
+      santAndreu.institution.id,
+    ]);
+    const centre = await loadCentrePage(
+      db,
+      'sant-andreu',
+      new URLSearchParams('page=2'),
+    );
+    expect(centre.courses.map((course) => course.is_cancelled)).toEqual([0, 1]);
+    const failed = {
+      fetchRecords: async () => {
+        throw new Error('test source outage');
+      },
+    };
+    await expect(runIngestion(db, failed, santAndreu)).rejects.toThrow(
+      'test source outage',
+    );
+    expect(
+      (await listCourses(db, { ...filters, cancellation: 'only' })).courses,
+    ).toHaveLength(1);
+    await runIngestion(
+      db,
+      { fetchRecords: async () => [{ ...cancelled, isCancelled: false }] },
+      santAndreu,
+    );
+    expect(
+      (await listCourses(db, { ...filters, cancellation: 'only' })).courses,
+    ).toHaveLength(0);
+    expect(
+      (await loadDiscoveryPage(db, new URLSearchParams('cancellation=invalid')))
+        .status,
+    ).toBe(400);
+  });
   it('backfills only explicitly reviewed institution IDs without guessing from addresses', () => {
     const legacy = new DatabaseSync(':memory:');
     try {

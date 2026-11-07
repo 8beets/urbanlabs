@@ -115,11 +115,26 @@ async function setup() {
       startDate: '2099-01-01',
       endDate: '2099-12-31',
     }));
+    const cancelledRecords = parseMiramPage(
+      readFileSync(
+        new URL(
+          '../fixtures/miram-pati-llimona-cancelled.html',
+          import.meta.url,
+        ),
+        'utf8',
+      ),
+      `${patiLlimona.listingUrl}&f=11`,
+    ).records.map((record) => ({
+      ...record,
+      startDate: '2099-01-01',
+      endDate: '2099-12-31',
+    }));
     await runIngestion(
       db,
       {
         fetchRecords: async () => [
           ...patiRecords,
+          ...cancelledRecords,
           {
             ...first,
             externalId: '99996',

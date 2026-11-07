@@ -117,10 +117,11 @@ export async function saveSnapshot(
         ),
       db
         .prepare(
-          `INSERT INTO course_editions (id, course_id, start_date, end_date, schedule_text, timezone, price_cents, currency, availability)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) ON CONFLICT(id) DO UPDATE SET course_id=excluded.course_id,
+          `INSERT INTO course_editions (id, course_id, start_date, end_date, schedule_text, timezone, price_cents, currency, availability, is_cancelled)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ON CONFLICT(id) DO UPDATE SET course_id=excluded.course_id,
         start_date=excluded.start_date, end_date=excluded.end_date, schedule_text=excluded.schedule_text,
-        price_cents=excluded.price_cents, currency=excluded.currency, availability=excluded.availability`,
+        price_cents=excluded.price_cents, currency=excluded.currency, availability=excluded.availability,
+        is_cancelled=excluded.is_cancelled`,
         )
         .bind(
           editionId,
@@ -132,6 +133,7 @@ export async function saveSnapshot(
           record.priceCents,
           record.currency,
           record.availability,
+          record.isCancelled ? 1 : 0,
         ),
       db
         .prepare(

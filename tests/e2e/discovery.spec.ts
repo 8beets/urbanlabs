@@ -210,6 +210,7 @@ test('photography aliases share one option and categories follow the selected ce
     'Todas las categorías',
     'Cine',
     'Fotografía',
+    'ReGENERA’T',
   ]);
   await expect(page.locator('article.course')).toHaveCount(2);
   await page.getByRole('link', { name: 'Català', exact: true }).click();
@@ -217,6 +218,7 @@ test('photography aliases share one option and categories follow the selected ce
     'Totes les categories',
     'Cinema',
     'Fotografia',
+    'ReGENERA’T',
   ]);
   await page.getByLabel('Centre', { exact: true }).selectOption('cc-can-baste');
   await submit(page);
@@ -401,7 +403,7 @@ test('incompatible selected categories remain visible and removable', async ({
     })
     .click();
   await expect(page.locator('#category')).toHaveValue('');
-  await expect(page.locator('article.course')).toHaveCount(3);
+  await expect(page.locator('article.course')).toHaveCount(5);
 });
 
 test('native filters are keyboard-collapsible without JavaScript and sit beside desktop results', async ({
@@ -556,6 +558,7 @@ test.describe('dynamic filter options', () => {
         all!,
         path!.startsWith('/es') ? 'Cine' : 'Cinema',
         photography!,
+        'ReGENERA’T',
       ]);
       await expect(page.locator('#centre')).toBeFocused();
       await page.locator('#category').selectOption('FOTOGRAFIA');
@@ -567,7 +570,7 @@ test.describe('dynamic filter options', () => {
       await page.locator('#city').selectOption('barcelona');
       await expect(page.locator('#centre option')).toHaveCount(12);
       await page.locator('#centre').selectOption('cc-pati-llimona');
-      await expect(page.locator('#category option')).toHaveCount(3);
+      await expect(page.locator('#category option')).toHaveCount(4);
       await page.locator('#region').selectOption('catalunya');
       await expect(page.locator('#city')).toHaveValue('');
       await expect(page.locator('.filter-form')).not.toHaveAttribute(
@@ -629,6 +632,7 @@ test.describe('dynamic filter options', () => {
     expect((await response.json()).categories).toEqual([
       { value: 'CINEMA', label: 'Cine' },
       { value: 'FOTOGRAFIA', label: 'Fotografía' },
+      { value: "ReGENERA'T", label: 'ReGENERA’T' },
     ]);
     expect(
       (

@@ -27,11 +27,26 @@ Missing records are retained. There is no deletion or automatic staleness infere
 - Similar titles, levels, and courses from different sources are not automatically merged.
 - Source records retain their external ID, official URL, normalized extracted payload, content hash, first/last seen, and last successfully verified UTC timestamps.
 
-The stored payload is the extracted record, not the full original HTML. A complete source-page archive is deliberately not implemented. Hashes cover the extracted payload; excluded source description changes do not affect them.
+The stored payload is the extracted record, not the full original HTML. A complete source-page archive is deliberately not implemented. Hashes cover the extracted payload; description changes affect them only when they change an extracted fact such as explicit cancellation.
 
 Local scheduled dates remain ISO dates, not UTC instants. Times are retained in original schedule text. Individual schedules have a separate schema but are not populated until source inconsistencies can be handled without guessing.
 
 ## Adapter acceptance
+
+The Miram adapter records `isCancelled` from explicit Spanish/Catalan cancellation
+markers in course titles or notices starting with “activitat/actividad/taller/curs/curso”
+followed by a cancellation marker. Registration policies, full waitlists, a zero price,
+and institution closure notices do not imply cancellation. Availability remains null.
+The flag is updated with each successful observed record, including when its explicit
+notice is removed. Missing records and unsuccessful runs retain the previous flag.
+Cancelled editions are retained with their original identity, price, and official URL.
+Pati Llimona's cancelled workshops are no longer excluded by source configuration;
+the reviewed film-screening exclusion remains.
+
+After migration `0007`, refresh sources through the normal live importer to classify
+existing editions. Old extracted payloads did not retain description notices, so the
+migration does not guess their cancellation state. Production refresh requires the
+usual explicit approval.
 
 Verify real source behavior; save a minimal provenance-labelled fixture; test parsing, validation, pagination, retries, identity, atomic persistence, repeat imports, failure recovery, and manual correction preservation. Keep deterministic tests separate from live verification. Document unknowns and unsupported variants rather than silently guessing.
 
