@@ -63,3 +63,22 @@ test('all page links and search forms use explicit locale prefixes', async ({
     }
   }
 });
+
+test('unsupported locale routes return 404 and shared endpoints remain available', async ({
+  request,
+}) => {
+  for (const path of [
+    '/en/',
+    '/en/buscar',
+    '/buscar',
+    '/ca/buscar',
+    '/es/cerca',
+  ]) {
+    const response = await request.get(path, { maxRedirects: 0 });
+    expect(response.status(), path).toBe(404);
+  }
+  const response = await request.get('/api/filters?locale=ca');
+  expect(response.status()).toBe(200);
+  expect(response.headers()['content-type']).toContain('application/json');
+  expect(await response.json()).toHaveProperty('centres');
+});

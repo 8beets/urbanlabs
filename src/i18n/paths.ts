@@ -1,7 +1,22 @@
+import { getRelativeLocaleUrl } from 'astro:i18n';
 import type { Locale } from './ui';
 
 export function courseSearchPath(locale: Locale): string {
-  return locale === 'es' ? '/es/buscar' : '/ca/cerca';
+  return getRelativeLocaleUrl(
+    locale,
+    locale === 'es' ? 'buscar' : 'cerca',
+  ).replace(/\/$/, '');
+}
+
+export function homePath(locale: Locale): string {
+  return `${getRelativeLocaleUrl(locale).replace(/\/$/, '')}/`;
+}
+
+export function centreDirectoryPath(locale: Locale): string {
+  return getRelativeLocaleUrl(
+    locale,
+    locale === 'es' ? 'centros' : 'centres',
+  ).replace(/\/$/, '');
 }
 
 // Keep existing bookmarked filter URLs working after discovery moves off the homepage.

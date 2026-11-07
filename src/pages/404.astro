@@ -1,5 +1,5 @@
 ---
-import { courseSearchPath } from '../i18n/paths';
+import { courseSearchPath, centreDirectoryPath, homePath } from '../i18n/paths';
 import { messages } from '../i18n/ui';
 import SiteLayout from '../layouts/SiteLayout.astro';
 
@@ -21,15 +21,13 @@ Astro.response.status = 404;
     <p class="intro">{t.pageNotFoundIntro}</p>
     <ul>
       <li>
-        <a href={`/${locale}/`}>{t.homeNav}</a>
+        <a href={homePath(locale)}>{t.homeNav}</a>
       </li>
       <li>
         <a href={courseSearchPath(locale)}>{t.searchTitle}</a>
       </li>
       <li>
-        <a href={locale === 'es' ? '/es/centros' : '/ca/centres'}>
-          {t.centresNav}
-        </a>
+        <a href={centreDirectoryPath(locale)}>{t.centresNav}</a>
       </li>
     </ul>
   </section>

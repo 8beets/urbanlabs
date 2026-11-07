@@ -1,4 +1,5 @@
 ---
+import { centreDirectoryPath } from '../i18n/paths';
 import { messages, formatLocalDate, type Locale } from '../i18n/ui';
 import type { CentrePageData } from '../lib/institutions/pages';
 import SiteLayout from '../layouts/SiteLayout.astro';
@@ -11,10 +12,10 @@ interface Props {
 const { locale, data } = Astro.props;
 const { centre } = data;
 const t = messages[locale];
-const base = locale === 'es' ? '/es/centros' : '/ca/centres';
+const base = centreDirectoryPath(locale);
 const paths = {
-  es: `/es/centros/${centre?.slug ?? Astro.params.slug}${Astro.url.search}`,
-  ca: `/ca/centres/${centre?.slug ?? Astro.params.slug}${Astro.url.search}`,
+  es: `${centreDirectoryPath('es')}/${centre?.slug ?? Astro.params.slug}${Astro.url.search}`,
+  ca: `${centreDirectoryPath('ca')}/${centre?.slug ?? Astro.params.slug}${Astro.url.search}`,
 };
 const courseParams = new URLSearchParams(centre ? { centre: centre.id } : {});
 ---
