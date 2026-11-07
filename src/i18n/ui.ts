@@ -64,6 +64,9 @@ export const messages = {
     price: 'Precio máximo (€)',
     submit: 'Buscar cursos',
     filters: 'Filtros de búsqueda',
+    filtersLoading: 'Actualizando los filtros…',
+    filtersFailed:
+      'No se han podido actualizar los filtros. Puedes volver a cambiar la selección o buscar con los filtros actuales.',
     refine: 'Afinar la búsqueda',
     region: 'Comunidad autónoma',
     city: 'Ciudad',
@@ -174,6 +177,9 @@ export const messages = {
     price: 'Preu màxim (€)',
     submit: 'Cerca cursos',
     filters: 'Filtres de cerca',
+    filtersLoading: 'Actualitzant els filtres…',
+    filtersFailed:
+      'No s’han pogut actualitzar els filtres. Pots tornar a canviar la selecció o cercar amb els filtres actuals.',
     refine: 'Afina la cerca',
     region: 'Comunitat autònoma',
     city: 'Ciutat',

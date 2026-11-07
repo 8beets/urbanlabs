@@ -1,3 +1,4 @@
+import { loadFilterOptions } from '../../src/lib/courses/filter-options';
 import { loadDiscoveryPage, loadHomepage } from '../../src/lib/courses/page';
 import { formatCourseTitle } from '../../src/lib/courses/title';
 import { registerSource } from '../../src/lib/db/ingestion';
@@ -193,6 +194,47 @@ describe('SQLite migration and ingestion contract', () => {
     } finally {
       legacy.close();
     }
+  });
+  it('refreshes dependent filter options and clears an unavailable centre', async () => {
+    const active = records.map((record) => ({
+      ...record,
+      startDate: '2099-01-01',
+      endDate: '2099-12-31',
+    }));
+    await runIngestion(db, { fetchRecords: async () => active }, santAndreu);
+    await runIngestion(
+      db,
+      { fetchRecords: async () => [{ ...active[0]!, category: 'CUINA' }] },
+      canBaste,
+    );
+    const all = await loadFilterOptions(
+      db,
+      new URLSearchParams('city=barcelona'),
+    );
+    expect(all.centres).toHaveLength(2);
+    expect(all.categories).toEqual(['CUINA', 'IDIOMES']);
+    const scoped = await loadFilterOptions(
+      db,
+      new URLSearchParams('city=barcelona&centre=cc-can-baste'),
+    );
+    expect(scoped.centre).toBe('cc-can-baste');
+    expect(scoped.categories).toEqual(['CUINA']);
+    const empty = await loadFilterOptions(
+      db,
+      new URLSearchParams('city=tarragona&centre=cc-can-baste'),
+    );
+    expect(empty).toEqual({ centre: '', centres: [], categories: [] });
+    expect(
+      (
+        await loadFilterOptions(
+          db,
+          new URLSearchParams('centre=unknown-centre'),
+        )
+      ).centre,
+    ).toBe('');
+    await expect(
+      loadFilterOptions(db, new URLSearchParams('city=unknown')),
+    ).rejects.toThrow('Unknown city');
   });
   it('registers verified profiles independently of courses and preserves reviewed descriptions', async () => {
     await registerSource(db, santAndreu);

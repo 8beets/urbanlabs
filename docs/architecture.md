@@ -128,3 +128,20 @@ volume; exceeding that bound produces an explicit unavailable response, never si
 truncation. Before exceeding it, replace the catalog lookup with scoped queries.
 Adding Asturias requires reference rows in a new migration and explicit city IDs in
 source configuration; the adapter, SQL filters, and UI do not need a rewrite.
+
+## Dependent filter options
+
+With JavaScript enabled, changing community, city, or centre fetches
+`GET /api/filters` and updates only the dependent select options. Community changes
+also reset the city locally. Centre options follow geography; category options
+follow geography and centre. Unavailable centre/category selections are cleared,
+while compatible selections, keyword, and price are retained. Results and the URL
+change only when the user submits the search form.
+
+The read-only endpoint validates location and centre identifiers, localizes option
+labels, and reuses the existing bounded centre/category queries without loading
+course records. Successful responses can be cached by the browser for 60 seconds;
+errors are not cached. Requests are cancelled when superseded and time out after
+10 seconds. The form announces loading or failure, blocks submission while an
+update is pending, and re-enables normal search on failure. Without JavaScript,
+the native GET form retains the existing server-rendered filtering behavior.

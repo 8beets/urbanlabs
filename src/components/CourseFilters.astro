@@ -40,7 +40,18 @@ const preservedParams = [...Astro.url.searchParams].filter(
     data-invalid={error === 'invalid' ? 'true' : undefined}
   >
     <summary>{t.filters}</summary>
-    <form action={base} method="get" class="filter-form" aria-label={t.submit}>
+    <form
+      action={base}
+      method="get"
+      class="filter-form"
+      aria-label={t.submit}
+      data-dynamic-filters
+      data-locale={locale}
+      data-all-centres={t.allCentres}
+      data-all-categories={t.allCategories}
+      data-loading={t.filtersLoading}
+      data-failed={t.filtersFailed}
+    >
       {preservedParams.map(([key, value]) => (
         <input type="hidden" name={key} value={value} />
       ))}
@@ -110,6 +121,13 @@ const preservedParams = [...Astro.url.searchParams].filter(
           />
         </div>
       </fieldset>
+      <p
+        class="filter-status"
+        role="status"
+        aria-live="polite"
+        data-filter-status
+        hidden
+      ></p>
       <button type="submit">
         <Icon name="search" />
         {t.submit}
@@ -119,6 +137,11 @@ const preservedParams = [...Astro.url.searchParams].filter(
 </aside>
 
 <script>
+  import { enhanceFilters } from '../lib/courses/filter-controls';
+  for (const form of document.querySelectorAll<HTMLFormElement>(
+    '[data-dynamic-filters]',
+  ))
+    enhanceFilters(form);
   const panel = document.querySelector<HTMLDetailsElement>('#filter-panel');
   if (panel) {
     const desktop = window.matchMedia('(min-width: 800px)');

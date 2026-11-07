@@ -532,3 +532,110 @@ test.describe('dependent city controls', () => {
     await expect(page.locator('article.course')).toHaveCount(0);
   });
 });
+
+test.describe('dynamic filter options', () => {
+  test.use({ javaScriptEnabled: true });
+  test.beforeEach(async ({ page }) => {
+    await page.setViewportSize({ width: 1280, height: 900 });
+  });
+  test('city, region and centre changes update options without navigation in both languages', async ({
+    page,
+  }) => {
+    for (const [path, all, photography] of [
+      ['/es/buscar', 'Todas las categorías', 'Fotografía'],
+      ['/ca/cerca', 'Totes les categories', 'Fotografia'],
+    ]) {
+      await page.goto(path!);
+      let navigations = 0;
+      const countNavigation = () => navigations++;
+      page.on('framenavigated', countNavigation);
+      const url = page.url();
+      await page.locator('#centre').focus();
+      await page.locator('#centre').selectOption('cc-pati-llimona');
+      await expect(page.locator('#category option')).toHaveText([
+        all!,
+        path!.startsWith('/es') ? 'Cine' : 'Cinema',
+        photography!,
+      ]);
+      await expect(page.locator('#centre')).toBeFocused();
+      await page.locator('#category').selectOption('FOTOGRAFIA');
+      await page.locator('#city').selectOption('tarragona');
+      await expect(page.locator('#centre option')).toHaveCount(1);
+      await expect(page.locator('#category option')).toHaveCount(1);
+      await expect(page.locator('#centre')).toHaveValue('');
+      await expect(page.locator('#category')).toHaveValue('');
+      await page.locator('#city').selectOption('barcelona');
+      await expect(page.locator('#centre option')).toHaveCount(12);
+      await page.locator('#centre').selectOption('cc-pati-llimona');
+      await expect(page.locator('#category option')).toHaveCount(3);
+      await page.locator('#region').selectOption('catalunya');
+      await expect(page.locator('#city')).toHaveValue('');
+      await expect(page.locator('.filter-form')).not.toHaveAttribute(
+        'aria-busy',
+      );
+      expect(page.url()).toBe(url);
+      expect(navigations).toBe(0);
+      page.off('framenavigated', countNavigation);
+    }
+  });
+  test('newer city selections win over slow responses', async ({ page }) => {
+    await page.route('**/api/filters?**', async (route) => {
+      const city = new URL(route.request().url()).searchParams.get('city');
+      const response = await route.fetch();
+      if (city === 'tarragona')
+        await new Promise((resolve) => setTimeout(resolve, 500));
+      await route.fulfill({ response });
+    });
+    await page.goto('/es/buscar');
+    await page.locator('#city').selectOption('tarragona');
+    await page.locator('#city').selectOption('barcelona');
+    await expect(page.locator('.filter-form')).not.toHaveAttribute('aria-busy');
+    await expect(page.locator('#centre option')).toHaveCount(12);
+    await page.waitForTimeout(700);
+    await expect(page.locator('#centre option')).toHaveCount(12);
+    await expect(page.locator('#city')).toHaveValue('barcelona');
+  });
+  test('a failed update re-enables the form and allows normal search', async ({
+    page,
+  }) => {
+    await page.route('**/api/filters?**', (route) =>
+      route.fulfill({ status: 503, body: '' }),
+    );
+    await page.goto('/es/buscar');
+    await page.locator('#city').selectOption('tarragona');
+    await expect(page.locator('[data-filter-status]')).toContainText(
+      'No se han podido actualizar',
+    );
+    await expect(page.locator('#centre')).toBeEnabled();
+    await expect(page.locator('#category')).toBeEnabled();
+    await submit(page);
+    expect(query(page).get('city')).toBe('tarragona');
+    await expect(page.locator('.course')).toHaveCount(0);
+  });
+  test('options endpoint validates input and localizes labels', async ({
+    request,
+  }) => {
+    expect(
+      (await request.get('/api/filters?locale=es&city=missing')).status(),
+    ).toBe(400);
+    expect((await request.get('/api/filters?locale=fr')).status()).toBe(400);
+    expect(
+      (await request.get('/api/filters?locale=es&centre=%27')).status(),
+    ).toBe(400);
+    const response = await request.get(
+      '/api/filters?locale=es&centre=cc-pati-llimona',
+    );
+    expect(response.status()).toBe(200);
+    expect((await response.json()).categories).toEqual([
+      { value: 'CINEMA', label: 'Cine' },
+      { value: 'FOTOGRAFIA', label: 'Fotografía' },
+    ]);
+    expect(
+      (
+        await request.get(
+          '/api/filters?locale=es&city=tarragona&centre=cc-pati-llimona',
+        )
+      ).status(),
+    ).toBe(200);
+  });
+});
