@@ -4,7 +4,7 @@ import {
   reconcileGeography,
   type Geography,
 } from '../../src/lib/locations/geography';
-import { regionLabel } from '../../src/i18n/geography';
+import { cityLabel, regionLabel } from '../../src/i18n/geography';
 const catalog: Geography = {
   countries: [
     { code: 'ES', name: 'España' },
@@ -71,5 +71,17 @@ describe('geographic filters', () => {
   it('localizes region names without changing stable IDs', () => {
     expect(regionLabel(catalog.regions[0]!, 'es')).toBe('Cataluña');
     expect(regionLabel(catalog.regions[0]!, 'ca')).toBe('Catalunya');
+    const valenciana = {
+      id: 'comunitat-valenciana',
+      name: 'Comunitat Valenciana',
+    };
+    expect(regionLabel(valenciana, 'es')).toBe('Comunidad Valenciana');
+    expect(regionLabel(valenciana, 'ca')).toBe('Comunitat Valenciana');
+  });
+  it('localizes Alicante and retains other city names', () => {
+    const alicante = { id: 'alicante', name: 'Alicante' };
+    expect(cityLabel(alicante, 'es')).toBe('Alicante');
+    expect(cityLabel(alicante, 'ca')).toBe('Alacant');
+    expect(cityLabel(catalog.cities[0]!, 'ca')).toBe('Barcelona');
   });
 });

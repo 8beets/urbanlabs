@@ -47,3 +47,9 @@ source; an unknown city or mismatched country fails the whole registration.
 To add another region, create a new numbered migration inserting its region and city
 rows, then configure each verified source's `institution.cityId` and country. The
 existing `institutions.city` text remains a display label, not a filter identity.
+
+`0006_alicante.sql` adds ES → Comunitat Valenciana → Alicante as reference
+locations. The interface displays Comunidad Valenciana/Alicante in Spanish and
+Comunitat Valenciana/Alacant in Catalan. No institutions or courses are assigned;
+these filters show an empty state until verified sources are imported. Apply this
+additive migration before deploying the updated location labels.

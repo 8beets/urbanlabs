@@ -1,5 +1,5 @@
 ---
-import { regionLabel } from '../i18n/geography';
+import { cityLabel, regionLabel } from '../i18n/geography';
 import { courseSearchPath } from '../i18n/paths';
 import { messages, categoryLabel, type Locale } from '../i18n/ui';
 import type { DiscoveryPageData } from '../lib/courses/page';
@@ -38,11 +38,13 @@ if (filters.region) {
     label: `${t.region}: ${region ? regionLabel(region, locale) : filters.region}`,
   });
 }
-if (filters.city)
+if (filters.city) {
+  const city = data.geography.cities.find((row) => row.id === filters.city);
   appliedFilters.push({
     key: 'city',
-    label: `${t.city}: ${data.geography.cities.find((row) => row.id === filters.city)?.name ?? filters.city}`,
+    label: `${t.city}: ${city ? cityLabel(city, locale) : filters.city}`,
   });
+}
 if (filters.q)
   appliedFilters.push({ key: 'q', label: `${t.search}: ${filters.q}` });
 if (filters.centre)

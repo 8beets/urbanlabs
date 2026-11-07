@@ -1,5 +1,5 @@
 ---
-import { regionLabel } from '../i18n/geography';
+import { cityLabel, regionLabel } from '../i18n/geography';
 import { messages, type Locale } from '../i18n/ui';
 import type { DiscoveryPageData } from '../lib/courses/page';
 interface Props {
@@ -26,7 +26,9 @@ const catalog = geography.cities.filter(
 
 <div
   data-location-filters
-  data-cities={JSON.stringify(catalog)}
+  data-cities={JSON.stringify(
+    catalog.map((city) => ({ ...city, name: cityLabel(city, locale) })),
+  )}
   data-all-cities={t.allCities}
 >
   <input type="hidden" name="country" value={filters.country ?? 'ES'} />
@@ -51,7 +53,7 @@ const catalog = geography.cities.filter(
       </option>
       {cities.map((row) => (
         <option value={row.id} selected={filters.city === row.id}>
-          {row.name}
+          {cityLabel(row, locale)}
         </option>
       ))}
     </select>

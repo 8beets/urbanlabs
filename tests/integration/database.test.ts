@@ -160,11 +160,39 @@ describe('SQLite migration and ingestion contract', () => {
         .get(canBaste.institution.id),
     ).toEqual(before);
   });
+  it('adds Alicante under Comunitat Valenciana with an honest empty discovery state', async () => {
+    const data = await loadDiscoveryPage(
+      db,
+      new URLSearchParams('region=comunitat-valenciana&city=alicante'),
+    );
+    expect(data.status).toBe(200);
+    expect(data.geography.regions).toContainEqual({
+      id: 'comunitat-valenciana',
+      country_code: 'ES',
+      name: 'Comunitat Valenciana',
+    });
+    expect(data.geography.cities).toContainEqual({
+      id: 'alicante',
+      country_code: 'ES',
+      region_id: 'comunitat-valenciana',
+      name: 'Alicante',
+    });
+    expect(data.filters.region).toBe('comunitat-valenciana');
+    expect(data.filters.city).toBe('alicante');
+    expect(data.courses).toEqual([]);
+    expect(data.centres).toEqual([]);
+    expect(data.categories).toEqual([]);
+    const stale = await loadDiscoveryPage(
+      db,
+      new URLSearchParams('region=catalunya&city=alicante'),
+    );
+    expect(stale.canonicalQuery).toBe('region=catalunya');
+  });
   it('backfills only explicitly reviewed institution IDs without guessing from addresses', () => {
     const legacy = new DatabaseSync(':memory:');
     try {
       for (const name of readdirSync(migrationDirectory)
-        .filter((name) => name.endsWith('.sql') && !name.startsWith('0005'))
+        .filter((name) => name.endsWith('.sql') && name < '0005')
         .sort())
         legacy.exec(readFileSync(new URL(name, migrationDirectory), 'utf8'));
       const insert = legacy.prepare(
