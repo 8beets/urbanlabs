@@ -1,5 +1,5 @@
 ---
-import { courseSearchPath } from '../i18n/paths';
+import { courseSearchPath, centreDirectoryPath } from '../i18n/paths';
 import {
   messages,
   formatLocalDate,
@@ -21,7 +21,7 @@ const title = course.title_reviewed
   ? course.title
   : formatCourseTitle(course.title, locale);
 const base = courseSearchPath(locale);
-const centreBase = locale === 'es' ? '/es/centros' : '/ca/centres';
+const centreBase = centreDirectoryPath(locale);
 const categoryParams = new URLSearchParams(filterParams);
 categoryParams.delete('page');
 if (course.category) categoryParams.set('category', course.category);

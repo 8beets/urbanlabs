@@ -43,6 +43,16 @@ show verified contact information and an embedded OpenStreetMap map. Unknown slu
 return 404; invalid pagination returns 400; database outages return 503. Profile
 metadata and provenance are separate from external course parsing.
 
+Routing follows [Astro's built-in internationalization](https://docs.astro.build/en/guides/internationalization/).
+`astro.config.mjs` configures `es` (default) and `ca` with `prefixDefaultLocale: true`.
+Localized pages live in matching `src/pages/es/` and `src/pages/ca/` folders.
+Shared navigation uses `astro:i18n` URL helpers via `src/i18n/paths.ts`, with explicit
+translated path segments (`buscar`/`cerca`, `centros`/`centres`).
+`redirectToDefaultLocale: false` lets the required root page issue its existing
+query-preserving HTTP 308 redirect. Legacy centre redirects are endpoints so Astro
+can validate localized pages without treating those compatibility URLs as content.
+The shared `/api/filters` endpoint and static assets remain outside locale folders.
+
 All page navigation includes a locale prefix: Spanish discovery is `/es/` and
 Catalan discovery is `/ca/`. Filters, pagination, centre links and language
 switching retain that prefix. Legacy `/`, `/centros` and `/centros/[slug]` routes

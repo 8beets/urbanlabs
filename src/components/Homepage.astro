@@ -1,6 +1,6 @@
 ---
 import { messages, type Locale } from '../i18n/ui';
-import { courseSearchPath } from '../i18n/paths';
+import { courseSearchPath, homePath } from '../i18n/paths';
 import type { HomepagePageData } from '../lib/courses/page';
 import SiteLayout from '../layouts/SiteLayout.astro';
 import CourseCard from './CourseCard.astro';
@@ -24,8 +24,8 @@ const themes = [
   title={t.pageTitle}
   section="home"
   languagePaths={{
-    es: `/es/${Astro.url.search}`,
-    ca: `/ca/${Astro.url.search}`,
+    es: `${homePath('es')}${Astro.url.search}`,
+    ca: `${homePath('ca')}${Astro.url.search}`,
   }}
 >
   <section class="hero" aria-labelledby="title">

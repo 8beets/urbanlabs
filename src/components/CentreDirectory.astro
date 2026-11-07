@@ -1,4 +1,5 @@
 ---
+import { centreDirectoryPath } from '../i18n/paths';
 import { messages, type Locale } from '../i18n/ui';
 import type { DirectoryPageData } from '../lib/institutions/pages';
 import CentreDirectoryMap from './CentreDirectoryMap.astro';
@@ -9,7 +10,7 @@ interface Props {
 }
 const { locale, data } = Astro.props;
 const t = messages[locale];
-const base = locale === 'es' ? '/es/centros' : '/ca/centres';
+const base = centreDirectoryPath(locale);
 ---
 
 <SiteLayout
@@ -18,8 +19,8 @@ const base = locale === 'es' ? '/es/centros' : '/ca/centres';
   description={t.directoryIntro}
   section="centres"
   languagePaths={{
-    es: `/es/centros${Astro.url.search}`,
-    ca: `/ca/centres${Astro.url.search}`,
+    es: `${centreDirectoryPath('es')}${Astro.url.search}`,
+    ca: `${centreDirectoryPath('ca')}${Astro.url.search}`,
   }}
 >
   <section class="centre-heading">

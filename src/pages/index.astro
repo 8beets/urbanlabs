@@ -1,3 +1,4 @@
 ---
-return Astro.redirect(`/es/${Astro.url.search}`, 308);
+import { homePath } from '../i18n/paths';
+return Astro.redirect(`${homePath('es')}${Astro.url.search}`, 308);
 ---

@@ -1,5 +1,5 @@
 ---
-import { courseSearchPath } from '../i18n/paths';
+import { courseSearchPath, centreDirectoryPath, homePath } from '../i18n/paths';
 import { messages, type Locale } from '../i18n/ui';
 import '../styles/global.css';
 interface Props {
@@ -17,8 +17,8 @@ const {
   section = 'home',
 } = Astro.props;
 const t = messages[locale];
-const base = `/${locale}/`;
-const centreBase = locale === 'es' ? '/es/centros' : '/ca/centres';
+const base = homePath(locale);
+const centreBase = centreDirectoryPath(locale);
 ---
 
 <!doctype html>
