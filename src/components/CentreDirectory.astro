@@ -1,6 +1,8 @@
 ---
+import { pageErrorMessage } from '../i18n/ui';
+import { m } from '../paraglide/messages.js';
 import { centreDirectoryPath } from '../i18n/paths';
-import { messages, type Locale } from '../i18n/ui';
+import { type Locale } from '../i18n/ui';
 import type { DirectoryPageData } from '../lib/institutions/pages';
 import CentreDirectoryMap from './CentreDirectoryMap.astro';
 import SiteLayout from '../layouts/SiteLayout.astro';
@@ -9,14 +11,13 @@ interface Props {
   data: DirectoryPageData;
 }
 const { locale, data } = Astro.props;
-const t = messages[locale];
 const base = centreDirectoryPath(locale);
 ---
 
 <SiteLayout
   locale={locale}
-  title={`${t.directoryTitle} · UrbanLabs`}
-  description={t.directoryIntro}
+  title={`${m.directoryTitle({}, { locale })} · UrbanLabs`}
+  description={m.directoryIntro({}, { locale })}
   section="centres"
   languagePaths={{
     es: `${centreDirectoryPath('es')}${Astro.url.search}`,
@@ -24,15 +25,15 @@ const base = centreDirectoryPath(locale);
   }}
 >
   <section class="centre-heading">
-    <h1>{t.directoryTitle}</h1>
-    <p class="intro">{t.directoryIntro}</p>
+    <h1>{m.directoryTitle({}, { locale })}</h1>
+    <p class="intro">{m.directoryIntro({}, { locale })}</p>
   </section>
   {data.error && (
     <p role="alert" class="error">
-      {t[data.error]}
+      {pageErrorMessage(data.error, locale)}
     </p>
   )}
-  {!data.error && !data.centres.length && <p>{t.noCentres}</p>}
+  {!data.error && !data.centres.length && <p>{m.noCentres({}, { locale })}</p>}
   {!data.error && (
     <CentreDirectoryMap
       locale={locale}
@@ -49,19 +50,19 @@ const base = centreDirectoryPath(locale);
         <p>
           {centre.address}, {centre.city}
         </p>
-        <a href={centre.official_url}>{t.website} ↗</a>
+        <a href={centre.official_url}>{m.website({}, { locale })} ↗</a>
       </article>
     ))}
   </div>
-  <nav class="pagination" aria-label={t.pagination}>
+  <nav class="pagination" aria-label={m.pagination({}, { locale })}>
     {data.page > 1 && (
       <a href={`${base}?page=${data.page - 1}`} rel="prev">
-        ← {t.previous}
+        ← {m.previous({}, { locale })}
       </a>
     )}
     {data.hasNext && data.page < 1000 && (
       <a href={`${base}?page=${data.page + 1}`} rel="next">
-        {t.next} →
+        {m.next({}, { locale })} →
       </a>
     )}
   </nav>

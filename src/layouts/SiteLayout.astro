@@ -1,6 +1,7 @@
 ---
+import { m } from '../paraglide/messages.js';
 import { courseSearchPath, centreDirectoryPath, homePath } from '../i18n/paths';
-import { messages, type Locale } from '../i18n/ui';
+import { type Locale } from '../i18n/ui';
 import '../styles/global.css';
 interface Props {
   locale: Locale;
@@ -16,7 +17,6 @@ const {
   languagePaths,
   section = 'home',
 } = Astro.props;
-const t = messages[locale];
 const base = homePath(locale);
 const centreBase = centreDirectoryPath(locale);
 ---
@@ -26,7 +26,10 @@ const centreBase = centreDirectoryPath(locale);
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta name="description" content={description ?? t.description} />
+    <meta
+      name="description"
+      content={description ?? m.description({}, { locale })}
+    />
     <meta name="robots" content="noindex,follow" />
     <link
       rel="icon"
@@ -37,7 +40,7 @@ const centreBase = centreDirectoryPath(locale);
   </head>
   <body>
     <a class="skip" href="#main">
-      {t.skip}
+      {m.skip({}, { locale })}
     </a>
     <header class="shell header">
       <a href={base} class="brand">
@@ -50,37 +53,40 @@ const centreBase = centreDirectoryPath(locale);
         UrbanLabs
       </a>
       <div class="header-actions">
-        <nav class="primary-nav" aria-label={t.primaryNavigation}>
+        <nav
+          class="primary-nav"
+          aria-label={m.primaryNavigation({}, { locale })}
+        >
           <a href={base} aria-current={section === 'home' ? 'page' : undefined}>
-            {t.homeNav}
+            {m.homeNav({}, { locale })}
           </a>
           <a
             href={courseSearchPath(locale)}
             aria-current={section === 'courses' ? 'page' : undefined}
           >
-            {t.coursesNav}
+            {m.coursesNav({}, { locale })}
           </a>
           <a
             href={centreBase}
             aria-current={section === 'centres' ? 'page' : undefined}
           >
-            {t.centresNav}
+            {m.centresNav({}, { locale })}
           </a>
         </nav>
-        <nav class="language-nav" aria-label={t.language}>
+        <nav class="language-nav" aria-label={m.language({}, { locale })}>
           <a
             href={languagePaths.es}
             lang="es"
             aria-current={locale === 'es' ? 'page' : undefined}
           >
-            Español
+            {m.languageSpanish({}, { locale })}
           </a>
           <a
             href={languagePaths.ca}
             lang="ca"
             aria-current={locale === 'ca' ? 'page' : undefined}
           >
-            Català
+            {m.languageCatalan({}, { locale })}
           </a>
         </nav>
       </div>
@@ -91,15 +97,17 @@ const centreBase = centreDirectoryPath(locale);
     <footer class="shell footer">
       <div class="footer-about">
         <p class="footer-brand">UrbanLabs</p>
-        <p>{t.footer}</p>
+        <p>{m.footer({}, { locale })}</p>
       </div>
       <div class="footer-links">
         <a class="github-link" href="https://github.com/8beets/urbanlabs">
           <img src="/icons/github.svg" alt="" width="20" height="20" />
-          {t.githubRepo}
+          {m.githubRepo({}, { locale })}
         </a>
         <p class="photo-credit">
-          {t.photoNote} <a href="https://www.pexels.com/">{t.photoCredits}</a>.
+          {m.photoNote({}, { locale })}{' '}
+          <a href="https://www.pexels.com/">{m.photoCredits({}, { locale })}</a>
+          .
         </p>
       </div>
     </footer>

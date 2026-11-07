@@ -1,11 +1,7 @@
 ---
+import { m } from '../paraglide/messages.js';
 import { courseSearchPath, centreDirectoryPath } from '../i18n/paths';
-import {
-  messages,
-  formatLocalDate,
-  categoryLabel,
-  type Locale,
-} from '../i18n/ui';
+import { formatLocalDate, categoryLabel, type Locale } from '../i18n/ui';
 import { formatCourseTitle } from '../lib/courses/title';
 import { formatSchedule } from '../i18n/schedule';
 import type { CourseListing } from '../lib/db/courses';
@@ -16,7 +12,6 @@ interface Props {
   filterParams: URLSearchParams;
 }
 const { locale, course, filterParams } = Astro.props;
-const t = messages[locale];
 const title = course.title_reviewed
   ? course.title
   : formatCourseTitle(course.title, locale);
@@ -28,7 +23,9 @@ if (course.category) categoryParams.set('category', course.category);
 ---
 
 <article class="course">
-  {course.is_cancelled === 1 && <p class="cancelled-label">{t.cancelled}</p>}
+  {course.is_cancelled === 1 && (
+    <p class="cancelled-label">{m.cancelled({}, { locale })}</p>
+  )}
   {course.category && (
     <a class="course-category" href={`${base}?${categoryParams}`}>
       {categoryLabel(course.category, locale)}
@@ -46,7 +43,7 @@ if (course.category) categoryParams.set('category', course.category);
     <span>
       {course.start_date
         ? formatLocalDate(course.start_date, locale)
-        : t.unknownDates}
+        : m.unknownDates({}, { locale })}
       {course.end_date &&
         course.end_date !== course.start_date &&
         ` – ${formatLocalDate(course.end_date, locale)}`}
@@ -64,7 +61,7 @@ if (course.category) categoryParams.set('category', course.category);
         class:list={['price', { 'price-unknown': course.price_cents === null }]}
       >
         {course.price_cents === null
-          ? t.unknownPrice
+          ? m.unknownPrice({}, { locale })
           : new Intl.NumberFormat(locale, {
               style: 'currency',
               currency: course.currency ?? 'EUR',
@@ -72,12 +69,12 @@ if (course.category) categoryParams.set('category', course.category);
       </p>
     )}
     <a class="source-link" href={course.official_url}>
-      {t.source}
+      {m.source({}, { locale })}
       <Icon name="external" />
     </a>
   </div>
   <p class="verified">
-    {t.verified}{' '}
+    {m.verified({}, { locale })}{' '}
     <time datetime={course.last_successfully_verified_at}>
       {formatLocalDate(
         course.last_successfully_verified_at.slice(0, 10),

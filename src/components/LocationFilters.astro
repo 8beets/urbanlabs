@@ -1,6 +1,7 @@
 ---
+import { m } from '../paraglide/messages.js';
 import { cityLabel, regionLabel } from '../i18n/geography';
-import { messages, type Locale } from '../i18n/ui';
+import { type Locale } from '../i18n/ui';
 import type { DiscoveryPageData } from '../lib/courses/page';
 interface Props {
   locale: Locale;
@@ -10,7 +11,6 @@ const {
   locale,
   data: { filters, geography },
 } = Astro.props;
-const t = messages[locale];
 const regions = geography.regions.filter(
   (row) => row.country_code === filters.country,
 );
@@ -29,14 +29,14 @@ const catalog = geography.cities.filter(
   data-cities={JSON.stringify(
     catalog.map((city) => ({ ...city, name: cityLabel(city, locale) })),
   )}
-  data-all-cities={t.allCities}
+  data-all-cities={m.allCities({}, { locale })}
 >
   <input type="hidden" name="country" value={filters.country ?? 'ES'} />
   <div>
-    <label for="region">{t.region}</label>
+    <label for="region">{m.region({}, { locale })}</label>
     <select id="region" name="region">
       <option value="" selected={!filters.region}>
-        {t.allRegions}
+        {m.allRegions({}, { locale })}
       </option>
       {regions.map((row) => (
         <option value={row.id} selected={filters.region === row.id}>
@@ -46,10 +46,10 @@ const catalog = geography.cities.filter(
     </select>
   </div>
   <div>
-    <label for="city">{t.city}</label>
+    <label for="city">{m.city({}, { locale })}</label>
     <select id="city" name="city">
       <option value="" selected={!filters.city}>
-        {t.allCities}
+        {m.allCities({}, { locale })}
       </option>
       {cities.map((row) => (
         <option value={row.id} selected={filters.city === row.id}>

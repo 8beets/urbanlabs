@@ -1,7 +1,9 @@
 ---
+import { pageErrorMessage } from '../i18n/ui';
+import { m } from '../paraglide/messages.js';
 import { cityLabel, regionLabel } from '../i18n/geography';
 import { courseSearchPath } from '../i18n/paths';
-import { messages, categoryLabel, type Locale } from '../i18n/ui';
+import { categoryLabel, type Locale } from '../i18n/ui';
 import type { DiscoveryPageData } from '../lib/courses/page';
 import { sources } from '../lib/sources';
 import CourseFilters from './CourseFilters.astro';
@@ -14,7 +16,6 @@ interface Props {
   data: DiscoveryPageData;
 }
 const { locale, data } = Astro.props;
-const t = messages[locale];
 const { courses, centres, filters, hasNext, error } = data;
 const officialSources = sources.filter((source) => {
   const city = data.geography.cities.find(
@@ -35,37 +36,43 @@ if (filters.region) {
   );
   appliedFilters.push({
     key: 'region',
-    label: `${t.region}: ${region ? regionLabel(region, locale) : filters.region}`,
+    label: `${m.region({}, { locale })}: ${region ? regionLabel(region, locale) : filters.region}`,
   });
 }
 if (filters.city) {
   const city = data.geography.cities.find((row) => row.id === filters.city);
   appliedFilters.push({
     key: 'city',
-    label: `${t.city}: ${city ? cityLabel(city, locale) : filters.city}`,
+    label: `${m.city({}, { locale })}: ${city ? cityLabel(city, locale) : filters.city}`,
   });
 }
 if (filters.q)
-  appliedFilters.push({ key: 'q', label: `${t.search}: ${filters.q}` });
+  appliedFilters.push({
+    key: 'q',
+    label: `${m.search({}, { locale })}: ${filters.q}`,
+  });
 if (filters.cancellation)
   appliedFilters.push({
     key: 'cancellation',
-    label: filters.cancellation === 'only' ? t.onlyCancelled : t.hideCancelled,
+    label:
+      filters.cancellation === 'only'
+        ? m.onlyCancelled({}, { locale })
+        : m.hideCancelled({}, { locale }),
   });
 if (filters.centre)
   appliedFilters.push({
     key: 'centre',
-    label: `${t.centre}: ${centres.find((centre) => centre.id === filters.centre)?.name ?? t.currentSelection}`,
+    label: `${m.centre({}, { locale })}: ${centres.find((centre) => centre.id === filters.centre)?.name ?? m.currentSelection({}, { locale })}`,
   });
 if (filters.category)
   appliedFilters.push({
     key: 'category',
-    label: `${t.category}: ${categoryLabel(filters.category, locale)}`,
+    label: `${m.category({}, { locale })}: ${categoryLabel(filters.category, locale)}`,
   });
 if (filters.maxPriceCents !== null)
   appliedFilters.push({
     key: 'maxPrice',
-    label: `${t.price}: ${new Intl.NumberFormat(locale, { style: 'currency', currency: 'EUR' }).format(filters.maxPriceCents / 100)}`,
+    label: `${m.price({}, { locale })}: ${new Intl.NumberFormat(locale, { style: 'currency', currency: 'EUR' }).format(filters.maxPriceCents / 100)}`,
   });
 function pageUrl(page: number) {
   const params = new URLSearchParams(Astro.url.searchParams);
@@ -83,7 +90,7 @@ function filterUrl(key: string, value: string) {
 
 <SiteLayout
   locale={locale}
-  title={t.searchPageTitle}
+  title={m.searchPageTitle({}, { locale })}
   section="courses"
   languagePaths={{
     es: `${courseSearchPath('es')}${Astro.url.search}`,
@@ -91,40 +98,42 @@ function filterUrl(key: string, value: string) {
   }}
 >
   <section class="search-heading" aria-labelledby="title">
-    <h1 id="title">{t.searchTitle}</h1>
-    <p class="intro">{t.searchIntro}</p>
+    <h1 id="title">{m.searchTitle({}, { locale })}</h1>
+    <p class="intro">{m.searchIntro({}, { locale })}</p>
   </section>
   <div id="discovery" class="discovery-layout">
     <CourseFilters locale={locale} data={data} />
     <div class="discovery-content">
       {error && (
         <p role="alert" id="filter-error" class="error">
-          {t[error]}
+          {pageErrorMessage(error, locale)}
         </p>
       )}
       <section aria-labelledby="results" class="results">
         <div class="results-heading">
           <div>
-            <h2 id="results">{t.results}</h2>
-            <p class="results-intro">{t.resultsIntro}</p>
+            <h2 id="results">{m.results({}, { locale })}</h2>
+            <p class="results-intro">{m.resultsIntro({}, { locale })}</p>
           </div>
           {(appliedFilters.length > 0 ||
             filters.page > 1 ||
-            error === 'invalid') && <a href={base}>{t.clear}</a>}
+            error === 'invalid') && (
+            <a href={base}>{m.clear({}, { locale })}</a>
+          )}
         </div>
         {appliedFilters.length > 0 && (
           <div
             class="applied-filters"
-            aria-label={t.appliedFilters}
+            aria-label={m.appliedFilters({}, { locale })}
             role="group"
           >
-            <p>{t.appliedFilters}</p>
+            <p>{m.appliedFilters({}, { locale })}</p>
             <ul>
               {appliedFilters.map((filter) => (
                 <li>
                   <a
                     href={filterUrl(filter.key, '')}
-                    aria-label={`${t.removeFilter}: ${filter.label}`}
+                    aria-label={`${m.removeFilter({}, { locale })}: ${filter.label}`}
                   >
                     {filter.label}
                     <span aria-hidden="true"> ×</span>
@@ -136,12 +145,16 @@ function filterUrl(key: string, value: string) {
         )}
         {!error && courses.length === 0 && (
           <div class="empty">
-            <h3>{t.empty}</h3>
-            <p>{officialSources.length ? t.emptyHelp : t.emptyLocation}</p>
+            <h3>{m.empty({}, { locale })}</h3>
+            <p>
+              {officialSources.length
+                ? m.emptyHelp({}, { locale })
+                : m.emptyLocation({}, { locale })}
+            </p>
             {officialSources.map((source) => (
               <p>
                 <a href={source.listingUrl}>
-                  {t.programming}: {source.institution.name} ↗
+                  {m.programming({}, { locale })}: {source.institution.name} ↗
                 </a>
               </p>
             ))}
@@ -156,15 +169,15 @@ function filterUrl(key: string, value: string) {
             />
           ))}
         </div>
-        <nav class="pagination" aria-label={t.pagination}>
+        <nav class="pagination" aria-label={m.pagination({}, { locale })}>
           {filters.page > 1 && (
             <a href={pageUrl(filters.page - 1)} rel="prev">
-              ← {t.previous}
+              ← {m.previous({}, { locale })}
             </a>
           )}
           {hasNext && filters.page < 1000 && (
             <a href={pageUrl(filters.page + 1)} rel="next">
-              {t.next} →
+              {m.next({}, { locale })} →
             </a>
           )}
         </nav>
@@ -173,6 +186,6 @@ function filterUrl(key: string, value: string) {
   </div>
   <aside class="notice">
     <Icon name="info" />
-    <p>{t.notice}</p>
+    <p>{m.notice({}, { locale })}</p>
   </aside>
 </SiteLayout>

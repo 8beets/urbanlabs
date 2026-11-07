@@ -38,6 +38,12 @@ All use the reusable Miram adapter, with deterministic category grouping and sep
 
 The interface uses a blue and yellow palette, locally served Bricolage Grotesque headings, and an illustrative workshop photo mosaic. Course cards group the category, centre, dates, price, and official source link for easy scanning. Navigation, filters, and cards adapt to narrow mobile screens. The responsive filter sidebar, removable applied filters, and language links also work without JavaScript. All-uppercase course titles use readable sentence casing with known acronyms preserved; manually reviewed titles retain their casing. Original source text and language are preserved. See [asset credits](docs/assets.md).
 
+## Translations
+
+Spanish and Catalan translations live in `messages/es.json` and `messages/ca.json`.
+Paraglide compiles them during development/builds and before type checks/tests.
+See [contributing translations](CONTRIBUTING.md#translations) for the workflow.
+
 ## Local setup
 
 Clone the repository:

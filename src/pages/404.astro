@@ -1,33 +1,32 @@
 ---
+import { m } from '../paraglide/messages.js';
 import { courseSearchPath, centreDirectoryPath, homePath } from '../i18n/paths';
-import { messages } from '../i18n/ui';
 import SiteLayout from '../layouts/SiteLayout.astro';
 
 const locale = Astro.url.pathname.split('/')[1] === 'ca' ? 'ca' : 'es';
-const t = messages[locale];
 Astro.response.status = 404;
 ---
 
 <SiteLayout
   locale={locale}
-  title={`404 · ${t.pageNotFound} · UrbanLabs`}
-  description={t.pageNotFoundIntro}
+  title={`404 · ${m.pageNotFound({}, { locale })} · UrbanLabs`}
+  description={m.pageNotFoundIntro({}, { locale })}
   section="none"
   languagePaths={{ es: '/es/404', ca: '/ca/404' }}
 >
   <section class="not-found" aria-labelledby="not-found-title">
     <p class="error-code">404</p>
-    <h1 id="not-found-title">{t.pageNotFound}</h1>
-    <p class="intro">{t.pageNotFoundIntro}</p>
+    <h1 id="not-found-title">{m.pageNotFound({}, { locale })}</h1>
+    <p class="intro">{m.pageNotFoundIntro({}, { locale })}</p>
     <ul>
       <li>
-        <a href={homePath(locale)}>{t.homeNav}</a>
+        <a href={homePath(locale)}>{m.homeNav({}, { locale })}</a>
       </li>
       <li>
-        <a href={courseSearchPath(locale)}>{t.searchTitle}</a>
+        <a href={courseSearchPath(locale)}>{m.searchTitle({}, { locale })}</a>
       </li>
       <li>
-        <a href={centreDirectoryPath(locale)}>{t.centresNav}</a>
+        <a href={centreDirectoryPath(locale)}>{m.centresNav({}, { locale })}</a>
       </li>
     </ul>
   </section>
