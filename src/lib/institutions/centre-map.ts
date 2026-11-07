@@ -1,6 +1,7 @@
 import type { Map as LeafletMap } from 'leaflet';
 import type { CentreMapPoint } from '../db/institutions';
 export interface CentreMapLabels {
+  mapContributors: string;
   loading: string;
   failed: string;
   tilesFailed: string;
@@ -35,12 +36,14 @@ async function mountMap(root: HTMLElement) {
     L.control
       .zoom({ zoomInTitle: labels.zoomIn, zoomOutTitle: labels.zoomOut })
       .addTo(map);
+    const attribution = document.createElement('a');
+    attribution.href = 'https://www.openstreetmap.org/copyright';
+    attribution.textContent = labels.mapContributors;
     let tileLoaded = false;
     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 19,
       referrerPolicy: 'strict-origin-when-cross-origin',
-      attribution:
-        '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap contributors</a>',
+      attribution: `&copy; ${attribution.outerHTML}`,
     })
       .on('tileload', () => {
         tileLoaded = true;

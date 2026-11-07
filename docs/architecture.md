@@ -1,6 +1,6 @@
 # Architecture
 
-This is one Astro application, not a monorepo. Native Astro renders HTML; GET forms work without client JavaScript. Translation dictionaries contain interface text. Source titles stay in their original language. Original schedule text remains stored unchanged; the Spanish interface translates known Catalan weekday names and weekday-list conjunctions without changing times, translating arbitrary prose, or inferring sessions.
+This is one Astro application, not a monorepo. Native Astro renders HTML; GET forms work without client JavaScript. Paraglide message catalogs contain translated interface text. Source titles stay in their original language. Original schedule text remains stored unchanged; the Spanish interface translates known Catalan weekday names and weekday-list conjunctions without changing times, translating arbitrary prose, or inferring sessions.
 
 Requests flow from pages to discovery services to the centralized database repository. Components receive view data and do not query D1. External HTML is escaped by Astro; the importer does not publish source descriptions or execute scripts.
 
@@ -22,7 +22,7 @@ Centre and category navigation uses real database values, parameterized equality
 
 D1 keeps original category values and source payloads for provenance. Queries expand a selected group to its known source labels using bound `IN` parameters **before pagination**, and results expose the canonical group. Legacy alias URLs still select the whole group. Navigation deduplicates groups and, when a centre is selected, queries only that centre's non-expired courses. Category choices do not disappear merely because title/price filters have no matches. The existing 100-category query bound remains in place.
 
-Spanish and Catalan dictionaries provide readable group labels. Unknown all-caps labels receive sentence casing without inventing a translation. Known brand/acronym spelling is retained explicitly. Source titles and descriptions are unaffected. Selecting a different centre retains other filters; an incompatible category can yield an empty result and can be removed using the all-categories link or clear-filters action.
+Spanish and Catalan Paraglide catalogs provide readable group labels. Unknown all-caps labels receive sentence casing without inventing a translation. Known brand/acronym spelling is retained explicitly. Source titles and descriptions are unaffected. Selecting a different centre retains other filters; an incompatible category can yield an empty result and can be removed using the all-categories link or clear-filters action.
 
 Search, centre, category, and price controls share one GET form in `CourseFilters.astro`. The form occupies a sidebar beside results from 800px upward and a native `<details>` panel above results on smaller screens. A small client script sets the initial/resized disclosure state; without JavaScript the panel starts open and remains keyboard-collapsible. Applied filters remain visible outside the panel, each with a removal link, alongside a clear-all action. The footer links to the GitHub repository with a locally served Octicons mark and a localized text label.
 
@@ -155,3 +155,21 @@ errors are not cached. Requests are cancelled when superseded and time out after
 10 seconds. The form announces loading or failure, blocks submission while an
 update is pending, and re-enables normal search on failure. Without JavaScript,
 the native GET form retains the existing server-rendered filtering behavior.
+
+## Translation compilation
+
+[Issue #62](https://github.com/8beets/urbanlabs/issues/62) uses Paraglide for all
+translations: interface and accessibility text, error states, category labels,
+reviewed place names, and known weekday terms. `messages/es.json` and
+`messages/ca.json` are the source of truth. `project.inlang/settings.json` selects
+the locales and locally installed message-format plugin; `paraglide.config.mjs`
+shares compiler options between the CLI and Astro Vite integration. Generated
+JavaScript and TypeScript declarations in `src/paraglide/` are ignored.
+
+Messages use explicit `{ locale }` arguments in components and API helpers.
+Astro continues to own locale routing and URL generation. Paraglide uses only its
+base-locale strategy as a default; no middleware, cookies, browser detection, or
+mutable global locale is needed. Client enhancements receive translated labels
+from HTML attributes instead of loading translation catalogs in the browser.
+Dates and prices use native locale-aware `Intl` formatting. Source content and
+unknown labels are preserved rather than automatically translated.

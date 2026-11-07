@@ -1,5 +1,6 @@
 ---
-import { messages, formatLocalDate, type Locale } from '../i18n/ui';
+import { m } from '../paraglide/messages.js';
+import { formatLocalDate, type Locale } from '../i18n/ui';
 import InteractiveCentreMap from './InteractiveCentreMap.astro';
 import type { Centre } from '../lib/db/institutions';
 import {
@@ -11,7 +12,6 @@ interface Props {
   centre: Centre;
 }
 const { locale, centre } = Astro.props;
-const t = messages[locale];
 const map =
   centre.coordinates_source_url && centre.coordinates_verified_at
     ? openStreetMapLocation(centre.latitude, centre.longitude)
@@ -19,7 +19,7 @@ const map =
 ---
 
 <section class="centre-map" aria-labelledby="location">
-  <h2 id="location">{t.location}</h2>
+  <h2 id="location">{m.location({}, { locale })}</h2>
   {map ? (
     <>
       <InteractiveCentreMap
@@ -34,24 +34,27 @@ const map =
           },
         ]}
         id="centre-location"
-        title={`${t.mapOf} ${centre.name}`}
+        title={`${m.mapOf({}, { locale })} ${centre.name}`}
       />
       <p>
-        <a href={map.mapUrl}>{t.largerMap} ↗</a> · ©{' '}
+        <a href={map.mapUrl}>{m.largerMap({}, { locale })} ↗</a> · ©{' '}
         <a href="https://www.openstreetmap.org/copyright">
-          OpenStreetMap contributors
+          {m.mapContributors({}, { locale })}
         </a>
       </p>
       <p class="verified">
-        <a href={centre.coordinates_source_url!}>{t.locationSource}</a> ·{' '}
-        {t.verified} {formatLocalDate(centre.coordinates_verified_at!, locale)}
+        <a href={centre.coordinates_source_url!}>
+          {m.locationSource({}, { locale })}
+        </a>{' '}
+        · {m.verified({}, { locale })}{' '}
+        {formatLocalDate(centre.coordinates_verified_at!, locale)}
       </p>
     </>
   ) : (
     <>
-      <p>{t.mapUnavailable}</p>
+      <p>{m.mapUnavailable({}, { locale })}</p>
       <a href={openStreetMapSearch(centre.address, centre.city)}>
-        {t.searchAddress} ↗
+        {m.searchAddress({}, { locale })} ↗
       </a>
     </>
   )}

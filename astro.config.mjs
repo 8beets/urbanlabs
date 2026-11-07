@@ -2,6 +2,8 @@ import { defineConfig } from 'astro/config';
 import cloudflare from '@astrojs/cloudflare';
 import tailwindcss from '@tailwindcss/vite';
 import process from 'node:process';
+import { paraglideVitePlugin } from '@inlang/paraglide-js';
+import paraglideConfig from './paraglide.config.mjs';
 
 export default defineConfig({
   output: 'server',
@@ -21,5 +23,5 @@ export default defineConfig({
       : {}),
   }),
   session: false,
-  vite: { plugins: [tailwindcss()] },
+  vite: { plugins: [tailwindcss(), paraglideVitePlugin(paraglideConfig)] },
 });

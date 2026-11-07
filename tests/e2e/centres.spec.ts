@@ -66,9 +66,12 @@ for (const locale of ['es', 'ca'] as const) {
         `Mapa de ${source.institution.name}`,
       );
       await expect(
-        page
-          .locator('.centre-map > p a')
-          .filter({ hasText: 'OpenStreetMap contributors' }),
+        page.locator('.centre-map > p a').filter({
+          hasText:
+            locale === 'es'
+              ? 'Colaboradores de OpenStreetMap'
+              : 'Col·laboradors d’OpenStreetMap',
+        }),
       ).toHaveAttribute('href', 'https://www.openstreetmap.org/copyright');
       await expect(
         page.locator('.course .institution a').first(),

@@ -6,6 +6,7 @@ export default defineConfig(
   {
     ignores: [
       'dist/**',
+      'src/paraglide/**',
       '.astro/**',
       '.wrangler/**',
       'worker-configuration.d.ts',

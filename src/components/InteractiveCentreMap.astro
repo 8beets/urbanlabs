@@ -1,5 +1,6 @@
 ---
-import { messages, type Locale } from '../i18n/ui';
+import { m } from '../paraglide/messages.js';
+import { type Locale } from '../i18n/ui';
 import type { CentreMapLabels } from '../lib/institutions/centre-map';
 import type { CentreMapPoint } from '../lib/db/institutions';
 interface Props {
@@ -9,13 +10,13 @@ interface Props {
   title: string;
 }
 const { locale, centres, id, title } = Astro.props;
-const t = messages[locale];
 const labels: CentreMapLabels = {
-  loading: t.mapLoading,
-  failed: t.mapFailed,
-  tilesFailed: t.mapTilesFailed,
-  zoomIn: t.zoomIn,
-  zoomOut: t.zoomOut,
+  mapContributors: m.mapContributors({}, { locale }),
+  loading: m.mapLoading({}, { locale }),
+  failed: m.mapFailed({}, { locale }),
+  tilesFailed: m.mapTilesFailed({}, { locale }),
+  zoomIn: m.zoomIn({}, { locale }),
+  zoomOut: m.zoomOut({}, { locale }),
 };
 ---
 
@@ -36,7 +37,7 @@ const labels: CentreMapLabels = {
   ></div>
   <p data-map-status role="status" hidden></p>
   <p id={`${id}-keyboard`} data-map-help hidden>
-    {t.mapKeyboard}
+    {m.mapKeyboard({}, { locale })}
   </p>
 </div>
 <script>

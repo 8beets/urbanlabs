@@ -41,7 +41,10 @@ for (const locale of ['es', 'ca']) {
     await expect(link).toBeFocused();
     await expect(
       map.getByRole('link', {
-        name: 'OpenStreetMap contributors',
+        name:
+          locale === 'es'
+            ? 'Colaboradores de OpenStreetMap'
+            : 'Col·laboradors d’OpenStreetMap',
         exact: true,
       }),
     ).toBeVisible();

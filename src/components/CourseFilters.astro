@@ -1,6 +1,7 @@
 ---
+import { m } from '../paraglide/messages.js';
 import { courseSearchPath } from '../i18n/paths';
-import { messages, categoryLabel, type Locale } from '../i18n/ui';
+import { categoryLabel, type Locale } from '../i18n/ui';
 import type { DiscoveryPageData } from '../lib/courses/page';
 import Icon from './Icon.astro';
 import LocationFilters from './LocationFilters.astro';
@@ -14,7 +15,6 @@ interface Props {
 }
 const { locale, data } = Astro.props;
 const { filters, centres, categories, error } = data;
-const t = messages[locale];
 const base = courseSearchPath(locale);
 // New filter controls belong in this same GET form. Omit page on submit to reset pagination.
 const formFields = new Set([
@@ -33,67 +33,69 @@ const preservedParams = [...Astro.url.searchParams].filter(
 );
 ---
 
-<aside class="filter-sidebar" aria-label={t.filters}>
+<aside class="filter-sidebar" aria-label={m.filters({}, { locale })}>
   <details
     id="filter-panel"
     class="filter-panel"
     open
     data-invalid={error === 'invalid' ? 'true' : undefined}
   >
-    <summary>{t.filters}</summary>
+    <summary>{m.filters({}, { locale })}</summary>
     <form
       action={base}
       method="get"
       class="filter-form"
-      aria-label={t.submit}
+      aria-label={m.submit({}, { locale })}
       data-dynamic-filters
       data-locale={locale}
-      data-all-centres={t.allCentres}
-      data-all-categories={t.allCategories}
-      data-loading={t.filtersLoading}
-      data-failed={t.filtersFailed}
+      data-all-centres={m.allCentres({}, { locale })}
+      data-all-categories={m.allCategories({}, { locale })}
+      data-loading={m.filtersLoading({}, { locale })}
+      data-failed={m.filtersFailed({}, { locale })}
     >
       {preservedParams.map(([key, value]) => (
         <input type="hidden" name={key} value={value} />
       ))}
       <div>
-        <label for="q">{t.search}</label>
+        <label for="q">{m.search({}, { locale })}</label>
         <input
           id="q"
           name="q"
           type="search"
-          placeholder={t.searchExample}
+          placeholder={m.searchExample({}, { locale })}
           value={filters.q}
           aria-describedby={error === 'invalid' ? 'filter-error' : undefined}
         />
       </div>
       <fieldset class="filter-group">
-        <legend>{t.refine}</legend>
+        <legend>{m.refine({}, { locale })}</legend>
         <LocationFilters locale={locale} data={data} />
         <div>
-          <label for="cancellation">{t.cancellationFilter}</label>
+          <label for="cancellation">
+            {m.cancellationFilter({}, { locale })}
+          </label>
           <select id="cancellation" name="cancellation">
             <option value="" selected={!filters.cancellation}>
-              {t.allCancellation}
+              {m.allCancellation({}, { locale })}
             </option>
             <option value="hide" selected={filters.cancellation === 'hide'}>
-              {t.hideCancelled}
+              {m.hideCancelled({}, { locale })}
             </option>
             <option value="only" selected={filters.cancellation === 'only'}>
-              {t.onlyCancelled}
+              {m.onlyCancelled({}, { locale })}
             </option>
           </select>
         </div>
         <div>
-          <label for="centre">{t.centre}</label>
+          <label for="centre">{m.centre({}, { locale })}</label>
           <select id="centre" name="centre">
             <option value="" selected={!filters.centre}>
-              {t.allCentres}
+              {m.allCentres({}, { locale })}
             </option>
             {filters.centre &&
               !centres.some((centre) => centre.id === filters.centre) && (
                 <option value={filters.centre} selected>
-                  {t.currentSelection}
+                  {m.currentSelection({}, { locale })}
                 </option>
               )}
             {centres.map((centre) => (
@@ -104,14 +106,15 @@ const preservedParams = [...Astro.url.searchParams].filter(
           </select>
         </div>
         <div>
-          <label for="category">{t.category}</label>
+          <label for="category">{m.category({}, { locale })}</label>
           <select id="category" name="category">
             <option value="" selected={!filters.category}>
-              {t.allCategories}
+              {m.allCategories({}, { locale })}
             </option>
             {filters.category && !categories.includes(filters.category) && (
               <option value={filters.category} selected>
-                {categoryLabel(filters.category, locale)} ({t.currentSelection})
+                {categoryLabel(filters.category, locale)} (
+                {m.currentSelection({}, { locale })})
               </option>
             )}
             {categories.map((category) => (
@@ -122,7 +125,7 @@ const preservedParams = [...Astro.url.searchParams].filter(
           </select>
         </div>
         <div>
-          <label for="maxPrice">{t.price}</label>
+          <label for="maxPrice">{m.price({}, { locale })}</label>
           <input
             id="maxPrice"
             name="maxPrice"
@@ -145,7 +148,7 @@ const preservedParams = [...Astro.url.searchParams].filter(
       ></p>
       <button type="submit">
         <Icon name="search" />
-        {t.submit}
+        {m.submit({}, { locale })}
       </button>
     </form>
   </details>

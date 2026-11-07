@@ -82,3 +82,31 @@ test('unsupported locale routes return 404 and shared endpoints remain available
   expect(response.headers()['content-type']).toContain('application/json');
   expect(await response.json()).toHaveProperty('centres');
 });
+
+test('concurrent localized pages and API responses retain their own translations', async ({
+  request,
+}) => {
+  await Promise.all(
+    ['es', 'ca'].map(async (locale) => {
+      const search = locale === 'es' ? 'buscar' : 'cerca';
+      const response = await request.get(
+        `/${locale}/${search}?maxPrice=invalid`,
+      );
+      expect(response.status()).toBe(400);
+      expect(response.headers()['set-cookie']).toBeUndefined();
+      const html = await response.text();
+      expect(html).toContain(`lang="${locale}"`);
+      expect(html).toContain(
+        locale === 'es' ? 'Revisa los filtros:' : 'Revisa els filtres:',
+      );
+
+      const options = await request.get(`/api/filters?locale=${locale}`);
+      expect(options.status()).toBe(200);
+      const body = await options.json();
+      expect(body.categories).toContainEqual({
+        value: 'FOTOGRAFIA',
+        label: locale === 'es' ? 'Fotografía' : 'Fotografia',
+      });
+    }),
+  );
+});

@@ -1,6 +1,8 @@
 ---
+import { pageErrorMessage } from '../i18n/ui';
+import { m } from '../paraglide/messages.js';
 import { centreDirectoryPath } from '../i18n/paths';
-import { messages, formatLocalDate, type Locale } from '../i18n/ui';
+import { formatLocalDate, type Locale } from '../i18n/ui';
 import type { CentrePageData } from '../lib/institutions/pages';
 import SiteLayout from '../layouts/SiteLayout.astro';
 import CentreMap from './CentreMap.astro';
@@ -11,7 +13,6 @@ interface Props {
 }
 const { locale, data } = Astro.props;
 const { centre } = data;
-const t = messages[locale];
 const base = centreDirectoryPath(locale);
 const paths = {
   es: `${centreDirectoryPath('es')}/${centre?.slug ?? Astro.params.slug}${Astro.url.search}`,
@@ -22,18 +23,18 @@ const courseParams = new URLSearchParams(centre ? { centre: centre.id } : {});
 
 <SiteLayout
   locale={locale}
-  title={`${centre?.name ?? t.notFound} · UrbanLabs`}
+  title={`${centre?.name ?? m.notFound({}, { locale })} · UrbanLabs`}
   section="centres"
   languagePaths={paths}
 >
   <p class="breadcrumb">
-    <a href={base}>← {t.centresNav}</a>
+    <a href={base}>← {m.centresNav({}, { locale })}</a>
   </p>
   {data.error && (
     <>
-      <h1>{t[data.error]}</h1>
+      <h1>{pageErrorMessage(data.error, locale)}</h1>
       <p>
-        <a href={base}>{t.directoryTitle}</a>
+        <a href={base}>{m.directoryTitle({}, { locale })}</a>
       </p>
     </>
   )}
@@ -47,21 +48,21 @@ const courseParams = new URLSearchParams(centre ? { centre: centre.id } : {});
           </p>
         )}
         {centre.notice === 'temporary_closure' && (
-          <p class="error">{t.closureNotice}</p>
+          <p class="error">{m.closureNotice({}, { locale })}</p>
         )}
-        <h2>{t.centreDetails}</h2>
+        <h2>{m.centreDetails({}, { locale })}</h2>
         <dl class="centre-contact">
-          <dt>{t.address}</dt>
+          <dt>{m.address({}, { locale })}</dt>
           <dd>
             {centre.address}, {centre.city}
           </dd>
-          <dt>{t.website}</dt>
+          <dt>{m.website({}, { locale })}</dt>
           <dd>
             <a href={centre.official_url}>{centre.name} ↗</a>
           </dd>
           {centre.phone && (
             <>
-              <dt>{t.phone}</dt>
+              <dt>{m.phone({}, { locale })}</dt>
               <dd>
                 <a href={`tel:${centre.phone.replace(/[^+0-9]/g, '')}`}>
                   {centre.phone}
@@ -71,7 +72,7 @@ const courseParams = new URLSearchParams(centre ? { centre: centre.id } : {});
           )}
           {centre.email && (
             <>
-              <dt>{t.email}</dt>
+              <dt>{m.email({}, { locale })}</dt>
               <dd>
                 <a href={`mailto:${centre.email}`}>{centre.email}</a>
               </dd>
@@ -80,11 +81,13 @@ const courseParams = new URLSearchParams(centre ? { centre: centre.id } : {});
         </dl>
         {centre.details_source_url && (
           <p class="verified">
-            <a href={centre.details_source_url}>{t.detailsSource}</a>
+            <a href={centre.details_source_url}>
+              {m.detailsSource({}, { locale })}
+            </a>
             {centre.details_verified_at && (
               <>
                 {' '}
-                · {t.verified}{' '}
+                · {m.verified({}, { locale })}{' '}
                 {formatLocalDate(centre.details_verified_at, locale)}
               </>
             )}
@@ -93,8 +96,8 @@ const courseParams = new URLSearchParams(centre ? { centre: centre.id } : {});
       </section>
       <CentreMap locale={locale} centre={centre} />
       <section class="centre-courses" aria-labelledby="centre-courses">
-        <h2 id="centre-courses">{t.centreCourses}</h2>
-        {!data.courses.length && <p>{t.noCentreCourses}</p>}
+        <h2 id="centre-courses">{m.centreCourses({}, { locale })}</h2>
+        {!data.courses.length && <p>{m.noCentreCourses({}, { locale })}</p>}
         <div class="grid">
           {data.courses.map((course) => (
             <CourseCard
@@ -104,19 +107,19 @@ const courseParams = new URLSearchParams(centre ? { centre: centre.id } : {});
             />
           ))}
         </div>
-        <nav class="pagination" aria-label={t.pagination}>
+        <nav class="pagination" aria-label={m.pagination({}, { locale })}>
           {data.page > 1 && (
             <a href={`${base}/${centre.slug}?page=${data.page - 1}`} rel="prev">
-              ← {t.previous}
+              ← {m.previous({}, { locale })}
             </a>
           )}
           {data.hasNext && data.page < 1000 && (
             <a href={`${base}/${centre.slug}?page=${data.page + 1}`} rel="next">
-              {t.next} →
+              {m.next({}, { locale })} →
             </a>
           )}
         </nav>
-        <aside class="notice">{t.notice}</aside>
+        <aside class="notice">{m.notice({}, { locale })}</aside>
       </section>
     </>
   )}

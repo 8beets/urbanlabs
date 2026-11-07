@@ -1,5 +1,6 @@
 ---
-import { messages, type Locale } from '../i18n/ui';
+import { m } from '../paraglide/messages.js';
+import { type Locale } from '../i18n/ui';
 import type { CentreMapPoint } from '../lib/db/institutions';
 import InteractiveCentreMap from './InteractiveCentreMap.astro';
 interface Props {
@@ -8,24 +9,23 @@ interface Props {
   limited: boolean;
 }
 const { locale, centres, limited } = Astro.props;
-const t = messages[locale];
 ---
 
 <section class="directory-map" aria-labelledby="directory-map-title">
-  <h2 id="directory-map-title">{t.directoryMapTitle}</h2>
+  <h2 id="directory-map-title">{m.directoryMapTitle({}, { locale })}</h2>
   {centres.length ? (
     <>
-      <p>{t.directoryMapIntro}</p>
+      <p>{m.directoryMapIntro({}, { locale })}</p>
       <InteractiveCentreMap
         locale={locale}
         centres={centres}
         id="directory-map"
-        title={t.directoryMapTitle}
+        title={m.directoryMapTitle({}, { locale })}
       />
-      {limited && <p>{t.directoryMapLimited}</p>}
+      {limited && <p>{m.directoryMapLimited({}, { locale })}</p>}
     </>
   ) : (
-    <p>{t.directoryMapNoLocations}</p>
+    <p>{m.directoryMapNoLocations({}, { locale })}</p>
   )}
-  <a href="#centre-list">{t.directoryMapFallback}</a>
+  <a href="#centre-list">{m.directoryMapFallback({}, { locale })}</a>
 </section>
