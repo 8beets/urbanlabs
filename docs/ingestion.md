@@ -52,3 +52,12 @@ Prepared values are serialized as escaped SQL literals for Wrangler's file-impor
 Miram pagination is zero-indexed: the default page equals `p=0`, while `p=1` contains different records. The queue canonicalizes only `p=0`, retaining the 60-page bound. Explicitly labelled future previews without edition IDs are counted in `ingestion_previews_skipped` logs and omitted; unrecognized missing-ID markup still fails. A complete preview-only page is accepted, but an entirely empty source snapshot still fails. Exact single local dates and the explicit base price `Preu: Gratuït` are supported; malformed dates and conditional-free prose remain unknown.
 
 The seven-source expansion was loaded from manually verified real snapshots through the same runner, avoiding repeated source requests during validation. Temporary snapshots remain outside the repository. Routine tests use minimal saved fixtures and isolated synthetic dates; they are never imported into browsing data.
+
+## Explicit source locations
+
+Every source config supplies `institution.country` (ISO country code) and
+`institution.cityId` (a seeded city ID). All current approved sources explicitly use
+`ES` and `barcelona`. Add reference locations through a new migration before using
+a new city ID; registration enforces the country/city relationship atomically.
+Do not infer geography from names, addresses, or source prose. Adding Tarragona to
+the reference catalog creates no courses; only verified ingestion can populate it.

@@ -1,4 +1,10 @@
 import {
+  parseGeography,
+  loadGeography,
+  reconcileGeography,
+  type Geography,
+} from '../locations/geography';
+import {
   listCourses,
   listCategories,
   listCentres,
@@ -29,6 +35,7 @@ export function parseFilters(params: URLSearchParams): DiscoveryFilters {
   if (maxPrice && !/^\d{1,4}(\.\d{1,2})?$/.test(maxPrice))
     throw new Error('Invalid price');
   return {
+    ...parseGeography(params),
     q,
     category: canonicalCategory(category),
     centre,
@@ -37,12 +44,18 @@ export function parseFilters(params: URLSearchParams): DiscoveryFilters {
   };
 }
 
-export async function discoverCourses(db: D1Database, params: URLSearchParams) {
-  const filters = parseFilters(params);
+export async function discoverCourses(
+  db: D1Database,
+  params: URLSearchParams,
+  geography?: Geography,
+) {
+  const catalog = geography ?? (await loadGeography(db));
+  const parsed = parseFilters(params);
+  const filters = { ...parsed, ...reconcileGeography(parsed, catalog) };
   const [listing, categories, centres] = await Promise.all([
     listCourses(db, filters),
-    listCategories(db, undefined, filters.centre),
-    listCentres(db),
+    listCategories(db, undefined, filters.centre, filters),
+    listCentres(db, undefined, filters),
   ]);
-  return { filters, ...listing, categories, centres };
+  return { filters, ...listing, categories, centres, geography: catalog };
 }

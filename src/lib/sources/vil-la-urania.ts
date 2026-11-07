@@ -10,6 +10,7 @@ export const vilLaUrania: SourceConfig = {
     name: 'Centre Cívic Vil·la Urània',
     url: 'https://ajuntament.barcelona.cat/ccivics/vil.laurania/',
     city: 'Barcelona',
+    cityId: 'barcelona',
     country: 'ES',
     address: 'C/ de Saragossa, 29, 08006 Barcelona',
     timezone: 'Europe/Madrid',

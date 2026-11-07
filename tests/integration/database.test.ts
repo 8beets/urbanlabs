@@ -1,4 +1,4 @@
-import { loadHomepage } from '../../src/lib/courses/page';
+import { loadDiscoveryPage, loadHomepage } from '../../src/lib/courses/page';
 import { formatCourseTitle } from '../../src/lib/courses/title';
 import { registerSource } from '../../src/lib/db/ingestion';
 import {
@@ -87,6 +87,112 @@ describe('SQLite migration and ingestion contract', () => {
   afterEach(() => {
     sqlite.close();
     vi.restoreAllMocks();
+  });
+
+  it('seeds reference locations, composes geographic filters and adds Asturias using data only', async () => {
+    const active = records.map((record) => ({
+      ...record,
+      startDate: '2099-01-01',
+      endDate: '2099-12-31',
+    }));
+    await runIngestion(db, { fetchRecords: async () => active }, santAndreu);
+    const params = new URLSearchParams(
+      'region=catalunya&city=barcelona&category=IDIOMES&centre=cc-sant-andreu&q=ANGLÈS&maxPrice=20',
+    );
+    const data = await loadDiscoveryPage(db, params);
+    expect(data.status).toBe(200);
+    expect(data.courses).toHaveLength(1);
+    expect(data.filters.country).toBe('ES');
+    const empty = await loadDiscoveryPage(
+      db,
+      new URLSearchParams('city=tarragona'),
+    );
+    expect(empty.status).toBe(200);
+    expect(empty.courses).toEqual([]);
+    expect(empty.centres).toEqual([]);
+    expect(empty.categories).toEqual([]);
+    expect(
+      (await loadDiscoveryPage(db, new URLSearchParams('city=missing'))).status,
+    ).toBe(400);
+    sqlite.exec(
+      "INSERT INTO regions VALUES ('asturias','ES','Asturias'); INSERT INTO cities VALUES ('oviedo','ES','asturias','Oviedo');",
+    );
+    const stale = await loadDiscoveryPage(
+      db,
+      new URLSearchParams('region=asturias&city=barcelona&page=2&q=ANGLÈS'),
+    );
+    expect(stale.canonicalQuery).toBe('region=asturias&q=ANGL%C3%88S');
+    const newSource = {
+      ...canBaste,
+      institution: {
+        ...canBaste.institution,
+        city: 'Oviedo',
+        cityId: 'oviedo',
+      },
+    };
+    await runIngestion(
+      db,
+      { fetchRecords: async () => [active[0]!] },
+      newSource,
+    );
+    const asturias = await loadDiscoveryPage(
+      db,
+      new URLSearchParams('region=asturias&city=oviedo'),
+    );
+    expect(asturias.courses).toHaveLength(1);
+    expect(asturias.centres.map((row) => row.id)).toEqual([
+      canBaste.institution.id,
+    ]);
+    expect(asturias.categories).toEqual(['IDIOMES']);
+    const before = sqlite
+      .prepare('SELECT * FROM institutions WHERE id=?')
+      .get(canBaste.institution.id);
+    await expect(
+      registerSource(db, {
+        ...newSource,
+        institution: { ...newSource.institution, country: 'FR' },
+      }),
+    ).rejects.toThrow('FOREIGN KEY');
+    expect(
+      sqlite
+        .prepare('SELECT * FROM institutions WHERE id=?')
+        .get(canBaste.institution.id),
+    ).toEqual(before);
+  });
+  it('backfills only explicitly reviewed institution IDs without guessing from addresses', () => {
+    const legacy = new DatabaseSync(':memory:');
+    try {
+      for (const name of readdirSync(migrationDirectory)
+        .filter((name) => name.endsWith('.sql') && !name.startsWith('0005'))
+        .sort())
+        legacy.exec(readFileSync(new URL(name, migrationDirectory), 'utf8'));
+      const insert = legacy.prepare(
+        'INSERT INTO institutions (id,name,official_url,city,country,address,timezone) VALUES (?,?,?,?,?,?,?)',
+      );
+      for (const id of ['cc-sant-andreu', 'unknown-centre'])
+        insert.run(
+          id,
+          id,
+          'https://example.org',
+          'Barcelona',
+          'ES',
+          'Barcelona',
+          'Europe/Madrid',
+        );
+      legacy.exec(
+        readFileSync(
+          new URL('0005_geographic_locations.sql', migrationDirectory),
+          'utf8',
+        ),
+      );
+      expect(
+        legacy
+          .prepare('SELECT institution_id,city_id FROM institution_locations')
+          .all(),
+      ).toEqual([{ institution_id: 'cc-sant-andreu', city_id: 'barcelona' }]);
+    } finally {
+      legacy.close();
+    }
   });
   it('registers verified profiles independently of courses and preserves reviewed descriptions', async () => {
     await registerSource(db, santAndreu);

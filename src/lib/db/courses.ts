@@ -1,6 +1,10 @@
+import {
+  geographicCondition,
+  type GeographicFilters,
+} from '../locations/geography';
 import { canonicalCategory, sourceCategories } from '../courses/categories';
 
-export interface DiscoveryFilters {
+export interface DiscoveryFilters extends GeographicFilters {
   q: string;
   page: number;
   maxPriceCents: number | null;
@@ -65,6 +69,11 @@ export async function listCourses(
 ): Promise<{ courses: CourseListing[]; hasNext: boolean }> {
   const conditions: string[] = [];
   const values: (string | number)[] = [];
+  const geographic = geographicCondition(filters);
+  if (geographic.sql) {
+    conditions.push(geographic.sql);
+    values.push(...geographic.values);
+  }
   if (filters.category) {
     const categories = sourceCategories(filters.category);
     conditions.push(`c.category IN (${categories.map(() => '?').join(', ')})`);
@@ -106,16 +115,18 @@ export async function listCategories(
   db: D1Database,
   today = new Date().toLocaleDateString('sv-SE', { timeZone: 'Europe/Madrid' }),
   centre = '',
+  geography: GeographicFilters = {},
 ): Promise<string[]> {
+  const geographic = geographicCondition(geography, 'c.institution_id');
   const result = await db
     .prepare(
       `SELECT DISTINCT c.category FROM courses c
-    WHERE c.category IS NOT NULL AND c.category <> '' ${centre ? 'AND c.institution_id = ?' : ''} AND EXISTS (
+    WHERE c.category IS NOT NULL AND c.category <> '' ${centre ? 'AND c.institution_id = ?' : ''} ${geographic.sql ? `AND ${geographic.sql}` : ''} AND EXISTS (
       SELECT 1 FROM course_editions e WHERE e.course_id=c.id
       AND (e.end_date IS NULL OR e.end_date >= ?)
     ) ORDER BY c.category LIMIT 100`,
     )
-    .bind(...(centre ? [centre] : []), today)
+    .bind(...(centre ? [centre] : []), ...geographic.values, today)
     .all<{ category: string }>();
   return [
     ...new Set(result.results.map((row) => canonicalCategory(row.category))),
@@ -129,15 +140,17 @@ export interface CentreListing {
 export async function listCentres(
   db: D1Database,
   today = new Date().toLocaleDateString('sv-SE', { timeZone: 'Europe/Madrid' }),
+  geography: GeographicFilters = {},
 ): Promise<CentreListing[]> {
+  const geographic = geographicCondition(geography);
   const result = await db
     .prepare(
-      `SELECT i.id, i.name FROM institutions i WHERE EXISTS (
+      `SELECT i.id, i.name FROM institutions i WHERE ${geographic.sql ? `${geographic.sql} AND` : ''} EXISTS (
     SELECT 1 FROM courses c JOIN course_editions e ON e.course_id=c.id WHERE c.institution_id=i.id
     AND (e.end_date IS NULL OR e.end_date >= ?)
   ) ORDER BY i.name LIMIT 100`,
     )
-    .bind(today)
+    .bind(...geographic.values, today)
     .all<CentreListing>();
   return result.results;
 }

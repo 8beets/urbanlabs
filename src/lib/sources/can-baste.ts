@@ -12,6 +12,7 @@ export const canBaste: SourceConfig = {
     name: 'Centre Cívic Can Basté',
     url: 'https://www.canbaste.com/',
     city: 'Barcelona',
+    cityId: 'barcelona',
     country: 'ES',
     address: 'Pg. de Fabra i Puig, 274, 08031 Barcelona',
     timezone: 'Europe/Madrid',

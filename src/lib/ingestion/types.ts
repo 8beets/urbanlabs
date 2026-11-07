@@ -9,6 +9,7 @@ export interface SourceConfig {
     name: string;
     url: string;
     city: string;
+    cityId: string;
     country: string;
     address: string;
     timezone: string;

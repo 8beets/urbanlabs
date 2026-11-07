@@ -10,6 +10,7 @@ export const golferichs: SourceConfig = {
     name: 'Centre Cívic Casa Golferichs',
     url: 'https://www.golferichs.org/',
     city: 'Barcelona',
+    cityId: 'barcelona',
     country: 'ES',
     address: 'Gran Via de les Corts Catalanes, 491, 08015 Barcelona',
     timezone: 'Europe/Madrid',

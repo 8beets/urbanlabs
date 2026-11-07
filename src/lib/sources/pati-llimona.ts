@@ -12,6 +12,7 @@ export const patiLlimona: SourceConfig = {
     name: 'Centre Cívic Pati Llimona',
     url: 'https://patillimona.net/',
     city: 'Barcelona',
+    cityId: 'barcelona',
     country: 'ES',
     address: 'C/ del Regomir, 3, 08002 Barcelona',
     timezone: 'Europe/Madrid',

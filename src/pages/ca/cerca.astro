@@ -3,6 +3,11 @@ import { env } from 'cloudflare:workers';
 import Discovery from '../../components/Discovery.astro';
 import { loadDiscoveryPage } from '../../lib/courses/page';
 const data = await loadDiscoveryPage(env.DB, Astro.url.searchParams);
+if (data.canonicalQuery !== undefined)
+  return Astro.redirect(
+    `/ca/cerca${data.canonicalQuery ? '?' + data.canonicalQuery : ''}`,
+    302,
+  );
 Astro.response.status = data.status;
 ---
 

@@ -9,6 +9,7 @@ export const fabCasaDelRellotge: SourceConfig = {
     name: 'FAB Casa del Rellotge',
     url: 'https://fabcasadelrellotge.cat/',
     city: 'Barcelona',
+    cityId: 'barcelona',
     country: 'ES',
     address: 'Pg. de la Zona Franca, 116, Barcelona',
     timezone: 'Europe/Madrid',

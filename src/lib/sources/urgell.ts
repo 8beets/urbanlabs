@@ -10,6 +10,7 @@ export const urgell: SourceConfig = {
     name: 'Centre Cívic Urgell',
     url: 'https://www.ccurgell.cat/',
     city: 'Barcelona',
+    cityId: 'barcelona',
     country: 'ES',
     address: 'C/ del Comte d’Urgell, 145, 08036 Barcelona',
     timezone: 'Europe/Madrid',

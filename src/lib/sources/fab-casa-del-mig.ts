@@ -11,6 +11,7 @@ export const fabCasaDelMig: SourceConfig = {
     name: 'FAB Casa del Mig',
     url: 'https://www.fabcasadelmig.cat/',
     city: 'Barcelona',
+    cityId: 'barcelona',
     country: 'ES',
     address: 'C/ de Muntadas, 1–5, 08014 Barcelona',
     timezone: 'Europe/Madrid',

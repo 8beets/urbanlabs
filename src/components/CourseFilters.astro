@@ -3,17 +3,30 @@ import { courseSearchPath } from '../i18n/paths';
 import { messages, categoryLabel, type Locale } from '../i18n/ui';
 import type { DiscoveryPageData } from '../lib/courses/page';
 import Icon from './Icon.astro';
+import LocationFilters from './LocationFilters.astro';
 
 interface Props {
   locale: Locale;
-  data: Pick<DiscoveryPageData, 'filters' | 'centres' | 'categories' | 'error'>;
+  data: Pick<
+    DiscoveryPageData,
+    'filters' | 'centres' | 'categories' | 'error' | 'geography'
+  >;
 }
 const { locale, data } = Astro.props;
 const { filters, centres, categories, error } = data;
 const t = messages[locale];
 const base = courseSearchPath(locale);
 // New filter controls belong in this same GET form. Omit page on submit to reset pagination.
-const formFields = new Set(['q', 'centre', 'category', 'maxPrice', 'page']);
+const formFields = new Set([
+  'q',
+  'centre',
+  'category',
+  'maxPrice',
+  'page',
+  'country',
+  'region',
+  'city',
+]);
 const preservedParams = [...Astro.url.searchParams].filter(
   ([key]) => !formFields.has(key),
 );
@@ -44,6 +57,7 @@ const preservedParams = [...Astro.url.searchParams].filter(
       </div>
       <fieldset class="filter-group">
         <legend>{t.refine}</legend>
+        <LocationFilters locale={locale} data={data} />
         <div>
           <label for="centre">{t.centre}</label>
           <select id="centre" name="centre">

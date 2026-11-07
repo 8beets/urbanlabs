@@ -356,7 +356,7 @@ test('applied filters can be removed individually or cleared, preserving other U
     page
       .getByRole('group', { name: 'Filtros aplicados', exact: true })
       .getByRole('link'),
-  ).toHaveCount(4);
+  ).toHaveCount(6);
   await page
     .getByRole('link', { name: /^Quitar filtro: Precio máximo/ })
     .click();
@@ -472,5 +472,63 @@ test.describe('progressive filter panel', () => {
     await expect(page.locator('#filter-panel')).toHaveAttribute('open', '');
     await expect(page.getByRole('alert')).toBeVisible();
     await expect(page.locator('#q')).toBeVisible();
+  });
+});
+
+test('location controls default to Spain and preserve geography across languages', async ({
+  page,
+}) => {
+  await page.goto('/es/buscar');
+  await expect(page.locator('select[name="country"]')).toHaveCount(0);
+  await expect(page.locator('input[name="country"]')).toHaveValue('ES');
+  await page
+    .getByLabel('Comunidad autónoma', { exact: true })
+    .selectOption('catalunya');
+  await page.getByLabel('Ciudad', { exact: true }).selectOption('barcelona');
+  await submit(page);
+  expect(query(page).get('country')).toBe('ES');
+  await expect(page.locator('article.course')).toHaveCount(12);
+  await page.getByRole('link', { name: /^Siguiente/ }).click();
+  expect(query(page).get('region')).toBe('catalunya');
+  expect(query(page).get('city')).toBe('barcelona');
+  expect(query(page).get('page')).toBe('2');
+  await page.getByRole('link', { name: 'Català', exact: true }).click();
+  await expect(
+    page.getByLabel('Comunitat autònoma', { exact: true }),
+  ).toHaveValue('catalunya');
+  await expect(page.getByLabel('Ciutat', { exact: true })).toHaveValue(
+    'barcelona',
+  );
+  await page.getByLabel('Ciutat', { exact: true }).selectOption('tarragona');
+  await submit(page);
+  await expect(page.locator('article.course')).toHaveCount(0);
+  await expect(page.locator('.empty')).toContainText(
+    'Encara no hi ha cursos publicats en aquesta ubicació.',
+  );
+  await expect(page.locator('.empty a')).toHaveCount(0);
+  await expect(page.locator('#centre option')).toHaveCount(1);
+  await expect(page.locator('#category option')).toHaveCount(1);
+});
+
+test.describe('dependent city controls', () => {
+  test.use({ javaScriptEnabled: true });
+  test('changing region clears the city and waits for explicit submission', async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 1280, height: 900 });
+    await page.goto('/es/buscar?region=catalunya&city=barcelona');
+    await page.locator('#region').selectOption('');
+    await expect(page.locator('#city')).toHaveValue('');
+    expect(query(page).get('city')).toBe('barcelona');
+    await page.locator('#region').selectOption('catalunya');
+    await expect(page.locator('#city option')).toHaveText([
+      'Todas las ciudades',
+      'Barcelona',
+      'Tarragona',
+    ]);
+    await page.locator('#city').selectOption('tarragona');
+    await submit(page);
+    expect(query(page).get('city')).toBe('tarragona');
+    await expect(page.locator('article.course')).toHaveCount(0);
   });
 });

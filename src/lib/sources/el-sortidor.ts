@@ -12,6 +12,7 @@ export const elSortidor: SourceConfig = {
     name: 'Centre Cívic El Sortidor',
     url: 'https://ajuntament.barcelona.cat/ccivics/elsortidor/',
     city: 'Barcelona',
+    cityId: 'barcelona',
     country: 'ES',
     address: 'Plaça del Sortidor, 12, 08004 Barcelona',
     timezone: 'Europe/Madrid',

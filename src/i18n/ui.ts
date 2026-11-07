@@ -65,6 +65,11 @@ export const messages = {
     submit: 'Buscar cursos',
     filters: 'Filtros de búsqueda',
     refine: 'Afinar la búsqueda',
+    region: 'Comunidad autónoma',
+    city: 'Ciudad',
+    allRegions: 'Todas las comunidades',
+    allCities: 'Todas las ciudades',
+    emptyLocation: 'Todavía no hay cursos publicados en esta ubicación.',
     centre: 'Centro',
     category: 'Categoría',
     currentSelection: 'Selección actual',
@@ -98,7 +103,7 @@ export const messages = {
     next: 'Siguiente',
     pagination: 'Páginas de resultados',
     invalid:
-      'Revisa los filtros: comprueba la búsqueda, el precio, la categoría y el centro.',
+      'Revisa los filtros: comprueba la búsqueda, el precio, la categoría, el centro y la ubicación.',
     unavailable:
       'El directorio no está disponible temporalmente. Vuelve a intentarlo más tarde.',
     language: 'Idioma',
@@ -170,6 +175,11 @@ export const messages = {
     submit: 'Cerca cursos',
     filters: 'Filtres de cerca',
     refine: 'Afina la cerca',
+    region: 'Comunitat autònoma',
+    city: 'Ciutat',
+    allRegions: 'Totes les comunitats',
+    allCities: 'Totes les ciutats',
+    emptyLocation: 'Encara no hi ha cursos publicats en aquesta ubicació.',
     centre: 'Centre',
     category: 'Categoria',
     currentSelection: 'Selecció actual',
@@ -203,7 +213,7 @@ export const messages = {
     next: 'Següent',
     pagination: 'Pàgines de resultats',
     invalid:
-      'Revisa els filtres: comprova la cerca, el preu, la categoria i el centre.',
+      'Revisa els filtres: comprova la cerca, el preu, la categoria, el centre i la ubicació.',
     unavailable:
       'El directori no està disponible temporalment. Torna-ho a provar més tard.',
     language: 'Idioma',

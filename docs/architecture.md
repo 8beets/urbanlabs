@@ -30,7 +30,7 @@ Search, centre, category, and price controls share one GET form in `CourseFilter
 
 ## Responsive filtering (issue #3)
 
-Centre/category selects retain combined filter values, including a visible current-selection fallback when a category is unavailable at the selected centre. Submitting the GET form omits `page`, resetting pagination. Removing one applied filter also resets the page and retains other parameters. Language links and result pagination retain the query string. Extra query parameters survive form submissions so issue #2 can place region/city controls in this same component without introducing a second form. Geographic filtering itself remains pending issue #2; unknown parameters do not currently filter the database.
+Centre/category selects retain combined filter values, including a visible current-selection fallback when a category is unavailable at the selected centre. Submitting the GET form omits `page`, resetting pagination. Removing one applied filter also resets the page and retains other parameters. Language links and result pagination retain the query string. Extra query parameters survive form submissions. Region and city controls share this same form; location filtering composes with all existing filters. Spain is the default country, carried in a hidden input rather than a visible selector.
 
 Future location/date/time fields belong in the existing sidebar form and must be added to its `formFields` set, validated by the service, and reflected in the applied-filter summary. Do not add placeholder controls for unimplemented filters. Mobile validation errors leave the panel open, labels use native associations, and keyboard disclosure/focus works with and without JavaScript. Browser coverage exercises both layouts, combined filters, centre-specific options, legacy category URLs, incompatible selections, pagination, clear/remove actions, locale switching, and responsive disclosure.
 
@@ -104,3 +104,27 @@ HTTP 308 to the corresponding search page, preserving the query string. Unrelate
 homepage parameters, such as campaign links, do not cause a redirect. Both homepage
 and search pages retain shared course cards, verified source links, title casing
 and language switching. The current visual design and centre routes are preserved.
+
+## Geographic discovery
+
+Countries, regions, cities, and institution assignments are normalized reference tables.
+Sources explicitly configure a city ID and country; free-form city/address text is
+retained for display and never used to guess an assignment. Region and country are
+resolved through foreign keys. Geography filters use parameterized SQL, and centre
+and category options respect the selected location. An incompatible selected centre
+or category stays visible and removable and can produce zero results.
+
+The reference catalog seeds Spain, Catalunya, Barcelona, and Tarragona. Tarragona
+has no imported courses; its empty state does not link to unrelated Barcelona
+programmes. The region label is Cataluña in Spanish and Catalunya in Catalan.
+Selections survive pagination and language switching. City options follow the region;
+a small progressive enhancement clears the city after a region change without
+submitting automatically. Without JavaScript, known stale child selections are
+removed by the server with a 302 redirect to the reconciled URL, resetting pagination
+and preserving other filters. Unknown or malformed IDs return HTTP 400.
+
+The reference catalog is bounded to 1,000 rows per table, independently of course
+volume; exceeding that bound produces an explicit unavailable response, never silent
+truncation. Before exceeding it, replace the catalog lookup with scoped queries.
+Adding Asturias requires reference rows in a new migration and explicit city IDs in
+source configuration; the adapter, SQL filters, and UI do not need a rewrite.

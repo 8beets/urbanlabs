@@ -28,6 +28,12 @@ export async function registerSource(
       ),
     db
       .prepare(
+        `INSERT INTO institution_locations(institution_id,country_code,city_id) VALUES (?,?,?)
+      ON CONFLICT(institution_id) DO UPDATE SET country_code=excluded.country_code,city_id=excluded.city_id`,
+      )
+      .bind(institution.id, institution.country, institution.cityId),
+    db
+      .prepare(
         `INSERT INTO sources (id, institution_id, name, listing_url) VALUES (?, ?, ?, ?)
       ON CONFLICT(id) DO UPDATE SET name=excluded.name, listing_url=excluded.listing_url`,
       )

@@ -1,3 +1,9 @@
+import {
+  loadGeography,
+  reconcileGeography,
+  emptyGeography,
+  type Geography,
+} from '../locations/geography';
 import { listLatestCourses } from '../db/courses';
 import { discoverCourses, parseFilters } from './discovery';
 import type {
@@ -7,6 +13,8 @@ import type {
 } from '../db/courses';
 
 export interface DiscoveryPageData {
+  geography: Geography;
+  canonicalQuery?: string;
   courses: CourseListing[];
   categories: string[];
   centres: CentreListing[];
@@ -25,6 +33,7 @@ export async function loadDiscoveryPage(
     filters = parseFilters(params);
   } catch {
     return {
+      geography: emptyGeography,
       courses: [],
       categories: [],
       centres: [],
@@ -41,10 +50,43 @@ export async function loadDiscoveryPage(
     };
   }
   try {
-    return { ...(await discoverCourses(db, params)), error: null, status: 200 };
+    const geography = await loadGeography(db);
+    let normalized;
+    try {
+      normalized = reconcileGeography(filters, geography);
+    } catch {
+      return {
+        courses: [],
+        categories: [],
+        centres: [],
+        filters,
+        geography,
+        error: 'invalid',
+        status: 400,
+        hasNext: false,
+      };
+    }
+    const canonical = new URLSearchParams(params);
+    let changed = false;
+    for (const key of ['country', 'region', 'city'] as const) {
+      if ((filters[key] ?? '') !== normalized[key]) {
+        changed = true;
+        if (normalized[key]) canonical.set(key, normalized[key]);
+        else canonical.delete(key);
+      }
+    }
+    if (changed) canonical.delete('page');
+    const data = await discoverCourses(db, canonical, geography);
+    return {
+      ...data,
+      error: null,
+      status: 200,
+      ...(changed ? { canonicalQuery: canonical.toString() } : {}),
+    };
   } catch {
     console.error(JSON.stringify({ event: 'discovery_unavailable' }));
     return {
+      geography: emptyGeography,
       courses: [],
       categories: [],
       centres: [],

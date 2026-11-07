@@ -10,6 +10,7 @@ export const albareda: SourceConfig = {
     name: 'Centre Cultural Albareda',
     url: 'https://ajuntament.barcelona.cat/ccivics/albareda/',
     city: 'Barcelona',
+    cityId: 'barcelona',
     country: 'ES',
     address: 'C/ d’Albareda, 22–24, 08004 Barcelona',
     timezone: 'Europe/Madrid',

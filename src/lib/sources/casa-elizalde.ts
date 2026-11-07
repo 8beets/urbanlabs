@@ -12,6 +12,7 @@ export const casaElizalde: SourceConfig = {
     name: 'Centre Cultural La Casa Elizalde',
     url: 'https://www.casaelizalde.com/',
     city: 'Barcelona',
+    cityId: 'barcelona',
     country: 'ES',
     address: 'C/ de València, 302, 08009 Barcelona',
     timezone: 'Europe/Madrid',

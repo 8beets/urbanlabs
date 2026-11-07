@@ -216,6 +216,9 @@ describe('normalization', () => {
     expect(
       parseFilters(new URLSearchParams('q=anglès&maxPrice=56.48&page=2')),
     ).toEqual({
+      country: 'ES',
+      region: '',
+      city: '',
       q: 'anglès',
       maxPriceCents: 5648,
       page: 2,

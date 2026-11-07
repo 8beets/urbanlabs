@@ -34,3 +34,16 @@ profiles automatically.
 It does not change source timestamps, records or course identities. Latest additions
 are bounded to 20 non-expired editions; ordinary searches retain their own filters
 and pagination. Apply this additive migration before deploying the homepage split.
+
+`0005_geographic_locations.sql` introduces countries, regions, cities and explicit
+institution locations, with foreign keys and lookup indexes. It seeds ES → Catalunya
+→ Barcelona/Tarragona and backfills only the 11 reviewed Barcelona institution IDs.
+Unrecognized institutions remain unassigned rather than being inferred from address
+text. Apply this additive migration before deploying geographic discovery; no course,
+reviewed correction, or source provenance is changed. Future source registration
+atomically upserts its explicit country/city assignment with the institution and
+source; an unknown city or mismatched country fails the whole registration.
+
+To add another region, create a new numbered migration inserting its region and city
+rows, then configure each verified source's `institution.cityId` and country. The
+existing `institutions.city` text remains a display label, not a filter identity.

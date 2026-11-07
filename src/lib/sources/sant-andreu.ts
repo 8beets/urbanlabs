@@ -11,6 +11,7 @@ export const santAndreu: SourceConfig = {
     name: 'Centre Cívic Sant Andreu',
     url: 'https://ajuntament.barcelona.cat/ccivics/santandreu',
     city: 'Barcelona',
+    cityId: 'barcelona',
     country: 'ES',
     address: 'C/ Gran de Sant Andreu, 111, 08030 Barcelona',
     timezone: 'Europe/Madrid',

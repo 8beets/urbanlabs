@@ -90,6 +90,27 @@ it('applies the migration and imports idempotently in the actual local D1 runtim
       '2026-11-06',
     );
     expect(grouped.courses).toHaveLength(4);
+    const geographic = {
+      ...{ q: '', page: 1, maxPriceCents: null, category: '', centre: '' },
+      country: 'ES',
+      region: 'catalunya',
+      city: 'barcelona',
+    };
+    expect(
+      (await listCourses(db, geographic, '2026-11-06')).courses,
+    ).toHaveLength(4);
+    expect(
+      (
+        await listCourses(
+          db,
+          { ...geographic, city: 'tarragona' },
+          '2026-11-06',
+        )
+      ).courses,
+    ).toHaveLength(0);
+    expect(
+      await listCategories(db, '2026-11-06', '', { city: 'tarragona' }),
+    ).toEqual([]);
     expect(await listLatestCourses(db, '2026-11-06')).toHaveLength(4);
     expect(
       grouped.courses.every((course) => course.category === 'FOTOGRAFIA'),

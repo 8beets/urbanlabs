@@ -1,4 +1,5 @@
 ---
+import { regionLabel } from '../i18n/geography';
 import { courseSearchPath } from '../i18n/paths';
 import { messages, categoryLabel, type Locale } from '../i18n/ui';
 import type { DiscoveryPageData } from '../lib/courses/page';
@@ -15,11 +16,33 @@ interface Props {
 const { locale, data } = Astro.props;
 const t = messages[locale];
 const { courses, centres, filters, hasNext, error } = data;
-const officialSources = sources.filter(
-  (source) => !filters.centre || source.institution.id === filters.centre,
-);
+const officialSources = sources.filter((source) => {
+  const city = data.geography.cities.find(
+    (row) => row.id === source.institution.cityId,
+  );
+  return (
+    (!filters.centre || source.institution.id === filters.centre) &&
+    (!filters.country || source.institution.country === filters.country) &&
+    (!filters.region || city?.region_id === filters.region) &&
+    (!filters.city || city?.id === filters.city)
+  );
+});
 const base = courseSearchPath(locale);
 const appliedFilters: { key: string; label: string }[] = [];
+if (filters.region) {
+  const region = data.geography.regions.find(
+    (row) => row.id === filters.region,
+  );
+  appliedFilters.push({
+    key: 'region',
+    label: `${t.region}: ${region ? regionLabel(region, locale) : filters.region}`,
+  });
+}
+if (filters.city)
+  appliedFilters.push({
+    key: 'city',
+    label: `${t.city}: ${data.geography.cities.find((row) => row.id === filters.city)?.name ?? filters.city}`,
+  });
 if (filters.q)
   appliedFilters.push({ key: 'q', label: `${t.search}: ${filters.q}` });
 if (filters.centre)
@@ -107,7 +130,7 @@ function filterUrl(key: string, value: string) {
         {!error && courses.length === 0 && (
           <div class="empty">
             <h3>{t.empty}</h3>
-            <p>{t.emptyHelp}</p>
+            <p>{officialSources.length ? t.emptyHelp : t.emptyLocation}</p>
             {officialSources.map((source) => (
               <p>
                 <a href={source.listingUrl}>
