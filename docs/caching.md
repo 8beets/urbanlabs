@@ -8,7 +8,7 @@ Only successful HTML responses on `/es/`, `/ca/`, their localized search routes 
 
 Cache writes run through `waitUntil`. The cache is local to each Cloudflare data centre; it is not a global application cache or a new paid service. Development skips Cache API reads and writes so local changes appear immediately. Workers Cache API operation on deployed hosts depends on Cloudflare's supported domain configuration; a custom domain is the intended deployment target.
 
-Data imports and centre updates do not purge this cache. The production publish workflow purges Cloudflare's cache for `urbanlabs.fyi` after deployment, including Worker Cache API entries. Other data changes can take up to five minutes to appear on an ordinary request. No stale response is served after that TTL, including during a database outage. A future account, booking, or personalized page must remain outside the public route allowlist.
+Data imports, centre updates, and deployments do not purge this cache. Changes can take up to five minutes to appear on an ordinary request. No stale response is served after that TTL, including during a database outage. A future account, booking, or personalized page must remain outside the public route allowlist.
 
 ## Static assets
 

@@ -136,16 +136,11 @@ Pull requests and other branches run checks only.
 Configure these repository Actions secrets in GitHub:
 
 - `CLOUDFLARE_API_TOKEN`: a Cloudflare deployment token scoped to the target account,
-  with D1 Edit permission for production migrations and Cache Purge permission on
-  the `urbanlabs.fyi` zone.
+  with D1 Edit permission for production migrations.
 - `CLOUDFLARE_ACCOUNT_ID`: the account ID used by the production configuration.
-- `CLOUDFLARE_ZONE_ID`: the zone ID for `urbanlabs.fyi`.
 
-After deploying, the workflow purges Cloudflare's cache for the `urbanlabs.fyi`
-hostname, including Worker Cache API entries, so published content is fresh on the
-next request. Secrets are passed only to the migration, deployment, and cache purge
-steps. Production jobs are serialized, and a job skips deployment if its commit is
-no longer the head of `main`.
+Secrets are passed only to the migration and deployment steps. Production jobs are
+serialized, and a job skips deployment if its commit is no longer the head of `main`.
 An active deployment is allowed to finish before the next job starts. Both migration
 and deployment steps use the current-commit guard. The workflow does not import
 course data or synchronize centre metadata; those remain separate operations
