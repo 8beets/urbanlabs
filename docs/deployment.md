@@ -125,21 +125,27 @@ pushes and pull requests. Playwright installation and browser tests are temporar
 skipped in GitHub Actions; run `npm run test:e2e` locally or the complete Docker
 check suite for browser coverage. After the CI checks pass, a push to `main`
 deploys the exact tested commit.
-The deployment job rebuilds with `npm run build:production` and deploys the generated
-`dist/server/wrangler.json`, selecting the existing production D1 binding at build time.
+The deployment job rebuilds with `npm run build:production`, verifies the commit is
+still the head of `main`, and runs `npm run db:migrate:production` before deploying
+the generated `dist/server/wrangler.json`. The migration command targets the remote
+production D1 binding in `wrangler.jsonc`; the build selects that same binding.
+A failed migration stops the job before the Worker deployment. Migrations must be
+compatible with the currently deployed Worker because they run before its replacement.
 Pull requests and other branches run checks only.
 
 Configure these repository Actions secrets in GitHub:
 
-- `CLOUDFLARE_API_TOKEN`: a Cloudflare deployment token scoped to the target account.
+- `CLOUDFLARE_API_TOKEN`: a Cloudflare deployment token scoped to the target account,
+  with D1 Edit permission for production migrations.
 - `CLOUDFLARE_ACCOUNT_ID`: the account ID used by the production configuration.
 
-Secrets are passed only to the deployment step. Production jobs are serialized,
-and a job skips deployment if its commit is no longer the head of `main`. An active
-deployment is allowed to finish before the next job starts. The workflow does not
-apply remote migrations, import course data, or synchronize centre metadata;
-those remain separate operations requiring explicit approval. Worker and database
-names continue to come from `wrangler.jsonc`.
+Secrets are passed only to the migration and deployment steps. Production jobs are
+serialized, and a job skips deployment if its commit is no longer the head of `main`.
+An active deployment is allowed to finish before the next job starts. Both migration
+and deployment steps use the current-commit guard. The workflow does not import
+course data or synchronize centre metadata; those remain separate operations
+requiring explicit approval. Worker and database names continue to come from
+`wrangler.jsonc`.
 
 See [Cloudflare GitHub Actions authentication](https://developers.cloudflare.com/workers/ci-cd/external-cicd/github-actions/)
 and [GitHub concurrency](https://docs.github.com/en/actions/how-tos/write-workflows/choose-when-workflows-run/control-workflow-concurrency).
