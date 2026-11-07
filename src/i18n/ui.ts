@@ -2,6 +2,9 @@ import { canonicalCategory } from '../lib/courses/categories';
 
 export const messages = {
   es: {
+    pageNotFound: 'Página no encontrada',
+    pageNotFoundIntro:
+      'La página que buscas no existe o ha cambiado de dirección. Puedes seguir descubriendo oportunidades de aprendizaje desde estos enlaces.',
     homeNav: 'Inicio',
     searchTitle: 'Busca cursos y talleres',
     searchIntro: 'Encuentra cursos por centro, categoría y precio.',
@@ -115,6 +118,9 @@ export const messages = {
       'Un proyecto gratuito y de código abierto para descubrir oportunidades de aprendizaje en la comunidad.',
   },
   ca: {
+    pageNotFound: 'Pàgina no trobada',
+    pageNotFoundIntro:
+      'La pàgina que cerques no existeix o ha canviat d’adreça. Pots continuar descobrint oportunitats d’aprenentatge des d’aquests enllaços.',
     homeNav: 'Inici',
     searchTitle: 'Cerca cursos i tallers',
     searchIntro: 'Troba cursos per centre, categoria i preu.',

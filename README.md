@@ -14,6 +14,7 @@ UrbanLabs helps people discover courses and visit the organizer's official listi
 - Spanish (`/es/`) and Catalan (`/ca/`) homepages show the latest 20 added, unexpired course editions. Dedicated search pages (`/es/buscar`, `/ca/cerca`) offer filters and pagination.
 - Browse by civic centre and normalized course category; category options reflect the selected centre, and equivalent provider categories share one filter. Combine these with region, city, search, and price using shareable URLs. Spain is the default country (the country selector is hidden); Cataluña/Catalunya, Barcelona, and Tarragona are available. Tarragona has no imported courses yet. Community, city, and centre changes update dependent filter options without reloading; use Search to apply the selection to results.
 - Localized centre directories and individual centre pages with verified contact details, shared Leaflet/OpenStreetMap maps, and upcoming courses.
+- Localized 404 page with links to the homepage, course search, and centre directory; unknown URLs default to Spanish unless prefixed with `/ca/`.
 - Deterministic unit/SQLite contract tests, a separate D1 runtime suite, Playwright tests, and CI.
 
 Sources verified on 2026-11-06:

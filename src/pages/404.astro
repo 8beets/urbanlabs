@@ -1,0 +1,65 @@
+---
+import { courseSearchPath } from '../i18n/paths';
+import { messages } from '../i18n/ui';
+import SiteLayout from '../layouts/SiteLayout.astro';
+
+const locale = Astro.url.pathname.split('/')[1] === 'ca' ? 'ca' : 'es';
+const t = messages[locale];
+Astro.response.status = 404;
+---
+
+<SiteLayout
+  locale={locale}
+  title={`404 · ${t.pageNotFound} · UrbanLabs`}
+  description={t.pageNotFoundIntro}
+  section="none"
+  languagePaths={{ es: '/es/404', ca: '/ca/404' }}
+>
+  <section class="not-found" aria-labelledby="not-found-title">
+    <p class="error-code">404</p>
+    <h1 id="not-found-title">{t.pageNotFound}</h1>
+    <p class="intro">{t.pageNotFoundIntro}</p>
+    <ul>
+      <li>
+        <a href={`/${locale}/`}>{t.homeNav}</a>
+      </li>
+      <li>
+        <a href={courseSearchPath(locale)}>{t.searchTitle}</a>
+      </li>
+      <li>
+        <a href={locale === 'es' ? '/es/centros' : '/ca/centres'}>
+          {t.centresNav}
+        </a>
+      </li>
+    </ul>
+  </section>
+</SiteLayout>
+
+<style>
+  .not-found {
+    margin-block: 28px 48px;
+    padding: clamp(24px, 4vw, 64px);
+    background: var(--sky);
+    border-radius: 24px;
+  }
+  .error-code {
+    margin: 0;
+    font-weight: 700;
+  }
+  h1 {
+    max-width: 20ch;
+  }
+  ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px 24px;
+    padding: 0;
+    list-style: none;
+  }
+  a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    font-weight: 650;
+  }
+</style>
