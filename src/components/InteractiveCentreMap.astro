@@ -1,6 +1,7 @@
 ---
 import { m } from '../paraglide/messages.js';
 import { type Locale } from '../i18n/ui';
+import { centreDirectoryPath } from '../i18n/paths';
 import type { CentreMapLabels } from '../lib/institutions/centre-map';
 import type { CentreMapPoint } from '../lib/db/institutions';
 interface Props {
@@ -24,7 +25,7 @@ const labels: CentreMapLabels = {
   class="interactive-centre-map"
   data-centre-map
   data-centres={JSON.stringify(centres)}
-  data-locale={locale}
+  data-centre-base={centreDirectoryPath(locale)}
   data-labels={JSON.stringify(labels)}
 >
   <div

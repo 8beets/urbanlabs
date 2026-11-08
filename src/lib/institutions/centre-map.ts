@@ -14,9 +14,8 @@ async function mountMap(root: HTMLElement) {
   const status = root.querySelector<HTMLElement>('[data-map-status]');
   const help = root.querySelector<HTMLElement>('[data-map-help]');
   if (!canvas || !status || !help) return;
-  const locale = root.dataset.locale === 'ca' ? 'ca' : 'es';
   const labels: CentreMapLabels = JSON.parse(root.dataset.labels ?? '{}');
-  const centreBase = locale === 'es' ? '/es/centros' : '/ca/centres';
+  const centreBase = root.dataset.centreBase ?? '';
   status.hidden = false;
   status.textContent = labels.loading;
   let map: LeafletMap | undefined;

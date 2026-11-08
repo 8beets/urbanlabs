@@ -147,5 +147,7 @@
   "weekday_diumenge": "diumenge",
   "weekday_diumenges": "diumenges",
   "weekdayAnd": "i",
-  "mapContributors": "Col·laboradors d’OpenStreetMap"
+  "mapContributors": "Col·laboradors d’OpenStreetMap",
+  "pathSearch": "cerca",
+  "pathCentres": "centres"
 }
