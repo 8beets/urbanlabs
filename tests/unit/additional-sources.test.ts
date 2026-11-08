@@ -1,9 +1,11 @@
+import { getSource } from '../../src/lib/sources';
 import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 import { parseMiramPage } from '../../src/lib/ingestion/adapters/miram';
 import { selectSources } from '../../src/lib/sources';
-import { baroDeViver } from '../../src/lib/sources/baro-de-viver';
 import { categoryLabel } from '../../src/i18n/ui';
+
+const baroDeViver = getSource('miram-baro-de-viver');
 
 const cases = [
   [

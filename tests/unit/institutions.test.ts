@@ -4,23 +4,27 @@ import {
   centreProfileSchema,
   verifiedCentreProfiles,
 } from '../../src/lib/institutions/profiles';
+import { centres } from '../../src/lib/centres/registry';
 import {
   openStreetMapLocation,
   openStreetMapSearch,
 } from '../../src/lib/institutions/maps';
 
 describe('verified centre locations', () => {
-  it('validates all 15 profiles with unique stable slugs and municipal provenance', () => {
+  it('validates every registry profile with unique stable slugs and municipal provenance', () => {
     const profiles = Object.values(verifiedCentreProfiles).map((p) =>
       centreProfileSchema.parse(p),
     );
-    expect(profiles).toHaveLength(15);
-    expect(new Set(profiles.map((p) => p.slug)).size).toBe(15);
-    for (const profile of profiles) {
-      expect(profile.location?.sourceUrl).toMatch(
-        /^https:\/\/guia.barcelona.cat\/ca\/detall\//,
-      );
-      expect(profile.location?.verifiedAt).toMatch(/^2026-11-0[68]$/);
+    expect(profiles).toHaveLength(centres.length);
+    expect(new Set(profiles.map((p) => p.slug)).size).toBe(centres.length);
+    for (const centre of centres) {
+      const location = centre.profile.location;
+      expect(location?.sourceUrl).toMatch(/^https:\/\//);
+      // Barcelona centres use the municipal guide; other cities may cite another official directory.
+      if (centre.cityId === 'barcelona')
+        expect(location?.sourceUrl).toMatch(
+          /^https:\/\/guia.barcelona.cat\/ca\/detall\//,
+        );
     }
     expect(centreProfile('cc-unknown')).toEqual({ slug: 'unknown' });
     expect(centreProfile('fab-casa-del-mig').notice).toBe('temporary_closure');

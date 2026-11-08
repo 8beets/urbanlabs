@@ -7,7 +7,7 @@ Research dates: 2026-11-05–06. Live results can change.
 - Official institution: https://ajuntament.barcelona.cat/ccivics/santandreu
 - Public registration listing: https://santandreu.inscripcionscc.com/MiramModular/buscador/buscador.jsp?g=1&c=22&t=AC
 - Platform: Miram Modular, shared with other civic centres.
-- Institution configuration: `src/lib/sources/sant-andreu.ts`.
+- Institution configuration: the `cc-sant-andreu` record in `data/centres/es/barcelona.json`.
 - Access: public HTML; no authentication, browser automation, or access-control bypass.
 - `https://santandreu.inscripcionscc.com/robots.txt` returned HTTP 404. The adapter rechecks this before every import; any newly present policy blocks ingestion pending review.
 - The official institution website links directly to this registration host. The listing footer confirms the institution address.
@@ -97,7 +97,7 @@ Verified on 2026-11-08:
 - Registration: https://fortpienc.inscripcionscc.com/MiramModular/buscador/buscador.jsp?g=1&c=5&t=AC (linked from the official site; platform: Miram, the same shared adapter as the other centres).
 - Address: Plaça Fort Pienc, 4-5, 08013 Barcelona, confirmed in the registration footer. Phone, email and coordinates come from the municipal guide entry https://guia.barcelona.cat/ca/detall/centre-civic-ateneu-fort-pienc_99043134828.html (`loadmapdetall` configuration; the phone matches the registration footer). `guia.barcelona.cat/robots.txt` sets a 10-second crawl delay and does not disallow the detail page.
 - `fortpienc.inscripcionscc.com/robots.txt` returned 404; the adapter rechecks it on every run. The centre's own website `www.fortpienc.org` has `User-agent: *`, `Disallow: /` and `Crawl-delay: 300`. UrbanLabs does not collect from it. Its home page was fetched once, before that policy had been read, only to find the registration link; nothing else on that host was requested.
-- The adapter, validation and normalization are unchanged; only `src/lib/sources/fort-pienc.ts` was added. The registration host offers three activity types: `AC` (Tallers Culturals, the course catalogue, seven categories), `BI` (itineraries) and `CE` (shows and talks). Only `AC` is configured; the adapter never follows links to other types.
+- The adapter, validation and normalization are unchanged; only the `cc-fort-pienc` registry record was added. The registration host offers three activity types: `AC` (Tallers Culturals, the course catalogue, seven categories), `BI` (itineraries) and `CE` (shows and talks). Only `AC` is configured; the adapter never follows links to other types.
 - A live `source:verify` run on 2026-11-08 validated **62 course editions** without persistence. A one-card excerpt of the language listing is saved in `tests/fixtures/miram-fort-pienc-languages.html`.
 - The same metadata-only collection, unknown availability/language, base-price (concession prices are not represented) and reuse-review limitations described above apply. Production ingestion is a separate, explicitly approved operation and has not been run.
 
@@ -144,14 +144,23 @@ The dataset metadata describes annual aggregate statistics (activities, attendan
 
 ## Adding an institution
 
-Verify its official website, registration-platform ownership, public-access rules, reuse conditions, and field semantics first. Reuse Miram extraction only after testing a small saved fixture against that institution's actual markup. A configuration-only addition is the target, not an unverified compatibility claim.
+A centre is one JSON record in `data/centres/<country>/<city>.json` (lower-case ISO country, seeded city ID; for example `es/barcelona.json`). The registry (`src/lib/centres/registry.ts`) validates every record with Zod when it loads, and the approved sources and reviewed profiles are generated from it. No per-centre code is needed for a platform that already has an adapter.
+
+1. Find the centre's registration link from its official website or the municipal directory. Do not guess hosts.
+2. Run `npm run centre:probe -- <registration URL>`. It checks `robots.txt` (stopping if a policy exists), reads the public navigation and footer, and prints a draft record. Add `--full` for a bounded, rate-limited crawl without persistence that lists category counts and sample titles for review.
+3. Complete every `TODO` by hand from official sources: identity, official URL, address, phone, email, and coordinates with their source URL and verification date. The schema rejects drafts that still contain placeholders, and it never prefills profile values.
+4. Document each exclusion (shows, online-only workshops, services) with a `reason`; exclusions without one fail validation. Registration hosts must be `https` on an approved Miram host (`*.inscripcionscc.com`, `*.miram.cloud`).
+5. For a new city, create the file and import it in `src/lib/centres/registry.ts`; a test fails if a data file is not registered or a record sits in the wrong file.
+6. Add a saved one-card fixture only if the centre's markup differs from existing fixtures, then document verified behaviour in this file.
+
+Reuse Miram extraction only after the probe shows the standard markup. A different platform needs its own adapter and a new member of the `registration` union in `src/lib/centres/schema.ts`.
 
 ## Centre directory locations and contacts
 
 Eleven centre locations and contacts were manually verified on 2026-11-06, and those of Fort Pienc, Barceloneta, Baró de Viver and Can Castelló on 2026-11-08, against
 Barcelona City Council's public municipal directory (`guia.barcelona.cat`). Exact
 source URLs, coordinates and verification dates live in
-`src/lib/institutions/profiles.ts`. Coordinates come from each official detail
+the `profile` of each record in `data/centres/`. Coordinates come from each official detail
 page's `loadmapdetall(latitude, longitude, ...)` map configuration, without geocoding
 or estimating an address. Public detail pages were fetched respecting the guide's
 10-second crawl delay. Profile updates are reviewed explicitly, separately from

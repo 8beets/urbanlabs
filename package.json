@@ -27,6 +27,7 @@
     "db:types": "wrangler types --config wrangler.jsonc --include-runtime false",
     "test:d1": "vitest run --config vitest.d1.config.ts",
     "source:verify": "tsx scripts/verify-source.ts",
+    "centre:probe": "tsx scripts/probe-centre.ts",
     "ingest": "tsx scripts/ingest.ts",
     "ingest:live": "tsx scripts/ingest.ts --live",
     "ingest:production": "tsx scripts/ingest-production.ts",

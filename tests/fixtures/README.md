@@ -73,3 +73,5 @@ It preserves the category heading, selector, schedule, date range and base price
 - https://barodeviver.inscripcionscc.com/MiramModular/buscador/buscador.jsp?g=1&c=14&t=AC&f=01
 
 They keep the category heading, selector, schedule, date range, space and base price, serialized with Cheerio. Descriptions, instructors, concession prices, images and session calendars were removed; the first two keep an empty element with the original `accordion` identifier. The Baró de Viver card is a single-session free childcare service with no session accordion: its identifier comes from the registration form's hidden `activitat` input, and its date has no year, so it is parsed with null dates (and excluded in configuration because it is not a course).
+
+`miram-fort-pienc-root.html` is an excerpt of the public Fort Pienc registration home page, retrieved on 2026-11-08, for the centre probe tests: the page title, the navigation entries (activity types and categories) and the footer name and address block (the footer's phone and email lines are not asserted or reported). Scripts and unrelated markup were removed.

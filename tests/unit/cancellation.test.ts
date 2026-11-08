@@ -1,10 +1,12 @@
+import { getSource } from '../../src/lib/sources';
 import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 import { hasCancellationNotice } from '../../src/lib/ingestion/normalization/cancellation';
 import { parseMiramPage } from '../../src/lib/ingestion/adapters/miram';
 import { parseFilters } from '../../src/lib/courses/discovery';
 import { courseRecordSchema } from '../../src/lib/ingestion/validation/record';
-import { patiLlimona } from '../../src/lib/sources/pati-llimona';
+
+const patiLlimona = getSource('miram-pati-llimona');
 
 describe('explicit cancellation evidence', () => {
   it('extracts the real cancelled titles, keeping identities, zero prices and unknown availability', () => {

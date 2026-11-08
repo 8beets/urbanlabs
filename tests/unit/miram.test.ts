@@ -1,3 +1,4 @@
+import { getSource } from '../../src/lib/sources';
 import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 import {
@@ -9,10 +10,11 @@ import {
   parseEuroPrice,
 } from '../../src/lib/ingestion/normalization/values';
 import { createSourceFetcher } from '../../src/lib/ingestion/http';
-import { santAndreu } from '../../src/lib/sources/sant-andreu';
-import { golferichs } from '../../src/lib/sources/golferichs';
 import { categoryLabel } from '../../src/i18n/ui';
 import { parseFilters } from '../../src/lib/courses/discovery';
+
+const santAndreu = getSource('miram-sant-andreu');
+const golferichs = getSource('miram-golferichs');
 
 const fixture = readFileSync(
   new URL('../fixtures/miram-sant-andreu-languages.html', import.meta.url),
