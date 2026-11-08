@@ -181,6 +181,7 @@ async function setup() {
       ['miram-urgell', 'miram-urgell.html', 'H'],
       ['miram-fab-casa-del-rellotge', 'miram-fab-casa-del-rellotge.html', '01'],
       ['miram-fab-casa-del-mig', 'miram-fab-casa-del-mig.html', '01'],
+      ['miram-fort-pienc', 'miram-fort-pienc-languages.html', 'ID'],
     ];
     for (const [id, file, category] of newFixtures) {
       const source = selectSources(id)[0]!;

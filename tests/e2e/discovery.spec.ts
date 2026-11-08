@@ -568,7 +568,7 @@ test.describe('dynamic filter options', () => {
       await expect(page.locator('#centre')).toHaveValue('');
       await expect(page.locator('#category')).toHaveValue('');
       await page.locator('#city').selectOption('barcelona');
-      await expect(page.locator('#centre option')).toHaveCount(12);
+      await expect(page.locator('#centre option')).toHaveCount(13);
       await page.locator('#centre').selectOption('cc-pati-llimona');
       await expect(page.locator('#category option')).toHaveCount(4);
       await page.locator('#region').selectOption('catalunya');
@@ -593,9 +593,9 @@ test.describe('dynamic filter options', () => {
     await page.locator('#city').selectOption('tarragona');
     await page.locator('#city').selectOption('barcelona');
     await expect(page.locator('.filter-form')).not.toHaveAttribute('aria-busy');
-    await expect(page.locator('#centre option')).toHaveCount(12);
+    await expect(page.locator('#centre option')).toHaveCount(13);
     await page.waitForTimeout(700);
-    await expect(page.locator('#centre option')).toHaveCount(12);
+    await expect(page.locator('#centre option')).toHaveCount(13);
     await expect(page.locator('#city')).toHaveValue('barcelona');
   });
   test('a failed update re-enables the form and allows normal search', async ({

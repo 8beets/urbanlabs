@@ -24,8 +24,8 @@ for (const locale of ['es', 'ca']) {
     await page.goto(base);
     const map = page.locator('[data-centre-map]');
     await expect(map).toHaveAttribute('data-map-ready', 'true');
-    await expect(page.locator('.centre-map-marker')).toHaveCount(11);
-    await expect(page.locator('.centre-directory article')).toHaveCount(12);
+    await expect(page.locator('.centre-map-marker')).toHaveCount(12);
+    await expect(page.locator('.centre-directory article')).toHaveCount(13);
     const points = JSON.parse((await map.getAttribute('data-centres'))!);
     expect(
       points.some((p: { id: string }) => p.id === 'test-no-location'),
@@ -72,8 +72,8 @@ test('tile failures keep verified markers and the full directory available', asy
   await expect(page.locator('[data-map-status]')).toContainText(
     'No se ha podido cargar el fondo',
   );
-  await expect(page.locator('.centre-map-marker')).toHaveCount(11);
-  await expect(page.locator('.centre-directory article')).toHaveCount(12);
+  await expect(page.locator('.centre-map-marker')).toHaveCount(12);
+  await expect(page.locator('.centre-directory article')).toHaveCount(13);
 });
 
 test.describe('without JavaScript', () => {
@@ -87,7 +87,7 @@ test.describe('without JavaScript', () => {
     });
     await page.goto('/es/centros');
     await expect(page.locator('[data-map-canvas]')).toBeHidden();
-    await expect(page.locator('.centre-directory article')).toHaveCount(12);
+    await expect(page.locator('.centre-directory article')).toHaveCount(13);
     expect(tileRequests).toBe(0);
     await page
       .locator('.centre-directory a[href="/es/centros/sant-andreu"]')
