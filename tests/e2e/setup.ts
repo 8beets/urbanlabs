@@ -2,7 +2,6 @@ import { getSource } from '../../src/lib/sources';
 import { splitStatements } from '../helpers/split-sql';
 import { readFileSync, readdirSync } from 'node:fs';
 import { getPlatformProxy } from 'wrangler';
-import { registerSource } from '../../src/lib/db/ingestion';
 import { runIngestion } from '../../src/lib/ingestion/run';
 import { parseMiramPage } from '../../src/lib/ingestion/adapters/miram';
 import { selectSources } from '../../src/lib/sources';
@@ -205,9 +204,21 @@ async function setup() {
         source,
       );
     }
-    // Baró de Viver's only saved fixture is an excluded childcare service, so the centre
-    // is registered without importing any course.
-    await registerSource(db, getSource('miram-baro-de-viver'));
+    // Baró de Viver's only saved fixture is an excluded childcare service, so its E2E
+    // course is explicitly synthetic and exists only in this isolated state.
+    await runIngestion(
+      db,
+      {
+        fetchRecords: async () => [
+          {
+            ...first,
+            externalId: '99994',
+            title: 'TEST family workshop Baró de Viver',
+          },
+        ],
+      },
+      getSource('miram-baro-de-viver'),
+    );
     // Isolated reviewed-title fixture: display must preserve the maintainer's explicit casing.
     await db
       .prepare(

@@ -18,6 +18,9 @@ daily row-write limit with hundreds of centres.
   unavoidable write per unchanged record for provenance timestamps.
 - Memoize reference lookups per isolate for five minutes with a small shared utility,
   matching the page-cache window, instead of adding KV or other infrastructure.
+- Decide "has this edition ended" from the time zones of the institutions in the
+  database (earliest current local date, via date-fns and `@date-fns/tz`), not from a
+  hard-coded zone.
 - Measure query plans and timings on a synthetic database before choosing indexes.
 
 ## Consequences

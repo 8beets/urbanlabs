@@ -1,4 +1,5 @@
 import { readdirSync } from 'node:fs';
+import { formatISO } from 'date-fns';
 import { describe, expect, it } from 'vitest';
 import { centreFiles, centres } from '../../src/lib/centres/registry';
 import {
@@ -10,7 +11,7 @@ import {
 import { sources } from '../../src/lib/sources';
 
 const dataDirectory = new URL('../../data/centres/', import.meta.url);
-const today = new Date().toISOString().slice(0, 10);
+const today = formatISO(new Date(), { representation: 'date' });
 
 function withRegistration(change: Record<string, unknown>) {
   const base = structuredClone(centres[0]!) as Centre;

@@ -1,6 +1,7 @@
 import { getSource } from '../../src/lib/sources';
 import { parseFilters } from '../../src/lib/courses/discovery';
 import { clearGeographyCache } from '../../src/lib/locations/geography';
+import { liveCutoffDate } from '../../src/lib/db/clock';
 import { clearReadCaches } from '../../src/lib/courses/facets';
 import { loadFilterOptions } from '../../src/lib/courses/filter-options';
 import { loadDiscoveryPage, loadHomepage } from '../../src/lib/courses/page';
@@ -278,7 +279,13 @@ describe('SQLite migration and ingestion contract', () => {
       'test source outage',
     );
     expect(
-      (await listCourses(db, { ...filters, cancellation: 'only' })).courses,
+      (
+        await listCourses(
+          db,
+          { ...filters, cancellation: 'only' },
+          '2026-11-06',
+        )
+      ).courses,
     ).toHaveLength(1);
     await runIngestion(
       db,
@@ -286,7 +293,13 @@ describe('SQLite migration and ingestion contract', () => {
       santAndreu,
     );
     expect(
-      (await listCourses(db, { ...filters, cancellation: 'only' })).courses,
+      (
+        await listCourses(
+          db,
+          { ...filters, cancellation: 'only' },
+          '2026-11-06',
+        )
+      ).courses,
     ).toHaveLength(0);
     expect(
       (await loadDiscoveryPage(db, new URLSearchParams('cancellation=invalid')))
@@ -624,6 +637,24 @@ describe('SQLite migration and ingestion contract', () => {
     const afterClear = prepare.mock.calls.length;
     await loadDiscoveryPage(db, new URLSearchParams());
     expect(prepare.mock.calls.length - afterClear).toBeGreaterThan(2);
+  });
+  it('derives the live cutoff from the time zones of the institutions in the database', async () => {
+    const instant = new Date('2026-11-08T23:30:00Z');
+    clearReadCaches(db);
+    // No institution yet: fall back to UTC rather than a hard-coded place.
+    expect(await liveCutoffDate(db, instant)).toBe('2026-11-08');
+    await runIngestion(db, { fetchRecords: async () => records }, santAndreu);
+    clearReadCaches(db);
+    // Europe/Madrid is already on the 9th, so the cutoff follows the data.
+    expect(await liveCutoffDate(db, instant)).toBe('2026-11-09');
+    sqlite
+      .prepare(
+        "INSERT INTO institutions (id,name,official_url,city,country,address,timezone) VALUES ('x-bogota','Bogotá','https://example.org','Bogotá','CO','a','America/Bogota')",
+      )
+      .run();
+    clearReadCaches(db);
+    // An edition ending on the 8th stays listed until the 8th ends in Bogotá.
+    expect(await liveCutoffDate(db, instant)).toBe('2026-11-08');
   });
   it('searches titles ignoring case, accents and Unicode composition while keeping stored titles', async () => {
     const titles = [

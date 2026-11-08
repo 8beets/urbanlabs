@@ -46,15 +46,10 @@ function canonicalListing(course: CourseListing): CourseListing {
   };
 }
 
-/** Local calendar date used to decide whether an edition has ended. */
-export function madridToday(): string {
-  return new Date().toLocaleDateString('sv-SE', { timeZone: 'Europe/Madrid' });
-}
-
 export const LATEST_COURSES_LIMIT = 20;
 export async function listLatestCourses(
   db: D1Database,
-  today = madridToday(),
+  today: string,
 ): Promise<CourseListing[]> {
   const result = await db
     .prepare(
@@ -73,7 +68,7 @@ export async function listLatestCourses(
 export async function listCourses(
   db: D1Database,
   filters: DiscoveryFilters,
-  today = madridToday(),
+  today: string,
 ): Promise<{ courses: CourseListing[]; hasNext: boolean }> {
   const conditions: string[] = [];
   const values: (string | number)[] = [];
@@ -130,7 +125,7 @@ export async function listCourses(
 
 export async function listCategories(
   db: D1Database,
-  today = madridToday(),
+  today: string,
   centre = '',
   geography: GeographicFilters & Pick<DiscoveryFilters, 'cancellation'> = {},
 ): Promise<string[]> {
@@ -158,7 +153,7 @@ export interface CentreListing {
 }
 export async function listCentres(
   db: D1Database,
-  today = madridToday(),
+  today: string,
   geography: GeographicFilters & Pick<DiscoveryFilters, 'cancellation'> = {},
 ): Promise<CentreListing[]> {
   const geographic = geographicCondition(geography);

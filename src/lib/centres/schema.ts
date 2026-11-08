@@ -1,6 +1,7 @@
 import { z } from 'zod';
 import { centreProfileSchema } from './profile-schema';
 import type { SourceConfig } from '../ingestion/types';
+import { isTimeZone } from '../time/dates';
 
 // Registration hosts are fetched automatically, so they are allowlisted here
 // (SSRF protection): adding a platform host is a reviewed code change.
@@ -60,7 +61,8 @@ export const centreSchema = z.strictObject({
   country: z.string().regex(/^[A-Z]{2}$/),
   city: z.string().min(1).max(100),
   cityId: z.string().regex(/^[a-z0-9-]{1,100}$/),
-  timezone: z.string().min(3).max(60),
+  // IANA zone of the centre; editions use it for local dates and daylight saving.
+  timezone: z.string().refine(isTimeZone, 'Unknown IANA time zone'),
   profile: centreProfileSchema.omit({ slug: true }).default({}),
   registration: registrationSchema,
 });

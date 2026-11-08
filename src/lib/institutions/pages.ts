@@ -5,6 +5,7 @@ import {
   findInstitution,
   type Centre,
 } from '../db/institutions';
+import { liveCutoffDate } from '../db/clock';
 import { listCourses, type CourseListing } from '../db/courses';
 import { parsePage } from '../pagination';
 import { TtlMemo } from '../cache/ttl-memo';
@@ -106,13 +107,17 @@ export async function loadCentrePage(
   try {
     const centre = await findInstitution(db, slug);
     if (!centre) return { ...empty, error: 'notFound', status: 404 };
-    const listing = await listCourses(db, {
-      q: '',
-      category: '',
-      maxPriceCents: null,
-      centre: centre.id,
-      page,
-    });
+    const listing = await listCourses(
+      db,
+      {
+        q: '',
+        category: '',
+        maxPriceCents: null,
+        centre: centre.id,
+        page,
+      },
+      await liveCutoffDate(db),
+    );
     return { ...listing, centre, page, error: null, status: 200 };
   } catch {
     console.error(JSON.stringify({ event: 'centre_page_unavailable' }));

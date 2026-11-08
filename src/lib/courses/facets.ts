@@ -2,10 +2,10 @@ import { TtlMemo } from '../cache/ttl-memo';
 import {
   listCategories,
   listCentres,
-  madridToday,
   type CentreListing,
   type DiscoveryFilters,
 } from '../db/courses';
+import { clearClockCache, liveCutoffDate } from '../db/clock';
 import { clearCentreCaches } from '../institutions/pages';
 import { clearGeographyCache } from '../locations/geography';
 
@@ -32,22 +32,22 @@ function key(today: string, filters: FacetFilters, centre = ''): string {
   ]);
 }
 
-export function loadCategoryOptions(
+export async function loadCategoryOptions(
   db: D1Database,
   centre: string,
   filters: FacetFilters,
 ): Promise<string[]> {
-  const today = madridToday();
+  const today = await liveCutoffDate(db);
   return categories.get(db, key(today, filters, centre), () =>
     listCategories(db, today, centre, filters),
   );
 }
 
-export function loadCentreOptions(
+export async function loadCentreOptions(
   db: D1Database,
   filters: FacetFilters,
 ): Promise<CentreListing[]> {
-  const today = madridToday();
+  const today = await liveCutoffDate(db);
   return centres.get(db, key(today, filters), () =>
     listCentres(db, today, filters),
   );
@@ -59,4 +59,5 @@ export function clearReadCaches(db: D1Database): void {
   centres.clear(db);
   clearGeographyCache(db);
   clearCentreCaches(db);
+  clearClockCache(db);
 }

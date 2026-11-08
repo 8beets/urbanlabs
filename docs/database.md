@@ -89,6 +89,19 @@ corrections are never in the compared columns, and the search-index triggers onl
 when a title actually changes. If writes ever become the limit again, the next step is
 to track verification per run instead of per record.
 
+### Calendar dates and time zones
+
+Dates are ISO `yyyy-MM-dd` strings handled with date-fns; zone-aware "today" uses
+`@date-fns/tz`. No place is hard-coded: each centre record carries an IANA `timezone`
+(validated at load time), and the cutoff that decides whether an edition has ended is
+the earliest current local date across the time zones of the institutions in the
+database (`src/lib/db/clock.ts`, zones memoized for five minutes, UTC when none). An
+edition is therefore never hidden before it has ended in its own zone; one in a zone
+further ahead can stay listed up to a day longer. Source dates are parsed with exact
+Catalan month names taken from the date-fns locale and validated as real calendar
+days. Display still uses `Intl.DateTimeFormat`, because date-fns' Catalan patterns
+lack the "de" and apostrophe elision that Intl produces.
+
 ### Read caches
 
 Reference lookups that change only through migrations, ingestion or reviewed profile

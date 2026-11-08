@@ -1,3 +1,4 @@
+import { formatISO } from 'date-fns';
 import { createMiramAdapter } from '../src/lib/ingestion/adapters/miram';
 import { createSourceFetcher } from '../src/lib/ingestion/http';
 import {
@@ -22,7 +23,7 @@ if (!target || args.some((a) => a.startsWith('--') && a !== '--full')) {
 
 const origin = probeOrigin(target);
 const get = createSourceFetcher(origin);
-const today = new Date().toISOString().slice(0, 10);
+const today = formatISO(new Date(), { representation: 'date' });
 
 const robots = await get(`${origin}/robots.txt`, true);
 if (robots !== null) {
