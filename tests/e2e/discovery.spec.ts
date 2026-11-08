@@ -106,6 +106,41 @@ test('search uses shareable URL filters and an honest empty state', async ({
   ).toBe(true);
 });
 
+test('start month filter offers the next 12 months and composes through the URL', async ({
+  page,
+}) => {
+  await page.goto('/es/buscar');
+  const options = page.locator('#start option');
+  await expect(options).toHaveCount(13);
+  await expect(options.first()).toHaveText('Cualquier mes');
+  const month = await options.nth(1).getAttribute('value');
+  expect(month).toMatch(/^\d{4}-(0[1-9]|1[0-2])$/);
+  await page.locator('#start').selectOption({ index: 1 });
+  await submit(page);
+  expect(query(page).get('start')).toBe(month);
+  await expect(page.locator('#start')).toHaveValue(month!);
+  // Seeded editions start on 2099-01-01; unknown or other months do not match.
+  await page.goto('/es/buscar?start=2099-01');
+  expect(await page.locator('article.course').count()).toBeGreaterThan(0);
+  await expect(
+    page
+      .getByRole('group', { name: 'Filtros aplicados', exact: true })
+      .getByRole('link', { name: /Mes de inicio: Enero de 2099/ }),
+  ).toBeVisible();
+  await expect(page.locator('#start option[selected]')).toHaveText(
+    /Enero de 2099/,
+  );
+  await page.goto('/es/buscar?start=2099-02');
+  await expect(page.locator('article.course')).toHaveCount(0);
+  await page.goto('/ca/cerca?start=2099-01');
+  await expect(page.locator('#start')).toHaveValue('2099-01');
+  await page
+    .getByRole('link', { name: /^Treu el filtre/ })
+    .first()
+    .click();
+  expect(query(page).has('start')).toBe(false);
+});
+
 test('invalid URL filters return an accessible error and HTTP 400', async ({
   page,
 }) => {

@@ -4,12 +4,14 @@ import {
 } from '../locations/geography';
 import { titleSearchMatch } from '../courses/title-search';
 import { canonicalCategory, sourceCategories } from '../courses/categories';
+import { monthRange } from '../courses/start-month';
 
 export interface DiscoveryFilters extends GeographicFilters {
   cancellation?: '' | 'hide' | 'only';
   q: string;
   page: number;
   maxPriceCents: number | null;
+  startMonth?: string;
   category: string;
   centre: string;
 }
@@ -102,6 +104,12 @@ export async function listCourses(
   if (filters.maxPriceCents !== null) {
     conditions.push('e.price_cents <= ?');
     values.push(filters.maxPriceCents);
+  }
+  if (filters.startMonth) {
+    // Editions without a start date never match: unknown dates are not inferred.
+    const [from, to] = monthRange(filters.startMonth);
+    conditions.push('e.start_date >= ? AND e.start_date < ?');
+    values.push(from, to);
   }
   // Expired editions remain stored for provenance, but leave the discovery listing.
   conditions.push('(e.end_date IS NULL OR e.end_date >= ?)');

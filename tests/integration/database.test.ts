@@ -247,6 +247,13 @@ describe('SQLite migration and ingestion contract', () => {
     );
     expect(hidden.courses).toHaveLength(1);
     expect(hidden.courses[0]?.is_cancelled).toBe(0);
+    const inMonth = (startMonth: string) =>
+      listCourses(db, { ...filters, startMonth }, '2026-11-07');
+    expect((await inMonth('2099-01')).courses).toHaveLength(12);
+    expect((await inMonth('2098-01')).courses.map((c) => c.title)).toEqual([
+      cancelled.title,
+    ]);
+    expect((await inMonth('2099-02')).courses).toEqual([]);
     expect(
       (await listLatestCourses(db, '2026-11-07')).every(
         (course) => course.is_cancelled === 0,
