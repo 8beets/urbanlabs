@@ -1,13 +1,14 @@
 import { defineMiddleware } from 'astro:middleware';
-import { withPageCache } from './lib/http/page-cache';
+import { pageCachePolicy } from './lib/http/page-cache';
 
-export const onRequest = defineMiddleware((context, next) =>
-  withPageCache(context.request, next, {
-    // Development must reflect code and local data changes immediately.
-    cache: import.meta.env.DEV
-      ? undefined
-      : (caches as CacheStorage & { default: Cache }).default,
-    waitUntil: (promise) => context.locals.cfContext.waitUntil(promise),
-    hasSetCookies: () => !context.cookies.headers().next().done,
-  }),
-);
+export const onRequest = defineMiddleware(async (context, next) => {
+  const { cache, response } = pageCachePolicy({
+    request: context.request,
+    response: await next(),
+    hasSetCookies: !context.cookies.headers().next().done,
+  });
+  // Astro turns these options into Cloudflare-CDN-Cache-Control after the render.
+  // In development the cache is a no-op, so local changes appear immediately.
+  if (cache !== null) context.cache.set(cache);
+  return response;
+});

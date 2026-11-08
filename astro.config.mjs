@@ -1,5 +1,6 @@
 import { defineConfig } from 'astro/config';
 import cloudflare from '@astrojs/cloudflare';
+import { cacheCloudflare } from '@astrojs/cloudflare/cache';
 import tailwindcss from '@tailwindcss/vite';
 import process from 'node:process';
 import { paraglideVitePlugin } from '@inlang/paraglide-js';
@@ -22,6 +23,7 @@ export default defineConfig({
       ? { persistState: { path: '.wrangler/e2e-state' } }
       : {}),
   }),
+  cache: { provider: cacheCloudflare() },
   session: false,
   vite: { plugins: [tailwindcss(), paraglideVitePlugin(paraglideConfig)] },
 });

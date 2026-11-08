@@ -1,6 +1,6 @@
 import { expect, test } from '@playwright/test';
 
-test('localized public pages declare a bounded shared cache policy', async ({
+test('localized public pages are revalidated by browsers and shareable by the CDN', async ({
   request,
 }) => {
   for (const path of [
@@ -17,7 +17,7 @@ test('localized public pages declare a bounded shared cache policy', async ({
     const response = await request.get(path);
     expect(response.status()).toBe(200);
     expect(response.headers()['cache-control']).toBe(
-      'public, max-age=0, s-maxage=300, must-revalidate',
+      'public, max-age=0, must-revalidate',
     );
   }
 });

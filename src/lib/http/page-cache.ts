@@ -1,76 +1,65 @@
-const PAGE_CACHE_CONTROL = 'public, max-age=0, s-maxage=300, must-revalidate';
+import type { CacheOptions } from 'astro';
+
+// Shared (edge) freshness; stale copies may be served while Cloudflare revalidates.
+export const PAGE_CACHE_OPTIONS: CacheOptions = { maxAge: 300, swr: 60 };
+// Browsers always revalidate against the edge cache; only the CDN holds copies.
+const BROWSER_CACHE_CONTROL = 'public, max-age=0, must-revalidate';
+
 // The filter-options endpoint runs several D1 queries per call, so it shares the edge cache.
 const PUBLIC_PAGE =
-  /^\/(?:es\/(?:buscar\/?|centros(?:\/[a-z0-9-]+)?\/?)?|ca\/(?:cerca\/?|centres(?:\/[a-z0-9-]+)?\/?)?|api\/filters)$/;
+  /^\/(?:es(?:\/(?:buscar\/?|centros(?:\/[a-z0-9-]+)?\/?)?)?|ca(?:\/(?:cerca\/?|centres(?:\/[a-z0-9-]+)?\/?)?)?|api\/filters)$/;
 
-interface PageCache {
-  match(request: Request): Promise<Response | undefined>;
-  put(request: Request, response: Response): Promise<unknown>;
+interface PolicyInput {
+  request: Request;
+  response: Response;
+  hasSetCookies: boolean;
 }
 
-interface CacheOptions {
-  cache?: PageCache;
-  waitUntil: (promise: Promise<unknown>) => void;
-  hasSetCookies: () => boolean;
+export function isPublicPage(pathname: string): boolean {
+  return PUBLIC_PAGE.test(pathname);
 }
 
-function logCacheFailure(operation: 'read' | 'write') {
-  console.error(JSON.stringify({ event: 'page_cache_failed', operation }));
-}
-
-export async function withPageCache(
-  request: Request,
-  next: () => Promise<Response>,
-  { cache, waitUntil, hasSetCookies }: CacheOptions,
-): Promise<Response> {
+function isShareable({ request, response, hasSetCookies }: PolicyInput) {
   const { pathname } = new URL(request.url);
-  if (!PUBLIC_PAGE.test(pathname)) return next();
-  const isApi = pathname === '/api/filters';
-
   const requestControl = request.headers.get('Cache-Control') ?? '';
-  const bypass =
-    request.method !== 'GET' ||
-    request.headers.has('Cookie') ||
-    request.headers.has('Authorization') ||
-    hasSetCookies() ||
-    /\bno-store\b/i.test(requestControl);
-  // Keep the complete URL: filters, pagination, locale and preserved parameters
-  // all affect page content or the links in the rendered HTML.
-  const key = new Request(request.url);
-  const refresh = /\bno-cache\b|\bmax-age\s*=\s*0\b/i.test(requestControl);
-
-  if (!bypass && !refresh && cache) {
-    try {
-      const cached = await cache.match(key);
-      if (cached) return cached;
-    } catch {
-      logCacheFailure('read');
-    }
-  }
-
-  const response = await next();
-  const cacheable =
-    !bypass &&
+  return (
+    request.method === 'GET' &&
+    !request.headers.has('Cookie') &&
+    !request.headers.has('Authorization') &&
+    !/\bno-store\b/i.test(requestControl) &&
+    !hasSetCookies &&
     response.status === 200 &&
-    response.headers
-      .get('Content-Type')
-      ?.includes(isApi ? 'application/json' : 'text/html') &&
+    Boolean(
+      response.headers
+        .get('Content-Type')
+        ?.includes(
+          pathname === '/api/filters' ? 'application/json' : 'text/html',
+        ),
+    ) &&
     !response.headers.has('Set-Cookie') &&
-    !hasSetCookies() &&
     !response.headers.has('Vary') &&
     !/\b(?:private|no-store|no-cache)\b/i.test(
       response.headers.get('Cache-Control') ?? '',
-    );
-  const result = new Response(response.body, response);
-  result.headers.set(
-    'Cache-Control',
-    cacheable ? PAGE_CACHE_CONTROL : 'no-store',
+    )
   );
+}
 
-  if (cacheable && cache) {
-    waitUntil(
-      cache.put(key, result.clone()).catch(() => logCacheFailure('write')),
-    );
-  }
-  return result;
+/**
+ * Decides what the CDN cache provider may store for a response. Returns the
+ * options to pass to `cache.set()` (or `false` to opt out) and the response to
+ * send; outside the public allowlist the response is untouched.
+ */
+export function pageCachePolicy(input: PolicyInput): {
+  cache: CacheOptions | false | null;
+  response: Response;
+} {
+  if (!isPublicPage(new URL(input.request.url).pathname))
+    return { cache: null, response: input.response };
+  const shareable = isShareable(input);
+  const response = new Response(input.response.body, input.response);
+  response.headers.set(
+    'Cache-Control',
+    shareable ? BROWSER_CACHE_CONTROL : 'no-store',
+  );
+  return { cache: shareable ? PAGE_CACHE_OPTIONS : false, response };
 }
