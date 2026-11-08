@@ -165,6 +165,21 @@ describe('public page cache', () => {
     },
   );
 
+  it('caches filter options JSON but not JSON served from a page route', async () => {
+    const { fetch, next } = harness();
+    next.mockImplementation(
+      async () =>
+        new Response('{}', { headers: { 'Content-Type': 'application/json' } }),
+    );
+    const path = '/api/filters?locale=es';
+    expect((await fetch(path)).headers.get('Cache-Control')).toBe(
+      'public, max-age=0, s-maxage=300, must-revalidate',
+    );
+    await fetch(path);
+    expect(next).toHaveBeenCalledTimes(1);
+    expect((await fetch('/es/')).headers.get('Cache-Control')).toBe('no-store');
+  });
+
   it('does not save cookies set through Astro before the adapter adds response headers', async () => {
     const { fetch, options, cache, next } = harness();
     next.mockImplementationOnce(async () => {

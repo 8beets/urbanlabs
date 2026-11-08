@@ -1,6 +1,7 @@
 const PAGE_CACHE_CONTROL = 'public, max-age=0, s-maxage=300, must-revalidate';
+// The filter-options endpoint runs several D1 queries per call, so it shares the edge cache.
 const PUBLIC_PAGE =
-  /^\/(?:es\/(?:buscar\/?|centros(?:\/[a-z0-9-]+)?\/?)?|ca\/(?:cerca\/?|centres(?:\/[a-z0-9-]+)?\/?)?)$/;
+  /^\/(?:es\/(?:buscar\/?|centros(?:\/[a-z0-9-]+)?\/?)?|ca\/(?:cerca\/?|centres(?:\/[a-z0-9-]+)?\/?)?|api\/filters)$/;
 
 interface PageCache {
   match(request: Request): Promise<Response | undefined>;
@@ -22,7 +23,9 @@ export async function withPageCache(
   next: () => Promise<Response>,
   { cache, waitUntil, hasSetCookies }: CacheOptions,
 ): Promise<Response> {
-  if (!PUBLIC_PAGE.test(new URL(request.url).pathname)) return next();
+  const { pathname } = new URL(request.url);
+  if (!PUBLIC_PAGE.test(pathname)) return next();
+  const isApi = pathname === '/api/filters';
 
   const requestControl = request.headers.get('Cache-Control') ?? '';
   const bypass =
@@ -49,7 +52,9 @@ export async function withPageCache(
   const cacheable =
     !bypass &&
     response.status === 200 &&
-    response.headers.get('Content-Type')?.includes('text/html') &&
+    response.headers
+      .get('Content-Type')
+      ?.includes(isApi ? 'application/json' : 'text/html') &&
     !response.headers.has('Set-Cookie') &&
     !hasSetCookies() &&
     !response.headers.has('Vary') &&

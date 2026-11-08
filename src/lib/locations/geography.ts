@@ -30,7 +30,31 @@ export const emptyGeography: Geography = {
 };
 const CATALOG_LIMIT = 1000;
 
-export async function loadGeography(db: D1Database): Promise<Geography> {
+// The catalog changes only with migrations, yet every page and filter request read
+// all three tables. A short per-isolate memo avoids those repeated D1 row reads.
+const GEOGRAPHY_TTL_MS = 5 * 60 * 1000;
+const geographyMemo = new WeakMap<
+  D1Database,
+  { expires: number; value: Promise<Geography> }
+>();
+
+export function clearGeographyCache(db: D1Database): void {
+  geographyMemo.delete(db);
+}
+
+export function loadGeography(db: D1Database): Promise<Geography> {
+  const memo = geographyMemo.get(db);
+  if (memo && memo.expires > Date.now()) return memo.value;
+  const value = queryGeography(db);
+  geographyMemo.set(db, { expires: Date.now() + GEOGRAPHY_TTL_MS, value });
+  // Failures must not stay cached.
+  value.catch(() => {
+    if (geographyMemo.get(db)?.value === value) geographyMemo.delete(db);
+  });
+  return value;
+}
+
+async function queryGeography(db: D1Database): Promise<Geography> {
   const [countries, regions, cities] = await Promise.all([
     db
       .prepare('SELECT code,name FROM countries ORDER BY name,code LIMIT ?')

@@ -46,7 +46,7 @@ export const GET: APIRoute = async ({ url }) => {
       })),
     };
     return Response.json(body, {
-      headers: { 'Cache-Control': 'public, max-age=60' },
+      headers: { 'Cache-Control': 'public, max-age=60, s-maxage=300' },
     });
   } catch {
     console.error(JSON.stringify({ event: 'filter_options_unavailable' }));

@@ -1,3 +1,4 @@
+import { clearGeographyCache } from '../../src/lib/locations/geography';
 import { loadFilterOptions } from '../../src/lib/courses/filter-options';
 import { loadDiscoveryPage, loadHomepage } from '../../src/lib/courses/page';
 import { formatCourseTitle } from '../../src/lib/courses/title';
@@ -118,6 +119,7 @@ describe('SQLite migration and ingestion contract', () => {
     sqlite.exec(
       "INSERT INTO regions VALUES ('asturias','ES','Asturias'); INSERT INTO cities VALUES ('oviedo','ES','asturias','Oviedo');",
     );
+    clearGeographyCache(db);
     const stale = await loadDiscoveryPage(
       db,
       new URLSearchParams('region=asturias&city=barcelona&page=2&q=ANGLÈS'),
