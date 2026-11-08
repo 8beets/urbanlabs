@@ -2,6 +2,7 @@ import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 import { parseMiramPage } from '../../src/lib/ingestion/adapters/miram';
 import { selectSources } from '../../src/lib/sources';
+import { baroDeViver } from '../../src/lib/sources/baro-de-viver';
 import { categoryLabel } from '../../src/i18n/ui';
 
 const cases = [
@@ -85,6 +86,26 @@ const cases = [
     '2026-09-28',
     'Idiomas',
   ],
+  [
+    'barceloneta',
+    'miram-barceloneta-circus.html',
+    '01',
+    '4427',
+    'CIRC',
+    7060,
+    '2026-10-09',
+    'Circ',
+  ],
+  [
+    'can-castello',
+    'miram-can-castello-dance.html',
+    '04',
+    '1930',
+    'DANSA',
+    6296,
+    '2026-09-29',
+    'Baile y danza',
+  ],
 ] as const;
 
 describe('additional centres: verified source fixtures', () => {
@@ -137,5 +158,26 @@ describe('additional centres: verified source fixtures', () => {
     expect(rellotge.institution.id).not.toBe(mig.institution.id);
     expect(new URL(rellotge.listingUrl).searchParams.get('t')).toBe('CR');
     expect(new URL(mig.listingUrl).searchParams.get('t')).toBe('CM');
+  });
+
+  it('reads the identifier of single-session cards from the registration form and keeps unknown dates null', () => {
+    const html = readFileSync(
+      new URL(
+        '../fixtures/miram-baro-de-viver-single-session.html',
+        import.meta.url,
+      ),
+      'utf8',
+    );
+    const pageUrl = `${baroDeViver.listingUrl}&f=01`;
+    const { records } = parseMiramPage(html, pageUrl);
+    expect(records).toHaveLength(1);
+    expect(records[0]).toMatchObject({
+      externalId: '2302',
+      priceCents: 0,
+      startDate: null,
+      endDate: null,
+    });
+    // A free childcare service attached to another workshop is not a course.
+    expect(baroDeViver.excludedExternalIds).toEqual(['2300', '2301', '2302']);
   });
 });

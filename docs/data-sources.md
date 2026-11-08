@@ -101,6 +101,23 @@ Verified on 2026-11-08:
 - A live `source:verify` run on 2026-11-08 validated **62 course editions** without persistence. A one-card excerpt of the language listing is saved in `tests/fixtures/miram-fort-pienc-languages.html`.
 - The same metadata-only collection, unknown availability/language, base-price (concession prices are not represented) and reuse-review limitations described above apply. Production ingestion is a separate, explicitly approved operation and has not been run.
 
+## Centre Cívic Barceloneta, Baró de Viver and Can Castelló
+
+Verified on 2026-11-08 on the shared Miram adapter:
+
+| Centre                     | Source ID             | Editions | Verified registration root                                                                   |
+| -------------------------- | --------------------- | -------: | -------------------------------------------------------------------------------------------- |
+| Centre Cívic Barceloneta   | `miram-barceloneta`   |       72 | https://civicbarceloneta.inscripcionscc.com/MiramModular/buscador/buscador.jsp?g=1&c=51&t=AC |
+| Centre Cívic Baró de Viver | `miram-baro-de-viver` |        5 | https://barodeviver.inscripcionscc.com/MiramModular/buscador/buscador.jsp?g=1&c=14&t=AC      |
+| Centre Cívic Can Castelló  | `miram-can-castello`  |       21 | https://cancastello.inscripcionscc.com/MiramModular/buscador/buscador.jsp?g=1&c=32&t=AC      |
+
+- Editions are the result of a live `source:verify`-style run without persistence on 2026-11-08 (Baró de Viver: 8 parsed cards, 3 excluded). Production ingestion has not been run.
+- Registration hosts were found through municipal programme documents; each returned HTTP 404 for `robots.txt` (rechecked by the adapter on every run) and each footer names the centre and street address. The official municipal pages are `https://ajuntament.barcelona.cat/ccivics/barceloneta`, `/barodeviver` and `/cancastello`. Phone numbers, emails (where the municipal sources agree) and coordinates come from each centre's `guia.barcelona.cat` entry, respecting its 10-second crawl delay. Can Castelló's email is omitted because the municipal pages disagree.
+- Each host also exposes a `CE` type (shows and talks) that is not followed; only `t=AC` (Tallers Culturals) is configured.
+- Barceloneta's first category is the neighbourhood-programme label `#FEMBARRI`; it is kept verbatim. Prices of 0 are the explicit base price `Gratuït` or free programmes, not inferred.
+- Baró de Viver lists three free childcare services ("Temps de dona: Acollida", IDs `2300`–`2302`) for another workshop's participants. They are single-session cards without the usual session accordion and without a year in their date. The adapter now falls back to the registration form's `activitat` identifier for such cards, keeping dates `null`, and configuration excludes these three IDs because they are not courses.
+- The same metadata-only collection, unknown availability/language, base-price and reuse-review limitations described above apply.
+
 ## Investigated and deferred
 
 ### FAB Casa del Rellotge — official programme link
@@ -131,7 +148,7 @@ Verify its official website, registration-platform ownership, public-access rule
 
 ## Centre directory locations and contacts
 
-Eleven centre locations and contacts were manually verified on 2026-11-06, and Fort Pienc's on 2026-11-08, against
+Eleven centre locations and contacts were manually verified on 2026-11-06, and those of Fort Pienc, Barceloneta, Baró de Viver and Can Castelló on 2026-11-08, against
 Barcelona City Council's public municipal directory (`guia.barcelona.cat`). Exact
 source URLs, coordinates and verification dates live in
 `src/lib/institutions/profiles.ts`. Coordinates come from each official detail

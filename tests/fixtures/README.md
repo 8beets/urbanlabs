@@ -65,3 +65,11 @@ Browser fixtures change dates to 2099 only inside isolated E2E state. Real brows
 https://fortpienc.inscripcionscc.com/MiramModular/buscador/buscador.jsp?g=1&c=5&t=AC&f=ID
 
 It preserves the category heading, selector, schedule, date range and base price, serialized with Cheerio. The description, instructor line, concession prices, session calendar contents, image and contact details were removed; an empty element keeps the original `accordion4343` activity identifier. It is a parser fixture, not a claim of current availability.
+
+`miram-barceloneta-circus.html` (course `4427`), `miram-can-castello-dance.html` (course `1930`) and `miram-baro-de-viver-single-session.html` (service `2302`) are one-card excerpts retrieved on 2026-11-08 from:
+
+- https://civicbarceloneta.inscripcionscc.com/MiramModular/buscador/buscador.jsp?g=1&c=51&t=AC&f=01
+- https://cancastello.inscripcionscc.com/MiramModular/buscador/buscador.jsp?g=1&c=32&t=AC&f=04
+- https://barodeviver.inscripcionscc.com/MiramModular/buscador/buscador.jsp?g=1&c=14&t=AC&f=01
+
+They keep the category heading, selector, schedule, date range, space and base price, serialized with Cheerio. Descriptions, instructors, concession prices, images and session calendars were removed; the first two keep an empty element with the original `accordion` identifier. The Baró de Viver card is a single-session free childcare service with no session accordion: its identifier comes from the registration form's hidden `activitat` input, and its date has no year, so it is parsed with null dates (and excluded in configuration because it is not a course).

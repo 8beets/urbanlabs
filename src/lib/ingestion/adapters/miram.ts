@@ -24,10 +24,11 @@ export function parseMiramPage(
   let unpublishedPreviews = 0;
   $('.card.overh').each((_, element) => {
     const card = $(element);
-    const externalId = card
-      .find('[id^="accordion"]')
-      .attr('id')
-      ?.replace('accordion', '');
+    // Single-session cards have no session accordion; their registration form still
+    // carries the same stable activity identifier.
+    const externalId =
+      card.find('[id^="accordion"]').attr('id')?.replace('accordion', '') ??
+      card.find('input[name="activitat"]').attr('value');
     if (
       !externalId &&
       /^Podreu realitzar les inscripcions en línia a partir del \d{2}\/\d{2}\/\d{4}$/u.test(

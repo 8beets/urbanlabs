@@ -10,12 +10,12 @@ import {
 } from '../../src/lib/institutions/maps';
 
 describe('verified centre locations', () => {
-  it('validates all 12 profiles with unique stable slugs and municipal provenance', () => {
+  it('validates all 15 profiles with unique stable slugs and municipal provenance', () => {
     const profiles = Object.values(verifiedCentreProfiles).map((p) =>
       centreProfileSchema.parse(p),
     );
-    expect(profiles).toHaveLength(12);
-    expect(new Set(profiles.map((p) => p.slug)).size).toBe(12);
+    expect(profiles).toHaveLength(15);
+    expect(new Set(profiles.map((p) => p.slug)).size).toBe(15);
     for (const profile of profiles) {
       expect(profile.location?.sourceUrl).toMatch(
         /^https:\/\/guia.barcelona.cat\/ca\/detall\//,

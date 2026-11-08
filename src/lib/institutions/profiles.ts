@@ -197,6 +197,50 @@ export const verifiedCentreProfiles: Record<string, CentreProfile> = {
     },
     email: 'fortpienc@fortpienc.org',
   },
+  'cc-barceloneta': {
+    slug: 'barceloneta',
+    phone: '932563300',
+    detailsSourceUrl:
+      'https://guia.barcelona.cat/ca/detall/centre-civic-barceloneta_94139083955.html',
+    detailsVerifiedAt: '2026-11-08',
+    location: {
+      latitude: 41.38026816937647,
+      longitude: 2.192288054869178,
+      sourceUrl:
+        'https://guia.barcelona.cat/ca/detall/centre-civic-barceloneta_94139083955.html',
+      verifiedAt: '2026-11-08',
+    },
+    email: 'info@civicbarceloneta.com',
+  },
+  'cc-baro-de-viver': {
+    slug: 'baro-de-viver',
+    phone: '932565097',
+    detailsSourceUrl:
+      'https://guia.barcelona.cat/ca/detall/centre-civic-baro-de-viver_92086004979.html',
+    detailsVerifiedAt: '2026-11-08',
+    location: {
+      latitude: 41.4462918208594,
+      longitude: 2.200290194498161,
+      sourceUrl:
+        'https://guia.barcelona.cat/ca/detall/centre-civic-baro-de-viver_92086004979.html',
+      verifiedAt: '2026-11-08',
+    },
+    email: 'ccbaroviver@bcn.cat',
+  },
+  'cc-can-castello': {
+    slug: 'can-castello',
+    phone: '932417874',
+    detailsSourceUrl:
+      'https://guia.barcelona.cat/ca/detall/centre-civic-can-castello_99400197043.html',
+    detailsVerifiedAt: '2026-11-08',
+    location: {
+      latitude: 41.39900681458764,
+      longitude: 2.1404013062330303,
+      sourceUrl:
+        'https://guia.barcelona.cat/ca/detall/centre-civic-can-castello_99400197043.html',
+      verifiedAt: '2026-11-08',
+    },
+  },
   'fab-casa-del-mig': {
     slug: 'fab-casa-del-mig',
     phone: '932914262',

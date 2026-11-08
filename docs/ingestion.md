@@ -2,7 +2,7 @@
 
 Run `npm run source:verify` for a live extraction smoke check without persistence, or `npm run ingest:live` after local migrations to write local D1. Neither runs in ordinary CI. Do not repeatedly poll the provider: one manually triggered run is sufficient for this milestone.
 
-These commands now process all 12 approved sources sequentially. To select a single source, use `npm run source:verify -- miram-can-baste` or `npm run ingest:live -- --source miram-can-baste` (also available: `miram-sant-andreu`, `miram-pati-llimona`, and `miram-golferichs`). The CLI continues to the next source if one fails and exits unsuccessfully after recording all failures. Can Basté excludes category code `14` because it includes concerts; excluded codes are institution configuration, not hardcoded adapter behavior.
+These commands now process all 15 approved sources sequentially. To select a single source, use `npm run source:verify -- miram-can-baste` or `npm run ingest:live -- --source miram-can-baste` (also available: `miram-sant-andreu`, `miram-pati-llimona`, and `miram-golferichs`). The CLI continues to the next source if one fails and exits unsuccessfully after recording all failures. Can Basté excludes category code `14` because it includes concerts; excluded codes are institution configuration, not hardcoded adapter behavior.
 
 The typed adapter contract lives in `src/lib/ingestion/types.ts`. Miram-specific HTML extraction is isolated from source configuration and SQL. Zod validates every record at the boundary. A new provider should implement the same explicit interface, not a dynamically loaded plugin framework.
 

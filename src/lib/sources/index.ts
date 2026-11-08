@@ -10,6 +10,9 @@ import { urgell } from './urgell';
 import { fabCasaDelRellotge } from './fab-casa-del-rellotge';
 import { fabCasaDelMig } from './fab-casa-del-mig';
 import { fortPienc } from './fort-pienc';
+import { canCastello } from './can-castello';
+import { baroDeViver } from './baro-de-viver';
+import { barceloneta } from './barceloneta';
 
 export const sources = [
   santAndreu,
@@ -24,6 +27,9 @@ export const sources = [
   fabCasaDelRellotge,
   fabCasaDelMig,
   fortPienc,
+  barceloneta,
+  baroDeViver,
+  canCastello,
 ];
 
 export function selectSources(sourceId?: string) {
