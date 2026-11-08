@@ -61,6 +61,8 @@ rows start at zero and need a successful source refresh to detect notices that w
 not previously extracted. Apply the migration before deploying or running ingestion.
 Failed imports preserve the flag and verification timestamps with the prior snapshot.
 
+`0008_course_title_search.sql` adds the FTS5 table `courses_fts` (course id and the displayed title: reviewed title first) plus triggers that keep it current. The `unicode61 remove_diacritics 2` tokenizer makes title search case- and accent-insensitive.
+
 Discovery sorts unexpired cancelled editions last before pagination; the homepage
 excludes them. Search accepts `cancellation=hide` or `cancellation=only` (omitting it
 shows all). The filter composes with geography, centre, category, search, and price,

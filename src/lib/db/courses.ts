@@ -2,6 +2,7 @@ import {
   geographicCondition,
   type GeographicFilters,
 } from '../locations/geography';
+import { titleSearchMatch } from '../courses/title-search';
 import { canonicalCategory, sourceCategories } from '../courses/categories';
 
 export interface DiscoveryFilters extends GeographicFilters {
@@ -88,8 +89,15 @@ export async function listCourses(
     values.push(filters.centre);
   }
   if (filters.q) {
-    conditions.push("coalesce(c.reviewed_title, c.title) LIKE ? ESCAPE '\\'");
-    values.push(`%${filters.q.replace(/[\\%_]/g, '\\$&')}%`);
+    const match = titleSearchMatch(filters.q);
+    // FTS5 folds case and accents; a query without letters or digits matches nothing.
+    if (match === null) conditions.push('0=1');
+    else {
+      conditions.push(
+        'c.id IN (SELECT course_id FROM courses_fts WHERE courses_fts MATCH ?)',
+      );
+      values.push(match);
+    }
   }
   if (filters.maxPriceCents !== null) {
     conditions.push('e.price_cents <= ?');

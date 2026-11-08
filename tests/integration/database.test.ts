@@ -1,3 +1,4 @@
+import { parseFilters } from '../../src/lib/courses/discovery';
 import { clearGeographyCache } from '../../src/lib/locations/geography';
 import { loadFilterOptions } from '../../src/lib/courses/filter-options';
 import { loadDiscoveryPage, loadHomepage } from '../../src/lib/courses/page';
@@ -563,6 +564,73 @@ describe('SQLite migration and ingestion contract', () => {
         .prepare('SELECT title FROM courses WHERE title=?')
         .get('CONVERSA EN ANGLÈS')?.title,
     ).toBe('CONVERSA EN ANGLÈS');
+  });
+  it('searches titles ignoring case, accents and Unicode composition while keeping stored titles', async () => {
+    const titles = [
+      'Fotografía digital',
+      'CERÁMICA creativa',
+      'Música en família',
+      'Conversa en anglès',
+    ];
+    const titled = records.map((record, index) => ({
+      ...record,
+      title: (index === 3 ? 'Conversa en angle\u0300s' : titles[index])!,
+      startDate: '2099-01-01',
+      endDate: '2099-12-31',
+    }));
+    await runIngestion(db, { fetchRecords: async () => titled }, santAndreu);
+    const search = async (q: string, extra = '') =>
+      (
+        await listCourses(
+          db,
+          parseFilters(
+            new URLSearchParams(`q=${encodeURIComponent(q)}${extra}`),
+          ),
+          '2026-11-06',
+        )
+      ).courses.map((course) => course.title.normalize('NFC'));
+    for (const [query, expected] of [
+      ['fotografia', 'Fotografía digital'],
+      ['FOTOGRAFÍA', 'Fotografía digital'],
+      ['ceramica', 'CERÁMICA creativa'],
+      ['cerámica', 'CERÁMICA creativa'],
+      ['musica', 'Música en família'],
+      ['familia', 'Música en família'],
+      ['angles', 'Conversa en anglès'],
+      ['ANGLÈS', 'Conversa en anglès'],
+      ['angle\u0300s', 'Conversa en anglès'],
+      ['conversa angl', 'Conversa en anglès'],
+    ] as const)
+      expect(await search(query), query).toEqual([expected]);
+    expect(await search('inexistent')).toEqual([]);
+    expect(await search('--')).toEqual([]);
+    // Operators typed by users are text, not FTS5 syntax.
+    expect(await search('musica OR ceramica')).toEqual([]);
+    // Composes with the other filters and pagination.
+    expect(await search('musica', '&maxPrice=0')).toEqual([]);
+    expect(await search('musica', '&centre=cc-sant-andreu')).toEqual([
+      'Música en família',
+    ]);
+    expect(await search('musica', '&page=2')).toEqual([]);
+    // The stored titles keep their original accents.
+    expect(
+      sqlite
+        .prepare('SELECT title FROM courses WHERE title LIKE ?')
+        .get('Música%')?.title,
+    ).toBe('Música en família');
+    // Re-ingesting unchanged data and reviewing a title keep the index in sync.
+    await runIngestion(db, { fetchRecords: async () => titled }, santAndreu);
+    expect(await search('musica')).toEqual(['Música en família']);
+    sqlite
+      .prepare('UPDATE courses SET reviewed_title=? WHERE title=?')
+      .run('Piano', 'Música en família');
+    expect(await search('musica')).toEqual([]);
+    expect(await search('PIANO')).toEqual(['Piano']);
+    sqlite.exec('UPDATE courses SET reviewed_title=NULL');
+    expect(await search('musica')).toEqual(['Música en família']);
+    expect(
+      sqlite.prepare('SELECT count(*) AS n FROM courses_fts').get()?.n,
+    ).toBe(4);
   });
   it('shows the latest 20 unexpired additions by first seen, without refreshes reordering them', async () => {
     const clock = vi.spyOn(Date.prototype, 'toISOString');
