@@ -54,6 +54,8 @@
   "search": "Buscar por título",
   "searchExample": "Ej. fotografía, yoga…",
   "resultsIntro": "Encuentra una actividad y consulta los detalles en la web del centro.",
+  "startMonth": "Mes de inicio",
+  "anyStartMonth": "Cualquier mes",
   "price": "Precio máximo (€)",
   "submit": "Buscar cursos",
   "filters": "Filtros de búsqueda",

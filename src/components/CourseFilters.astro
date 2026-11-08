@@ -3,6 +3,7 @@ import { m } from '../paraglide/messages.js';
 import { courseSearchPath } from '../i18n/paths';
 import { categoryLabel, type Locale } from '../i18n/ui';
 import type { DiscoveryPageData } from '../lib/courses/page';
+import { startMonthLabel, startMonthOptions } from '../lib/courses/start-month';
 import Icon from './Icon.astro';
 import LocationFilters from './LocationFilters.astro';
 
@@ -22,12 +23,14 @@ const formFields = new Set([
   'centre',
   'category',
   'maxPrice',
+  'start',
   'page',
   'country',
   'region',
   'city',
   'cancellation',
 ]);
+const startMonths = startMonthOptions();
 const preservedParams = [...Astro.url.searchParams].filter(
   ([key]) => !formFields.has(key),
 );
@@ -120,6 +123,26 @@ const preservedParams = [...Astro.url.searchParams].filter(
             {categories.map((category) => (
               <option value={category} selected={filters.category === category}>
                 {categoryLabel(category, locale)}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div>
+          <label for="start">{m.startMonth({}, { locale })}</label>
+          <select id="start" name="start">
+            <option value="" selected={!filters.startMonth}>
+              {m.anyStartMonth({}, { locale })}
+            </option>
+            {filters.startMonth &&
+              !startMonths.includes(filters.startMonth) && (
+                <option value={filters.startMonth} selected>
+                  {startMonthLabel(filters.startMonth, locale)} (
+                  {m.currentSelection({}, { locale })})
+                </option>
+              )}
+            {startMonths.map((month) => (
+              <option value={month} selected={filters.startMonth === month}>
+                {startMonthLabel(month, locale)}
               </option>
             ))}
           </select>

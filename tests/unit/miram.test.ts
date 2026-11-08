@@ -227,6 +227,7 @@ describe('normalization', () => {
       category: '',
       centre: '',
       cancellation: '',
+      startMonth: '',
     });
     for (const query of [
       'page=0',

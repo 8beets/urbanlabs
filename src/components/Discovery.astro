@@ -6,6 +6,7 @@ import { courseSearchPath } from '../i18n/paths';
 import { categoryLabel, type Locale } from '../i18n/ui';
 import type { DiscoveryPageData } from '../lib/courses/page';
 import { sources } from '../lib/sources';
+import { startMonthLabel } from '../lib/courses/start-month';
 import CourseFilters from './CourseFilters.astro';
 import SiteLayout from '../layouts/SiteLayout.astro';
 import CourseCard from './CourseCard.astro';
@@ -68,6 +69,11 @@ if (filters.category)
   appliedFilters.push({
     key: 'category',
     label: `${m.category({}, { locale })}: ${categoryLabel(filters.category, locale)}`,
+  });
+if (filters.startMonth)
+  appliedFilters.push({
+    key: 'start',
+    label: `${m.startMonth({}, { locale })}: ${startMonthLabel(filters.startMonth, locale)}`,
   });
 if (filters.maxPriceCents !== null)
   appliedFilters.push({
