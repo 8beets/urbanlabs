@@ -1,6 +1,7 @@
 import { readFileSync, readdirSync } from 'node:fs';
 import { getPlatformProxy } from 'wrangler';
 import { expect, it } from 'vitest';
+import { splitStatements } from '../helpers/split-sql';
 import { runIngestion } from '../../src/lib/ingestion/run';
 import { parseMiramPage } from '../../src/lib/ingestion/adapters/miram';
 import { santAndreu } from '../../src/lib/sources/sant-andreu';
@@ -28,13 +29,7 @@ it('applies the migration and imports idempotently in the actual local D1 runtim
       .sort()
       .map((name) => readFileSync(new URL(name, directory), 'utf8'))
       .join('\n');
-    await db.batch(
-      migration
-        .split(';')
-        .map((sql) => sql.trim())
-        .filter(Boolean)
-        .map((sql) => db.prepare(sql)),
-    );
+    await db.batch(splitStatements(migration).map((sql) => db.prepare(sql)));
     const fixture = readFileSync(
       new URL('../fixtures/miram-sant-andreu-languages.html', import.meta.url),
       'utf8',
