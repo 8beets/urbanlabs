@@ -31,6 +31,7 @@
     "ingest": "tsx scripts/ingest.ts",
     "ingest:live": "tsx scripts/ingest.ts --live",
     "ingest:production": "tsx scripts/ingest-production.ts",
+    "ingest:plan": "tsx scripts/ingest-plan.ts",
     "centres:sync": "tsx scripts/sync-centres.ts",
     "centres:sync:production": "tsx scripts/sync-centres.ts --remote",
     "i18n:compile": "paraglide-js compile",
