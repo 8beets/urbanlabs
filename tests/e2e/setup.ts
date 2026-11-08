@@ -7,6 +7,7 @@ import { canBaste } from '../../src/lib/sources/can-baste';
 import { patiLlimona } from '../../src/lib/sources/pati-llimona';
 import { golferichs } from '../../src/lib/sources/golferichs';
 import { selectSources } from '../../src/lib/sources';
+import { splitStatements } from '../helpers/split-sql';
 
 async function setup() {
   const platform = await getPlatformProxy<Cloudflare.Env>({
@@ -33,11 +34,7 @@ async function setup() {
         .first();
       if (!applied) {
         await db.batch([
-          ...sql
-            .split(';')
-            .map((query) => query.trim())
-            .filter(Boolean)
-            .map((query) => db.prepare(query)),
+          ...splitStatements(sql).map((query) => db.prepare(query)),
           db.prepare('INSERT INTO e2e_migrations (name) VALUES (?)').bind(file),
         ]);
       }
