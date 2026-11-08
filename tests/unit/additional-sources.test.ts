@@ -75,6 +75,16 @@ const cases = [
     '2026-11-05',
     'Nuevas tecnologías',
   ],
+  [
+    'fort-pienc',
+    'miram-fort-pienc-languages.html',
+    'ID',
+    '4343',
+    'IDIOMES',
+    8748,
+    '2026-09-28',
+    'Idiomas',
+  ],
 ] as const;
 
 describe('additional centres: verified source fixtures', () => {

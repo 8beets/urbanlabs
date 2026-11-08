@@ -9,6 +9,7 @@ import { vilLaUrania } from './vil-la-urania';
 import { urgell } from './urgell';
 import { fabCasaDelRellotge } from './fab-casa-del-rellotge';
 import { fabCasaDelMig } from './fab-casa-del-mig';
+import { fortPienc } from './fort-pienc';
 
 export const sources = [
   santAndreu,
@@ -22,6 +23,7 @@ export const sources = [
   urgell,
   fabCasaDelRellotge,
   fabCasaDelMig,
+  fortPienc,
 ];
 
 export function selectSources(sourceId?: string) {

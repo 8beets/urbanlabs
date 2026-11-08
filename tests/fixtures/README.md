@@ -59,3 +59,9 @@ All roots use HTTPS and `/MiramModular/buscador/buscador.jsp?g=1&...`. The Albar
 `miram-urania-unpublished.html` preserves the actual advance-preview card on `f=HU&p=1` titled “Què hi pintem, les dones? Una nova mirada a la història de l'art”. It has no edition ID/date and explicitly announces future registration; it is excluded, not assigned a fabricated identity. It is a parser-regression fixture, not an imported edition.
 
 Browser fixtures change dates to 2099 only inside isolated E2E state. Real browsing data was loaded from separately verified source snapshots, never these test fixtures.
+
+`miram-fort-pienc-languages.html` is a one-card excerpt of course `4343` ("Iniciació a la llengua i la cultura xineses") from the public Fort Pienc language listing, retrieved on 2026-11-08:
+
+https://fortpienc.inscripcionscc.com/MiramModular/buscador/buscador.jsp?g=1&c=5&t=AC&f=ID
+
+It preserves the category heading, selector, schedule, date range and base price, serialized with Cheerio. The description, instructor line, concession prices, session calendar contents, image and contact details were removed; an empty element keeps the original `accordion4343` activity identifier. It is a parser fixture, not a claim of current availability.

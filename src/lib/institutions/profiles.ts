@@ -182,6 +182,21 @@ export const verifiedCentreProfiles: Record<string, CentreProfile> = {
     },
     email: 'informacio@vilaurania.net',
   },
+  'cc-fort-pienc': {
+    slug: 'fort-pienc',
+    phone: '932327827',
+    detailsSourceUrl:
+      'https://guia.barcelona.cat/ca/detall/centre-civic-ateneu-fort-pienc_99043134828.html',
+    detailsVerifiedAt: '2026-11-08',
+    location: {
+      latitude: 41.395586587207276,
+      longitude: 2.182465058010549,
+      sourceUrl:
+        'https://guia.barcelona.cat/ca/detall/centre-civic-ateneu-fort-pienc_99043134828.html',
+      verifiedAt: '2026-11-08',
+    },
+    email: 'fortpienc@fortpienc.org',
+  },
   'fab-casa-del-mig': {
     slug: 'fab-casa-del-mig',
     phone: '932914262',

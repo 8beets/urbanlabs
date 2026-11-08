@@ -87,7 +87,19 @@ The two FAB sources share `c=9903` and a host but use different activity types (
 
 The complete batch was assembled from real pages captured during manual live verification, with only missing pages fetched during subsequent parser validation. This avoided repeatedly fetching the same provider pages while resolving pagination and preview markup. Validated snapshots went through the authoritative ingestion runner for local and cloud persistence. They are not test fixtures or data-only SQL replays.
 
-Cloud and local D1 each contain **777 editions with source records across 11 centres** after this batch. Counts include expired editions; discovery omits those. The first four sources retain their earlier first-seen history. No fictional courses or inferred availability are published.
+Cloud and local D1 each contain **777 editions with source records across 11 centres** after this batch (Fort Pienc was added later). Counts include expired editions; discovery omits those. The first four sources retain their earlier first-seen history. No fictional courses or inferred availability are published.
+
+## Centre Cívic Ateneu Fort Pienc
+
+Verified on 2026-11-08:
+
+- Municipal entry: https://ajuntament.barcelona.cat/centrescivics/es/centre-civic/centre-civic-ateneu-fort-pienc, which links the official website https://www.fortpienc.org/.
+- Registration: https://fortpienc.inscripcionscc.com/MiramModular/buscador/buscador.jsp?g=1&c=5&t=AC (linked from the official site; platform: Miram, the same shared adapter as the other centres).
+- Address: Plaça Fort Pienc, 4-5, 08013 Barcelona, confirmed in the registration footer. Phone, email and coordinates come from the municipal guide entry https://guia.barcelona.cat/ca/detall/centre-civic-ateneu-fort-pienc_99043134828.html (`loadmapdetall` configuration; the phone matches the registration footer). `guia.barcelona.cat/robots.txt` sets a 10-second crawl delay and does not disallow the detail page.
+- `fortpienc.inscripcionscc.com/robots.txt` returned 404; the adapter rechecks it on every run. The centre's own website `www.fortpienc.org` has `User-agent: *`, `Disallow: /` and `Crawl-delay: 300`. UrbanLabs does not collect from it. Its home page was fetched once, before that policy had been read, only to find the registration link; nothing else on that host was requested.
+- The adapter, validation and normalization are unchanged; only `src/lib/sources/fort-pienc.ts` was added. The registration host offers three activity types: `AC` (Tallers Culturals, the course catalogue, seven categories), `BI` (itineraries) and `CE` (shows and talks). Only `AC` is configured; the adapter never follows links to other types.
+- A live `source:verify` run on 2026-11-08 validated **62 course editions** without persistence. A one-card excerpt of the language listing is saved in `tests/fixtures/miram-fort-pienc-languages.html`.
+- The same metadata-only collection, unknown availability/language, base-price (concession prices are not represented) and reuse-review limitations described above apply. Production ingestion is a separate, explicitly approved operation and has not been run.
 
 ## Investigated and deferred
 
@@ -119,7 +131,7 @@ Verify its official website, registration-platform ownership, public-access rule
 
 ## Centre directory locations and contacts
 
-All 11 centre locations and contacts were manually verified on 2026-11-06 against
+Eleven centre locations and contacts were manually verified on 2026-11-06, and Fort Pienc's on 2026-11-08, against
 Barcelona City Council's public municipal directory (`guia.barcelona.cat`). Exact
 source URLs, coordinates and verification dates live in
 `src/lib/institutions/profiles.ts`. Coordinates come from each official detail

@@ -10,17 +10,17 @@ import {
 } from '../../src/lib/institutions/maps';
 
 describe('verified centre locations', () => {
-  it('validates all 11 profiles with unique stable slugs and municipal provenance', () => {
+  it('validates all 12 profiles with unique stable slugs and municipal provenance', () => {
     const profiles = Object.values(verifiedCentreProfiles).map((p) =>
       centreProfileSchema.parse(p),
     );
-    expect(profiles).toHaveLength(11);
-    expect(new Set(profiles.map((p) => p.slug)).size).toBe(11);
+    expect(profiles).toHaveLength(12);
+    expect(new Set(profiles.map((p) => p.slug)).size).toBe(12);
     for (const profile of profiles) {
       expect(profile.location?.sourceUrl).toMatch(
         /^https:\/\/guia.barcelona.cat\/ca\/detall\//,
       );
-      expect(profile.location?.verifiedAt).toBe('2026-11-06');
+      expect(profile.location?.verifiedAt).toMatch(/^2026-11-0[68]$/);
     }
     expect(centreProfile('cc-unknown')).toEqual({ slug: 'unknown' });
     expect(centreProfile('fab-casa-del-mig').notice).toBe('temporary_closure');
