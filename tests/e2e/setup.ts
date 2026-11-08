@@ -1,12 +1,14 @@
+import { getSource } from '../../src/lib/sources';
 import { readFileSync, readdirSync } from 'node:fs';
 import { getPlatformProxy } from 'wrangler';
 import { runIngestion } from '../../src/lib/ingestion/run';
 import { parseMiramPage } from '../../src/lib/ingestion/adapters/miram';
-import { santAndreu } from '../../src/lib/sources/sant-andreu';
-import { canBaste } from '../../src/lib/sources/can-baste';
-import { patiLlimona } from '../../src/lib/sources/pati-llimona';
-import { golferichs } from '../../src/lib/sources/golferichs';
 import { selectSources } from '../../src/lib/sources';
+
+const santAndreu = getSource('miram-sant-andreu');
+const canBaste = getSource('miram-can-baste');
+const patiLlimona = getSource('miram-pati-llimona');
+const golferichs = getSource('miram-golferichs');
 
 async function setup() {
   const platform = await getPlatformProxy<Cloudflare.Env>({

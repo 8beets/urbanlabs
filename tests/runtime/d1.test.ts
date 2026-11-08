@@ -1,10 +1,10 @@
+import { getSource } from '../../src/lib/sources';
 import { readFileSync, readdirSync } from 'node:fs';
 import { getPlatformProxy } from 'wrangler';
 import { expect, it } from 'vitest';
 import { splitStatements } from '../helpers/split-sql';
 import { runIngestion } from '../../src/lib/ingestion/run';
 import { parseMiramPage } from '../../src/lib/ingestion/adapters/miram';
-import { santAndreu } from '../../src/lib/sources/sant-andreu';
 import {
   findInstitution,
   listMapCentres,
@@ -15,6 +15,8 @@ import {
   listCourses,
   listLatestCourses,
 } from '../../src/lib/db/courses';
+
+const santAndreu = getSource('miram-sant-andreu');
 
 it('applies the migration and imports idempotently in the actual local D1 runtime', async () => {
   const platform = await getPlatformProxy<Cloudflare.Env>({

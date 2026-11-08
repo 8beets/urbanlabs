@@ -19,7 +19,7 @@ original-language description, closure notice, and verified map coordinates. It
 backfills slugs for existing institutions without changing courses or provenance.
 Coordinates require both latitude/longitude and a source URL and verification date;
 incomplete locations are rejected by database constraints. New source registrations
-upsert reviewed profiles from `src/lib/institutions/profiles.ts`. Missing optional
+upsert reviewed profiles from the `profile` of each record in `data/centres/`. Missing optional
 metadata preserves existing values; an explicit `notice: null` clears a reviewed notice.
 
 After applying migrations, use `npm run centres:sync` to populate approved local

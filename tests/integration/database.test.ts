@@ -1,3 +1,4 @@
+import { getSource } from '../../src/lib/sources';
 import { parseFilters } from '../../src/lib/courses/discovery';
 import { clearGeographyCache } from '../../src/lib/locations/geography';
 import { loadFilterOptions } from '../../src/lib/courses/filter-options';
@@ -19,14 +20,15 @@ import { readFileSync, readdirSync } from 'node:fs';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { runIngestion } from '../../src/lib/ingestion/run';
 import { parseMiramPage } from '../../src/lib/ingestion/adapters/miram';
-import { santAndreu } from '../../src/lib/sources/sant-andreu';
-import { canBaste } from '../../src/lib/sources/can-baste';
 import {
   listCourses,
   listLatestCourses,
   listCategories,
   listCentres,
 } from '../../src/lib/db/courses';
+
+const santAndreu = getSource('miram-sant-andreu');
+const canBaste = getSource('miram-can-baste');
 
 const migrationDirectory = new URL('../../migrations/', import.meta.url);
 const migration = readdirSync(migrationDirectory)
