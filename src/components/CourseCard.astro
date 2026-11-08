@@ -62,10 +62,12 @@ if (course.category) categoryParams.set('category', course.category);
       >
         {course.price_cents === null
           ? m.unknownPrice({}, { locale })
-          : new Intl.NumberFormat(locale, {
-              style: 'currency',
-              currency: course.currency ?? 'EUR',
-            }).format(course.price_cents / 100)}
+          : course.price_cents === 0
+            ? m.freePrice({}, { locale })
+            : new Intl.NumberFormat(locale, {
+                style: 'currency',
+                currency: course.currency ?? 'EUR',
+              }).format(course.price_cents / 100)}
       </p>
     )}
     <a class="source-link" href={course.official_url}>

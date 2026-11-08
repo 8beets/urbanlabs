@@ -50,7 +50,9 @@ test.describe('cancelled course discovery without JavaScript', () => {
       await expect(page.locator('.price')).toContainText(/41,20/);
       await page.goto(`${search}?centre=cc-el-sortidor`);
       await expect(page.locator('.cancelled-label')).toHaveCount(0);
-      await expect(page.locator('.price')).toContainText(/0,00/);
+      await expect(page.locator('.price')).toHaveText(
+        locale === 'ca' ? 'Gratuït' : 'Gratis',
+      );
       await page.goto(`/${locale}/`);
       await expect(page.locator('.latest-courses .course')).toHaveCount(20);
       await expect(page.locator('.cancelled-label')).toHaveCount(0);
