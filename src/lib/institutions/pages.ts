@@ -7,6 +7,24 @@ import {
 } from '../db/institutions';
 import { listCourses, type CourseListing } from '../db/courses';
 import { parsePage } from '../pagination';
+import { TtlMemo } from '../cache/ttl-memo';
+
+// Centre data changes only with reviewed profile syncs, yet each directory page read
+// every profile for the map. The map is shared by all pages; listings are per page.
+const CENTRE_TTL_MS = 5 * 60 * 1000;
+const mapMemo = new TtlMemo<Awaited<ReturnType<typeof listMapCentres>>>(
+  CENTRE_TTL_MS,
+  1,
+);
+const directoryMemo = new TtlMemo<Awaited<ReturnType<typeof listInstitutions>>>(
+  CENTRE_TTL_MS,
+  50,
+);
+
+export function clearCentreCaches(db: D1Database): void {
+  mapMemo.clear(db);
+  directoryMemo.clear(db);
+}
 
 export type CentrePageError = 'invalid' | 'unavailable' | 'notFound' | null;
 export interface DirectoryPageData {
@@ -47,8 +65,8 @@ export async function loadDirectoryPage(
   }
   try {
     const [listing, locations] = await Promise.all([
-      listInstitutions(db, page),
-      listMapCentres(db),
+      directoryMemo.get(db, String(page), () => listInstitutions(db, page)),
+      mapMemo.get(db, 'map', () => listMapCentres(db)),
     ]);
     return {
       ...listing,

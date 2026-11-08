@@ -1,6 +1,7 @@
 import { getSource } from '../../src/lib/sources';
 import { parseFilters } from '../../src/lib/courses/discovery';
 import { clearGeographyCache } from '../../src/lib/locations/geography';
+import { clearReadCaches } from '../../src/lib/courses/facets';
 import { loadFilterOptions } from '../../src/lib/courses/filter-options';
 import { loadDiscoveryPage, loadHomepage } from '../../src/lib/courses/page';
 import { formatCourseTitle } from '../../src/lib/courses/title';
@@ -566,6 +567,63 @@ describe('SQLite migration and ingestion contract', () => {
         .prepare('SELECT title FROM courses WHERE title=?')
         .get('CONVERSA EN ANGLÈS')?.title,
     ).toBe('CONVERSA EN ANGLÈS');
+  });
+  it('writes only changed rows when a snapshot is re-imported unchanged', async () => {
+    const adapter = { fetchRecords: async () => records };
+    const changes = () =>
+      Number(sqlite.prepare('SELECT total_changes() AS n').get()?.n);
+    const before = changes();
+    await runIngestion(db, adapter, santAndreu);
+    const firstRun = changes() - before;
+    const afterFirst = changes();
+    await runIngestion(db, adapter, santAndreu);
+    const unchanged = changes() - afterFirst;
+    // Unchanged data rewrites no institution, source, profile, course or edition rows:
+    // only each record's verification timestamps and the run's own two rows.
+    expect(unchanged).toBe(records.length + 2);
+    expect(firstRun).toBeGreaterThan(unchanged * 2);
+    const afterSecond = changes();
+    const repriced = records.map((record, index) =>
+      index === 0 ? { ...record, priceCents: 12345 } : record,
+    );
+    await runIngestion(db, { fetchRecords: async () => repriced }, santAndreu);
+    // One edition row changed in addition to the same timestamps.
+    expect(changes() - afterSecond).toBe(records.length + 2 + 1);
+    expect(
+      sqlite
+        .prepare(
+          'SELECT price_cents AS p FROM course_editions ORDER BY price_cents DESC LIMIT 1',
+        )
+        .get()?.p,
+    ).toBe(12345);
+  });
+  it('reads filter options once per window and again after the caches are cleared', async () => {
+    const active = records.map((record) => ({
+      ...record,
+      startDate: '2099-01-01',
+      endDate: '2099-12-31',
+    }));
+    await runIngestion(db, { fetchRecords: async () => active }, santAndreu);
+    const prepare = vi.spyOn(db, 'prepare');
+    const first = await loadDiscoveryPage(db, new URLSearchParams());
+    expect(first.categories.length).toBeGreaterThan(0);
+    // Different search text, price and page still need the same options.
+    const queries = prepare.mock.calls.length;
+    await loadDiscoveryPage(db, new URLSearchParams('q=anglès'));
+    await loadDiscoveryPage(db, new URLSearchParams('maxPrice=50&page=1'));
+    const sqlOf = (index: number) => String(prepare.mock.calls[index]?.[0]);
+    const later = prepare.mock.calls
+      .slice(queries)
+      .map((_, i) => sqlOf(queries + i));
+    // Only the course listing runs again: no geography, category or centre lookups.
+    expect(later).toHaveLength(2);
+    expect(later.every((sql) => sql.includes('FROM course_editions e'))).toBe(
+      true,
+    );
+    clearReadCaches(db);
+    const afterClear = prepare.mock.calls.length;
+    await loadDiscoveryPage(db, new URLSearchParams());
+    expect(prepare.mock.calls.length - afterClear).toBeGreaterThan(2);
   });
   it('searches titles ignoring case, accents and Unicode composition while keeping stored titles', async () => {
     const titles = [

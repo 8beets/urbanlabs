@@ -1,4 +1,4 @@
-import { listCategories, listCentres } from '../db/courses';
+import { loadCategoryOptions, loadCentreOptions } from './facets';
 import {
   loadGeography,
   reconcileGeography,
@@ -25,10 +25,10 @@ export async function loadFilterOptions(
   const parsed = parseFilters(params);
   const geography = catalog ?? (await loadGeography(db));
   const filters = { ...parsed, ...reconcileGeography(parsed, geography) };
-  const centres = await listCentres(db, undefined, filters);
+  const centres = await loadCentreOptions(db, filters);
   const centre = centres.some((row) => row.id === filters.centre)
     ? filters.centre
     : '';
-  const categories = await listCategories(db, undefined, centre, filters);
+  const categories = await loadCategoryOptions(db, centre, filters);
   return { centre, centres, categories };
 }

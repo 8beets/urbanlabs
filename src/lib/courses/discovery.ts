@@ -4,12 +4,8 @@ import {
   reconcileGeography,
   type Geography,
 } from '../locations/geography';
-import {
-  listCourses,
-  listCategories,
-  listCentres,
-  type DiscoveryFilters,
-} from '../db/courses';
+import { listCourses, type DiscoveryFilters } from '../db/courses';
+import { loadCategoryOptions, loadCentreOptions } from './facets';
 import { canonicalCategory } from './categories';
 import { parsePage } from '../pagination';
 
@@ -58,8 +54,8 @@ export async function discoverCourses(
   const filters = { ...parsed, ...reconcileGeography(parsed, catalog) };
   const [listing, categories, centres] = await Promise.all([
     listCourses(db, filters),
-    listCategories(db, undefined, filters.centre, filters),
-    listCentres(db, undefined, filters),
+    loadCategoryOptions(db, filters.centre, filters),
+    loadCentreOptions(db, filters),
   ]);
   return { filters, ...listing, categories, centres, geography: catalog };
 }

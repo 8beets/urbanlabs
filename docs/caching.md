@@ -10,6 +10,10 @@ The Workers Cache works on custom domains (production is `urbanlabs.fyi`), not o
 
 Data imports and centre updates do not purge this cache, so changes can take up to five minutes (plus the stale window) to appear. Responses are tagged with their path and Worker version, so `context.cache.invalidate({ path | tags })` can purge them later. A future account, booking, or personalized page must remain outside the public route allowlist.
 
+## Database read memoization
+
+Inside the Worker, reference lookups (geography, category and centre filter options, centre directory and map data) are also memoized per isolate for five minutes, so different search URLs that miss the page cache do not repeat identical D1 queries. See `docs/database.md`.
+
 ## Static assets
 
 `public/_headers` gives images, fonts, and icons a one-hour browser TTL with `must-revalidate`. These paths have stable filenames, so they deliberately do not use `immutable`. Asset changes can take up to one hour to appear in a browser that already loaded them. Cloudflare's asset ETags remain available for conditional requests after expiry.
