@@ -33,7 +33,8 @@ for (const locale of ['es', 'ca'] as const) {
       .click();
     await expect(page).toHaveURL(new RegExp(`${base}$`));
     const links = page.locator('.centre-directory h2 a');
-    await expect(links).toHaveCount(12);
+    // Every registry centre plus the isolated test centre without a verified location.
+    await expect(links).toHaveCount(sources.length + 1);
     for (const source of sources) {
       const profile = centreProfile(source.institution.id);
       const href = `${base}/${profile.slug}`;
