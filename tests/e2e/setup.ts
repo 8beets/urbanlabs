@@ -1,4 +1,5 @@
 import { getSource } from '../../src/lib/sources';
+import { splitStatements } from '../helpers/split-sql';
 import { readFileSync, readdirSync } from 'node:fs';
 import { getPlatformProxy } from 'wrangler';
 import { runIngestion } from '../../src/lib/ingestion/run';
@@ -35,11 +36,7 @@ async function setup() {
         .first();
       if (!applied) {
         await db.batch([
-          ...sql
-            .split(';')
-            .map((query) => query.trim())
-            .filter(Boolean)
-            .map((query) => db.prepare(query)),
+          ...splitStatements(sql).map((query) => db.prepare(query)),
           db.prepare('INSERT INTO e2e_migrations (name) VALUES (?)').bind(file),
         ]);
       }
@@ -183,6 +180,9 @@ async function setup() {
       ['miram-urgell', 'miram-urgell.html', 'H'],
       ['miram-fab-casa-del-rellotge', 'miram-fab-casa-del-rellotge.html', '01'],
       ['miram-fab-casa-del-mig', 'miram-fab-casa-del-mig.html', '01'],
+      ['miram-fort-pienc', 'miram-fort-pienc-languages.html', 'ID'],
+      ['miram-barceloneta', 'miram-barceloneta-circus.html', '01'],
+      ['miram-can-castello', 'miram-can-castello-dance.html', '04'],
     ];
     for (const [id, file, category] of newFixtures) {
       const source = selectSources(id)[0]!;
@@ -204,6 +204,21 @@ async function setup() {
         source,
       );
     }
+    // Baró de Viver's only saved fixture is an excluded childcare service, so its E2E
+    // course is explicitly synthetic and exists only in this isolated state.
+    await runIngestion(
+      db,
+      {
+        fetchRecords: async () => [
+          {
+            ...first,
+            externalId: '99994',
+            title: 'TEST family workshop Baró de Viver',
+          },
+        ],
+      },
+      getSource('miram-baro-de-viver'),
+    );
     // Isolated reviewed-title fixture: display must preserve the maintainer's explicit casing.
     await db
       .prepare(

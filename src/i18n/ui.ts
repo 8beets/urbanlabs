@@ -1,6 +1,7 @@
 import { m } from '../paraglide/messages.js';
 import type { Locale } from '../paraglide/runtime.js';
 import { canonicalCategory } from '../lib/courses/categories';
+import { parseIsoDate } from '../lib/time/dates';
 
 export type { Locale } from '../paraglide/runtime.js';
 
@@ -63,8 +64,8 @@ export function pageErrorMessage(
 }
 
 export function formatLocalDate(value: string, locale: Locale): string {
-  return new Intl.DateTimeFormat(locale, {
-    dateStyle: 'medium',
-    timeZone: 'UTC',
-  }).format(new Date(`${value}T12:00:00Z`));
+  // Intl keeps Catalan elision ("d’abr.") and "de" that date-fns locale patterns lack.
+  return new Intl.DateTimeFormat(locale, { dateStyle: 'medium' }).format(
+    parseIsoDate(value),
+  );
 }

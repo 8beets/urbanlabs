@@ -1,17 +1,15 @@
-const months: Record<string, string> = {
-  gener: '01',
-  febrer: '02',
-  març: '03',
-  abril: '04',
-  maig: '05',
-  juny: '06',
-  juliol: '07',
-  agost: '08',
-  setembre: '09',
-  octubre: '10',
-  novembre: '11',
-  desembre: '12',
-};
+import type { Month } from 'date-fns';
+import { ca } from 'date-fns/locale';
+import { isIsoDate } from '../../time/dates';
+
+// Source pages use Catalan month names; the locale data is the single source of truth.
+// Matching stays exact (full names only): similar-looking words never become dates.
+const catalanMonths = new Map(
+  Array.from({ length: 12 }, (_, index) => [
+    ca.localize.month(index as Month, { width: 'wide' }).toLowerCase(),
+    index + 1,
+  ]),
+);
 
 export function cleanText(value: string): string {
   return value.replace(/\s+/gu, ' ').trim();
@@ -19,15 +17,12 @@ export function cleanText(value: string): string {
 
 export function localDate(
   day: string,
-  month: string,
+  month: number | undefined,
   year: string,
 ): string | null {
-  const value = `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
-  const date = new Date(`${value}T12:00:00Z`);
-  return Number.isNaN(date.valueOf()) ||
-    date.toISOString().slice(0, 10) !== value
-    ? null
-    : value;
+  if (month === undefined) return null;
+  const value = `${year}-${String(month).padStart(2, '0')}-${day.padStart(2, '0')}`;
+  return isIsoDate(value) ? value : null;
 }
 
 export function parseDateRange(value: string): [string | null, string | null] {
@@ -35,7 +30,9 @@ export function parseDateRange(value: string): [string | null, string | null] {
     ...value
       .toLowerCase()
       .matchAll(/(\d{1,2})\s+d[e’']\s*([\p{L}]+)\s+de\s+(\d{4})/gu),
-  ].map((match) => localDate(match[1]!, months[match[2]!] ?? '00', match[3]!));
+  ].map((match) =>
+    localDate(match[1]!, catalanMonths.get(match[2]!), match[3]!),
+  );
   if (
     /^\d{1,2}\s+d[e’']\s*[\p{L}]+\s+de\s+\d{4}$/u.test(value.trim()) &&
     dates.length === 1 &&

@@ -15,7 +15,10 @@ export async function registerSource(
         `INSERT INTO institutions (id, name, official_url, city, country, address, timezone)
       VALUES (?, ?, ?, ?, ?, ?, ?) ON CONFLICT(id) DO UPDATE SET name=excluded.name,
       official_url=excluded.official_url, city=excluded.city, country=excluded.country,
-      address=excluded.address, timezone=excluded.timezone`,
+      address=excluded.address, timezone=excluded.timezone
+      WHERE name IS NOT excluded.name OR official_url IS NOT excluded.official_url
+        OR city IS NOT excluded.city OR country IS NOT excluded.country
+        OR address IS NOT excluded.address OR timezone IS NOT excluded.timezone`,
       )
       .bind(
         institution.id,
@@ -29,13 +32,15 @@ export async function registerSource(
     db
       .prepare(
         `INSERT INTO institution_locations(institution_id,country_code,city_id) VALUES (?,?,?)
-      ON CONFLICT(institution_id) DO UPDATE SET country_code=excluded.country_code,city_id=excluded.city_id`,
+      ON CONFLICT(institution_id) DO UPDATE SET country_code=excluded.country_code,city_id=excluded.city_id
+      WHERE country_code IS NOT excluded.country_code OR city_id IS NOT excluded.city_id`,
       )
       .bind(institution.id, institution.country, institution.cityId),
     db
       .prepare(
         `INSERT INTO sources (id, institution_id, name, listing_url) VALUES (?, ?, ?, ?)
-      ON CONFLICT(id) DO UPDATE SET name=excluded.name, listing_url=excluded.listing_url`,
+      ON CONFLICT(id) DO UPDATE SET name=excluded.name, listing_url=excluded.listing_url
+      WHERE name IS NOT excluded.name OR listing_url IS NOT excluded.listing_url`,
       )
       .bind(source.id, institution.id, source.name, source.listingUrl),
     db
@@ -53,7 +58,17 @@ export async function registerSource(
       notice=CASE WHEN ?=1 THEN excluded.notice ELSE institution_profiles.notice END,
       latitude=coalesce(excluded.latitude, institution_profiles.latitude), longitude=coalesce(excluded.longitude, institution_profiles.longitude),
       coordinates_source_url=coalesce(excluded.coordinates_source_url, institution_profiles.coordinates_source_url),
-      coordinates_verified_at=coalesce(excluded.coordinates_verified_at, institution_profiles.coordinates_verified_at)`,
+      coordinates_verified_at=coalesce(excluded.coordinates_verified_at, institution_profiles.coordinates_verified_at)
+      WHERE slug IS NOT excluded.slug
+        OR description IS NOT coalesce(excluded.description, description)
+        OR description_language IS NOT coalesce(excluded.description_language, description_language)
+        OR phone IS NOT coalesce(excluded.phone, phone) OR email IS NOT coalesce(excluded.email, email)
+        OR details_source_url IS NOT coalesce(excluded.details_source_url, details_source_url)
+        OR details_verified_at IS NOT coalesce(excluded.details_verified_at, details_verified_at)
+        OR notice IS NOT (CASE WHEN ?=1 THEN excluded.notice ELSE notice END)
+        OR latitude IS NOT coalesce(excluded.latitude, latitude) OR longitude IS NOT coalesce(excluded.longitude, longitude)
+        OR coordinates_source_url IS NOT coalesce(excluded.coordinates_source_url, coordinates_source_url)
+        OR coordinates_verified_at IS NOT coalesce(excluded.coordinates_verified_at, coordinates_verified_at)`,
       )
       .bind(
         institution.id,
@@ -69,6 +84,7 @@ export async function registerSource(
         profile.location?.longitude ?? null,
         profile.location?.sourceUrl ?? null,
         profile.location?.verifiedAt ?? null,
+        profile.notice === undefined ? 0 : 1,
         profile.notice === undefined ? 0 : 1,
       ),
   ]);
@@ -106,7 +122,9 @@ export async function saveSnapshot(
       db
         .prepare(
           `INSERT INTO courses (id, institution_id, title, category, course_language) VALUES (?, ?, ?, ?, ?)
-        ON CONFLICT(id) DO UPDATE SET title=excluded.title, category=excluded.category, course_language=excluded.course_language`,
+        ON CONFLICT(id) DO UPDATE SET title=excluded.title, category=excluded.category, course_language=excluded.course_language
+        WHERE title IS NOT excluded.title OR category IS NOT excluded.category
+          OR course_language IS NOT excluded.course_language`,
         )
         .bind(
           courseId,
@@ -121,7 +139,11 @@ export async function saveSnapshot(
         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ON CONFLICT(id) DO UPDATE SET course_id=excluded.course_id,
         start_date=excluded.start_date, end_date=excluded.end_date, schedule_text=excluded.schedule_text,
         price_cents=excluded.price_cents, currency=excluded.currency, availability=excluded.availability,
-        is_cancelled=excluded.is_cancelled`,
+        is_cancelled=excluded.is_cancelled
+        WHERE course_id IS NOT excluded.course_id OR start_date IS NOT excluded.start_date
+          OR end_date IS NOT excluded.end_date OR schedule_text IS NOT excluded.schedule_text
+          OR price_cents IS NOT excluded.price_cents OR currency IS NOT excluded.currency
+          OR availability IS NOT excluded.availability OR is_cancelled IS NOT excluded.is_cancelled`,
         )
         .bind(
           editionId,

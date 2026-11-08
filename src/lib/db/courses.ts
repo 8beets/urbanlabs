@@ -49,7 +49,7 @@ function canonicalListing(course: CourseListing): CourseListing {
 export const LATEST_COURSES_LIMIT = 20;
 export async function listLatestCourses(
   db: D1Database,
-  today = new Date().toLocaleDateString('sv-SE', { timeZone: 'Europe/Madrid' }),
+  today: string,
 ): Promise<CourseListing[]> {
   const result = await db
     .prepare(
@@ -57,7 +57,7 @@ export async function listLatestCourses(
     JOIN course_editions e ON e.id=sr.edition_id
     JOIN courses c ON c.id=e.course_id JOIN institutions i ON i.id=c.institution_id
     LEFT JOIN institution_profiles p ON p.institution_id=i.id
-    WHERE e.is_cancelled=0 AND (e.end_date IS NULL OR e.end_date >= ?)
+    WHERE e.is_cancelled=0 AND +e.live_until >= ?
     ORDER BY sr.first_seen_at DESC, sr.source_id, sr.external_id LIMIT ?`,
     )
     .bind(today, LATEST_COURSES_LIMIT)
@@ -68,7 +68,7 @@ export async function listLatestCourses(
 export async function listCourses(
   db: D1Database,
   filters: DiscoveryFilters,
-  today = new Date().toLocaleDateString('sv-SE', { timeZone: 'Europe/Madrid' }),
+  today: string,
 ): Promise<{ courses: CourseListing[]; hasNext: boolean }> {
   const conditions: string[] = [];
   const values: (string | number)[] = [];
@@ -104,7 +104,7 @@ export async function listCourses(
     values.push(filters.maxPriceCents);
   }
   // Expired editions remain stored for provenance, but leave the discovery listing.
-  conditions.push('(e.end_date IS NULL OR e.end_date >= ?)');
+  conditions.push('e.live_until >= ?');
   values.push(today);
   const result = await db
     .prepare(
@@ -125,21 +125,22 @@ export async function listCourses(
 
 export async function listCategories(
   db: D1Database,
-  today = new Date().toLocaleDateString('sv-SE', { timeZone: 'Europe/Madrid' }),
+  today: string,
   centre = '',
   geography: GeographicFilters & Pick<DiscoveryFilters, 'cancellation'> = {},
 ): Promise<string[]> {
   const geographic = geographicCondition(geography, 'c.institution_id');
+  // Driven by the live-edition range, so the cost follows live editions, not history.
   const result = await db
     .prepare(
-      `SELECT DISTINCT c.category FROM courses c
-    WHERE c.category IS NOT NULL AND c.category <> '' ${centre ? 'AND c.institution_id = ?' : ''} ${geographic.sql ? `AND ${geographic.sql}` : ''} AND EXISTS (
-      SELECT 1 FROM course_editions e WHERE e.course_id=c.id
-      ${cancellationCondition(geography.cancellation)}
-      AND (e.end_date IS NULL OR e.end_date >= ?)
-    ) ORDER BY c.category LIMIT 100`,
+      `SELECT DISTINCT c.category FROM course_editions e
+    JOIN courses c ON c.id=e.course_id
+    WHERE e.live_until >= ? ${cancellationCondition(geography.cancellation)}
+    AND c.category IS NOT NULL AND c.category <> ''
+    ${centre ? 'AND c.institution_id = ?' : ''} ${geographic.sql ? `AND ${geographic.sql}` : ''}
+    ORDER BY c.category LIMIT 100`,
     )
-    .bind(...(centre ? [centre] : []), ...geographic.values, today)
+    .bind(today, ...(centre ? [centre] : []), ...geographic.values)
     .all<{ category: string }>();
   return [
     ...new Set(result.results.map((row) => canonicalCategory(row.category))),
@@ -152,17 +153,17 @@ export interface CentreListing {
 }
 export async function listCentres(
   db: D1Database,
-  today = new Date().toLocaleDateString('sv-SE', { timeZone: 'Europe/Madrid' }),
+  today: string,
   geography: GeographicFilters & Pick<DiscoveryFilters, 'cancellation'> = {},
 ): Promise<CentreListing[]> {
   const geographic = geographicCondition(geography);
   const result = await db
     .prepare(
-      `SELECT i.id, i.name FROM institutions i WHERE ${geographic.sql ? `${geographic.sql} AND` : ''} EXISTS (
-    SELECT 1 FROM courses c JOIN course_editions e ON e.course_id=c.id WHERE c.institution_id=i.id
-    ${cancellationCondition(geography.cancellation)}
-    AND (e.end_date IS NULL OR e.end_date >= ?)
-  ) ORDER BY i.name LIMIT 100`,
+      `SELECT i.id, i.name FROM institutions i WHERE ${geographic.sql ? `${geographic.sql} AND` : ''}
+    i.id IN (
+      SELECT c.institution_id FROM course_editions e JOIN courses c ON c.id=e.course_id
+      WHERE e.live_until >= ? ${cancellationCondition(geography.cancellation)}
+    ) ORDER BY i.name LIMIT 100`,
     )
     .bind(...geographic.values, today)
     .all<CentreListing>();

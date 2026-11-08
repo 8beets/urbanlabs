@@ -5,8 +5,27 @@ import {
   findInstitution,
   type Centre,
 } from '../db/institutions';
+import { liveCutoffDate } from '../db/clock';
 import { listCourses, type CourseListing } from '../db/courses';
 import { parsePage } from '../pagination';
+import { TtlMemo } from '../cache/ttl-memo';
+
+// Centre data changes only with reviewed profile syncs, yet each directory page read
+// every profile for the map. The map is shared by all pages; listings are per page.
+const CENTRE_TTL_MS = 5 * 60 * 1000;
+const mapMemo = new TtlMemo<Awaited<ReturnType<typeof listMapCentres>>>(
+  CENTRE_TTL_MS,
+  1,
+);
+const directoryMemo = new TtlMemo<Awaited<ReturnType<typeof listInstitutions>>>(
+  CENTRE_TTL_MS,
+  50,
+);
+
+export function clearCentreCaches(db: D1Database): void {
+  mapMemo.clear(db);
+  directoryMemo.clear(db);
+}
 
 export type CentrePageError = 'invalid' | 'unavailable' | 'notFound' | null;
 export interface DirectoryPageData {
@@ -47,8 +66,8 @@ export async function loadDirectoryPage(
   }
   try {
     const [listing, locations] = await Promise.all([
-      listInstitutions(db, page),
-      listMapCentres(db),
+      directoryMemo.get(db, String(page), () => listInstitutions(db, page)),
+      mapMemo.get(db, 'map', () => listMapCentres(db)),
     ]);
     return {
       ...listing,
@@ -88,13 +107,17 @@ export async function loadCentrePage(
   try {
     const centre = await findInstitution(db, slug);
     if (!centre) return { ...empty, error: 'notFound', status: 404 };
-    const listing = await listCourses(db, {
-      q: '',
-      category: '',
-      maxPriceCents: null,
-      centre: centre.id,
-      page,
-    });
+    const listing = await listCourses(
+      db,
+      {
+        q: '',
+        category: '',
+        maxPriceCents: null,
+        centre: centre.id,
+        page,
+      },
+      await liveCutoffDate(db),
+    );
     return { ...listing, centre, page, error: null, status: 200 };
   } catch {
     console.error(JSON.stringify({ event: 'centre_page_unavailable' }));

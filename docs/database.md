@@ -63,6 +63,54 @@ Failed imports preserve the flag and verification timestamps with the prior snap
 
 `0008_course_title_search.sql` adds the FTS5 table `courses_fts` (course id and the displayed title: reviewed title first) plus triggers that keep it current. The `unicode61 remove_diacritics 2` tokenizer makes title search case- and accent-insensitive.
 
+`0009_edition_liveness_index.sql` adds the virtual generated column
+`course_editions.live_until` (`coalesce(end_date, '9999-12-31')`) and indexes it.
+Discovery lists only editions that have not ended (an unknown end date still counts as
+not ended), and `end_date IS NULL OR end_date >= ?` cannot use an index, so listing,
+category and centre queries used to walk every edition ever imported. They now start
+from a range scan on `live_until`, so their cost follows live editions rather than
+history. On a synthetic database with 30,000 expired and 1,500 live editions the
+listing query went from about 65 ms to 3.5 ms and the category and centre queries from
+about 74 and 44 ms to 2.4 and 1.6 ms. Expired editions stay stored for provenance. The
+homepage's latest-additions query keeps its `first_seen_at` scan with early exit (the
+unary `+` stops the planner from preferring the liveness index there).
+
+### Row-write budget
+
+Ingestion upserts every record on every run, and D1 Free allows 100,000 row writes per
+day. Every upsert (`institutions`, locations, `sources`, profiles, `courses`,
+`course_editions`) now carries a `DO UPDATE ... WHERE` guard that compares the stored
+values, so an unchanged record writes nothing there. The only unavoidable write per
+unchanged record is its `source_records` row, which advances the last-seen and
+last-verified timestamps required for provenance, plus the run's own two rows. For the
+four-record fixture an unchanged re-import went from 18 row changes to 6; at hundreds
+of centres this is roughly a third of the writes. Reviewed titles and manual
+corrections are never in the compared columns, and the search-index triggers only fire
+when a title actually changes. If writes ever become the limit again, the next step is
+to track verification per run instead of per record.
+
+### Calendar dates and time zones
+
+Dates are ISO `yyyy-MM-dd` strings handled with date-fns; zone-aware "today" uses
+`@date-fns/tz`. No place is hard-coded: each centre record carries an IANA `timezone`
+(validated at load time), and the cutoff that decides whether an edition has ended is
+the earliest current local date across the time zones of the institutions in the
+database (`src/lib/db/clock.ts`, zones memoized for five minutes, UTC when none). An
+edition is therefore never hidden before it has ended in its own zone; one in a zone
+further ahead can stay listed up to a day longer. Source dates are parsed with exact
+Catalan month names taken from the date-fns locale and validated as real calendar
+days. Display still uses `Intl.DateTimeFormat`, because date-fns' Catalan patterns
+lack the "de" and apostrophe elision that Intl produces.
+
+### Read caches
+
+Reference lookups that change only through migrations, ingestion or reviewed profile
+syncs are memoized per Worker isolate for five minutes (`src/lib/cache/ttl-memo.ts`):
+the geography catalogue, category and centre filter options (keyed by geography,
+cancellation and selected centre, not by search text, price or page), and the centre
+directory and map data. Concurrent callers share one in-flight load and failures are
+never kept. Tests that change data in place call `clearReadCaches(db)`.
+
 Discovery sorts unexpired cancelled editions last before pagination; the homepage
 excludes them. Search accepts `cancellation=hide` or `cancellation=only` (omitting it
 shows all). The filter composes with geography, centre, category, search, and price,

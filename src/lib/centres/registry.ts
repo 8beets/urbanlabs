@@ -1,5 +1,6 @@
 import { z } from 'zod';
-import esBarcelona from '../../../data/centres/es/barcelona.json';
+// The explicit attribute is required by the Worker dev runtime (workerd) and Node.
+import esBarcelona from '../../../data/centres/es/barcelona.json' with { type: 'json' };
 import { centreSchema, toSourceConfig, type Centre } from './schema';
 import type { CentreProfile } from './profile-schema';
 

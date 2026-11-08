@@ -58,6 +58,8 @@ describe('centre probe', () => {
       address: 'Plaça Fort Pienc, 4-5, 08013 Barcelona',
       city: 'Barcelona',
       cityId: 'barcelona',
+      country: 'ES',
+      timezone: 'Europe/Madrid',
     };
     expect(centreSchema.safeParse(partial).success).toBe(false);
     const withoutProfile: Record<string, unknown> = { ...partial };

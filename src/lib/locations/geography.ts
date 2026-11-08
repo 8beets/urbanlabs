@@ -1,3 +1,5 @@
+import { TtlMemo } from '../cache/ttl-memo';
+
 export interface GeographicFilters {
   country?: string;
   region?: string;
@@ -32,26 +34,14 @@ const CATALOG_LIMIT = 1000;
 
 // The catalog changes only with migrations, yet every page and filter request read
 // all three tables. A short per-isolate memo avoids those repeated D1 row reads.
-const GEOGRAPHY_TTL_MS = 5 * 60 * 1000;
-const geographyMemo = new WeakMap<
-  D1Database,
-  { expires: number; value: Promise<Geography> }
->();
+const geographyMemo = new TtlMemo<Geography>(5 * 60 * 1000, 1);
 
 export function clearGeographyCache(db: D1Database): void {
-  geographyMemo.delete(db);
+  geographyMemo.clear(db);
 }
 
 export function loadGeography(db: D1Database): Promise<Geography> {
-  const memo = geographyMemo.get(db);
-  if (memo && memo.expires > Date.now()) return memo.value;
-  const value = queryGeography(db);
-  geographyMemo.set(db, { expires: Date.now() + GEOGRAPHY_TTL_MS, value });
-  // Failures must not stay cached.
-  value.catch(() => {
-    if (geographyMemo.get(db)?.value === value) geographyMemo.delete(db);
-  });
-  return value;
+  return geographyMemo.get(db, 'catalog', () => queryGeography(db));
 }
 
 async function queryGeography(db: D1Database): Promise<Geography> {

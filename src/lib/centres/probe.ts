@@ -112,10 +112,10 @@ export function draftEntry(
     name: `TODO: official name (footer says: ${probe.footerName ?? 'unknown'})`,
     officialUrl: 'TODO: official website or municipal page, https',
     address: `TODO: confirm (footer says: ${probe.footerAddress ?? 'unknown'})`,
-    country: 'ES',
+    country: 'TODO: ISO 3166-1 alpha-2',
     city: 'TODO',
     cityId: 'TODO: seeded city id',
-    timezone: 'Europe/Madrid',
+    timezone: 'TODO: IANA time zone, e.g. Europe/Madrid',
     // Every profile field needs a person; none is prefilled with a value that could validate.
     profile: {
       phone: 'TODO: from the official directory',

@@ -1,4 +1,8 @@
 import { expect, test } from '@playwright/test';
+import { sources } from '../../src/lib/sources';
+
+// Every registry centre has verified coordinates, plus the isolated test centre without a
+// location that appears in the list but not on the map.
 
 // Saved transparent PNG: routine map checks never fetch third-party tiles.
 const tile = Buffer.from(
@@ -24,8 +28,12 @@ for (const locale of ['es', 'ca']) {
     await page.goto(base);
     const map = page.locator('[data-centre-map]');
     await expect(map).toHaveAttribute('data-map-ready', 'true');
-    await expect(page.locator('.centre-map-marker')).toHaveCount(11);
-    await expect(page.locator('.centre-directory article')).toHaveCount(12);
+    await expect(page.locator('.centre-map-marker')).toHaveCount(
+      sources.length,
+    );
+    await expect(page.locator('.centre-directory article')).toHaveCount(
+      sources.length + 1,
+    );
     const points = JSON.parse((await map.getAttribute('data-centres'))!);
     expect(
       points.some((p: { id: string }) => p.id === 'test-no-location'),
@@ -72,8 +80,10 @@ test('tile failures keep verified markers and the full directory available', asy
   await expect(page.locator('[data-map-status]')).toContainText(
     'No se ha podido cargar el fondo',
   );
-  await expect(page.locator('.centre-map-marker')).toHaveCount(11);
-  await expect(page.locator('.centre-directory article')).toHaveCount(12);
+  await expect(page.locator('.centre-map-marker')).toHaveCount(sources.length);
+  await expect(page.locator('.centre-directory article')).toHaveCount(
+    sources.length + 1,
+  );
 });
 
 test.describe('without JavaScript', () => {
@@ -87,7 +97,9 @@ test.describe('without JavaScript', () => {
     });
     await page.goto('/es/centros');
     await expect(page.locator('[data-map-canvas]')).toBeHidden();
-    await expect(page.locator('.centre-directory article')).toHaveCount(12);
+    await expect(page.locator('.centre-directory article')).toHaveCount(
+      sources.length + 1,
+    );
     expect(tileRequests).toBe(0);
     await page
       .locator('.centre-directory a[href="/es/centros/sant-andreu"]')
