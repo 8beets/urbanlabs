@@ -45,7 +45,7 @@ it('applies the migration and imports idempotently in the actual local D1 runtim
     expect((await findInstitution(db, 'sant-andreu'))?.latitude).toBe(
       41.43088018380354,
     );
-    expect((await listInstitutions(db, 1)).centres).toHaveLength(1);
+    expect(await listInstitutions(db)).toHaveLength(1);
     expect((await listMapCentres(db)).mapCentres).toMatchObject([
       {
         slug: 'sant-andreu',

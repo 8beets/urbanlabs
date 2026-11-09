@@ -393,7 +393,7 @@ describe('SQLite migration and ingestion contract', () => {
   it('registers verified profiles independently of courses and preserves reviewed descriptions', async () => {
     await registerSource(db, santAndreu);
     await registerSource(db, canBaste);
-    expect((await listInstitutions(db, 1)).centres).toHaveLength(2);
+    expect(await listInstitutions(db)).toHaveLength(2);
     const centre = await findInstitution(db, 'sant-andreu');
     expect(centre?.latitude).toBe(41.43088018380354);
     expect(centre?.coordinates_source_url).toContain('guia.barcelona.cat');
@@ -452,8 +452,9 @@ describe('SQLite migration and ingestion contract', () => {
         },
       });
     }
-    const first = await listInstitutions(db, 1);
-    const next = await listInstitutions(db, 2);
+    const params = (query: string) => new URLSearchParams(query);
+    const first = await loadDirectoryPage(db, params(''));
+    const next = await loadDirectoryPage(db, params('page=2'));
     expect(first.centres).toHaveLength(24);
     expect(first.hasNext).toBe(true);
     expect(next.centres).toHaveLength(1);
@@ -461,6 +462,8 @@ describe('SQLite migration and ingestion contract', () => {
     expect(
       new Set([...first.centres, ...next.centres].map((c) => c.id)).size,
     ).toBe(25);
+    const found = await loadDirectoryPage(db, params('q=centre 07'));
+    expect(found.centres.map((c) => c.name)).toEqual(['Centre 07']);
     const unavailable = {
       prepare: () => {
         throw new Error('database unavailable');
@@ -520,7 +523,7 @@ describe('SQLite migration and ingestion contract', () => {
     expect(map.mapCentres.find((c) => c.id === 'cc-sant-andreu')).toMatchObject(
       { latitude: 41.43088018380354, longitude: 2.1894124386376466 },
     );
-    expect((await listInstitutions(db, 1)).centres).toHaveLength(24);
+    expect(await listInstitutions(db)).toHaveLength(26);
   });
   it('bounds map data and reports truncation explicitly', async () => {
     for (let index = 0; index < MAP_CENTRES_LIMIT + 1; index++) {

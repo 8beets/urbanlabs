@@ -12,6 +12,14 @@ interface Props {
 }
 const { locale, data } = Astro.props;
 const base = centreDirectoryPath(locale);
+// Pagination keeps the active search and city filter.
+const pageHref = (page: number) => {
+  const query = new URLSearchParams();
+  if (data.q) query.set('q', data.q);
+  if (data.city) query.set('city', data.city);
+  query.set('page', String(page));
+  return `${base}?${query}`;
+};
 ---
 
 <SiteLayout
@@ -33,13 +41,42 @@ const base = centreDirectoryPath(locale);
       {pageErrorMessage(data.error, locale)}
     </p>
   )}
-  {!data.error && !data.centres.length && <p>{m.noCentres({}, { locale })}</p>}
+  {!data.error && !data.centres.length && (
+    <p>
+      {data.q || data.city
+        ? m.noMatchingCentres({}, { locale })
+        : m.noCentres({}, { locale })}
+    </p>
+  )}
   {!data.error && (
     <CentreDirectoryMap
       locale={locale}
       centres={data.mapCentres}
       limited={data.mapHasMore}
     />
+  )}
+  {!data.error && (
+    <form class="centre-search" method="get" action={base}>
+      <label for="centre-q">{m.searchCentres({}, { locale })}</label>
+      <input
+        id="centre-q"
+        type="search"
+        name="q"
+        value={data.q}
+        maxlength="100"
+        autocomplete="off"
+      />
+      <label for="centre-city">{m.city({}, { locale })}</label>
+      <select id="centre-city" name="city">
+        <option value="">{m.allCities({}, { locale })}</option>
+        {data.cities.map((city) => (
+          <option value={city} selected={city === data.city}>
+            {city}
+          </option>
+        ))}
+      </select>
+      <button type="submit">{m.searchCentresSubmit({}, { locale })}</button>
+    </form>
   )}
   <div id="centre-list" class="grid centre-directory">
     {data.centres.map((centre) => (
@@ -63,12 +100,12 @@ const base = centreDirectoryPath(locale);
   </div>
   <nav class="pagination" aria-label={m.pagination({}, { locale })}>
     {data.page > 1 && (
-      <a href={`${base}?page=${data.page - 1}`} rel="prev">
+      <a href={pageHref(data.page - 1)} rel="prev">
         ← {m.previous({}, { locale })}
       </a>
     )}
     {data.hasNext && data.page < 1000 && (
-      <a href={`${base}?page=${data.page + 1}`} rel="next">
+      <a href={pageHref(data.page + 1)} rel="next">
         {m.next({}, { locale })} →
       </a>
     )}

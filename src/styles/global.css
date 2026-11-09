@@ -749,3 +749,27 @@ h3 {
 .latest-courses {
   padding-bottom: 24px;
 }
+
+.centre-search {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  gap: 8px 12px;
+  margin-block: 16px;
+}
+.centre-search label {
+  flex-basis: 100%;
+  font-weight: 700;
+}
+.centre-search input,
+.centre-search select {
+  min-height: 46px;
+  padding: 10px 12px;
+  border: 1px solid #8c9faa;
+  border-radius: 7px;
+  background: white;
+  font: inherit;
+}
+.centre-search input {
+  flex: 1 1 240px;
+}
