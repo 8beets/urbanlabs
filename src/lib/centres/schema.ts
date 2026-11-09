@@ -44,6 +44,9 @@ const miramRegistrationSchema = z.strictObject({
   // The importer refuses to run if a robots.txt appears, so only "absent" is valid
   // until a different policy has been reviewed and modelled explicitly.
   robotsTxt: z.literal('absent'),
+  // Maintainer assertion for seasonal centres: an empty (but well-formed) listing is a
+  // normal successful run with zero editions instead of a failure needing review.
+  mayBeEmpty: z.boolean().optional(),
   exclusions: z.array(exclusionSchema).optional(),
 });
 
@@ -88,6 +91,7 @@ export function toSourceConfig(centre: Centre): SourceConfig {
     listingUrl: miramListingUrl(centre.registration),
     ...(categories.length ? { excludedCategoryCodes: categories } : {}),
     ...(records.length ? { excludedExternalIds: records } : {}),
+    ...(centre.registration.mayBeEmpty ? { mayBeEmpty: true } : {}),
     institution: {
       id: centre.id,
       name: centre.name,

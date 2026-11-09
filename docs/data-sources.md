@@ -79,7 +79,7 @@ Cloud D1 holds 305 editions and 305 source records across the four imported cent
 
 All seven registration hosts returned 404 for `robots.txt`; the adapter rechecks before each live run. Official programme links, public municipal listings, and registration footers were used to establish institution identity and addresses. The same metadata-only collection, unknown availability/language, base-price/supplement, and reuse-review limitations above apply.
 
-Casa Elizalde's main website still disallows general crawlers. Its officially linked `casaelizalde.inscripcionscc.com` host has a separate policy and provides the imported records; the blocked WordPress REST API is not used. Category `CO` is explicitly online-only and excluded. “Balls en línia” in the expression category is line dancing and is retained; online delivery is not inferred from that phrase.
+Casa Elizalde's main website still disallows general crawlers. Its officially linked `casaelizalde.inscripcionscc.com` host has a separate policy and provides the imported records; the blocked WordPress REST API is not used. On 2026-11-09 the course catalogue (`AC`) was empty and only shows and talks (`CE`, out of scope) were offered, so the centre is marked `mayBeEmpty`. Category `CO` is explicitly online-only and excluded. “Balls en línia” in the expression category is line dancing and is retained; online delivery is not inferred from that phrase.
 
 El Sortidor category `TC` contains a musical show and is excluded; its family cooking workshop is included with its explicitly stated free price and single local date. Vil·la Urània exposes an advance-preview card with no stable edition identifier or dates, labelled with a future registration-opening notice. It is reported and omitted; no identity or schedule is invented. Urgell's uppercase headings and all new equivalent categories use the public category map.
 
@@ -151,7 +151,8 @@ A centre is one JSON record in `data/centres/<country>/<city>.json` (lower-case 
 3. Complete every `TODO` by hand from official sources: identity, official URL, address, phone, email, and coordinates with their source URL and verification date. The schema rejects drafts that still contain placeholders, and it never prefills profile values.
 4. Document each exclusion (shows, online-only workshops, services) with a `reason`; exclusions without one fail validation. Registration hosts must be `https` on an approved Miram host (`*.inscripcionscc.com`, `*.miram.cloud`).
 5. For a new city, create the file and import it in `src/lib/centres/registry.ts`; a test fails if a data file is not registered or a record sits in the wrong file.
-6. Add a saved one-card fixture only if the centre's markup differs from existing fixtures, then document verified behaviour in this file.
+6. For a seasonal centre that can legitimately publish no courses, set `registration.mayBeEmpty: true`. A well-formed empty listing is then a successful run with zero editions (existing editions are kept and age out by their end dates); a broken or changed page still fails. Verify on the live site that the listing is empty before setting it.
+7. Add a saved one-card fixture only if the centre's markup differs from existing fixtures, then document verified behaviour in this file.
 
 Reuse Miram extraction only after the probe shows the standard markup. A different platform needs its own adapter and a new member of the `registration` union in `src/lib/centres/schema.ts`.
 

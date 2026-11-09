@@ -12,6 +12,7 @@ import type { CourseRecord, SourceAdapter, SourceConfig } from '../types';
 export function parseMiramPage(
   html: string,
   pageUrl: string,
+  allowEmpty = false,
 ): { records: CourseRecord[]; links: string[]; unpublishedPreviews: number } {
   const $ = load(html);
   if (!$('#eFamilia').length)
@@ -87,7 +88,7 @@ export function parseMiramPage(
     if (target.searchParams.has('p') && approvedPage(target.href, current))
       links.push(target.href);
   });
-  if (!records.length && !links.length && !unpublishedPreviews)
+  if (!allowEmpty && !records.length && !links.length && !unpublishedPreviews)
     throw new Error('Empty Miram listing; manual review required');
   return { records, links: [...new Set(links)], unpublishedPreviews };
 }
@@ -135,7 +136,7 @@ export function createMiramAdapter(options: FetchOptions = {}): SourceAdapter {
         if (visited.size >= 60)
           throw new Error('Miram pagination exceeded 60-page limit');
         visited.add(url);
-        const page = parseMiramPage((await get(url))!, url);
+        const page = parseMiramPage((await get(url))!, url, source.mayBeEmpty);
         if (page.unpublishedPreviews)
           console.info(
             JSON.stringify({
@@ -174,7 +175,8 @@ export function createMiramAdapter(options: FetchOptions = {}): SourceAdapter {
         }
         if (records.size > 1000) throw new Error('Miram record limit exceeded');
       }
-      if (!records.size) throw new Error('No course records fetched');
+      if (!records.size && !source.mayBeEmpty)
+        throw new Error('No course records fetched');
       return [...records.values()];
     },
   };

@@ -1113,6 +1113,29 @@ describe('SQLite migration and ingestion contract', () => {
         .get()?.reviewed_title,
     ).toBe('Reviewed title');
   });
+  it('records an empty snapshot as a success only for centres that may be empty', async () => {
+    await runIngestion(db, { fetchRecords: async () => records }, santAndreu);
+    const before = sqlite.prepare('SELECT * FROM source_records').all();
+    await expect(
+      runIngestion(db, { fetchRecords: async () => [] }, santAndreu),
+    ).rejects.toThrow('1–1000');
+    await runIngestion(
+      db,
+      { fetchRecords: async () => [] },
+      { ...santAndreu, mayBeEmpty: true },
+    );
+    // Nothing is deleted or marked stale: existing editions stay as imported.
+    expect(sqlite.prepare('SELECT * FROM source_records').all()).toEqual(
+      before,
+    );
+    expect(
+      sqlite
+        .prepare(
+          'SELECT status, record_count FROM ingestion_runs ORDER BY started_at DESC, rowid DESC LIMIT 1',
+        )
+        .get(),
+    ).toEqual({ status: 'succeeded', record_count: 0 });
+  });
   it('keeps all previously verified data on network failure and records the failed run', async () => {
     await runIngestion(db, { fetchRecords: async () => records }, santAndreu);
     const before = sqlite

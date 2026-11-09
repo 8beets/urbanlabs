@@ -4,6 +4,8 @@ export interface SourceConfig {
   listingUrl: string;
   excludedCategoryCodes?: string[];
   excludedExternalIds?: string[];
+  /** An empty listing is a valid, successful snapshot (seasonal centres). */
+  mayBeEmpty?: boolean;
   institution: {
     id: string;
     name: string;

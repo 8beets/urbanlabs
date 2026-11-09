@@ -20,7 +20,7 @@ export async function runIngestion(
     const records = (await adapter.fetchRecords(source)).map((record) =>
       courseRecordSchema.parse(record),
     );
-    if (!records.length || records.length > 1000)
+    if ((!records.length && !source.mayBeEmpty) || records.length > 1000)
       throw new Error('Snapshot outside 1–1000 record bound');
     if (
       new Set(records.map((record) => record.externalId)).size !==
