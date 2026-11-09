@@ -35,6 +35,9 @@ export function parseFilters(params: URLSearchParams): DiscoveryFilters {
   const maxPrice = params.get('maxPrice') ?? '';
   if (maxPrice && !/^\d{1,4}(\.\d{1,2})?$/.test(maxPrice))
     throw new Error('Invalid price');
+  const places = params.get('places') ?? '';
+  if (places !== '' && places !== 'available')
+    throw new Error('Invalid places filter');
   const startMonth = params.get('start') ?? '';
   if (startMonth && !isStartMonth(startMonth))
     throw new Error('Invalid start month');
@@ -46,6 +49,7 @@ export function parseFilters(params: URLSearchParams): DiscoveryFilters {
     cancellation,
     page,
     startMonth,
+    places,
     maxPriceCents: maxPrice ? Math.round(Number(maxPrice) * 100) : null,
   };
 }

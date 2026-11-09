@@ -135,15 +135,16 @@ export async function saveSnapshot(
         ),
       db
         .prepare(
-          `INSERT INTO course_editions (id, course_id, start_date, end_date, schedule_text, timezone, price_cents, currency, availability, is_cancelled)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ON CONFLICT(id) DO UPDATE SET course_id=excluded.course_id,
+          `INSERT INTO course_editions (id, course_id, start_date, end_date, schedule_text, timezone, price_cents, currency, availability, is_cancelled, is_sold_out)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ON CONFLICT(id) DO UPDATE SET course_id=excluded.course_id,
         start_date=excluded.start_date, end_date=excluded.end_date, schedule_text=excluded.schedule_text,
         price_cents=excluded.price_cents, currency=excluded.currency, availability=excluded.availability,
-        is_cancelled=excluded.is_cancelled
+        is_cancelled=excluded.is_cancelled, is_sold_out=excluded.is_sold_out
         WHERE course_id IS NOT excluded.course_id OR start_date IS NOT excluded.start_date
           OR end_date IS NOT excluded.end_date OR schedule_text IS NOT excluded.schedule_text
           OR price_cents IS NOT excluded.price_cents OR currency IS NOT excluded.currency
-          OR availability IS NOT excluded.availability OR is_cancelled IS NOT excluded.is_cancelled`,
+          OR availability IS NOT excluded.availability OR is_cancelled IS NOT excluded.is_cancelled
+          OR is_sold_out IS NOT excluded.is_sold_out`,
         )
         .bind(
           editionId,
@@ -156,6 +157,7 @@ export async function saveSnapshot(
           record.currency,
           record.availability,
           record.isCancelled ? 1 : 0,
+          record.isSoldOut ? 1 : 0,
         ),
       db
         .prepare(

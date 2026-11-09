@@ -30,6 +30,8 @@ export interface CourseRecord {
   currency: 'EUR' | null;
   availability: null;
   isCancelled: boolean;
+  /** True only when the source explicitly reports no places left. */
+  isSoldOut: boolean;
   courseLanguage: null;
 }
 

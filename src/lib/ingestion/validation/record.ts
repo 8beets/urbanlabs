@@ -12,5 +12,6 @@ export const courseRecordSchema = z.object({
   currency: z.literal('EUR').nullable(),
   availability: z.null(),
   isCancelled: z.boolean(),
+  isSoldOut: z.boolean(),
   courseLanguage: z.null(),
 });
