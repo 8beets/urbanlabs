@@ -14,3 +14,4 @@ test-results/
 .DS_Store
 src/paraglide/
 project.inlang/cache/
+freshness-report.md
