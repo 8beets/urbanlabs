@@ -48,32 +48,39 @@ for (const locale of ['es', 'ca'] as const) {
       await expect(page.getByRole('heading', { level: 1 })).toHaveText(
         source.institution.name,
       );
-      const map = page.locator('.centre-map [data-centre-map]');
-      await map.scrollIntoViewIfNeeded();
-      await expect(map).toHaveAttribute('data-map-ready', 'true');
-      await expect(map.locator('.centre-map-marker')).toHaveCount(1);
-      const points = JSON.parse((await map.getAttribute('data-centres'))!);
-      expect(points).toEqual([
-        {
-          id: source.institution.id,
-          slug: profile.slug,
-          name: source.institution.name,
-          latitude: profile.location!.latitude,
-          longitude: profile.location!.longitude,
-        },
-      ]);
-      await expect(map.getByRole('region')).toHaveAttribute(
-        'aria-label',
-        `Mapa de ${source.institution.name}`,
-      );
-      await expect(
-        page.locator('.centre-map > p a').filter({
-          hasText:
-            locale === 'es'
-              ? 'Colaboradores de OpenStreetMap'
-              : 'Col·laboradors d’OpenStreetMap',
-        }),
-      ).toHaveAttribute('href', 'https://www.openstreetmap.org/copyright');
+      if (!profile.location) {
+        // Unverified location (e.g. Alicante): honest fallback, never a guessed marker.
+        await expect(page.locator('.centre-map [data-centre-map]')).toHaveCount(
+          0,
+        );
+      } else {
+        const map = page.locator('.centre-map [data-centre-map]');
+        await map.scrollIntoViewIfNeeded();
+        await expect(map).toHaveAttribute('data-map-ready', 'true');
+        await expect(map.locator('.centre-map-marker')).toHaveCount(1);
+        const points = JSON.parse((await map.getAttribute('data-centres'))!);
+        expect(points).toEqual([
+          {
+            id: source.institution.id,
+            slug: profile.slug,
+            name: source.institution.name,
+            latitude: profile.location!.latitude,
+            longitude: profile.location!.longitude,
+          },
+        ]);
+        await expect(map.getByRole('region')).toHaveAttribute(
+          'aria-label',
+          `Mapa de ${source.institution.name}`,
+        );
+        await expect(
+          page.locator('.centre-map > p a').filter({
+            hasText:
+              locale === 'es'
+                ? 'Colaboradores de OpenStreetMap'
+                : 'Col·laboradors d’OpenStreetMap',
+          }),
+        ).toHaveAttribute('href', 'https://www.openstreetmap.org/copyright');
+      }
       await expect(
         page.locator('.course .institution a').first(),
       ).toHaveAttribute('href', `${base}/${profile.slug}`);

@@ -4,7 +4,8 @@ import { readFileSync, readdirSync } from 'node:fs';
 import { getPlatformProxy } from 'wrangler';
 import { runIngestion } from '../../src/lib/ingestion/run';
 import { parseMiramPage } from '../../src/lib/ingestion/adapters/miram';
-import { selectSources } from '../../src/lib/sources';
+import { selectSources, sources } from '../../src/lib/sources';
+import { parseAulaAbiertaPage } from '../../src/lib/ingestion/adapters/aula-abierta';
 
 const santAndreu = getSource('miram-sant-andreu');
 const canBaste = getSource('miram-can-baste');
@@ -52,6 +53,31 @@ async function setup() {
         "INSERT OR IGNORE INTO institution_profiles (institution_id,slug) VALUES ('test-no-location','test-no-location')",
       )
       .run();
+    // Seeded first so these (Spanish-language schedules) are not the newest courses.
+    // Alicante classrooms share one saved page (classroom 301); dates are moved to the
+    // future in this isolated state only, and each classroom gets the same real cards.
+    const alicanteHtml = readFileSync(
+      new URL('../fixtures/alicante-aula-abierta-chalet.html', import.meta.url),
+      'utf8',
+    );
+    for (const source of sources.filter(
+      (s) => s.platform === 'alicante-aula-abierta',
+    )) {
+      await runIngestion(
+        db,
+        {
+          fetchRecords: async () =>
+            parseAulaAbiertaPage(alicanteHtml, source.listingUrl).map(
+              ({ record }) => ({
+                ...record,
+                startDate: '2099-01-01',
+                endDate: '2099-12-31',
+              }),
+            ),
+        },
+        source,
+      );
+    }
     const fixture = readFileSync(
       new URL('../fixtures/miram-sant-andreu-languages.html', import.meta.url),
       'utf8',

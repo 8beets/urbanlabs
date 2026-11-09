@@ -1,5 +1,9 @@
 import { expect, test } from '@playwright/test';
 import { sources } from '../../src/lib/sources';
+
+const barcelonaCentres = sources.filter(
+  (s) => s.institution.cityId === 'barcelona',
+).length;
 test.use({ javaScriptEnabled: false });
 
 test('Spanish homepage and Catalan language switching work without client JavaScript', async ({
@@ -605,7 +609,7 @@ test.describe('dynamic filter options', () => {
       await page.locator('#city').selectOption('barcelona');
       // The "all centres" option plus every seeded centre.
       await expect(page.locator('#centre option')).toHaveCount(
-        sources.length + 1,
+        barcelonaCentres + 1,
       );
       await page.locator('#centre').selectOption('cc-pati-llimona');
       await expect(page.locator('#category option')).toHaveCount(4);
@@ -633,12 +637,12 @@ test.describe('dynamic filter options', () => {
     await expect(page.locator('.filter-form')).not.toHaveAttribute('aria-busy');
     // The "all centres" option plus every seeded centre.
     await expect(page.locator('#centre option')).toHaveCount(
-      sources.length + 1,
+      barcelonaCentres + 1,
     );
     await page.waitForTimeout(700);
     // The "all centres" option plus every seeded centre.
     await expect(page.locator('#centre option')).toHaveCount(
-      sources.length + 1,
+      barcelonaCentres + 1,
     );
     await expect(page.locator('#city')).toHaveValue('barcelona');
   });
