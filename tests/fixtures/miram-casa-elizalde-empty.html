@@ -1,0 +1,107 @@
+
+<!DOCTYPE html>
+<html lang="ca">
+    <head>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="styleSheet" href="../css/styleH5.css" type="text/css">
+        <title>Casa Elizalde</title>
+        <meta name="generator" content="MIRAM">
+        <meta name="author" content="Enric Bala i Caballé">
+        <meta name="description" content="...">
+        <meta name="language" content="ca">
+        <meta name="robots" content="all">
+        <meta name="distribution" content="global">
+        <meta name="page-topic" content="shopping">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    </head>
+<body id="main" style="zoom: 1;">
+     <link rel='styleSheet' href='../css/jquery.cookiebar.css' type='text/css'>
+    <main> 
+        <div>
+            <input type="hidden" id="refreshed" value="no">
+            <nav class='navbar navbar-expand-sm navbar-light bg-light'><div class='container'><a class='navbar-brand'><img id='Image1' src='../images/logo-ajbcn.svg' style='height:40px;width:160px;border:0px solid  black' alt='start' /></a><button class='navbar-toggler collapsed' type='button' data-toggle='collapse' data-target='#menusuperiorcolapsable' aria-controls='menusuperiorcolapsable' aria-expanded='false' aria-label='Toggle navigation'> <span class='navbar-toggler-icon'></span></button><div class='collapse navbar-collapse' id='menusuperiorcolapsable'><ul class='navbar-nav mr-auto'></ul><ul class='navbar-nav'><li class='nav-item'><a class='nav-link' href='../identitat/contacte.jsp?g=1&c=56'>Contacte</a></li><li class='nav-item'><a class='nav-link' href='../identitat/registre.jsp?g=1&c=56'>Registre</a></li><li class='nav-item'><a class='nav-link' href='../base/login.jsp?g=1&c=56'>Log in</a></li></ul></div><input type='hidden' id='idu' value=0 /></div></nav>
+            <section>
+                <img src='../getImatge?i=test-cabecera.png' class='bg-image opacity-70' alt=''>                <div class='container height-lg-30 header-container'><div class='row overh'><img class='m-2' src='../getImatge?i=logoelizalde' alt='Logo del centre cívic'></div></div>
+            </section>
+            <div class='desplatop container'>
+                <nav class='navbar navbar-expand-lg navbar-light bg-secondary'><button class='navbar-toggler' type='button' data-toggle='collapse' data-target='#segonmenu' aria-controls='menusuperiorcolapsable' aria-expanded='false' aria-label='Toggle navigation'><span class='navbar-toggler-icon'></span></button><div class='navbar-collapse collapse show' id='segonmenu'>    <ul class='navbar-nav mr-auto'><li class='nav-item dropdown d-lg-none'><a class='nav-link dropdown-toggle text-white' href='#' id='navbarDropdownMenuLinkCE' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'><strong>Espectacles i Conferències</strong></a><div class='dropdown-menu' aria-labelledby='navbarDropdownMenuLinkCE'><a class='dropdown-item' href='../buscador/buscador.jsp?g=1&c=56&t=CE&f=MF'>Coincidents</a><a class='dropdown-item' href='../buscador/buscador.jsp?g=1&c=56&t=CE&f=EF'>Familiars La Caseta Elizalde</a><a class='dropdown-item' href='../buscador/buscador.jsp?g=1&c=56&t=CE&f=Es'>Arts escèniques</a><a class='dropdown-item' href='../buscador/buscador.jsp?g=1&c=56&t=CE&f=EA'>Exposicions</a><a class='dropdown-item' href='../buscador/buscador.jsp?g=1&c=56&t=CE&f=MI'>Mirades</a><a class='dropdown-item' href='../buscador/buscador.jsp?g=1&c=56&t=CE&f=DM'>Docs del Mes</a></div></li><li class='nav-item active d-none d-lg-block'> <a class='nav-link text-white' href='../buscador/buscador.jsp?g=1&c=56&t=CE'><strong>Espectacles i Conferències</strong></a></li></ul>         </div></nav>
+                <div class="container bg-white">
+                <div class="row">
+                    <aside class="col-md-2 sidebar mt-5 d-none d-lg-block">
+                        <div class='mt-5'><ul class='list-unstyled'></ul></div>
+                    </aside>
+                    <div class="col-lg-8 mt-3">
+                        <h4>Tallers Culturals</h4><div class='row'><form class='form-inline mb-2' id='searchFrm' action='../buscador?g=1&c=56' method='post'><input type='hidden' name='t' value='AC' /><div class='col-md-3'><label class='sr-only' for='eDia'>Dies</label>    <select id='eDia' name='dia' class='form-control w-100 mb-2 mt-2'>      <option value='-1' selected=''>-- Dies</option>      <option value='2'>Dilluns</option>      <option value='3'>Dimarts</option>      <option value='4'>Dimecres</option>      <option value='5'>Dijous</option>      <option value='6'>Divendres</option>      <option value='7'>Dissabte</option>      <option value='1'>Diumenge</option>    </select></div><div class='col-md-3'><label class='sr-only' for='eFamilia'>Família</label>  <select id='eFamilia' name='familiaActivitat' class='form-control w-100 mb-2 mt-2'><option value='null' selected>-- Categories</option>  </select></div><div class='col-md-5'><label class='sr-only' for='eSearch'>Cerca</label><input type='text' class='form-control w-100' id='eSearch' name='search' placeholder='Cerca' value="" /></div><div class='col-md-1'><button class='fa fa-search btn-lg bg-secondary form-control' title='Cerca' onclick='javaScript:submitForm("searchFrm")'></button></div></form></div><div class='row'></div>
+                    </div>
+                    <div class="col-lg-2">
+                        <div class='mt-5'><div><p></p><h5><b><font color="#ce0000"> Àrea de documentació</font></b></h5><p>Clica <a href="https://casaelizalde.inscripcionscc.com/Documentacio/base/login.jsp" target="_blank" style=""><b>aquí</b></a> per accedir al teu espai virtual.</p><p>Inicia la sessió amb les teves <b>credencials habituals</b>. Si no disposes d'usuari, t'hauràs de <a href="https://casaelizalde.inscripcionscc.com/MiramModular/identitat/registre.jsp?g=1&amp;c=56" target="_blank"><b>registrar</b></a>.</p><p><b>ATENCIÓ: </b>la documentació només estarà visible fins al <b>31 de desembre</b>.</p><p><a href="https://youtu.be/D39aMMhZL-I" target="_blank" <span="" style="font-weight: bolder;">Tutorial: Com entrar a la teva Àrea de documentació?</a></p><p></p><hr><p></p></div><div><h5><b><font color="#ce0000">Tallers Tardor 2026</font></b></h5><p><b>Renovacions</b>: del <b> 13 de juliol</b> a partir de les 10 h (presencials i en línia) al&nbsp;<span style="font-weight: bolder; background-color: initial; font-size: 1em;">2 de setembre</span><span style="background-color: initial; font-size: 1em;">.</span></p><p><span style="font-weight: bolder;">Inscripcions</span>: a partir del&nbsp;<span style="font-weight: bolder;">3 de setembre</span>&nbsp;a les 10 h (presencials i en línia).</p><p></p><p><a href="https://www.casaelizalde.com/wp-content/uploads/2023/11/Com-fer-una-renovacio-en-linia.pdf" target="_blank"><b>Com fer una renovació</b></a></p><p><a href="https://www.casaelizalde.com/wp-content/uploads/2026/06/Com-fer-una-inscripcio-en-linia.pdf" target="_blank"><b>Com fer una inscripció</b></a></p><p><a href="https://www.casaelizalde.com/wp-content/uploads/2026/06/Com-fer-una-inscripcio-en-linia.pdf" target="_blank"></a><a href="https://www.casaelizalde.com/descomptes-tallers-culturals/" target="_blank"><span style="font-weight: bolder;">Descomptes</span></a></p><hr></div><div><p></p><p></p><h5><b><font color="#ce0000">Programació cultural</font></b></h5><h6><b>Reserva d'entrades</b></h6><p>Les reserves es podran fer a partir del divendres de la setmana anterior a l'espectacle a partir de les <b>9 h</b> (una setmana abans en el cas del cinema i de les exposicions).</p><p>Pots fer fins a un màxim de <b>dues reserves</b> al teu nom.</p><p>Si no pots venir, preguem que <b>ens avisis</b> per tal d'alliberar les teves entrades.</p><p>Si no arribes a l'hora d'inici considerarem la teva reserva <b>anul·lada</b>.</p>
+<a href="https://ajuntament.barcelona.cat/centrescivics/ca/activitat/com-puc-retornar-una-entrada-en-linia" target="_blank"><b>Com retornar una entrada</b></a><p></p><p><a href="https://ajuntament.barcelona.cat/centrescivics/ca/activitat/com-puc-retornar-una-entrada-en-linia" target="_blank"><b><br></b></a></p></div></div>
+                    </div>
+                </div>
+                </div>    
+            </div>
+            <div class="desplatop">
+                <div class='bg-secondary'>                    <div class='container'><a class='navbar-brand text-white' href='../identitat/contacte.jsp?g=1&c=56'>Contacte</a>                    <a class='navbar-brand text-white' href='../identitat/aula_virtual.jsp?'>Aula virtual</a></div>        </div>
+                        <div class='text-center mt-2'><a href='https://miram.cloud' alt="Aplicació de gestió d'inscripcions desenvolupada per Miram Software and Cloud Barcelona"><img alt='Logo Miram Cloud' src='../css/images/miram-cloud.png' style='width:100px'></a></div>
+            </div>
+        </div>
+    </main>
+    <div id='dialComu' class='modal fade text-dark'><div class='modal-dialog'><div class='modal-content'><div class='modal-header'><strong>Reserva caducada</strong></div><div class='modal-body'>   <p id='msgComu' class='text-left'></p></div>      <div class='modal-footer'>        <button type='button' class='btn btn-primary' data-dismiss='modal'>Tancar</button>      </div></div></div></div>
+    <div id="dialMsgTarifa" class="modal fade"> 
+        <div class="modal-dialog">
+             <div class="modal-content">
+                 <div class="modal-header" id="headerTarifa">Preu</div>
+                 <div class="modal-body"> 
+                     <p>Per beneficiar-te de la tarifa que has seleccionat, cal que presentis documentació.</p>
+                 </div>
+                 <div class='modal-footer'>
+                     <button type='button' class='btn btn-primary' data-dismiss='modal'>Tancar</button>
+                     <button type='button' class='btn btn-primary' data-dismiss='modal' onclick='reservaAmbTarifaSrv()'>Continuar</button>
+                 </div>
+             </div>
+         </div>
+    </div>
+    <div id="dialMsgLimitPeriode" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header" id="headerLimitPeriode">Limit superat</div>
+                <div class="modal-body">
+                    <p></p>
+                </div>
+                <div class='modal-footer'>
+                    <button type='button' class='btn btn-primary' data-dismiss='modal'>Tancar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="dialMsgLimit" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header" id="headerLimit">Limit superat</div>
+                <div class="modal-body">
+                    <p>Ja has superat el límit d’inscripcions fent ús de les tarifes reduïdes per a aquest període.</p>
+                </div>
+                <div class='modal-footer'>
+                    <button type='button' class='btn btn-primary' data-dismiss='modal'>Tancar</button>
+                    <!--<button type='button' class='btn btn-primary' data-dismiss='modal' onclick='reservaAmbTarifaCorregida()'>Continuar</button>-->
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="dialMsgAnonim" class="modal fade"> 
+        <div class="modal-dialog">
+             <div class="modal-content">
+                 <div class="modal-header" id="headerAnonim">Tarifa</div>
+                 <div class="modal-body"> 
+                     <p>Per accedir a aquesta tarifa cal que t'identifiquis primer.</p>
+                 </div>
+                 <div class='modal-footer'>
+                     <button type='button' class='btn btn-primary' data-dismiss='modal'>Tancar</button>
+                 </div>
+             </div>
+         </div>
+    </div>
+    <div id="interfaceJavaObjectsBanner"></div>
+</body>
+</html>

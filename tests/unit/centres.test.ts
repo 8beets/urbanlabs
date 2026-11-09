@@ -73,6 +73,10 @@ describe('centre registry', () => {
     expect(canBaste.excludedCategoryCodes).toEqual(['14']);
     const santAndreu = sources.find((s) => s.id === 'miram-sant-andreu')!;
     expect(santAndreu).not.toHaveProperty('excludedCategoryCodes');
+    expect(santAndreu).not.toHaveProperty('mayBeEmpty');
+    expect(
+      sources.find((s) => s.id === 'miram-casa-elizalde')!.mayBeEmpty,
+    ).toBe(true);
   });
 });
 

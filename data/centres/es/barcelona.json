@@ -164,6 +164,7 @@
       "activityType": "AC",
       "verifiedAt": "2026-11-06",
       "robotsTxt": "absent",
+      "mayBeEmpty": true,
       "exclusions": [
         {
           "categoryCode": "CO",

@@ -12,6 +12,12 @@ del Mig fixture preserves activity `674` with its explicit description notice
 notice was verified live on 2026-11-07 for `674` and `666`. E2E changes dates only in
 isolated test state. These fixtures do not assert current availability.
 
+`miram-casa-elizalde-empty.html` is the Casa Elizalde course listing as served on 2026-11-09 (scripts and styles removed), when it published no courses or workshops and its navigation offered only the `CE` shows-and-talks type:
+
+https://casaelizalde.inscripcionscc.com/MiramModular/buscador/buscador.jsp?g=1&c=56&t=AC
+
+It has the page structure but no activity cards, and exercises the `mayBeEmpty` path. It documents a past state, not current availability.
+
 `miram-sant-andreu-languages.html` is an excerpt of the public language-category listing fetched on 2026-11-05:
 
 https://santandreu.inscripcionscc.com/MiramModular/buscador/buscador.jsp?g=1&c=22&t=AC&f=ID

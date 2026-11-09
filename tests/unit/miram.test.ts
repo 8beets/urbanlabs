@@ -163,6 +163,18 @@ describe('Miram source fixture', () => {
     expect(records[3]).toMatchObject({ externalId: '1726', priceCents: 1883 });
     expect(records.every((record) => !('description' in record))).toBe(true);
   });
+  it('accepts a well-formed empty listing only when the centre may be empty', () => {
+    const empty = readFileSync(
+      new URL('../fixtures/miram-casa-elizalde-empty.html', import.meta.url),
+      'utf8',
+    );
+    expect(() => parseMiramPage(empty, url)).toThrow('Empty');
+    expect(parseMiramPage(empty, url, true).records).toEqual([]);
+    // A broken page is still rejected for a centre that may be empty.
+    expect(() => parseMiramPage('<html>Login</html>', url, true)).toThrow(
+      'structure changed',
+    );
+  });
   it('rejects layout changes, empty listings, and missing identity', () => {
     expect(() => parseMiramPage('<html>Login</html>', url)).toThrow(
       'structure changed',
