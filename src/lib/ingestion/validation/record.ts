@@ -1,7 +1,8 @@
 import { z } from 'zod';
 
 export const courseRecordSchema = z.object({
-  externalId: z.string().regex(/^\d+$/),
+  // Stable platform identifier: numeric for Miram, a documented composite for others.
+  externalId: z.string().regex(/^[A-Za-z0-9._~:-]{1,120}$/),
   title: z.string().min(1).max(500),
   officialUrl: z.url().refine((value) => new URL(value).protocol === 'https:'),
   category: z.string().max(200).nullable(),

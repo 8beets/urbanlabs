@@ -12,6 +12,13 @@ del Mig fixture preserves activity `674` with its explicit description notice
 notice was verified live on 2026-11-07 for `674` and `666`. E2E changes dates only in
 isolated test state. These fixtures do not assert current availability.
 
+`alicante-aula-abierta-chalet.html` and `alicante-aula-abierta-juan-xxiii.html` are trimmed copies of the public listing pages for classrooms 301 and 402, fetched on 2026-11-09 (scripts, styles and comments removed; only the classroom header, filter form and a few courses kept):
+
+https://w3.alicante.es/cultura/aula-abierta/consulta-cursos.php?aula=301
+https://w3.alicante.es/cultura/aula-abierta/consulta-cursos.php?aula=402
+
+The first contains two different courses sharing the same `data-codigo` within one specialty; the second contains an explicitly free ("Gratuito") course. Tests mutate them in memory for malformed dates and missing identities. They document past content, not current availability, and the Ayuntamiento's reuse permission is still pending (see `docs/data-sources.md`).
+
 `miram-casa-elizalde-empty.html` is the Casa Elizalde course listing as served on 2026-11-09 (scripts and styles removed), when it published no courses or workshops and its navigation offered only the `CE` shows-and-talks type:
 
 https://casaelizalde.inscripcionscc.com/MiramModular/buscador/buscador.jsp?g=1&c=56&t=AC

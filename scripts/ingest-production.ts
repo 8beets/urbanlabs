@@ -1,5 +1,5 @@
 import { selectedSources } from '../src/lib/ingestion/cli';
-import { createMiramAdapter } from '../src/lib/ingestion/adapters/miram';
+import { adapterFor } from '../src/lib/ingestion/adapters';
 import { runIngestion } from '../src/lib/ingestion/run';
 import { WranglerIngestionDatabase } from '../src/lib/db/wrangler-ingestion';
 
@@ -14,7 +14,7 @@ if (!args.includes('--live')) {
   let failed = false;
   for (const source of selected) {
     try {
-      await runIngestion(db, createMiramAdapter(), source);
+      await runIngestion(db, adapterFor(source), source);
     } catch (error) {
       console.error(error instanceof Error ? error.message : error);
       failed = true;

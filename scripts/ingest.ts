@@ -1,5 +1,5 @@
 import { getPlatformProxy } from 'wrangler';
-import { createMiramAdapter } from '../src/lib/ingestion/adapters/miram';
+import { adapterFor } from '../src/lib/ingestion/adapters';
 import { selectedSources } from '../src/lib/ingestion/cli';
 import { runIngestion } from '../src/lib/ingestion/run';
 
@@ -19,7 +19,7 @@ if (!args.includes('--live')) {
     let failed = false;
     for (const source of selected) {
       try {
-        await runIngestion(platform.env.DB, createMiramAdapter(), source);
+        await runIngestion(platform.env.DB, adapterFor(source), source);
       } catch {
         failed = true;
       }

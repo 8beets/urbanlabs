@@ -1,0 +1,146 @@
+[
+  {
+    "id": "alc-chalet-ingeniero-de-tranvias",
+    "slug": "chalet-ingeniero-de-tranvias",
+    "name": "Aula Municipal de Cultura Chalet Ingeniero de Tranvías",
+    "officialUrl": "https://w3.alicante.es/cultura/aula-abierta/consulta-cursos.php?aula=301",
+    "address": "C/ Fernando Madroñal, 2, Alicante",
+    "country": "ES",
+    "city": "Alicante",
+    "cityId": "alicante",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "phone": "965286651",
+      "detailsSourceUrl": "https://w3.alicante.es/cultura/aula-abierta/consulta-cursos.php?aula=301",
+      "detailsVerifiedAt": "2026-11-09"
+    },
+    "pausedReason": "Awaiting written permission from the Ayuntamiento de Alicante: its legal notice allows free reuse only for educational or research institutions, so publication is held until permission is granted.",
+    "registration": {
+      "platform": "alicante-aula-abierta",
+      "origin": "https://w3.alicante.es",
+      "aulaCode": 301,
+      "verifiedAt": "2026-11-09",
+      "robotsTxt": "absent"
+    }
+  },
+  {
+    "id": "alc-francisco-liberal",
+    "slug": "francisco-liberal",
+    "name": "Aula Municipal de Cultura Francisco Liberal",
+    "officialUrl": "https://w3.alicante.es/cultura/aula-abierta/consulta-cursos.php?aula=302",
+    "address": "C/ Águila, 41, Alicante",
+    "country": "ES",
+    "city": "Alicante",
+    "cityId": "alicante",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "phone": "965107805",
+      "detailsSourceUrl": "https://w3.alicante.es/cultura/aula-abierta/consulta-cursos.php?aula=302",
+      "detailsVerifiedAt": "2026-11-09"
+    },
+    "pausedReason": "Awaiting written permission from the Ayuntamiento de Alicante: its legal notice allows free reuse only for educational or research institutions, so publication is held until permission is granted.",
+    "registration": {
+      "platform": "alicante-aula-abierta",
+      "origin": "https://w3.alicante.es",
+      "aulaCode": 302,
+      "verifiedAt": "2026-11-09",
+      "robotsTxt": "absent"
+    }
+  },
+  {
+    "id": "alc-juan-xxiii-2o-sector",
+    "slug": "juan-xxiii-2o-sector",
+    "name": "Aula Municipal de Cultura Juan XXIII - 2º Sector",
+    "officialUrl": "https://w3.alicante.es/cultura/aula-abierta/consulta-cursos.php?aula=402",
+    "address": "C/ Periodista Bas Mingot, s/n, Alicante",
+    "country": "ES",
+    "city": "Alicante",
+    "cityId": "alicante",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "phone": "965185160",
+      "detailsSourceUrl": "https://w3.alicante.es/cultura/aula-abierta/consulta-cursos.php?aula=402",
+      "detailsVerifiedAt": "2026-11-09"
+    },
+    "pausedReason": "Awaiting written permission from the Ayuntamiento de Alicante: its legal notice allows free reuse only for educational or research institutions, so publication is held until permission is granted.",
+    "registration": {
+      "platform": "alicante-aula-abierta",
+      "origin": "https://w3.alicante.es",
+      "aulaCode": 402,
+      "verifiedAt": "2026-11-09",
+      "robotsTxt": "absent"
+    }
+  },
+  {
+    "id": "alc-plaza-de-argel",
+    "slug": "plaza-de-argel",
+    "name": "Aula Municipal de Cultura Plaza de Argel",
+    "officialUrl": "https://w3.alicante.es/cultura/aula-abierta/consulta-cursos.php?aula=401",
+    "address": "Plaza de Argel, 5-2ª lat. dcho., Alicante",
+    "country": "ES",
+    "city": "Alicante",
+    "cityId": "alicante",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "phone": "965174186",
+      "detailsSourceUrl": "https://w3.alicante.es/cultura/aula-abierta/consulta-cursos.php?aula=401",
+      "detailsVerifiedAt": "2026-11-09"
+    },
+    "pausedReason": "Awaiting written permission from the Ayuntamiento de Alicante: its legal notice allows free reuse only for educational or research institutions, so publication is held until permission is granted.",
+    "registration": {
+      "platform": "alicante-aula-abierta",
+      "origin": "https://w3.alicante.es",
+      "aulaCode": 401,
+      "verifiedAt": "2026-11-09",
+      "robotsTxt": "absent"
+    }
+  },
+  {
+    "id": "alc-centro-comunitario-playas",
+    "slug": "centro-comunitario-playas",
+    "name": "Centro Comunitario «Playas»",
+    "officialUrl": "https://w3.alicante.es/cultura/aula-abierta/consulta-cursos.php?aula=601",
+    "address": "Avda. Costablanca, 19, esquina c/ Palangre, Alicante",
+    "country": "ES",
+    "city": "Alicante",
+    "cityId": "alicante",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "phone": "965264129",
+      "detailsSourceUrl": "https://w3.alicante.es/cultura/aula-abierta/consulta-cursos.php?aula=601",
+      "detailsVerifiedAt": "2026-11-09"
+    },
+    "pausedReason": "Awaiting written permission from the Ayuntamiento de Alicante: its legal notice allows free reuse only for educational or research institutions, so publication is held until permission is granted.",
+    "registration": {
+      "platform": "alicante-aula-abierta",
+      "origin": "https://w3.alicante.es",
+      "aulaCode": 601,
+      "verifiedAt": "2026-11-09",
+      "robotsTxt": "absent"
+    }
+  },
+  {
+    "id": "alc-centro-municipal-de-las-artes",
+    "slug": "centro-municipal-de-las-artes",
+    "name": "Centro Municipal de las Artes",
+    "officialUrl": "https://w3.alicante.es/cultura/aula-abierta/consulta-cursos.php?aula=103",
+    "address": "Plaza de Quijano, 2, Alicante",
+    "country": "ES",
+    "city": "Alicante",
+    "cityId": "alicante",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "phone": "965208519",
+      "detailsSourceUrl": "https://w3.alicante.es/cultura/aula-abierta/consulta-cursos.php?aula=103",
+      "detailsVerifiedAt": "2026-11-09"
+    },
+    "pausedReason": "Awaiting written permission from the Ayuntamiento de Alicante: its legal notice allows free reuse only for educational or research institutions, so publication is held until permission is granted.",
+    "registration": {
+      "platform": "alicante-aula-abierta",
+      "origin": "https://w3.alicante.es",
+      "aulaCode": 103,
+      "verifiedAt": "2026-11-09",
+      "robotsTxt": "absent"
+    }
+  }
+]

@@ -118,6 +118,15 @@ Verified on 2026-11-08 on the shared Miram adapter:
 - Baró de Viver lists three free childcare services ("Temps de dona: Acollida", IDs `2300`–`2302`) for another workshop's participants. They are single-session cards without the usual session accordion and without a year in their date. The adapter now falls back to the registration form's `activitat` identifier for such cards, keeping dates `null`, and configuration excludes these three IDs because they are not courses.
 - The same metadata-only collection, unknown availability/language, base-price and reuse-review limitations described above apply.
 
+## Alicante — Aula Abierta (municipal culture classes), paused
+
+- Listing: https://w3.alicante.es/cultura/aula-abierta/consulta-cursos.php (optionally `?aula=<code>`); researched 2026-11-09.
+- Platform: a server-rendered municipal PHP page, adapter `alicante-aula-abierta`. One request per classroom returns every course of that classroom, grouped by specialty. There is no per-course page or unique identifier: the `data-codigo` attribute is only unique inside a specialty heading and is occasionally reused, so the identity is `<code>-<specialty slug>-<title slug>` (documented in the adapter). Because the course title is part of the identity, a renamed course becomes a new edition and the old one ages out by its end date.
+- `https://w3.alicante.es/robots.txt` returned HTTP 404; the adapter rechecks it before every import.
+- Data used: title, specialty (category), dates (`dd-MM-yyyy`, one or two), weekday and time text, and the explicit "Gratuito" label (price 0). Every other price stays unknown: the page also marks some courses `pago_monitor`, which is not interpreted. Classroom address and phone come from the listing header. No coordinates were verified, so these centres show the honest "location not verified" fallback.
+- Six in-person classrooms are registered in `data/centres/es/alicante.json`: Chalet Ingeniero de Tranvías (301), Francisco Liberal (302), Juan XXIII 2º Sector (402), Plaza de Argel (401), Centro Comunitario Playas (601) and Centro Municipal de las Artes (103). "AULA ONLINE" (701) is outside the in-person directory and is not registered.
+- **Permission pending.** The Ayuntamiento's legal notice (https://www.alicante.es/es/contenidos/aviso-legal) allows free reproduction for non-profit purposes by people at educational or research institutions, citing the source; other institutions, bodies and companies need written permission. UrbanLabs does not qualify automatically, so every Alicante centre carries `pausedReason` and is **not ingested, scheduled or published** until permission is granted. A draft request is in `docs/alicante-permission-request.md`. Once granted, remove `pausedReason` from the records and refresh through the normal workflow.
+
 ## Investigated and deferred
 
 ### FAB Casa del Rellotge — official programme link
@@ -151,8 +160,9 @@ A centre is one JSON record in `data/centres/<country>/<city>.json` (lower-case 
 3. Complete every `TODO` by hand from official sources: identity, official URL, address, phone, email, and coordinates with their source URL and verification date. The schema rejects drafts that still contain placeholders, and it never prefills profile values.
 4. Document each exclusion (shows, online-only workshops, services) with a `reason`; exclusions without one fail validation. Registration hosts must be `https` on an approved Miram host (`*.inscripcionscc.com`, `*.miram.cloud`).
 5. For a new city, create the file and import it in `src/lib/centres/registry.ts`; a test fails if a data file is not registered or a record sits in the wrong file.
-6. For a seasonal centre that can legitimately publish no courses, set `registration.mayBeEmpty: true`. A well-formed empty listing is then a successful run with zero editions (existing editions are kept and age out by their end dates); a broken or changed page still fails. Verify on the live site that the listing is empty before setting it.
-7. Add a saved one-card fixture only if the centre's markup differs from existing fixtures, then document verified behaviour in this file.
+6. A centre whose source may not be reused yet gets `pausedReason` (a documented reason). It stays validated in the registry but is excluded from `sources`, so it is never ingested, scheduled or published.
+7. For a seasonal centre that can legitimately publish no courses, set `registration.mayBeEmpty: true`. A well-formed empty listing is then a successful run with zero editions (existing editions are kept and age out by their end dates); a broken or changed page still fails. Verify on the live site that the listing is empty before setting it.
+8. Add a saved one-card fixture only if the centre's markup differs from existing fixtures, then document verified behaviour in this file.
 
 Reuse Miram extraction only after the probe shows the standard markup. A different platform needs its own adapter and a new member of the `registration` union in `src/lib/centres/schema.ts`.
 
