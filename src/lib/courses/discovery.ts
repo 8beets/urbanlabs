@@ -9,6 +9,7 @@ import { liveCutoffDate } from '../db/clock';
 import { loadCategoryOptions, loadCentreOptions } from './facets';
 import { canonicalCategory } from './categories';
 import { parsePage } from '../pagination';
+import { isStartMonth, startMonthOptions } from './start-month';
 
 export function parseFilters(params: URLSearchParams): DiscoveryFilters {
   const page = parsePage(params);
@@ -34,6 +35,9 @@ export function parseFilters(params: URLSearchParams): DiscoveryFilters {
   const maxPrice = params.get('maxPrice') ?? '';
   if (maxPrice && !/^\d{1,4}(\.\d{1,2})?$/.test(maxPrice))
     throw new Error('Invalid price');
+  const startMonth = params.get('start') ?? '';
+  if (startMonth && !isStartMonth(startMonth))
+    throw new Error('Invalid start month');
   return {
     ...parseGeography(params),
     q,
@@ -41,6 +45,7 @@ export function parseFilters(params: URLSearchParams): DiscoveryFilters {
     centre,
     cancellation,
     page,
+    startMonth,
     maxPriceCents: maxPrice ? Math.round(Number(maxPrice) * 100) : null,
   };
 }
@@ -59,5 +64,12 @@ export async function discoverCourses(
     loadCategoryOptions(db, filters.centre, filters),
     loadCentreOptions(db, filters),
   ]);
-  return { filters, ...listing, categories, centres, geography: catalog };
+  return {
+    filters,
+    ...listing,
+    categories,
+    centres,
+    geography: catalog,
+    startMonths: startMonthOptions(today),
+  };
 }
