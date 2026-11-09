@@ -24,19 +24,20 @@ const columns = `i.id, p.slug, i.name, i.address, i.city, i.country, i.official_
  p.latitude, p.longitude, p.coordinates_source_url, p.coordinates_verified_at`;
 export const CENTRES_PAGE_SIZE = 24;
 
-export async function listInstitutions(db: D1Database, page: number) {
+// shortcut: the directory filters and pages this list in memory, fine for hundreds of
+// centres; move to indexed SQL search if the registry grows past CENTRES_LIMIT.
+export const CENTRES_LIMIT = 1000;
+
+export async function listInstitutions(db: D1Database): Promise<Centre[]> {
   const result = await db
     .prepare(
       `SELECT ${columns} FROM institutions i
     JOIN institution_profiles p ON p.institution_id=i.id
-    ORDER BY i.name, i.id LIMIT ? OFFSET ?`,
+    ORDER BY i.name, i.id LIMIT ?`,
     )
-    .bind(CENTRES_PAGE_SIZE + 1, (page - 1) * CENTRES_PAGE_SIZE)
+    .bind(CENTRES_LIMIT)
     .all<Centre>();
-  return {
-    centres: result.results.slice(0, CENTRES_PAGE_SIZE),
-    hasNext: result.results.length > CENTRES_PAGE_SIZE,
-  };
+  return result.results;
 }
 
 export async function findInstitution(

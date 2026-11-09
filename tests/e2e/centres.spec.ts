@@ -121,6 +121,13 @@ for (const locale of ['es', 'ca'] as const) {
         has: page.locator('.closure-label'),
       }),
     ).toContainText('Casa del Mig');
+    // The directory search works without JavaScript, ignores accents and keeps its URL.
+    await page.goto(`${base}?q=civic+pienc`);
+    await expect(page.locator('.centre-directory article')).toHaveCount(1);
+    await expect(page.locator('#centre-q')).toHaveValue('civic pienc');
+    await page.goto(`${base}?q=zzzz`);
+    await expect(page.locator('.centre-directory article')).toHaveCount(0);
+    await expect(page.locator('#centre-list')).toBeEmpty();
     await page.goto(`${base}/fab-casa-del-mig`);
     await expect(page.locator('.error')).toContainText(
       locale === 'es' ? 'cerrado temporalmente' : 'tancat temporalment',
