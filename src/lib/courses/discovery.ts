@@ -9,7 +9,7 @@ import { liveCutoffDate } from '../db/clock';
 import { loadCategoryOptions, loadCentreOptions } from './facets';
 import { canonicalCategory } from './categories';
 import { parsePage } from '../pagination';
-import { isStartMonth } from './start-month';
+import { isStartMonth, startMonthOptions } from './start-month';
 
 export function parseFilters(params: URLSearchParams): DiscoveryFilters {
   const page = parsePage(params);
@@ -64,5 +64,12 @@ export async function discoverCourses(
     loadCategoryOptions(db, filters.centre, filters),
     loadCentreOptions(db, filters),
   ]);
-  return { filters, ...listing, categories, centres, geography: catalog };
+  return {
+    filters,
+    ...listing,
+    categories,
+    centres,
+    geography: catalog,
+    startMonths: startMonthOptions(today),
+  };
 }

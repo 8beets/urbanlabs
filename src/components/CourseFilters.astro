@@ -3,7 +3,7 @@ import { m } from '../paraglide/messages.js';
 import { courseSearchPath } from '../i18n/paths';
 import { categoryLabel, type Locale } from '../i18n/ui';
 import type { DiscoveryPageData } from '../lib/courses/page';
-import { startMonthLabel, startMonthOptions } from '../lib/courses/start-month';
+import { startMonthLabel } from '../lib/courses/start-month';
 import Icon from './Icon.astro';
 import LocationFilters from './LocationFilters.astro';
 
@@ -11,11 +11,11 @@ interface Props {
   locale: Locale;
   data: Pick<
     DiscoveryPageData,
-    'filters' | 'centres' | 'categories' | 'error' | 'geography'
+    'filters' | 'centres' | 'categories' | 'error' | 'geography' | 'startMonths'
   >;
 }
 const { locale, data } = Astro.props;
-const { filters, centres, categories, error } = data;
+const { filters, centres, categories, error, startMonths } = data;
 const base = courseSearchPath(locale);
 // New filter controls belong in this same GET form. Omit page on submit to reset pagination.
 const formFields = new Set([
@@ -30,7 +30,6 @@ const formFields = new Set([
   'city',
   'cancellation',
 ]);
-const startMonths = startMonthOptions();
 const preservedParams = [...Astro.url.searchParams].filter(
   ([key]) => !formFields.has(key),
 );

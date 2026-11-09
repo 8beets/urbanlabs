@@ -6,10 +6,11 @@ import {
   startMonthLabel,
   startMonthOptions,
 } from '../../src/lib/courses/start-month';
+import { earliestLocalDate } from '../../src/lib/time/dates';
 
 describe('start month filter', () => {
   it('lists the current and next 11 months, crossing the year boundary', () => {
-    expect(startMonthOptions(new Date('2026-11-08T12:00:00Z'))).toEqual([
+    expect(startMonthOptions('2026-11-08')).toEqual([
       '2026-11',
       '2026-12',
       '2027-01',
@@ -24,14 +25,22 @@ describe('start month filter', () => {
       '2027-10',
     ]);
   });
-  it('uses Europe/Madrid, not UTC, to decide the current month', () => {
-    // 23:30 UTC on 31 October is already 1 November in Barcelona.
-    expect(startMonthOptions(new Date('2026-10-31T23:30:00Z'))[0]).toBe(
-      '2026-11',
-    );
-    expect(startMonthOptions(new Date('2026-10-31T22:30:00Z'))[0]).toBe(
-      '2026-10',
-    );
+  it('counts from the given catalogue date, including month ends', () => {
+    expect(startMonthOptions('2026-01-31')[1]).toBe('2026-02');
+    expect(startMonthOptions('2026-12-31')[0]).toBe('2026-12');
+    expect(startMonthOptions('2026-12-31')[1]).toBe('2027-01');
+  });
+  it('derives the current month from the live cutoff, not a fixed zone', () => {
+    // 23:30 UTC on 31 October is already 1 November in Madrid but not in Lisbon.
+    const now = new Date('2026-10-31T23:30:00Z');
+    expect(
+      startMonthOptions(earliestLocalDate(['Europe/Madrid'], now))[0],
+    ).toBe('2026-11');
+    expect(
+      startMonthOptions(
+        earliestLocalDate(['Europe/Madrid', 'Atlantic/Azores'], now),
+      )[0],
+    ).toBe('2026-10');
   });
   it('returns half-open date ranges, including December', () => {
     expect(monthRange('2026-11')).toEqual(['2026-11-01', '2026-12-01']);

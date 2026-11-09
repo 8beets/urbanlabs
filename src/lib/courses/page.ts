@@ -19,6 +19,7 @@ export interface DiscoveryPageData {
   courses: CourseListing[];
   categories: string[];
   centres: CentreListing[];
+  startMonths: string[];
   filters: DiscoveryFilters;
   hasNext: boolean;
   error: 'invalid' | 'unavailable' | null;
@@ -38,6 +39,7 @@ export async function loadDiscoveryPage(
       courses: [],
       categories: [],
       centres: [],
+      startMonths: [],
       filters: {
         q: '',
         page: 1,
@@ -60,6 +62,7 @@ export async function loadDiscoveryPage(
         courses: [],
         categories: [],
         centres: [],
+        startMonths: [],
         filters,
         geography,
         error: 'invalid',
@@ -91,6 +94,7 @@ export async function loadDiscoveryPage(
       courses: [],
       categories: [],
       centres: [],
+      startMonths: [],
       filters,
       hasNext: false,
       error: 'unavailable',
