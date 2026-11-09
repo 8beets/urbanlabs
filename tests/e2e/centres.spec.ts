@@ -109,6 +109,18 @@ for (const locale of ['es', 'ca'] as const) {
       '/search',
     );
     await expect(page.locator('.course')).toHaveCount(0);
+    await page.goto(base);
+    // Only centres flagged as temporarily closed carry the label in the directory.
+    const closed = page.locator('.centre-directory .closure-label');
+    await expect(closed).toHaveCount(1);
+    await expect(closed).toHaveText(
+      locale === 'es' ? 'Cerrado temporalmente' : 'Tancat temporalment',
+    );
+    await expect(
+      page.locator('.centre-directory article', {
+        has: page.locator('.closure-label'),
+      }),
+    ).toContainText('Casa del Mig');
     await page.goto(`${base}/fab-casa-del-mig`);
     await expect(page.locator('.error')).toContainText(
       locale === 'es' ? 'cerrado temporalmente' : 'tancat temporalment',

@@ -428,6 +428,7 @@ h3 {
 .course .institution {
   margin-block: 0 18px;
 }
+.closure-label,
 .cancelled-label {
   font-weight: 700;
   border: 1px solid currentColor;

@@ -47,6 +47,13 @@ const base = centreDirectoryPath(locale);
         <h2>
           <a href={`${base}/${centre.slug}`}>{centre.name}</a>
         </h2>
+        {centre.notice === 'temporary_closure' && (
+          <p>
+            <span class="closure-label">
+              {m.temporarilyClosed({}, { locale })}
+            </span>
+          </p>
+        )}
         <p>
           {centre.address}, {centre.city}
         </p>
