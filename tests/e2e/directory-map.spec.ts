@@ -1,5 +1,11 @@
 import { expect, test } from '@playwright/test';
 import { sources } from '../../src/lib/sources';
+import { centres } from '../../src/lib/centres/registry';
+
+// Centres without verified coordinates (e.g. Alicante) are listed but have no marker.
+const mapped = centres.filter(
+  (c) => !c.pausedReason && c.profile.location,
+).length;
 
 // Every registry centre has verified coordinates, plus the isolated test centre without a
 // location that appears in the list but not on the map.
@@ -28,9 +34,7 @@ for (const locale of ['es', 'ca']) {
     await page.goto(base);
     const map = page.locator('[data-centre-map]');
     await expect(map).toHaveAttribute('data-map-ready', 'true');
-    await expect(page.locator('.centre-map-marker')).toHaveCount(
-      sources.length,
-    );
+    await expect(page.locator('.centre-map-marker')).toHaveCount(mapped);
     await expect(page.locator('.centre-directory article')).toHaveCount(
       sources.length + 1,
     );
@@ -80,7 +84,7 @@ test('tile failures keep verified markers and the full directory available', asy
   await expect(page.locator('[data-map-status]')).toContainText(
     'No se ha podido cargar el fondo',
   );
-  await expect(page.locator('.centre-map-marker')).toHaveCount(sources.length);
+  await expect(page.locator('.centre-map-marker')).toHaveCount(mapped);
   await expect(page.locator('.centre-directory article')).toHaveCount(
     sources.length + 1,
   );

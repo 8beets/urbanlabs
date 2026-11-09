@@ -25,11 +25,12 @@ for (const javaScriptEnabled of [false, true]) {
       await expect(page.locator('button[type="submit"]')).toBeEnabled();
       await page.locator('button[type="submit"]').click();
       expect(new URL(page.url()).searchParams.get('city')).toBe('alicante');
-      await expect(page.locator('article.course')).toHaveCount(0);
-      await expect(page.locator('.empty')).toContainText(
-        'Todavía no hay cursos publicados en esta ubicación.',
-      );
-      await expect(page.locator('.empty a')).toHaveCount(0);
+      // Six classrooms with five saved courses each: a full first page, no Barcelona.
+      await expect(page.locator('article.course')).toHaveCount(12);
+      await expect(page.locator('.empty')).toHaveCount(0);
+      await expect(
+        page.locator('article.course .institution a').first(),
+      ).toContainText(/aula|centro/i);
       await page.getByRole('link', { name: 'Català', exact: true }).click();
       await expect(page.locator('#region')).toHaveValue('comunitat-valenciana');
       await expect(page.locator('#city')).toHaveValue('alicante');
@@ -40,9 +41,7 @@ for (const javaScriptEnabled of [false, true]) {
       await expect(
         page.getByRole('group', { name: 'Filtres aplicats', exact: true }),
       ).toContainText('Ciutat: Alacant');
-      await expect(page.locator('.empty')).toContainText(
-        'Encara no hi ha cursos publicats en aquesta ubicació.',
-      );
+      await expect(page.locator('article.course')).toHaveCount(12);
       if (javaScriptEnabled) {
         if (page.viewportSize()!.width < 800)
           await page.locator('#filter-panel summary').click();
