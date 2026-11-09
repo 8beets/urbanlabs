@@ -50,9 +50,23 @@ const miramRegistrationSchema = z.strictObject({
   exclusions: z.array(exclusionSchema).optional(),
 });
 
-// Add new platforms as further members of this union, each with its own adapter.
+// Alicante's municipal "Aula Abierta" culture classes: one page per classroom.
+export const ALICANTE_ORIGIN = 'https://w3.alicante.es';
+const aulaAbiertaRegistrationSchema = z.strictObject({
+  platform: z.literal('alicante-aula-abierta'),
+  origin: z.literal(ALICANTE_ORIGIN),
+  // Classroom code used by the source's `aula` filter.
+  aulaCode: z.number().int().positive(),
+  verifiedAt: z.iso.date(),
+  robotsTxt: z.literal('absent'),
+  mayBeEmpty: z.boolean().optional(),
+});
+
+// Add new platforms as further members of this union, each with its own adapter
+// (src/lib/ingestion/adapters) and a case in toSourceConfig.
 export const registrationSchema = z.discriminatedUnion('platform', [
   miramRegistrationSchema,
+  aulaAbiertaRegistrationSchema,
 ]);
 
 export const centreSchema = z.strictObject({
@@ -67,6 +81,9 @@ export const centreSchema = z.strictObject({
   // IANA zone of the centre; editions use it for local dates and daylight saving.
   timezone: z.string().refine(isTimeZone, 'Unknown IANA time zone'),
   profile: centreProfileSchema.omit({ slug: true }).default({}),
+  // A paused centre stays validated in the registry but is never ingested or
+  // published, e.g. while permission to reuse its source is pending.
+  pausedReason: z.string().min(20).max(500).optional(),
   registration: registrationSchema,
 });
 export type Centre = z.infer<typeof centreSchema>;
@@ -77,8 +94,20 @@ export function miramListingUrl(
   return `${registration.origin}/MiramModular/buscador/buscador.jsp?g=1&c=${registration.centreCode}&t=${registration.activityType}`;
 }
 
+export function aulaAbiertaListingUrl(
+  registration: Extract<
+    Centre['registration'],
+    { platform: 'alicante-aula-abierta' }
+  >,
+): string {
+  return `${registration.origin}/cultura/aula-abierta/consulta-cursos.php?aula=${registration.aulaCode}`;
+}
+
 export function toSourceConfig(centre: Centre): SourceConfig {
-  const exclusions = centre.registration.exclusions ?? [];
+  const exclusions =
+    'exclusions' in centre.registration
+      ? (centre.registration.exclusions ?? [])
+      : [];
   const categories = exclusions.flatMap((e) =>
     'categoryCode' in e ? [e.categoryCode] : [],
   );
@@ -87,8 +116,16 @@ export function toSourceConfig(centre: Centre): SourceConfig {
   );
   return {
     id: `${centre.registration.platform}-${centre.slug}`,
-    name: `${centre.name} · Miram`,
-    listingUrl: miramListingUrl(centre.registration),
+    platform: centre.registration.platform,
+    ...(centre.registration.platform === 'miram'
+      ? {
+          name: `${centre.name} · Miram`,
+          listingUrl: miramListingUrl(centre.registration),
+        }
+      : {
+          name: `${centre.name} · Aula Abierta`,
+          listingUrl: aulaAbiertaListingUrl(centre.registration),
+        }),
     ...(categories.length ? { excludedCategoryCodes: categories } : {}),
     ...(records.length ? { excludedExternalIds: records } : {}),
     ...(centre.registration.mayBeEmpty ? { mayBeEmpty: true } : {}),

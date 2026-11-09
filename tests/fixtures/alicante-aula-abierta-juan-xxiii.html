@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es"><body>
+<main class="container">
+  <form action="/cultura/aula-abierta/consulta-cursos.php" name="form_consulta_cursos" id="form_consulta_cursos" method="get">
+    <div class="form-row">    
+      <div class="form-group col-lg-6">
+        <label class="my-1 mr-2" for="aula">Lugar</label>
+        <select class="custom-select my-1 mr-sm-2 w-100" name="aula" id="aula">  
+          <option value="">-- Todos --</option>             
+          <option value="301" >
+            AULA MUNICIPAL DE CULTURA CHALET INGENIERO DE TRANVÍAS          </option>
+          <option value="302" >
+            AULA MUNICIPAL DE CULTURA FRANCISCO LIBERAL          </option>
+          <option value="402" selected>
+            AULA MUNICIPAL DE CULTURA JUAN XXIII - 2º SECTOR          </option>
+          <option value="401" >
+            AULA MUNICIPAL DE CULTURA PLAZA DE ARGEL          </option>
+          <option value="701" >
+            AULA ONLINE          </option>
+          <option value="601" >
+            CENTRO COMUNITARIO  "PLAYAS"          </option>
+          <option value="103" >
+            CENTRO MUNICIPAL DE LAS ARTES          </option>
+        </select>
+       </div>
+       <div class="form-group col-lg-6">
+        <label class="my-1 mr-2" for="especialidad">Especialidad</label>
+        <select class="custom-select my-1 mr-sm-2 w-100" name="especialidad" id="especialidad">     
+          <option value="">-- Todas --</option>
+          <option value="184" >
+            ARTE, HISTORIA, PATRIMONIO Y MEMORIA          </option>
+          <option value="186" >
+            ARTES LITERARIAS          </option>
+          <option value="183" >
+            ARTES MUSICALES          </option>
+          <option value="201" >
+            CREATIVIDAD ARTÍSTICA          </option>
+          <option value="185" >
+            EDUCACIÓN AMBIENTAL          </option>
+          <option value="34" >
+            SALUD Y DESARROLLO PERSONAL          </option>
+        </select>
+       </div>
+    </div>
+    <div class="form-row mt-2">
+       <div class="form-group col-sm-auto">
+         <button type="submit" class="btn btn-primary my-1">Filtrar cursos</button>
+       </div>
+    </div>
+</form>
+<h2>AULA MUNICIPAL DE CULTURA JUAN XXIII - 2º SECTOR</h2>
+<p class="datos_aula">
+  <span class="aula_direccion mr-4">
+    <a href="https://www.google.es/maps/search/C%2F+Periodista+Bas+Mingot%2C+s%2Fn+alicante" target="_blank">C/ Periodista Bas Mingot, s/n</a>
+  </span>
+  <span class="aula_telefono mr-3">
+    <a href="tel:+34965185160">965185160</a>
+  </span>
+</p>
+<h3>SALUD Y DESARROLLO PERSONAL</h3>
+<ul class="list-group">
+<li class="list-group-item list-group-item-action curso " data-tipo="0" data-aula="402" data-codigo="5">
+    <details aria-live="polite">                                            
+      <summary>
+        <span class="curso_nombre">COCINA: ARROZ Y CONEJO.</span>
+        <span class="curso_caracteristicas">
+          <span class="curso_caracteristica curso_fechas d-block d-md-inline"> 
+            <i class="fas fa-calendar-alt"></i>               
+            23-03-2027 a 23-03-2027          </span>    
+          <span class="curso_caracteristica curso_dias d-block d-md-inline">    
+            <i class="fas fa-clock"></i>
+            Martes,
+            9:45h -  12:15h            
+          </span>
+          <span class="curso_caracteristica curso_gratuito d-block d-md-inline">      
+            <i class="fas fa-check"></i>Gratuito         </span>
+        </span>
+      </summary>
+    </details>
+  </li>
+<li class="list-group-item list-group-item-action curso " data-tipo="0" data-aula="402" data-codigo="4">
+    <details aria-live="polite">                                            
+      <summary>
+        <span class="curso_nombre">COCINA CON VERDURAS Y PROTEÍNA VEGETAL.</span>
+        <span class="curso_caracteristicas">
+          <span class="curso_caracteristica curso_fechas d-block d-md-inline"> 
+            <i class="fas fa-calendar-alt"></i>               
+            12-01-2027 a 16-03-2027          </span>    
+          <span class="curso_caracteristica curso_dias d-block d-md-inline">    
+            <i class="fas fa-clock"></i>
+            Martes,
+            17:45h -  19:45h            
+          </span>
+        </span>
+      </summary>
+    </details>
+  </li>
+</ul>
+</main>
+</body></html>

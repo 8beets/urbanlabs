@@ -3,7 +3,10 @@ import { toSourceConfig } from '../centres/schema';
 import type { SourceConfig } from '../ingestion/types';
 
 // Approved sources are generated from the centre registry (data/centres/*.json).
-export const sources: SourceConfig[] = centres.map(toSourceConfig);
+// Paused centres (e.g. awaiting permission to reuse their source) are excluded.
+export const sources: SourceConfig[] = centres
+  .filter((centre) => !centre.pausedReason)
+  .map(toSourceConfig);
 
 export function selectSources(sourceId?: string) {
   if (!sourceId) return sources;

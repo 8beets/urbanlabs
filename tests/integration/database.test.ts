@@ -30,6 +30,10 @@ import {
   listCentres,
 } from '../../src/lib/db/courses';
 
+import { parseAulaAbiertaPage } from '../../src/lib/ingestion/adapters/aula-abierta';
+import { centres } from '../../src/lib/centres/registry';
+import { toSourceConfig } from '../../src/lib/centres/schema';
+
 const santAndreu = getSource('miram-sant-andreu');
 const canBaste = getSource('miram-can-baste');
 
@@ -1115,6 +1119,60 @@ describe('SQLite migration and ingestion contract', () => {
         )
         .get()?.reviewed_title,
     ).toBe('Reviewed title');
+  });
+  it('ingests an Aula Abierta classroom idempotently and lists it under Alicante', async () => {
+    const alicante = toSourceConfig(
+      centres.find((c) => c.id === 'alc-chalet-ingeniero-de-tranvias')!,
+    );
+    const html = readFileSync(
+      new URL('../fixtures/alicante-aula-abierta-chalet.html', import.meta.url),
+      'utf8',
+    );
+    const adapter = {
+      fetchRecords: async () =>
+        parseAulaAbiertaPage(html, alicante.listingUrl).map(
+          ({ record }) => record,
+        ),
+    };
+    await runIngestion(db, adapter, alicante);
+    const identity = () =>
+      sqlite
+        .prepare(
+          'SELECT external_id, edition_id, content_hash FROM source_records ORDER BY external_id',
+        )
+        .all();
+    const before = identity();
+    await runIngestion(db, adapter, alicante);
+    // Verification timestamps move; identities and content hashes must not.
+    expect(identity()).toEqual(before);
+    expect(before).toHaveLength(5);
+    const listing = await listCourses(
+      db,
+      {
+        q: '',
+        centre: '',
+        category: '',
+        maxPriceCents: null,
+        page: 1,
+        city: 'alicante',
+      },
+      '2026-11-09',
+    );
+    expect(listing.courses).toHaveLength(5);
+    expect(listing.courses[0]!.official_url).toContain('aula=301');
+    const barcelona = await listCourses(
+      db,
+      {
+        q: '',
+        centre: '',
+        category: '',
+        maxPriceCents: null,
+        page: 1,
+        city: 'barcelona',
+      },
+      '2026-11-09',
+    );
+    expect(barcelona.courses).toHaveLength(0);
   });
   it('records an empty snapshot as a success only for centres that may be empty', async () => {
     await runIngestion(db, { fetchRecords: async () => records }, santAndreu);

@@ -3,6 +3,7 @@ import { formatISO } from 'date-fns';
 import { describe, expect, it } from 'vitest';
 import { centreFiles, centres } from '../../src/lib/centres/registry';
 import {
+  aulaAbiertaListingUrl,
   centreSchema,
   miramListingUrl,
   toSourceConfig,
@@ -41,16 +42,45 @@ describe('centre registry', () => {
   });
 
   it('derives one approved source per centre with stable identifiers', () => {
-    expect(sources).toHaveLength(centres.length);
-    for (const centre of centres) {
+    const active = centres.filter((c) => !c.pausedReason);
+    expect(sources).toHaveLength(active.length);
+    for (const centre of active) {
       const source = sources.find((s) => s.institution.id === centre.id)!;
-      expect(source.id).toBe(`miram-${centre.slug}`);
-      expect(source.listingUrl).toBe(miramListingUrl(centre.registration));
+      expect(source.platform).toBe(centre.registration.platform);
+      expect(source.id).toBe(`${centre.registration.platform}-${centre.slug}`);
       const url = new URL(source.listingUrl);
       expect(url.protocol).toBe('https:');
-      expect(url.pathname).toBe('/MiramModular/buscador/buscador.jsp');
-      expect([...url.searchParams.keys()]).toEqual(['g', 'c', 't']);
+      if (centre.registration.platform === 'miram') {
+        expect(source.listingUrl).toBe(miramListingUrl(centre.registration));
+        expect(url.pathname).toBe('/MiramModular/buscador/buscador.jsp');
+        expect([...url.searchParams.keys()]).toEqual(['g', 'c', 't']);
+      }
       expect(source.institution.address).toBe(centre.address);
+    }
+  });
+
+  it('keeps paused centres validated but out of ingestion and scheduling', () => {
+    const paused = centres.filter((c) => c.pausedReason);
+    expect(paused.length).toBeGreaterThan(0);
+    for (const centre of paused)
+      expect(sources.some((s) => s.institution.id === centre.id)).toBe(false);
+  });
+
+  it('builds Aula Abierta sources from the classroom code', () => {
+    const alicante = centres.filter(
+      (c) => c.registration.platform === 'alicante-aula-abierta',
+    );
+    expect(alicante.length).toBeGreaterThan(0);
+    for (const centre of alicante) {
+      const source = aulaAbiertaListingUrl(
+        centre.registration as Extract<
+          Centre['registration'],
+          { platform: 'alicante-aula-abierta' }
+        >,
+      );
+      expect(source).toMatch(
+        /^https:\/\/w3\.alicante\.es\/cultura\/aula-abierta\/consulta-cursos\.php\?aula=\d+$/,
+      );
     }
   });
 
@@ -58,10 +88,15 @@ describe('centre registry', () => {
     for (const key of ['id', 'slug'] as const)
       expect(new Set(centres.map((c) => c[key])).size).toBe(centres.length);
     expect(new Set(sources.map((s) => s.listingUrl)).size).toBe(sources.length);
+    expect(new Set(centres.map((c) => toSourceConfig(c).listingUrl)).size).toBe(
+      centres.length,
+    );
     for (const centre of centres) {
       expect(centre.registration.verifiedAt <= today).toBe(true);
       expect((centre.profile.detailsVerifiedAt ?? today) <= today).toBe(true);
-      for (const exclusion of centre.registration.exclusions ?? [])
+      for (const exclusion of 'exclusions' in centre.registration
+        ? (centre.registration.exclusions ?? [])
+        : [])
         expect(exclusion.reason.length).toBeGreaterThanOrEqual(10);
     }
   });

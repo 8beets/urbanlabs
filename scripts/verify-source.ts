@@ -1,9 +1,9 @@
-import { createMiramAdapter } from '../src/lib/ingestion/adapters/miram';
+import { adapterFor } from '../src/lib/ingestion/adapters';
 import { selectSources } from '../src/lib/sources';
 
 const sourceId = process.argv[2];
 for (const source of selectSources(sourceId)) {
-  const records = await createMiramAdapter().fetchRecords(source);
+  const records = await adapterFor(source).fetchRecords(source);
   console.info(
     JSON.stringify(
       {

@@ -19,8 +19,9 @@ describe('verified centre locations', () => {
     expect(new Set(profiles.map((p) => p.slug)).size).toBe(centres.length);
     for (const centre of centres) {
       const location = centre.profile.location;
-      expect(location?.sourceUrl).toMatch(/^https:\/\//);
-      // Barcelona centres use the municipal guide; other cities may cite another official directory.
+      // A location is optional (unverified centres show the honest fallback); when
+      // present it needs an https source. Barcelona centres use the municipal guide.
+      if (location) expect(location.sourceUrl).toMatch(/^https:\/\//);
       if (centre.cityId === 'barcelona')
         expect(location?.sourceUrl).toMatch(
           /^https:\/\/guia.barcelona.cat\/ca\/detall\//,

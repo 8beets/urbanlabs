@@ -1,5 +1,9 @@
+export type SourcePlatform = 'miram' | 'alicante-aula-abierta';
+
 export interface SourceConfig {
   id: string;
+  /** Selects the adapter; institution-specific values stay in this config. */
+  platform: SourcePlatform;
   name: string;
   listingUrl: string;
   excludedCategoryCodes?: string[];

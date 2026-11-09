@@ -1,5 +1,6 @@
 import { z } from 'zod';
 // The explicit attribute is required by the Worker dev runtime (workerd) and Node.
+import esAlicante from '../../../data/centres/es/alicante.json' with { type: 'json' };
 import esBarcelona from '../../../data/centres/es/barcelona.json' with { type: 'json' };
 import { centreSchema, toSourceConfig, type Centre } from './schema';
 import type { CentreProfile } from './profile-schema';
@@ -8,6 +9,7 @@ import type { CentreProfile } from './profile-schema';
 // country, seeded city ID). Import new files here; a test checks that every file
 // is listed and that each record belongs to its path.
 export const centreFiles: Record<string, unknown[]> = {
+  'es/alicante': esAlicante,
   'es/barcelona': esBarcelona,
 };
 const records = Object.values(centreFiles).flat();
