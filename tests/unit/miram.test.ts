@@ -240,6 +240,7 @@ describe('normalization', () => {
       centre: '',
       cancellation: '',
       startMonth: '',
+      places: '',
     });
     for (const query of [
       'page=0',

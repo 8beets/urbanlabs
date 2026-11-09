@@ -6,6 +6,7 @@ import {
 } from '../normalization/values';
 import { courseRecordSchema } from '../validation/record';
 import { hasCancellationNotice } from '../normalization/cancellation';
+import { hasSoldOutNotice } from '../normalization/availability';
 import { createSourceFetcher, type FetchOptions } from '../http';
 import type { CourseRecord, SourceAdapter, SourceConfig } from '../types';
 
@@ -71,6 +72,7 @@ export function parseMiramPage(
         currency: priceCents === null ? null : 'EUR',
         availability: null,
         isCancelled: hasCancellationNotice(title, notices),
+        isSoldOut: hasSoldOutNotice(notices),
         courseLanguage: null,
       }),
     );
@@ -154,6 +156,7 @@ export function createMiramAdapter(options: FetchOptions = {}): SourceAdapter {
             (existing.title !== record.title ||
               existing.startDate !== record.startDate ||
               existing.isCancelled !== record.isCancelled ||
+              existing.isSoldOut !== record.isSoldOut ||
               existing.priceCents !== record.priceCents)
           )
             throw new Error(

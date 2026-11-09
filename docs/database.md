@@ -61,6 +61,8 @@ rows start at zero and need a successful source refresh to detect notices that w
 not previously extracted. Apply the migration before deploying or running ingestion.
 Failed imports preserve the flag and verification timestamps with the prior snapshot.
 
+`0010_sold_out_editions.sql` adds the constrained `course_editions.is_sold_out` flag, set only when the source prints its explicit "Places exhaurides" notice. Zero means no such notice, not confirmed availability. Existing rows start at zero until the next source refresh; run the migration before deploying or ingesting.
+
 `0008_course_title_search.sql` adds the FTS5 table `courses_fts` (course id and the displayed title: reviewed title first) plus triggers that keep it current. The `unicode61 remove_diacritics 2` tokenizer makes title search case- and accent-insensitive.
 
 `0009_edition_liveness_index.sql` adds the virtual generated column

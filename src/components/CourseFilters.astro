@@ -29,6 +29,7 @@ const formFields = new Set([
   'region',
   'city',
   'cancellation',
+  'places',
 ]);
 const preservedParams = [...Astro.url.searchParams].filter(
   ([key]) => !formFields.has(key),
@@ -85,6 +86,17 @@ const preservedParams = [...Astro.url.searchParams].filter(
             </option>
             <option value="only" selected={filters.cancellation === 'only'}>
               {m.onlyCancelled({}, { locale })}
+            </option>
+          </select>
+        </div>
+        <div>
+          <label for="places">{m.placesFilter({}, { locale })}</label>
+          <select id="places" name="places">
+            <option value="" selected={!filters.places}>
+              {m.allPlaces({}, { locale })}
+            </option>
+            <option value="available" selected={filters.places === 'available'}>
+              {m.hideSoldOut({}, { locale })}
             </option>
           </select>
         </div>

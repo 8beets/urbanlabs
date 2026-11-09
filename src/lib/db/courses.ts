@@ -8,6 +8,8 @@ import { monthRange } from '../courses/start-month';
 
 export interface DiscoveryFilters extends GeographicFilters {
   cancellation?: '' | 'hide' | 'only';
+  /** 'available' hides editions the source reports as sold out. */
+  places?: '' | 'available';
   q: string;
   page: number;
   maxPriceCents: number | null;
@@ -29,6 +31,7 @@ export interface CourseListing {
   price_cents: number | null;
   currency: string | null;
   is_cancelled: number;
+  is_sold_out: number;
   official_url: string;
   last_successfully_verified_at: string;
 }
@@ -37,7 +40,7 @@ export const PAGE_SIZE = 12;
 const courseColumns = `e.id, coalesce(c.reviewed_title, c.title) AS title,
   c.reviewed_title IS NOT NULL AS title_reviewed, c.category,
   i.name AS institution, i.id AS institution_id, coalesce(p.slug, i.id) AS institution_slug,
-  e.start_date, e.end_date, e.schedule_text, e.price_cents, e.currency, e.is_cancelled,
+  e.start_date, e.end_date, e.schedule_text, e.price_cents, e.currency, e.is_cancelled, e.is_sold_out,
   sr.official_url, sr.last_successfully_verified_at`;
 
 function canonicalListing(course: CourseListing): CourseListing {
@@ -105,6 +108,7 @@ export async function listCourses(
     conditions.push('e.price_cents <= ?');
     values.push(filters.maxPriceCents);
   }
+  if (filters.places === 'available') conditions.push('e.is_sold_out=0');
   if (filters.startMonth) {
     // Editions without a start date never match: unknown dates are not inferred.
     const [from, to] = monthRange(filters.startMonth);
@@ -121,7 +125,7 @@ export async function listCourses(
     LEFT JOIN institution_profiles p ON p.institution_id=i.id
     JOIN source_records sr ON sr.edition_id=e.id
     WHERE ${conditions.join(' AND ')}
-    ORDER BY e.is_cancelled, e.start_date IS NULL, e.start_date, e.id LIMIT ? OFFSET ?`,
+    ORDER BY e.is_cancelled, e.is_sold_out, e.start_date IS NULL, e.start_date, e.id LIMIT ? OFFSET ?`,
     )
     .bind(...values, PAGE_SIZE + 1, (filters.page - 1) * PAGE_SIZE)
     .all<CourseListing>();

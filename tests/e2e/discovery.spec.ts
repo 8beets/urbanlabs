@@ -687,3 +687,14 @@ test.describe('dynamic filter options', () => {
     ).toBe(200);
   });
 });
+
+test('places filter keeps its value in the URL and shows an applied chip without JavaScript', async ({
+  page,
+}) => {
+  await page.goto('/es/buscar?places=available');
+  await expect(page.locator('#places')).toHaveValue('available');
+  await expect(
+    page.getByRole('link', { name: 'Quitar filtro: Ocultar sin plazas' }),
+  ).toBeVisible();
+  expect((await page.request.get('/es/buscar?places=nope')).status()).toBe(400);
+});

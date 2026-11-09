@@ -1139,6 +1139,44 @@ describe('SQLite migration and ingestion contract', () => {
         .get(),
     ).toEqual({ status: 'succeeded', record_count: 0 });
   });
+  it('labels, filters and deprioritises editions the source reports as sold out', async () => {
+    const soldOut = { ...records[0]!, isSoldOut: true };
+    await runIngestion(
+      db,
+      { fetchRecords: async () => [soldOut, ...records.slice(1)] },
+      santAndreu,
+    );
+    const base = {
+      q: '',
+      centre: '',
+      category: '',
+      maxPriceCents: null,
+      page: 1,
+    };
+    const all = await listCourses(db, base, '2026-11-07');
+    // Same start dates in the fixture: the sold-out edition sorts after the others.
+    expect(all.courses.map((c) => c.is_sold_out)).toEqual([0, 0, 0, 1]);
+    const available = await listCourses(
+      db,
+      { ...base, places: 'available' },
+      '2026-11-07',
+    );
+    expect(available.courses).toHaveLength(3);
+    expect(available.courses.every((c) => c.is_sold_out === 0)).toBe(true);
+    expect(() => parseFilters(new URLSearchParams('places=none'))).toThrow(
+      'Invalid places filter',
+    );
+    expect(parseFilters(new URLSearchParams('places=available')).places).toBe(
+      'available',
+    );
+    // A later import without the notice clears the flag (places freed up).
+    await runIngestion(db, { fetchRecords: async () => records }, santAndreu);
+    expect(
+      (await listCourses(db, base, '2026-11-07')).courses.some(
+        (c) => c.is_sold_out === 1,
+      ),
+    ).toBe(false);
+  });
   it('keeps all previously verified data on network failure and records the failed run', async () => {
     await runIngestion(db, { fetchRecords: async () => records }, santAndreu);
     const before = sqlite

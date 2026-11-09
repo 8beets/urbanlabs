@@ -26,6 +26,9 @@ if (course.category) categoryParams.set('category', course.category);
   {course.is_cancelled === 1 && (
     <p class="cancelled-label">{m.cancelled({}, { locale })}</p>
   )}
+  {course.is_sold_out === 1 && (
+    <p class="sold-out-label">{m.soldOut({}, { locale })}</p>
+  )}
   {course.category && (
     <a class="course-category" href={`${base}?${categoryParams}`}>
       {categoryLabel(course.category, locale)}

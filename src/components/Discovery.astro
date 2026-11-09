@@ -60,6 +60,11 @@ if (filters.cancellation)
         ? m.onlyCancelled({}, { locale })
         : m.hideCancelled({}, { locale }),
   });
+if (filters.places)
+  appliedFilters.push({
+    key: 'places',
+    label: m.hideSoldOut({}, { locale }),
+  });
 if (filters.centre)
   appliedFilters.push({
     key: 'centre',

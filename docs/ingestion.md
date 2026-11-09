@@ -43,6 +43,8 @@ Cancelled editions are retained with their original identity, price, and officia
 Pati Llimona's cancelled workshops are no longer excluded by source configuration;
 the reviewed film-screening exclusion remains.
 
+The Miram adapter also records `isSoldOut` when a card footer starts with the exact notice "Places exhaurides" (seen in saved fixtures for several centres). Discovery labels these editions, can hide them (`places=available`) and lists them after the others, still ahead of cancelled ones. The waitlist instructions that follow the notice are not interpreted, and no other availability is inferred.
+
 After migration `0007`, refresh sources through the normal live importer to classify
 existing editions. Old extracted payloads did not retain description notices, so the
 migration does not guess their cancellation state. Production refresh requires the
