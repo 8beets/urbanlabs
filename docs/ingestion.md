@@ -78,6 +78,15 @@ Miram pagination is zero-indexed: the default page equals `p=0`, while `p=1` con
 
 The seven-source expansion was loaded from manually verified real snapshots through the same runner, avoiding repeated source requests during validation. Temporary snapshots remain outside the repository. Routine tests use minimal saved fixtures and isolated synthetic dates; they are never imported into browsing data.
 
+## Freshness and drift
+
+The weekly `Data freshness` workflow (`npm run freshness`, read-only) reports two things in one tracking issue labelled `data-freshness`:
+
+- Sources with no successful import for more than 7 days (or never imported). This is how a changed layout, a source that stays down, or a persistently empty listing becomes visible without watching each daily run.
+- Reviewed centre data (details, coordinates, registration) whose verification date is older than 180 days.
+
+The issue is created or updated while something is stale and closed automatically once everything is fresh. The workflow never writes to D1 or the registry: re-verifying a centre means checking the official source and updating the date in `data/centres/`. Run `npm run freshness -- --offline` to check only the registry dates locally.
+
 ## Explicit source locations
 
 Every centre record in `data/centres/` supplies `country` (ISO country code) and

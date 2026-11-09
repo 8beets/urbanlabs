@@ -1,0 +1,45 @@
+name: Data freshness
+on:
+  schedule:
+    - cron: '7 5 * * 1'
+  workflow_dispatch:
+permissions:
+  contents: read
+  issues: write
+env:
+  WRANGLER_SEND_METRICS: 'false'
+  CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+  CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+  GH_TOKEN: ${{ github.token }}
+jobs:
+  freshness:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - id: check
+        run: npm run freshness
+      # One tracking issue: updated while data is stale, closed once it is fresh.
+      - name: Update the tracking issue
+        env:
+          STALE: ${{ steps.check.outputs.stale }}
+        run: |
+          title="Data freshness: sources and reviewed centre data need attention"
+          number=$(gh issue list --repo "$GITHUB_REPOSITORY" --label data-freshness --state open --json number --jq '.[0].number // empty')
+          if [ "$STALE" = "true" ]; then
+            if [ -n "$number" ]; then
+              gh issue edit "$number" --repo "$GITHUB_REPOSITORY" --body-file freshness-report.md
+            else
+              gh label create data-freshness --repo "$GITHUB_REPOSITORY" --description "Automated data freshness report" 2>/dev/null || true
+              gh issue create --repo "$GITHUB_REPOSITORY" --label data-freshness --title "$title" --body-file freshness-report.md
+            fi
+          elif [ -n "$number" ]; then
+            gh issue close "$number" --repo "$GITHUB_REPOSITORY" --comment "Everything is fresh again."
+          fi
