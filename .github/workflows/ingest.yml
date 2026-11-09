@@ -6,23 +6,33 @@ on:
   workflow_dispatch:
     inputs:
       source:
-        description: 'Approved source ID (empty = all sources)'
+        description: 'Approved source ID (empty = every source that is due)'
         required: false
+      force:
+        description: 'Refresh every approved source regardless of when it last succeeded'
+        type: boolean
+        default: false
 permissions:
   contents: read
+# The remote importer must never run twice at once (docs/ingestion.md): a later run
+# waits for the current one instead of cancelling it.
+concurrency:
+  group: urbanlabs-ingestion
+  cancel-in-progress: false
+env:
+  WRANGLER_SEND_METRICS: 'false'
+  CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+  CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
 jobs:
-  ingest:
+  # Reads (never writes) the run history and picks the stalest sources, capped per run.
+  plan:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
-    # The remote importer must never run twice at once (docs/ingestion.md).
-    concurrency:
-      group: urbanlabs-ingestion
-      cancel-in-progress: false
+    timeout-minutes: 10
+    outputs:
+      batches: ${{ steps.plan.outputs.batches }}
     env:
-      WRANGLER_SEND_METRICS: 'false'
-      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
       SOURCE: ${{ inputs.source }}
+      FORCE: ${{ inputs.force }}
     steps:
       - uses: actions/checkout@v6
         with:
@@ -32,7 +42,34 @@ jobs:
           node-version-file: .nvmrc
           cache: npm
       - run: npm ci
-      # A failing source fails the job (exit 1) so GitHub notifies; data from
-      # failed sources is preserved by the runner.
-      - name: Ingest into production D1
-        run: npm run ingest:production -- --live ${SOURCE:+--source "$SOURCE"}
+      - id: plan
+        run: |
+          args=()
+          if [ -n "$SOURCE" ]; then args+=(--source "$SOURCE"); fi
+          if [ "$FORCE" = "true" ]; then args+=(--force); fi
+          npm run ingest:plan -- "${args[@]}"
+  # One job per batch, strictly one at a time. A failing batch is reported but does
+  # not stop the remaining batches; data from failed sources is preserved.
+  ingest:
+    needs: plan
+    if: needs.plan.outputs.batches != '[]'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      max-parallel: 1
+      matrix:
+        batch: ${{ fromJSON(needs.plan.outputs.batches) }}
+    env:
+      BATCH: ${{ matrix.batch }}
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - name: Ingest batch into production D1
+        run: npm run ingest:production -- --live --sources "$BATCH"

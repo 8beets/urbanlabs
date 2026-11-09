@@ -1,15 +1,10 @@
 import { getPlatformProxy } from 'wrangler';
 import { createMiramAdapter } from '../src/lib/ingestion/adapters/miram';
-import { selectSources } from '../src/lib/sources';
+import { selectedSources } from '../src/lib/ingestion/cli';
 import { runIngestion } from '../src/lib/ingestion/run';
 
 const args = process.argv.slice(2);
-const sourceIndex = args.indexOf('--source');
-const selected = selectSources(
-  sourceIndex === -1 ? undefined : args[sourceIndex + 1],
-);
-if (sourceIndex !== -1 && !args[sourceIndex + 1])
-  throw new Error('--source requires an approved source ID');
+const selected = selectedSources(args);
 if (!args.includes('--live')) {
   console.info(
     'No network requests made. To fetch the approved public source into LOCAL D1, run npm run ingest:live. Apply npm run db:migrate first.',

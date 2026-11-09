@@ -1,6 +1,7 @@
 import { getSource } from '../../src/lib/sources';
 import { parseFilters } from '../../src/lib/courses/discovery';
 import { clearGeographyCache } from '../../src/lib/locations/geography';
+import { loadSourceStatuses } from '../../src/lib/db/ingestion-status';
 import { liveCutoffDate } from '../../src/lib/db/clock';
 import { clearReadCaches } from '../../src/lib/courses/facets';
 import { loadFilterOptions } from '../../src/lib/courses/filter-options';
@@ -655,6 +656,34 @@ describe('SQLite migration and ingestion contract', () => {
     clearReadCaches(db);
     // An edition ending on the 8th stays listed until the 8th ends in Bogotá.
     expect(await liveCutoffDate(db, instant)).toBe('2026-11-08');
+  });
+  it('reports the latest successful run per source for ingestion planning', async () => {
+    const adapter = { fetchRecords: async () => records };
+    expect(
+      await loadSourceStatuses(db as never, [santAndreu.id, 'miram-new']),
+    ).toEqual([
+      { id: santAndreu.id, lastSuccessAt: null },
+      { id: 'miram-new', lastSuccessAt: null },
+    ]);
+    await runIngestion(db, adapter, santAndreu);
+    const [first] = await loadSourceStatuses(db as never, [santAndreu.id]);
+    expect(first?.lastSuccessAt).toMatch(/^\d{4}-\d{2}-\d{2}T/);
+    // A failed attempt must not move the source to the back of the queue.
+    await expect(
+      runIngestion(
+        db,
+        {
+          fetchRecords: async () => {
+            throw new Error('source down');
+          },
+        },
+        santAndreu,
+      ),
+    ).rejects.toThrow('source down');
+    const [afterFailure] = await loadSourceStatuses(db as never, [
+      santAndreu.id,
+    ]);
+    expect(afterFailure?.lastSuccessAt).toBe(first?.lastSuccessAt);
   });
   it('searches titles ignoring case, accents and Unicode composition while keeping stored titles', async () => {
     const titles = [
