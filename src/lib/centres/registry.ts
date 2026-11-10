@@ -1,6 +1,7 @@
 import { z } from 'zod';
 // The explicit attribute is required by the Worker dev runtime (workerd) and Node.
 import esAlicante from '../../../data/centres/es/alicante.json' with { type: 'json' };
+import esTarragona from '../../../data/centres/es/tarragona.json' with { type: 'json' };
 import esBarcelona from '../../../data/centres/es/barcelona.json' with { type: 'json' };
 import { centreSchema, toSourceConfig, type Centre } from './schema';
 import type { CentreProfile } from './profile-schema';
@@ -11,6 +12,7 @@ import type { CentreProfile } from './profile-schema';
 export const centreFiles: Record<string, unknown[]> = {
   'es/alicante': esAlicante,
   'es/barcelona': esBarcelona,
+  'es/tarragona': esTarragona,
 };
 const records = Object.values(centreFiles).flat();
 

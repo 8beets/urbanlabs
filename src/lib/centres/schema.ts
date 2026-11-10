@@ -62,11 +62,31 @@ const aulaAbiertaRegistrationSchema = z.strictObject({
   mayBeEmpty: z.boolean().optional(),
 });
 
+// Tarragona's municipal civic-centre network: programme pages on www.tarragona.cat
+// linking to activity pages on inscripcions.tarragona.cat (fixed in the adapter).
+export const TARRAGONA_ORIGIN = 'https://www.tarragona.cat';
+const tarragonaRegistrationSchema = z.strictObject({
+  platform: z.literal('tarragona-centres-civics'),
+  origin: z.literal(TARRAGONA_ORIGIN),
+  // The "c<N>" number in the network's activity codes, e.g. c2t26ac1ap is centre 2.
+  centreCode: z.number().int().min(1).max(99),
+  // The centre's own page on the network site; it is the source's listing URL.
+  centrePage: z
+    .string()
+    .regex(/^\/centrescivics\/centres-civics\/[a-z0-9-]+\/[a-z0-9-]+$/),
+  verifiedAt: z.iso.date(),
+  // Reviewed policy: the `User-agent: *` group has an empty Disallow (named agents are
+  // restricted separately). The adapter re-checks this on every run.
+  robotsTxt: z.literal('allows-all'),
+  mayBeEmpty: z.boolean().optional(),
+});
+
 // Add new platforms as further members of this union, each with its own adapter
 // (src/lib/ingestion/adapters) and a case in toSourceConfig.
 export const registrationSchema = z.discriminatedUnion('platform', [
   miramRegistrationSchema,
   aulaAbiertaRegistrationSchema,
+  tarragonaRegistrationSchema,
 ]);
 
 export const centreSchema = z.strictObject({
@@ -103,6 +123,30 @@ export function aulaAbiertaListingUrl(
   return `${registration.origin}/cultura/aula-abierta/consulta-cursos.php?aula=${registration.aulaCode}`;
 }
 
+function platformSource(
+  centre: Centre,
+  registration: Centre['registration'],
+): Pick<SourceConfig, 'name' | 'listingUrl' | 'centreCode'> {
+  switch (registration.platform) {
+    case 'miram':
+      return {
+        name: `${centre.name} · Miram`,
+        listingUrl: miramListingUrl(registration),
+      };
+    case 'alicante-aula-abierta':
+      return {
+        name: `${centre.name} · Aula Abierta`,
+        listingUrl: aulaAbiertaListingUrl(registration),
+      };
+    case 'tarragona-centres-civics':
+      return {
+        name: `${centre.name} · Centres Cívics de Tarragona`,
+        listingUrl: `${registration.origin}${registration.centrePage}`,
+        centreCode: registration.centreCode,
+      };
+  }
+}
+
 export function toSourceConfig(centre: Centre): SourceConfig {
   const exclusions =
     'exclusions' in centre.registration
@@ -117,15 +161,7 @@ export function toSourceConfig(centre: Centre): SourceConfig {
   return {
     id: `${centre.registration.platform}-${centre.slug}`,
     platform: centre.registration.platform,
-    ...(centre.registration.platform === 'miram'
-      ? {
-          name: `${centre.name} · Miram`,
-          listingUrl: miramListingUrl(centre.registration),
-        }
-      : {
-          name: `${centre.name} · Aula Abierta`,
-          listingUrl: aulaAbiertaListingUrl(centre.registration),
-        }),
+    ...platformSource(centre, centre.registration),
     ...(categories.length ? { excludedCategoryCodes: categories } : {}),
     ...(records.length ? { excludedExternalIds: records } : {}),
     ...(centre.registration.mayBeEmpty ? { mayBeEmpty: true } : {}),

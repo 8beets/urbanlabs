@@ -30,6 +30,7 @@ import {
   listCentres,
 } from '../../src/lib/db/courses';
 
+import { parseTarragonaActivity } from '../../src/lib/ingestion/adapters/tarragona-centres-civics';
 import { parseAulaAbiertaPage } from '../../src/lib/ingestion/adapters/aula-abierta';
 import { centres } from '../../src/lib/centres/registry';
 import { toSourceConfig } from '../../src/lib/centres/schema';
@@ -1173,6 +1174,47 @@ describe('SQLite migration and ingestion contract', () => {
       '2026-11-09',
     );
     expect(barcelona.courses).toHaveLength(0);
+  });
+  it('ingests a Tarragona activity idempotently and lists it under Tarragona', async () => {
+    const tarragona = toSourceConfig(
+      centres.find((c) => c.id === 'cc-tgn-bonavista')!,
+    );
+    const { centreName, ...record } = parseTarragonaActivity(
+      readFileSync(
+        new URL('../fixtures/tarragona-activity-paid.html', import.meta.url),
+        'utf8',
+      ),
+      'https://inscripcions.tarragona.cat/ca/taller-daquarella-c2t26ac1ap',
+      'Arts plàstiques',
+    );
+    expect(centreName).toBe(tarragona.institution.name);
+    const adapter = { fetchRecords: async () => [record] };
+    await runIngestion(db, adapter, tarragona);
+    await runIngestion(db, adapter, tarragona);
+    expect(sqlite.prepare('SELECT * FROM source_records').all()).toHaveLength(
+      1,
+    );
+    const filters = {
+      q: '',
+      centre: '',
+      category: '',
+      maxPriceCents: null,
+      page: 1,
+    };
+    const found = await listCourses(
+      db,
+      { ...filters, city: 'tarragona' },
+      '2026-11-10',
+    );
+    expect(found.courses).toHaveLength(1);
+    expect(found.courses[0]).toMatchObject({
+      price_cents: 6850,
+      institution: 'Centre Cívic Bonavista',
+    });
+    expect(
+      (await listCourses(db, { ...filters, city: 'barcelona' }, '2026-11-10'))
+        .courses,
+    ).toHaveLength(0);
   });
   it('records an empty snapshot as a success only for centres that may be empty', async () => {
     await runIngestion(db, { fetchRecords: async () => records }, santAndreu);

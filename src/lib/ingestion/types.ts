@@ -1,4 +1,5 @@
-export type SourcePlatform = 'miram' | 'alicante-aula-abierta';
+export type SourcePlatform =
+  'miram' | 'alicante-aula-abierta' | 'tarragona-centres-civics';
 
 export interface SourceConfig {
   id: string;
@@ -8,6 +9,8 @@ export interface SourceConfig {
   listingUrl: string;
   excludedCategoryCodes?: string[];
   excludedExternalIds?: string[];
+  /** Centre number used in the platform's activity codes (Tarragona civic centres). */
+  centreCode?: number;
   /** An empty listing is a valid, successful snapshot (seasonal centres). */
   mayBeEmpty?: boolean;
   institution: {

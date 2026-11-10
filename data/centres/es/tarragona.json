@@ -1,0 +1,162 @@
+[
+  {
+    "id": "cc-tgn-bonavista",
+    "slug": "bonavista",
+    "name": "Centre Cívic Bonavista",
+    "officialUrl": "https://www.tarragona.cat/centrescivics/centres-civics/bonavista/centre-civic-municipal-de-bonavista-1",
+    "address": "C/ Onze, 13, 43100 Bonavista, Tarragona",
+    "country": "ES",
+    "city": "Tarragona",
+    "cityId": "tarragona",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "phone": "977550231",
+      "email": "ccbonavista@tarragona.cat",
+      "detailsSourceUrl": "https://www.tarragona.cat/centrescivics/centres-civics/bonavista/centre-civic-municipal-de-bonavista-1",
+      "detailsVerifiedAt": "2026-11-10",
+      "location": {
+        "latitude": 41.1205051412,
+        "longitude": 1.19379758835,
+        "sourceUrl": "https://www.tarragona.cat/centrescivics/centres-civics/bonavista/centre-civic-municipal-de-bonavista-1",
+        "verifiedAt": "2026-11-10"
+      }
+    },
+    "pausedReason": "Awaiting written permission from the Ajuntament de Tarragona: its legal notice (tarragona.cat/avis-legal) restricts use of the site's content to personal use and forbids reproduction and public communication without authorization, so publication is held until permission is granted.",
+    "registration": {
+      "platform": "tarragona-centres-civics",
+      "origin": "https://www.tarragona.cat",
+      "centreCode": 2,
+      "centrePage": "/centrescivics/centres-civics/bonavista/centre-civic-municipal-de-bonavista-1",
+      "verifiedAt": "2026-11-10",
+      "robotsTxt": "allows-all"
+    }
+  },
+  {
+    "id": "cc-tgn-llevant",
+    "slug": "llevant",
+    "name": "Centre Cívic Llevant",
+    "officialUrl": "https://www.tarragona.cat/centrescivics/centres-civics/llevant/llevant",
+    "address": "C/ Major, s/n, 43007 Monnars, Tarragona",
+    "country": "ES",
+    "city": "Tarragona",
+    "cityId": "tarragona",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "phone": "977506469",
+      "email": "ccllevant@tarragona.cat",
+      "detailsSourceUrl": "https://www.tarragona.cat/centrescivics/centres-civics/llevant/llevant",
+      "detailsVerifiedAt": "2026-11-10",
+      "location": {
+        "latitude": 41.1354618152,
+        "longitude": 1.30644500256,
+        "sourceUrl": "https://www.tarragona.cat/centrescivics/centres-civics/llevant/llevant",
+        "verifiedAt": "2026-11-10"
+      }
+    },
+    "pausedReason": "Awaiting written permission from the Ajuntament de Tarragona: its legal notice (tarragona.cat/avis-legal) restricts use of the site's content to personal use and forbids reproduction and public communication without authorization, so publication is held until permission is granted.",
+    "registration": {
+      "platform": "tarragona-centres-civics",
+      "origin": "https://www.tarragona.cat",
+      "centreCode": 6,
+      "centrePage": "/centrescivics/centres-civics/llevant/llevant",
+      "verifiedAt": "2026-11-10",
+      "robotsTxt": "allows-all"
+    }
+  },
+  {
+    "id": "cc-tgn-sant-pere-i-sant-pau",
+    "slug": "sant-pere-i-sant-pau",
+    "name": "Centre Cívic Sant Pere i Sant Pau",
+    "officialUrl": "https://www.tarragona.cat/centrescivics/centres-civics/sant-pere-i-sant-pau/centre-civic-municipal-de-sant-pere-i-sant-pau-1",
+    "address": "Camí del Pont del Diable, s/n, 43007 Sant Pere i Sant Pau, Tarragona",
+    "country": "ES",
+    "city": "Tarragona",
+    "cityId": "tarragona",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "phone": "977200394",
+      "email": "ccsantpere@tarragona.cat",
+      "detailsSourceUrl": "https://www.tarragona.cat/centrescivics/centres-civics/sant-pere-i-sant-pau/centre-civic-municipal-de-sant-pere-i-sant-pau-1",
+      "detailsVerifiedAt": "2026-11-10",
+      "location": {
+        "latitude": 41.1407323347,
+        "longitude": 1.24660175712,
+        "sourceUrl": "https://www.tarragona.cat/centrescivics/centres-civics/sant-pere-i-sant-pau/centre-civic-municipal-de-sant-pere-i-sant-pau-1",
+        "verifiedAt": "2026-11-10"
+      }
+    },
+    "pausedReason": "Awaiting written permission from the Ajuntament de Tarragona: its legal notice (tarragona.cat/avis-legal) restricts use of the site's content to personal use and forbids reproduction and public communication without authorization, so publication is held until permission is granted.",
+    "registration": {
+      "platform": "tarragona-centres-civics",
+      "origin": "https://www.tarragona.cat",
+      "centreCode": 3,
+      "centrePage": "/centrescivics/centres-civics/sant-pere-i-sant-pau/centre-civic-municipal-de-sant-pere-i-sant-pau-1",
+      "verifiedAt": "2026-11-10",
+      "robotsTxt": "allows-all"
+    }
+  },
+  {
+    "id": "cc-tgn-sant-salvador",
+    "slug": "sant-salvador",
+    "name": "Centre Cívic Sant Salvador",
+    "officialUrl": "https://www.tarragona.cat/centrescivics/centres-civics/sant-salvador/centre-civic-municipal-de-sant-salvador",
+    "address": "Av. Pins, s/n, 43130 Sant Salvador, Tarragona",
+    "country": "ES",
+    "city": "Tarragona",
+    "cityId": "tarragona",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "phone": "977521133",
+      "email": "ccssalvador@tarragona.cat",
+      "detailsSourceUrl": "https://www.tarragona.cat/centrescivics/centres-civics/sant-salvador/centre-civic-municipal-de-sant-salvador",
+      "detailsVerifiedAt": "2026-11-10",
+      "location": {
+        "latitude": 41.161984704,
+        "longitude": 1.24345064163,
+        "sourceUrl": "https://www.tarragona.cat/centrescivics/centres-civics/sant-salvador/centre-civic-municipal-de-sant-salvador",
+        "verifiedAt": "2026-11-10"
+      }
+    },
+    "pausedReason": "Awaiting written permission from the Ajuntament de Tarragona: its legal notice (tarragona.cat/avis-legal) restricts use of the site's content to personal use and forbids reproduction and public communication without authorization, so publication is held until permission is granted.",
+    "registration": {
+      "platform": "tarragona-centres-civics",
+      "origin": "https://www.tarragona.cat",
+      "centreCode": 4,
+      "centrePage": "/centrescivics/centres-civics/sant-salvador/centre-civic-municipal-de-sant-salvador",
+      "verifiedAt": "2026-11-10",
+      "robotsTxt": "allows-all"
+    }
+  },
+  {
+    "id": "cc-tgn-torreforta",
+    "slug": "torreforta",
+    "name": "Centre Cívic Torreforta",
+    "officialUrl": "https://www.tarragona.cat/centrescivics/centres-civics/torreforta/centre-civic-municipal-de-torreforta-1",
+    "address": "Pl. Tarragonès, s/n, 43006 Tarragona",
+    "country": "ES",
+    "city": "Tarragona",
+    "cityId": "tarragona",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "phone": "977550229",
+      "email": "cctorreforta@tarragona.cat",
+      "detailsSourceUrl": "https://www.tarragona.cat/centrescivics/centres-civics/torreforta/centre-civic-municipal-de-torreforta-1",
+      "detailsVerifiedAt": "2026-11-10",
+      "location": {
+        "latitude": 41.1170357078,
+        "longitude": 1.21605992317,
+        "sourceUrl": "https://www.tarragona.cat/centrescivics/centres-civics/torreforta/centre-civic-municipal-de-torreforta-1",
+        "verifiedAt": "2026-11-10"
+      }
+    },
+    "pausedReason": "Awaiting written permission from the Ajuntament de Tarragona: its legal notice (tarragona.cat/avis-legal) restricts use of the site's content to personal use and forbids reproduction and public communication without authorization, so publication is held until permission is granted.",
+    "registration": {
+      "platform": "tarragona-centres-civics",
+      "origin": "https://www.tarragona.cat",
+      "centreCode": 1,
+      "centrePage": "/centrescivics/centres-civics/torreforta/centre-civic-municipal-de-torreforta-1",
+      "verifiedAt": "2026-11-10",
+      "robotsTxt": "allows-all"
+    }
+  }
+]
