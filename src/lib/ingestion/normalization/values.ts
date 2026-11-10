@@ -11,6 +11,11 @@ const catalanMonths = new Map(
   ]),
 );
 
+/** Month number (1–12) for a full Catalan month name, or undefined. */
+export function catalanMonthNumber(name: string): number | undefined {
+  return catalanMonths.get(name.toLowerCase());
+}
+
 export function cleanText(value: string): string {
   return value.replace(/\s+/gu, ' ').trim();
 }

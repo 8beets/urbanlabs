@@ -1,5 +1,6 @@
 import { createAulaAbiertaAdapter } from './aula-abierta';
 import { createMiramAdapter } from './miram';
+import { createTarragonaAdapter } from './tarragona-centres-civics';
 import type { FetchOptions } from '../http';
 import type { SourceAdapter, SourceConfig } from '../types';
 
@@ -13,5 +14,7 @@ export function adapterFor(
       return createMiramAdapter(options);
     case 'alicante-aula-abierta':
       return createAulaAbiertaAdapter(options);
+    case 'tarragona-centres-civics':
+      return createTarragonaAdapter(options);
   }
 }

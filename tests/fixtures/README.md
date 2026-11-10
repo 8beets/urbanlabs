@@ -19,6 +19,8 @@ https://w3.alicante.es/cultura/aula-abierta/consulta-cursos.php?aula=402
 
 The first contains two different courses sharing the same `data-codigo` within one specialty; the second contains an explicitly free ("Gratuito") course. Tests mutate them in memory for malformed dates and missing identities. They document past content, not current availability, and the Ayuntamiento's reuse permission is still pending (see `docs/data-sources.md`).
 
+`tarragona-*.html` are trimmed excerpts of public Tarragona civic-centre pages fetched on 2026-11-10: the stable index (`tarragona-index.html`, links only), the autumn 2026 monogràfics catalogue (`tarragona-catalogue.html`, category links), the arts category (`tarragona-category-arts.html`, activity links), and two activity pages on `inscripcions.tarragona.cat` (`tarragona-activity-paid.html`: "TALLER D’AQUAREL·LA", Bonavista; `tarragona-activity-free.html`: "ALIADES +: ENTRENAMENT FÍSIC", Sant Pere i Sant Pau). Scripts, styles and unrelated markup were removed; the real structured data and detail blocks are kept. They document past content, not current availability, and the Ajuntament's reuse permission is still pending (see `docs/data-sources.md`).
+
 `miram-casa-elizalde-empty.html` is the Casa Elizalde course listing as served on 2026-11-09 (scripts and styles removed), when it published no courses or workshops and its navigation offered only the `CE` shows-and-talks type:
 
 https://casaelizalde.inscripcionscc.com/MiramModular/buscador/buscador.jsp?g=1&c=56&t=AC
