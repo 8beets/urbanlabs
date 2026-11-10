@@ -508,5 +508,125 @@
       "verifiedAt": "2026-11-08",
       "robotsTxt": "absent"
     }
+  },
+  {
+    "id": "cc-la-sedeta",
+    "slug": "la-sedeta",
+    "name": "Centre Cívic La Sedeta",
+    "officialUrl": "https://ajuntament.barcelona.cat/ccivics/lasedeta",
+    "address": "C/ de Sicília, 321, 08025 Barcelona",
+    "country": "ES",
+    "city": "Barcelona",
+    "cityId": "barcelona",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "phone": "932073703",
+      "detailsSourceUrl": "https://guia.barcelona.cat/ca/detall/centre-civic-la-sedeta_92086004419.html",
+      "detailsVerifiedAt": "2026-11-10",
+      "location": {
+        "latitude": 41.405576512012246,
+        "longitude": 2.167687591797475,
+        "sourceUrl": "https://guia.barcelona.cat/ca/detall/centre-civic-la-sedeta_92086004419.html",
+        "verifiedAt": "2026-11-10"
+      }
+    },
+    "registration": {
+      "platform": "miram",
+      "origin": "https://cursoslasedeta.inscripcionscc.com",
+      "centreCode": 25,
+      "activityType": "AC",
+      "verifiedAt": "2026-11-10",
+      "robotsTxt": "absent"
+    }
+  },
+  {
+    "id": "cc-navas",
+    "slug": "navas",
+    "name": "Centre Cívic Navas",
+    "officialUrl": "https://ajuntament.barcelona.cat/ccivics/navas",
+    "address": "C/ de Las Navas de Tolosa, 312, Barcelona",
+    "country": "ES",
+    "city": "Barcelona",
+    "cityId": "barcelona",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "phone": "933493522",
+      "detailsSourceUrl": "https://guia.barcelona.cat/ca/detall/centre-civic-navas_99400305681.html",
+      "detailsVerifiedAt": "2026-11-10",
+      "location": {
+        "latitude": 41.41693998158291,
+        "longitude": 2.184931573020558,
+        "sourceUrl": "https://guia.barcelona.cat/ca/detall/centre-civic-navas_99400305681.html",
+        "verifiedAt": "2026-11-10"
+      }
+    },
+    "registration": {
+      "platform": "miram",
+      "origin": "https://ccnavas.inscripcionscc.com",
+      "centreCode": 4,
+      "activityType": "AC",
+      "verifiedAt": "2026-11-10",
+      "robotsTxt": "absent"
+    }
+  },
+  {
+    "id": "cc-parc-sandaru",
+    "slug": "parc-sandaru",
+    "name": "Centre Cívic Parc Sandaru",
+    "officialUrl": "https://ajuntament.barcelona.cat/ccivics/parcsandaru",
+    "address": "C/ de Buenaventura Muñoz, 21, 08018 Barcelona",
+    "country": "ES",
+    "city": "Barcelona",
+    "cityId": "barcelona",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "phone": "933090635",
+      "detailsSourceUrl": "https://guia.barcelona.cat/ca/detall/centre-civic-parc-sandaru_99400161204.html",
+      "detailsVerifiedAt": "2026-11-10",
+      "location": {
+        "latitude": 41.39174570900244,
+        "longitude": 2.184766821590944,
+        "sourceUrl": "https://guia.barcelona.cat/ca/detall/centre-civic-parc-sandaru_99400161204.html",
+        "verifiedAt": "2026-11-10"
+      }
+    },
+    "registration": {
+      "platform": "miram",
+      "origin": "https://sandaru.inscripcionscc.com",
+      "centreCode": 38,
+      "activityType": "AC",
+      "verifiedAt": "2026-11-10",
+      "robotsTxt": "absent"
+    }
+  },
+  {
+    "id": "cc-pere-pruna",
+    "slug": "pere-pruna",
+    "name": "Centre Cívic Pere Pruna",
+    "officialUrl": "https://ajuntament.barcelona.cat/ccivics/perepruna",
+    "address": "C/ de Ganduxer, 130, 08022 Barcelona",
+    "country": "ES",
+    "city": "Barcelona",
+    "cityId": "barcelona",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "phone": "934186537",
+      "detailsSourceUrl": "https://guia.barcelona.cat/ca/detall/centre-civic-pere-pruna_136112242.html",
+      "detailsVerifiedAt": "2026-11-10",
+      "location": {
+        "latitude": 41.40320904460328,
+        "longitude": 2.13132023534547,
+        "sourceUrl": "https://guia.barcelona.cat/ca/detall/centre-civic-pere-pruna_136112242.html",
+        "verifiedAt": "2026-11-10"
+      }
+    },
+    "registration": {
+      "platform": "miram",
+      "origin": "https://ccperepruna.inscripcionscc.com",
+      "centreCode": 41,
+      "activityType": "AC",
+      "verifiedAt": "2026-11-10",
+      "robotsTxt": "absent"
+    }
   }
 ]

@@ -204,21 +204,31 @@ async function setup() {
         source,
       );
     }
-    // Baró de Viver's only saved fixture is an excluded childcare service, so its E2E
-    // course is explicitly synthetic and exists only in this isolated state.
-    await runIngestion(
-      db,
-      {
-        fetchRecords: async () => [
-          {
-            ...first,
-            externalId: '99994',
-            title: 'TEST family workshop Baró de Viver',
-          },
-        ],
-      },
-      getSource('miram-baro-de-viver'),
-    );
+    // These centres have no saved course fixture that is safe to reuse (Baró de Viver's
+    // only one is an excluded childcare service; the others share Miram's markup with
+    // fixtures above), so each gets one explicitly synthetic course in this isolated state.
+    for (const [index, id] of [
+      'miram-baro-de-viver',
+      'miram-la-sedeta',
+      'miram-navas',
+      'miram-parc-sandaru',
+      'miram-pere-pruna',
+    ].entries()) {
+      const source = getSource(id);
+      await runIngestion(
+        db,
+        {
+          fetchRecords: async () => [
+            {
+              ...first,
+              externalId: String(99994 - index * 10),
+              title: `TEST family workshop ${source.institution.name}`,
+            },
+          ],
+        },
+        source,
+      );
+    }
     // Isolated reviewed-title fixture: display must preserve the maintainer's explicit casing.
     await db
       .prepare(
