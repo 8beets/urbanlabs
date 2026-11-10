@@ -1,8 +1,12 @@
 import { expect, test } from '@playwright/test';
 import { sources } from '../../src/lib/sources';
+import { CENTRES_PAGE_SIZE } from '../../src/lib/db/institutions';
+import { directoryLinks } from './directory';
 
 // Every registry centre has verified coordinates, plus the isolated test centre without a
 // location that appears in the list but not on the map.
+
+const firstPage = Math.min(sources.length + 1, CENTRES_PAGE_SIZE);
 
 // Saved transparent PNG: routine map checks never fetch third-party tiles.
 const tile = Buffer.from(
@@ -32,7 +36,7 @@ for (const locale of ['es', 'ca']) {
       sources.length,
     );
     await expect(page.locator('.centre-directory article')).toHaveCount(
-      sources.length + 1,
+      firstPage,
     );
     const points = JSON.parse((await map.getAttribute('data-centres'))!);
     expect(
@@ -82,7 +86,7 @@ test('tile failures keep verified markers and the full directory available', asy
   );
   await expect(page.locator('.centre-map-marker')).toHaveCount(sources.length);
   await expect(page.locator('.centre-directory article')).toHaveCount(
-    sources.length + 1,
+    firstPage,
   );
 });
 
@@ -97,10 +101,10 @@ test.describe('without JavaScript', () => {
     });
     await page.goto('/es/centros');
     await expect(page.locator('[data-map-canvas]')).toBeHidden();
-    await expect(page.locator('.centre-directory article')).toHaveCount(
-      sources.length + 1,
-    );
+    // Every centre stays reachable through plain pagination links.
+    expect(await directoryLinks(page)).toHaveLength(sources.length + 1);
     expect(tileRequests).toBe(0);
+    await page.goto('/es/centros');
     await page
       .locator('.centre-directory a[href="/es/centros/sant-andreu"]')
       .click();

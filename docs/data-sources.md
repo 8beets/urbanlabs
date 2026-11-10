@@ -136,6 +136,27 @@ Verified on 2026-11-10 on the shared Miram adapter:
 - Emails are omitted because the registration and municipal pages were not cross-checked.
 - The same metadata-only collection, unknown availability/language, base-price and reuse-review limitations described above apply.
 
+## Centre Cívic Trinitat Vella, Vallvidrera Vázquez Montalbán, Vil·la Florida, Zona Nord and Centre Cultural La Farinera del Clot
+
+Verified on 2026-11-10 on the shared Miram adapter:
+
+| Centre                                     | Source ID                             | Editions | Verified registration root                                                                     |
+| ------------------------------------------ | ------------------------------------- | -------: | ---------------------------------------------------------------------------------------------- |
+| Centre Cívic Trinitat Vella                | `miram-trinitat-vella`                |       22 | https://trinitatvella.inscripcionscc.com/MiramModular/buscador/buscador.jsp?g=1&c=42&t=AC      |
+| Centre Cívic Vallvidrera Vázquez Montalbán | `miram-vallvidrera-vazquez-montalban` |       46 | https://ccvazquezmontalban.inscripcionscc.com/MiramModular/buscador/buscador.jsp?g=1&c=43&t=AC |
+| Centre Cívic Vil·la Florida                | `miram-vil-la-florida`                |        9 | https://vflorida.inscripcionscc.com/MiramModular/buscador/buscador.jsp?g=1&c=50&t=AC           |
+| Centre Cívic Zona Nord                     | `miram-zona-nord`                     |       36 | https://cczonanord.inscripcionscc.com/MiramModular/buscador/buscador.jsp?g=1&c=18&t=AC         |
+| Centre Cultural La Farinera del Clot       | `miram-la-farinera-del-clot`          |       12 | https://lafarinera.inscripcionscc.com/MiramModular/buscador/buscador.jsp?g=1&c=20&t=AC         |
+
+- Edition counts come from a live `centre:probe --full` crawl without persistence, after exclusions; every record validated. Only Trinitat Vella's "Rebosteria de tardor" lacks a start date (kept `null`); no record lacks a price. Production ingestion is a separate, explicitly approved operation.
+- The official municipal pages do not link the registration hosts. The hosts were found by their `inscripcionscc.com` names and confirmed by each host's page title and footer (centre name and street address). Each host returned HTTP 404 for `robots.txt`; the adapter rechecks it on every run.
+- Phone numbers, addresses and coordinates come from each centre's `guia.barcelona.cat` entry (`loadmapdetall` configuration), respecting its 10-second crawl delay. Postcodes come from the registration footers. La Farinera's official website is `farinera.org`, as listed in the guide; the others use their `ajuntament.barcelona.cat/ccivics/…` page.
+- Full single-session cards at Trinitat Vella, Vallvidrera and Vil·la Florida carry neither a session accordion nor a registration form, so they expose no activity ID (and usually no dates). The adapter now skips such cards only when the footer says "Places exhaurides" or "En aquests moments no queden places online per aquesta activitat.", logging `ingestion_full_without_id_skipped`; any other identifier-less card still stops ingestion. A course seen earlier with an ID simply stops being refreshed while it is full.
+- Exclusions: Trinitat Vella `1667` (theatre performance); Vallvidrera categories `CM` (concerts) and `XE` (talks) and `1575` (Festa Major opening); Zona Nord `1849` (film screening). Vallvidrera's environmental itineraries and family workshops are kept, as at Navas and El Sortidor.
+- Vil·la Florida's `AC` type only lists cooking, family and balcony-garden workshops; the language, fitness and art workshops in the city guide are not published on this host, so they are not imported. Other types (`BI` itineraries, `CE` shows and talks) are not followed at any of these centres.
+- Emails are omitted because the registration and municipal pages were not cross-checked.
+- The same metadata-only collection, unknown availability/language, base-price and reuse-review limitations described above apply.
+
 ## Alicante — Aula Abierta (municipal culture classes), paused
 
 - Listing: https://w3.alicante.es/cultura/aula-abierta/consulta-cursos.php (optionally `?aula=<code>`); researched 2026-11-09.

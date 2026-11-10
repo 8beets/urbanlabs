@@ -90,3 +90,9 @@ It preserves the category heading, selector, schedule, date range and base price
 They keep the category heading, selector, schedule, date range, space and base price, serialized with Cheerio. Descriptions, instructors, concession prices, images and session calendars were removed; the first two keep an empty element with the original `accordion` identifier. The Baró de Viver card is a single-session free childcare service with no session accordion: its identifier comes from the registration form's hidden `activitat` input, and its date has no year, so it is parsed with null dates (and excluded in configuration because it is not a course).
 
 `miram-fort-pienc-root.html` is an excerpt of the public Fort Pienc registration home page, retrieved on 2026-11-08, for the centre probe tests: the page title, the navigation entries (activity types and categories) and the footer name and address block (the footer's phone and email lines are not asserted or reported). Scripts and unrelated markup were removed.
+
+`miram-vallvidrera-full-without-id.html` was retrieved on 2026-11-10 from:
+
+https://ccvazquezmontalban.inscripcionscc.com/MiramModular/buscador/buscador.jsp?g=1&c=43&t=AC&f=IN
+
+It keeps the category heading, selector and two cards serialized with Cheerio: course `1603` ("Reforç educatiu", with an empty element keeping its `accordion1603` identifier) and a full single-session "Teatre" card whose footer reads "Places exhaurides…" and which has no accordion, registration form or date range. Descriptions, instructors, images and session calendars were removed. It is a parser fixture for skipping identifier-less full cards, not a claim of current availability.
