@@ -100,6 +100,9 @@ const centreBase = centreDirectoryPath(locale);
         <p>{m.footer({}, { locale })}</p>
       </div>
       <div class="footer-links">
+        <a href={`${courseSearchPath(locale)}?archive=1`}>
+          {m.archiveLink({}, { locale })}
+        </a>
         <a class="github-link" href="https://github.com/8beets/urbanlabs">
           <img src="/icons/github.svg" alt="" width="20" height="20" />
           {m.githubRepo({}, { locale })}

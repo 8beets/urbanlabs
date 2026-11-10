@@ -13,10 +13,11 @@ export function isStartMonth(value: string): boolean {
  * (the live cutoff), so the options use the same clock as edition liveness and no
  * time zone is hard-coded here.
  */
-export function startMonthOptions(today: string): string[] {
+export function startMonthOptions(today: string, past = false): string[] {
   const first = parseIsoDate(today);
+  // The archive lists the current and previous months, newest first.
   return Array.from({ length: START_MONTH_OPTIONS }, (_, offset) =>
-    format(addMonths(first, offset), MONTH),
+    format(addMonths(first, past ? -offset : offset), MONTH),
   );
 }
 

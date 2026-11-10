@@ -241,7 +241,10 @@ describe('normalization', () => {
       cancellation: '',
       startMonth: '',
       places: '',
+      archive: false,
     });
+    expect(parseFilters(new URLSearchParams('archive=1')).archive).toBe(true);
+    expect(() => parseFilters(new URLSearchParams('archive=2'))).toThrow();
     for (const query of [
       'page=0',
       'category=%00',

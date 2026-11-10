@@ -10,6 +10,8 @@ export interface DiscoveryFilters extends GeographicFilters {
   cancellation?: '' | 'hide' | 'only';
   /** 'available' hides editions the source reports as sold out. */
   places?: '' | 'available';
+  /** Lists editions that have already ended instead of the live ones. */
+  archive?: boolean;
   q: string;
   page: number;
   maxPriceCents: number | null;
@@ -115,8 +117,8 @@ export async function listCourses(
     conditions.push('e.start_date >= ? AND e.start_date < ?');
     values.push(from, to);
   }
-  // Expired editions remain stored for provenance, but leave the discovery listing.
-  conditions.push('e.live_until >= ?');
+  // Expired editions remain stored for provenance; they only appear in the archive.
+  conditions.push(filters.archive ? 'e.live_until < ?' : 'e.live_until >= ?');
   values.push(today);
   const result = await db
     .prepare(
@@ -125,7 +127,11 @@ export async function listCourses(
     LEFT JOIN institution_profiles p ON p.institution_id=i.id
     JOIN source_records sr ON sr.edition_id=e.id
     WHERE ${conditions.join(' AND ')}
-    ORDER BY e.is_cancelled, e.is_sold_out, e.start_date IS NULL, e.start_date, e.id LIMIT ? OFFSET ?`,
+    ORDER BY ${
+      filters.archive
+        ? 'e.live_until DESC, e.id'
+        : 'e.is_cancelled, e.is_sold_out, e.start_date IS NULL, e.start_date, e.id'
+    } LIMIT ? OFFSET ?`,
     )
     .bind(...values, PAGE_SIZE + 1, (filters.page - 1) * PAGE_SIZE)
     .all<CourseListing>();
@@ -139,7 +145,8 @@ export async function listCategories(
   db: D1Database,
   today: string,
   centre = '',
-  geography: GeographicFilters & Pick<DiscoveryFilters, 'cancellation'> = {},
+  geography: GeographicFilters &
+    Pick<DiscoveryFilters, 'cancellation' | 'archive'> = {},
 ): Promise<string[]> {
   const geographic = geographicCondition(geography, 'c.institution_id');
   // Driven by the live-edition range, so the cost follows live editions, not history.
@@ -147,7 +154,7 @@ export async function listCategories(
     .prepare(
       `SELECT DISTINCT c.category FROM course_editions e
     JOIN courses c ON c.id=e.course_id
-    WHERE e.live_until >= ? ${cancellationCondition(geography.cancellation)}
+    WHERE e.live_until ${geography.archive ? '<' : '>='} ? ${cancellationCondition(geography.cancellation)}
     AND c.category IS NOT NULL AND c.category <> ''
     ${centre ? 'AND c.institution_id = ?' : ''} ${geographic.sql ? `AND ${geographic.sql}` : ''}
     ORDER BY c.category LIMIT 100`,
@@ -166,7 +173,8 @@ export interface CentreListing {
 export async function listCentres(
   db: D1Database,
   today: string,
-  geography: GeographicFilters & Pick<DiscoveryFilters, 'cancellation'> = {},
+  geography: GeographicFilters &
+    Pick<DiscoveryFilters, 'cancellation' | 'archive'> = {},
 ): Promise<CentreListing[]> {
   const geographic = geographicCondition(geography);
   const result = await db
@@ -174,7 +182,7 @@ export async function listCentres(
       `SELECT i.id, i.name FROM institutions i WHERE ${geographic.sql ? `${geographic.sql} AND` : ''}
     i.id IN (
       SELECT c.institution_id FROM course_editions e JOIN courses c ON c.id=e.course_id
-      WHERE e.live_until >= ? ${cancellationCondition(geography.cancellation)}
+      WHERE e.live_until ${geography.archive ? '<' : '>='} ? ${cancellationCondition(geography.cancellation)}
     ) ORDER BY i.name LIMIT 100`,
     )
     .bind(...geographic.values, today)

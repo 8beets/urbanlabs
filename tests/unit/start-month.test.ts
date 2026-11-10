@@ -27,6 +27,11 @@ describe('start month filter', () => {
   });
   it('counts from the given catalogue date, including month ends', () => {
     expect(startMonthOptions('2026-01-31')[1]).toBe('2026-02');
+    expect(startMonthOptions('2026-01-31', true).slice(0, 3)).toEqual([
+      '2026-01',
+      '2025-12',
+      '2025-11',
+    ]);
     expect(startMonthOptions('2026-12-31')[0]).toBe('2026-12');
     expect(startMonthOptions('2026-12-31')[1]).toBe('2027-01');
   });

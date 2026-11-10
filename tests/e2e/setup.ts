@@ -80,7 +80,20 @@ async function setup() {
     };
     await runIngestion(
       db,
-      { fetchRecords: async () => [...records, ...paginationRecords, dance] },
+      {
+        fetchRecords: async () => [
+          ...records,
+          ...paginationRecords,
+          dance,
+          {
+            ...first,
+            externalId: '99990',
+            title: 'TEST finished workshop',
+            startDate: '2020-01-01',
+            endDate: '2020-02-01',
+          },
+        ],
+      },
       santAndreu,
     );
     await runIngestion(
