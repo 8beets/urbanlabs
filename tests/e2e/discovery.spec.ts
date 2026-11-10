@@ -712,6 +712,14 @@ test('finished courses only appear in the archive, which keeps the filters and h
     'Archivo de cursos',
   );
   await expect(page.locator('#q')).toBeVisible();
+  // Start months look back in the archive: newest first, so values descend.
+  const months = await page
+    .locator('#start option')
+    .evaluateAll((options) =>
+      options.map((option) => (option as HTMLOptionElement).value).slice(1),
+    );
+  expect(months.length).toBeGreaterThan(1);
+  expect(months).toEqual([...months].sort().reverse());
   await page.goto('/es/buscar?archive=1&q=TEST+finished');
   await expect(page.locator('article.course h3')).toHaveText([
     'TEST finished workshop',

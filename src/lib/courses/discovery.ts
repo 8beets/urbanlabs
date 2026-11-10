@@ -78,6 +78,6 @@ export async function discoverCourses(
     categories,
     centres,
     geography: catalog,
-    startMonths: startMonthOptions(today),
+    startMonths: startMonthOptions(today, filters.archive),
   };
 }

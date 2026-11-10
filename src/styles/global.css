@@ -521,6 +521,15 @@ h3 {
 .footer-about p {
   margin-block: 0 12px;
 }
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 24px;
+}
+.footer-links .photo-credit {
+  flex-basis: 100%;
+}
 .github-link {
   display: inline-flex;
   align-items: center;
