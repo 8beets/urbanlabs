@@ -1,6 +1,7 @@
 import { expect, test } from '@playwright/test';
 import { sources } from '../../src/lib/sources';
 import { centreProfile } from '../../src/lib/institutions/profiles';
+import { directoryLinks } from './directory';
 
 // Routine browser checks never depend on OSM or its tile servers being available.
 test.setTimeout(120000);
@@ -32,15 +33,15 @@ for (const locale of ['es', 'ca'] as const) {
       })
       .click();
     await expect(page).toHaveURL(new RegExp(`${base}$`));
-    const links = page.locator('.centre-directory h2 a');
     // Every registry centre plus the isolated test centre without a verified location.
-    await expect(links).toHaveCount(sources.length + 1);
+    const links = await directoryLinks(page);
+    expect(links).toHaveLength(sources.length + 1);
     for (const source of sources) {
       const profile = centreProfile(source.institution.id);
-      const href = `${base}/${profile.slug}`;
-      await expect(
-        page.locator(`.centre-directory a[href="${href}"]`),
-      ).toHaveText(source.institution.name);
+      expect(links).toContainEqual({
+        href: `${base}/${profile.slug}`,
+        name: source.institution.name,
+      });
     }
     for (const source of sources) {
       const profile = centreProfile(source.institution.id);

@@ -39,6 +39,34 @@ describe('Miram source fixture', () => {
       ),
     ).toThrow('identifier');
   });
+  it('skips full single-session cards that expose no identifier, keeping the rest', () => {
+    const html = readFileSync(
+      new URL(
+        '../fixtures/miram-vallvidrera-full-without-id.html',
+        import.meta.url,
+      ),
+      'utf8',
+    );
+    const page = parseMiramPage(html, url);
+    expect(page.records.map((r) => [r.externalId, r.title])).toEqual([
+      ['1603', 'Reforç educatiu'],
+    ]);
+    expect(page.fullWithoutId).toBe(1);
+    // Trinitat Vella's wording for the same state.
+    expect(
+      parseMiramPage(
+        html.replace(
+          /Places exhaurides[^<]*/u,
+          'En aquests moments no queden places online per aquesta activitat.',
+        ),
+        url,
+      ).fullWithoutId,
+    ).toBe(1);
+    // Any other identifier-less card still stops ingestion for review.
+    expect(() =>
+      parseMiramPage(html.replace('Places exhaurides', 'Unexpected'), url),
+    ).toThrow('identifier');
+  });
   it('extracts the explicit free price and single date of a real family cooking workshop', () => {
     const html = readFileSync(
       new URL('../fixtures/miram-sortidor-family.html', import.meta.url),

@@ -226,6 +226,11 @@ async function setup() {
       'miram-navas',
       'miram-parc-sandaru',
       'miram-pere-pruna',
+      'miram-trinitat-vella',
+      'miram-vallvidrera-vazquez-montalban',
+      'miram-vil-la-florida',
+      'miram-zona-nord',
+      'miram-la-farinera-del-clot',
     ].entries()) {
       const source = getSource(id);
       await runIngestion(

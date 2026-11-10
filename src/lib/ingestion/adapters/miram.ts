@@ -10,11 +10,20 @@ import { hasSoldOutNotice } from '../normalization/availability';
 import { createSourceFetcher, type FetchOptions } from '../http';
 import type { CourseRecord, SourceAdapter, SourceConfig } from '../types';
 
+// Footers of full cards: "places exhaurides" and "no queden places online" (both seen live).
+const fullNotice =
+  /^(?:Places exhaurides\b|En aquests moments no queden places online per aquesta activitat\.$)/iu;
+
 export function parseMiramPage(
   html: string,
   pageUrl: string,
   allowEmpty = false,
-): { records: CourseRecord[]; links: string[]; unpublishedPreviews: number } {
+): {
+  records: CourseRecord[];
+  links: string[];
+  unpublishedPreviews: number;
+  fullWithoutId: number;
+} {
   const $ = load(html);
   if (!$('#eFamilia').length)
     throw new Error('Miram listing structure changed or access page returned');
@@ -24,6 +33,7 @@ export function parseMiramPage(
       ?.trim() ?? null;
   const records: CourseRecord[] = [];
   let unpublishedPreviews = 0;
+  let fullWithoutId = 0;
   $('.card.overh').each((_, element) => {
     const card = $(element);
     // Single-session cards have no session accordion; their registration form still
@@ -39,6 +49,15 @@ export function parseMiramPage(
     ) {
       // Miram's advance previews expose no edition ID or dates. Do not invent one.
       unpublishedPreviews++;
+      return;
+    }
+    if (
+      !externalId &&
+      fullNotice.test(cleanText(card.find('.card-footer').text()))
+    ) {
+      // Full single-session cards drop both the session accordion and the registration
+      // form, so they expose no identifier (and usually no dates). Do not invent one.
+      fullWithoutId++;
       return;
     }
     if (!externalId)
@@ -90,9 +109,20 @@ export function parseMiramPage(
     if (target.searchParams.has('p') && approvedPage(target.href, current))
       links.push(target.href);
   });
-  if (!allowEmpty && !records.length && !links.length && !unpublishedPreviews)
+  if (
+    !allowEmpty &&
+    !records.length &&
+    !links.length &&
+    !unpublishedPreviews &&
+    !fullWithoutId
+  )
     throw new Error('Empty Miram listing; manual review required');
-  return { records, links: [...new Set(links)], unpublishedPreviews };
+  return {
+    records,
+    links: [...new Set(links)],
+    unpublishedPreviews,
+    fullWithoutId,
+  };
 }
 
 function canonicalPage(value: string): string {
@@ -146,6 +176,15 @@ export function createMiramAdapter(options: FetchOptions = {}): SourceAdapter {
               source: source.id,
               page: url,
               count: page.unpublishedPreviews,
+            }),
+          );
+        if (page.fullWithoutId)
+          console.info(
+            JSON.stringify({
+              event: 'ingestion_full_without_id_skipped',
+              source: source.id,
+              page: url,
+              count: page.fullWithoutId,
             }),
           );
         for (const record of page.records) {

@@ -628,5 +628,181 @@
       "verifiedAt": "2026-11-10",
       "robotsTxt": "absent"
     }
+  },
+  {
+    "id": "cc-trinitat-vella",
+    "slug": "trinitat-vella",
+    "name": "Centre Cívic Trinitat Vella",
+    "officialUrl": "https://ajuntament.barcelona.cat/ccivics/trinitatvella",
+    "address": "C/ de la Foradada, 36-38, 08033 Barcelona",
+    "country": "ES",
+    "city": "Barcelona",
+    "cityId": "barcelona",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "phone": "933457016",
+      "detailsSourceUrl": "https://guia.barcelona.cat/ca/detall/centre-civic-trinitat-vella_92086017153.html",
+      "detailsVerifiedAt": "2026-11-10",
+      "location": {
+        "latitude": 41.45161792860212,
+        "longitude": 2.191188136259515,
+        "sourceUrl": "https://guia.barcelona.cat/ca/detall/centre-civic-trinitat-vella_92086017153.html",
+        "verifiedAt": "2026-11-10"
+      }
+    },
+    "registration": {
+      "platform": "miram",
+      "origin": "https://trinitatvella.inscripcionscc.com",
+      "centreCode": 42,
+      "activityType": "AC",
+      "verifiedAt": "2026-11-10",
+      "robotsTxt": "absent",
+      "exclusions": [
+        {
+          "externalId": "1667",
+          "reason": "\"Hi! I'm Steven\" is a one-off theatre performance, outside the course directory."
+        }
+      ]
+    }
+  },
+  {
+    "id": "cc-vallvidrera-vazquez-montalban",
+    "slug": "vallvidrera-vazquez-montalban",
+    "name": "Centre Cívic Vallvidrera Vázquez Montalbán",
+    "officialUrl": "https://ajuntament.barcelona.cat/ccivics/vallvidreravazquezmontalban",
+    "address": "C/ d'Elisa Moragas i Badia, 16-34, 08017 Barcelona",
+    "country": "ES",
+    "city": "Barcelona",
+    "cityId": "barcelona",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "phone": "934069053",
+      "detailsSourceUrl": "https://guia.barcelona.cat/ca/detall/centre-civic-vallvidrera-vazquez-montalban_99400010093.html",
+      "detailsVerifiedAt": "2026-11-10",
+      "location": {
+        "latitude": 41.41539106451315,
+        "longitude": 2.102545331836101,
+        "sourceUrl": "https://guia.barcelona.cat/ca/detall/centre-civic-vallvidrera-vazquez-montalban_99400010093.html",
+        "verifiedAt": "2026-11-10"
+      }
+    },
+    "registration": {
+      "platform": "miram",
+      "origin": "https://ccvazquezmontalban.inscripcionscc.com",
+      "centreCode": 43,
+      "activityType": "AC",
+      "verifiedAt": "2026-11-10",
+      "robotsTxt": "absent",
+      "exclusions": [
+        {
+          "categoryCode": "CM",
+          "reason": "The Concerts category lists performances, outside the course directory."
+        },
+        {
+          "categoryCode": "XE",
+          "reason": "The Xerrades category lists one-off talks, outside the course directory."
+        },
+        {
+          "externalId": "1575",
+          "reason": "The Festa Major opening afternoon is a festival event, not a course."
+        }
+      ]
+    }
+  },
+  {
+    "id": "cc-vil-la-florida",
+    "slug": "vil-la-florida",
+    "name": "Centre Cívic Vil·la Florida",
+    "officialUrl": "https://ajuntament.barcelona.cat/ccivics/vil.laflorida",
+    "address": "C/ de Muntaner, 544, 08022 Barcelona",
+    "country": "ES",
+    "city": "Barcelona",
+    "cityId": "barcelona",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "phone": "932546265",
+      "detailsSourceUrl": "https://guia.barcelona.cat/ca/detall/centre-civic-vil-la-florida_99400179909.html",
+      "detailsVerifiedAt": "2026-11-10",
+      "location": {
+        "latitude": 41.405365338998074,
+        "longitude": 2.135308972460361,
+        "sourceUrl": "https://guia.barcelona.cat/ca/detall/centre-civic-vil-la-florida_99400179909.html",
+        "verifiedAt": "2026-11-10"
+      }
+    },
+    "registration": {
+      "platform": "miram",
+      "origin": "https://vflorida.inscripcionscc.com",
+      "centreCode": 50,
+      "activityType": "AC",
+      "verifiedAt": "2026-11-10",
+      "robotsTxt": "absent"
+    }
+  },
+  {
+    "id": "cc-zona-nord",
+    "slug": "zona-nord",
+    "name": "Centre Cívic Zona Nord",
+    "officialUrl": "https://ajuntament.barcelona.cat/ccivics/zonanord",
+    "address": "C/ de Vallcivera, 14, 08033 Barcelona",
+    "country": "ES",
+    "city": "Barcelona",
+    "cityId": "barcelona",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "phone": "933591251",
+      "detailsSourceUrl": "https://guia.barcelona.cat/ca/detall/centre-civic-zona-nord_92086019602.html",
+      "detailsVerifiedAt": "2026-11-10",
+      "location": {
+        "latitude": 41.46070056717623,
+        "longitude": 2.1783656547350856,
+        "sourceUrl": "https://guia.barcelona.cat/ca/detall/centre-civic-zona-nord_92086019602.html",
+        "verifiedAt": "2026-11-10"
+      }
+    },
+    "registration": {
+      "platform": "miram",
+      "origin": "https://cczonanord.inscripcionscc.com",
+      "centreCode": 18,
+      "activityType": "AC",
+      "verifiedAt": "2026-11-10",
+      "robotsTxt": "absent",
+      "exclusions": [
+        {
+          "externalId": "1849",
+          "reason": "\"Jone, a veces\" is a feature-film screening, outside the course directory."
+        }
+      ]
+    }
+  },
+  {
+    "id": "cc-la-farinera-del-clot",
+    "slug": "la-farinera-del-clot",
+    "name": "Centre Cultural La Farinera del Clot",
+    "officialUrl": "https://www.farinera.org/",
+    "address": "Gran Via de les Corts Catalanes, 837, 08018 Barcelona",
+    "country": "ES",
+    "city": "Barcelona",
+    "cityId": "barcelona",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "phone": "932918080",
+      "detailsSourceUrl": "https://guia.barcelona.cat/ca/detall/centre-cultural-la-farinera-del-clot_99119115920.html",
+      "detailsVerifiedAt": "2026-11-10",
+      "location": {
+        "latitude": 41.40487897583886,
+        "longitude": 2.18840476699031,
+        "sourceUrl": "https://guia.barcelona.cat/ca/detall/centre-cultural-la-farinera-del-clot_99119115920.html",
+        "verifiedAt": "2026-11-10"
+      }
+    },
+    "registration": {
+      "platform": "miram",
+      "origin": "https://lafarinera.inscripcionscc.com",
+      "centreCode": 20,
+      "activityType": "AC",
+      "verifiedAt": "2026-11-10",
+      "robotsTxt": "absent"
+    }
   }
 ]
