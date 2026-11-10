@@ -118,6 +118,24 @@ Verified on 2026-11-08 on the shared Miram adapter:
 - Baró de Viver lists three free childcare services ("Temps de dona: Acollida", IDs `2300`–`2302`) for another workshop's participants. They are single-session cards without the usual session accordion and without a year in their date. The adapter now falls back to the registration form's `activitat` identifier for such cards, keeping dates `null`, and configuration excludes these three IDs because they are not courses.
 - The same metadata-only collection, unknown availability/language, base-price and reuse-review limitations described above apply.
 
+## Centre Cívic La Sedeta, Navas, Parc Sandaru and Pere Pruna
+
+Verified on 2026-11-10 on the shared Miram adapter:
+
+| Centre                    | Source ID            | Editions | Verified registration root                                                                 |
+| ------------------------- | -------------------- | -------: | ------------------------------------------------------------------------------------------ |
+| Centre Cívic La Sedeta    | `miram-la-sedeta`    |       73 | https://cursoslasedeta.inscripcionscc.com/MiramModular/buscador/buscador.jsp?g=1&c=25&t=AC |
+| Centre Cívic Navas        | `miram-navas`        |      151 | https://ccnavas.inscripcionscc.com/MiramModular/buscador/buscador.jsp?g=1&c=4&t=AC         |
+| Centre Cívic Parc Sandaru | `miram-parc-sandaru` |       26 | https://sandaru.inscripcionscc.com/MiramModular/buscador/buscador.jsp?g=1&c=38&t=AC        |
+| Centre Cívic Pere Pruna   | `miram-pere-pruna`   |       14 | https://ccperepruna.inscripcionscc.com/MiramModular/buscador/buscador.jsp?g=1&c=41&t=AC    |
+
+- Editions come from a live `centre:probe --full` crawl without persistence; every record validated, none lacks a start date or price. Production ingestion is a separate, explicitly approved operation.
+- The official municipal pages (`https://ajuntament.barcelona.cat/ccivics/lasedeta`, `/navas`, `/parcsandaru`, `/perepruna`) do not link the registration host, so the hosts were found through municipal programme documents and search results, then confirmed by each host's footer (centre name and street address). Each host returned HTTP 404 for `robots.txt`; the adapter rechecks it on every run.
+- Phone numbers, addresses and coordinates come from each centre's `guia.barcelona.cat` entry (`loadmapdetall` configuration), respecting its 10-second crawl delay. Postcodes come from the registration footers. Navas is the exception: the guide gives Carrer de Las Navas de Tolosa, 312, while the registration footer prints Ptge. Doctor Torent, 1, 08027, so its postcode is omitted rather than guessed.
+- Each host also exposes other types (`CE` shows and talks, and at Pere Pruna `BI` itineraries) that are not followed; only `t=AC` is configured. At Navas the `ITINERARIS` category (guided city walks with dates and prices) is part of `AC` and is kept. "Balls en línia" at La Sedeta is line dancing and is retained, as at Casa Elizalde. No exclusions were needed.
+- Emails are omitted because the registration and municipal pages were not cross-checked.
+- The same metadata-only collection, unknown availability/language, base-price and reuse-review limitations described above apply.
+
 ## Alicante — Aula Abierta (municipal culture classes), paused
 
 - Listing: https://w3.alicante.es/cultura/aula-abierta/consulta-cursos.php (optionally `?aula=<code>`); researched 2026-11-09.
