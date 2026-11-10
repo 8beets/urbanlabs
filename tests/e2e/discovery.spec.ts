@@ -698,3 +698,25 @@ test('places filter keeps its value in the URL and shows an applied chip without
   ).toBeVisible();
   expect((await page.request.get('/es/buscar?places=nope')).status()).toBe(400);
 });
+
+test('finished courses only appear in the archive, which keeps the filters and has a footer link', async ({
+  page,
+}) => {
+  await page.goto('/es/buscar?q=TEST+finished');
+  await expect(page.locator('article.course')).toHaveCount(0);
+  await page
+    .getByRole('link', { name: 'Archivo de cursos terminados' })
+    .click();
+  await expect(page).toHaveURL(/\/es\/buscar\?archive=1$/);
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText(
+    'Archivo de cursos',
+  );
+  await expect(page.locator('#q')).toBeVisible();
+  await page.goto('/es/buscar?archive=1&q=TEST+finished');
+  await expect(page.locator('article.course h3')).toHaveText([
+    'TEST finished workshop',
+  ]);
+  await page.goto('/ca/cerca?archive=1&q=TEST+dance');
+  await expect(page.locator('article.course')).toHaveCount(0);
+  expect((await page.request.get('/es/buscar?archive=2')).status()).toBe(400);
+});

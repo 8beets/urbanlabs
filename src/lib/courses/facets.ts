@@ -11,7 +11,7 @@ import { clearGeographyCache } from '../locations/geography';
 
 type FacetFilters = Pick<
   DiscoveryFilters,
-  'country' | 'region' | 'city' | 'cancellation'
+  'country' | 'region' | 'city' | 'cancellation' | 'archive'
 >;
 
 // Category and centre options depend only on geography, cancellation (and the selected
@@ -28,6 +28,7 @@ function key(today: string, filters: FacetFilters, centre = ''): string {
     filters.region ?? '',
     filters.city ?? '',
     filters.cancellation ?? '',
+    filters.archive ?? false,
     centre,
   ]);
 }

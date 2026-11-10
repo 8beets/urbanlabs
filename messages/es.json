@@ -160,5 +160,9 @@
   "weekdayAnd": "y",
   "mapContributors": "Colaboradores de OpenStreetMap",
   "pathSearch": "buscar",
+  "archiveTitle": "Archivo de cursos",
+  "archiveIntro": "Cursos y talleres que ya han terminado, con los mismos filtros que la búsqueda.",
+  "archivePageTitle": "Archivo de cursos · UrbanLabs",
+  "archiveLink": "Archivo de cursos terminados",
   "pathCentres": "centros"
 }

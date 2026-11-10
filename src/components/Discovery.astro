@@ -30,6 +30,9 @@ const officialSources = sources.filter((source) => {
   );
 });
 const base = courseSearchPath(locale);
+const archive = filters.archive === true;
+// The archive is the same page with `archive=1`, so every filter and the pagination work unchanged.
+const root = archive ? `${base}?archive=1` : base;
 const appliedFilters: { key: string; label: string }[] = [];
 if (filters.region) {
   const region = data.geography.regions.find(
@@ -101,7 +104,11 @@ function filterUrl(key: string, value: string) {
 
 <SiteLayout
   locale={locale}
-  title={m.searchPageTitle({}, { locale })}
+  title={
+    archive
+      ? m.archivePageTitle({}, { locale })
+      : m.searchPageTitle({}, { locale })
+  }
   section="courses"
   languagePaths={{
     es: `${courseSearchPath('es')}${Astro.url.search}`,
@@ -109,8 +116,12 @@ function filterUrl(key: string, value: string) {
   }}
 >
   <section class="search-heading" aria-labelledby="title">
-    <h1 id="title">{m.searchTitle({}, { locale })}</h1>
-    <p class="intro">{m.searchIntro({}, { locale })}</p>
+    <h1 id="title">
+      {archive ? m.archiveTitle({}, { locale }) : m.searchTitle({}, { locale })}
+    </h1>
+    <p class="intro">
+      {archive ? m.archiveIntro({}, { locale }) : m.searchIntro({}, { locale })}
+    </p>
   </section>
   <div id="discovery" class="discovery-layout">
     <CourseFilters locale={locale} data={data} />
@@ -129,7 +140,7 @@ function filterUrl(key: string, value: string) {
           {(appliedFilters.length > 0 ||
             filters.page > 1 ||
             error === 'invalid') && (
-            <a href={base}>{m.clear({}, { locale })}</a>
+            <a href={root}>{m.clear({}, { locale })}</a>
           )}
         </div>
         {appliedFilters.length > 0 && (

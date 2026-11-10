@@ -38,6 +38,9 @@ export function parseFilters(params: URLSearchParams): DiscoveryFilters {
   const places = params.get('places') ?? '';
   if (places !== '' && places !== 'available')
     throw new Error('Invalid places filter');
+  const archive = params.get('archive') ?? '';
+  if (archive !== '' && archive !== '1')
+    throw new Error('Invalid archive flag');
   const startMonth = params.get('start') ?? '';
   if (startMonth && !isStartMonth(startMonth))
     throw new Error('Invalid start month');
@@ -50,6 +53,7 @@ export function parseFilters(params: URLSearchParams): DiscoveryFilters {
     page,
     startMonth,
     places,
+    archive: archive === '1',
     maxPriceCents: maxPrice ? Math.round(Number(maxPrice) * 100) : null,
   };
 }

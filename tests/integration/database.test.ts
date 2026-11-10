@@ -1019,6 +1019,27 @@ describe('SQLite migration and ingestion contract', () => {
     expect(
       await listCategories(db, '2026-11-05', santAndreu.institution.id),
     ).toEqual(['CUINA', 'FOTOGRAFIA']);
+    // The archive lists only ended editions, with the same filters and facets.
+    const archive = { ...filters, q: '', category: '', maxPriceCents: null };
+    expect(
+      (
+        await listCourses(db, { ...archive, archive: true }, '2026-11-05')
+      ).courses.map((course) => course.title),
+    ).toEqual(['TEST expired']);
+    expect(
+      (
+        await listCourses(
+          db,
+          { ...archive, archive: true, category: 'CUINA' },
+          '2026-11-05',
+        )
+      ).courses,
+    ).toEqual([]);
+    expect(
+      await listCategories(db, '2026-11-05', santAndreu.institution.id, {
+        archive: true,
+      }),
+    ).toEqual(['EXPIRED']);
     expect(
       sqlite
         .prepare(
