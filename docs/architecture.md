@@ -173,3 +173,25 @@ mutable global locale is needed. Client enhancements receive translated labels
 from HTML attributes instead of loading translation catalogs in the browser.
 Dates and prices use native locale-aware `Intl` formatting. Source content and
 unknown labels are preserved rather than automatically translated.
+
+## Email alerts (issue #80)
+
+`src/lib/alerts/` is a small domain/ports/adapters module (ADR 0007):
+
+- `subscription.ts`: pure rules for request validation, digest matching, resend
+  limits and HMAC-signed confirm/unsubscribe tokens.
+- `email-sender.ts`: the `EmailSender` port. `adapters/brevo.ts` (production) and
+  `adapters/log.ts` (local and E2E only) implement it. `sender.ts` chooses one from
+  `EMAIL_PROVIDER`.
+- `emails.ts`: localized plain-text and HTML rendering. Course titles stay in their
+  source language, and all source text is escaped.
+- `service.ts`: the use cases (`requestSubscription`, `confirm`, `unsubscribe`,
+  `sendDueDigests`, `purgeUnconfirmed`). They depend only on the port and the
+  repositories, which use the `IngestionDatabase` interface. The same code therefore
+  runs in the Worker (D1 binding) and in the GitHub Actions job (Wrangler CLI).
+- `page.ts` and `adapters/turnstile.ts`: the Worker-side page loaders for
+  `/es/alertas`, `/ca/alertes` and their `confirmar` and `baja`/`baixa` routes.
+
+Alert pages are rendered on demand with `Cache-Control: no-store` and are outside
+the public edge-cache allowlist. The search page links to the form, prefilled with
+the current category and city, only when `alertsConfigured` finds every setting.

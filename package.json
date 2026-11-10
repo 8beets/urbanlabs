@@ -33,6 +33,7 @@
     "ingest:production": "tsx scripts/ingest-production.ts",
     "ingest:plan": "tsx scripts/ingest-plan.ts",
     "freshness": "tsx scripts/freshness.ts",
+    "alerts:send": "tsx scripts/send-alerts.ts",
     "centres:sync": "tsx scripts/sync-centres.ts",
     "centres:sync:production": "tsx scripts/sync-centres.ts --remote",
     "i18n:compile": "paraglide-js compile",

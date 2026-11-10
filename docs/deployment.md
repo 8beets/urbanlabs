@@ -159,3 +159,32 @@ unexpired course editions. Search and filtering move to `/es/buscar` and `/ca/ce
 old homepage filter URLs redirect to preserve shared links. Existing public caching
 also covers search, with complete query strings as keys. GitHub Actions continues
 to deploy only after the configured checks pass, with Playwright run locally/Docker.
+
+## Email alerts — issue #80
+
+Alerts ship disabled. The production config sets only `EMAIL_PROVIDER=brevo`, so the
+search link is hidden and `/es/alertas` answers 503 until all of these exist:
+
+1. A sending domain (not `workers.dev`, and not a webmail address, which would fail
+   DMARC) authenticated in Brevo with SPF, DKIM and DMARC records.
+2. A Brevo API key, stored as Worker secret and repository secret `BREVO_API_KEY`.
+3. A Turnstile widget for the production hostname. Put its site key in
+   `env.production.vars.TURNSTILE_SITE_KEY`, and store the secret with
+   `wrangler secret put TURNSTILE_SECRET_KEY --env production`.
+4. A random secret of at least 32 characters (for example `openssl rand -base64 48`)
+   as Worker secret and repository secret `ALERT_TOKEN_SECRET`. Use the same value in
+   both places: digest links are signed in Actions and verified by the Worker.
+   Rotating it invalidates every outstanding link.
+5. `EMAIL_FROM` (for example `avisos@<domain>`) in `env.production.vars`, and the
+   repository variables `EMAIL_FROM` and `SITE_URL` (the public https origin).
+6. Migration `0011_course_alerts.sql`, which the deployment workflow applies.
+
+The `Course alert digests` workflow is manual and defaults to a dry run, which reads
+production D1 and reports counts without sending or writing. Once a manual run has
+been checked, add a daily `schedule` to `.github/workflows/alerts.yml`. Each run
+sends at most `ALERT_DAILY_LIMIT` (default 250) emails, below Brevo's free
+300/day, leaving room for confirmations sent by the Worker.
+
+Local development and E2E use the `log` adapter, Turnstile's documented always-pass
+test keys and a throwaway token secret from the top-level `vars` in `wrangler.jsonc`.
+Those values are not inherited by `env.production`.

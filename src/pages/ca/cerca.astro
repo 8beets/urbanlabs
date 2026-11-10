@@ -2,6 +2,7 @@
 import { env } from 'cloudflare:workers';
 import Discovery from '../../components/Discovery.astro';
 import { loadDiscoveryPage } from '../../lib/courses/page';
+import { alertsConfigured } from '../../lib/alerts/page';
 const data = await loadDiscoveryPage(env.DB, Astro.url.searchParams);
 if (data.canonicalQuery !== undefined)
   return Astro.redirect(
@@ -11,4 +12,4 @@ if (data.canonicalQuery !== undefined)
 Astro.response.status = data.status;
 ---
 
-<Discovery locale="ca" data={data} />
+<Discovery locale="ca" data={data} alerts={alertsConfigured(env)} />

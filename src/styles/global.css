@@ -266,7 +266,8 @@ label {
   margin-bottom: 8px;
 }
 input,
-.filter-form select {
+.filter-form select,
+.alert-form select {
   width: 100%;
   max-width: 100%;
   min-width: 0;
@@ -782,4 +783,25 @@ h3 {
 }
 .centre-search input {
   flex: 1 1 240px;
+}
+
+.alert-page {
+  max-width: 40rem;
+}
+.alert-form {
+  display: grid;
+  gap: 24px;
+  margin-block: 24px;
+}
+.alert-form .error,
+.alert-page .notice {
+  margin: 0;
+}
+.alert-privacy {
+  margin: 0;
+  font-size: 0.875rem;
+  color: var(--muted);
+}
+.alert-link {
+  margin-top: 16px;
 }
