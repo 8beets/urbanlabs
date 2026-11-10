@@ -68,7 +68,7 @@ Prepared values are serialized as escaped SQL literals for Wrangler's file-impor
 
 ### Scheduled refresh
 
-`.github/workflows/ingest.yml` refreshes production daily at 04:17 UTC (GitHub Actions, not Workers Cron: scraping many sources would exceed Workers Free subrequest/CPU limits). It reuses the deploy secrets `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID`.
+`.github/workflows/ingest.yml` refreshes production daily at 04:17 UTC, with a safety-net trigger at 15:47 UTC because GitHub delays or drops scheduled runs (the plan stage skips sources refreshed in the last 20 hours, so the second trigger is a cheap no-op on a normal day) (GitHub Actions, not Workers Cron: scraping many sources would exceed Workers Free subrequest/CPU limits). It reuses the deploy secrets `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID`.
 
 The run has two stages:
 

@@ -1,8 +1,12 @@
 name: Scheduled ingestion
 on:
   schedule:
-    # Once a day, off the hour to avoid GitHub's top-of-hour scheduling delays.
+    # GitHub schedules are best effort: runs are delayed by hours or dropped under load
+    # (the 2026-11-09 04:17 run started at 12:56, the 2026-11-10 one did not start).
+    # A second trigger is a safety net; the plan stage skips sources refreshed in the
+    # last 20 hours, so a day with both runs costs one extra read of the run history.
     - cron: '17 4 * * *'
+    - cron: '47 15 * * *'
   workflow_dispatch:
     inputs:
       source:
