@@ -1,13 +1,11 @@
 import { expect, test } from '@playwright/test';
 
-test.describe('cancelled course discovery without JavaScript', () => {
-  test.use({ javaScriptEnabled: false });
+test.describe('cancelled course discovery', () => {
   for (const locale of ['es', 'ca'] as const) {
     const search = locale === 'es' ? '/es/buscar' : '/ca/cerca';
     const label = locale === 'es' ? 'Cancelado' : 'Cancel·lat';
     test(`${locale}: cancellation labels, prices, ordering and filters`, async ({
       page,
-      request,
     }) => {
       await page.goto(`${search}?centre=cc-pati-llimona`);
       await expect(page.locator('.course')).toHaveCount(5);
@@ -24,6 +22,8 @@ test.describe('cancelled course discovery without JavaScript', () => {
       ]);
       await expect(cancelled.locator('.price')).toHaveCount(0);
       await expect(cancelled.locator('.source-link')).toHaveCount(2);
+      if (page.viewportSize()!.width < 800)
+        await page.locator('#filter-panel summary').click();
       await page.locator('#cancellation').selectOption('only');
       await page.locator('button[type="submit"]').click();
       expect(new URL(page.url()).searchParams.get('cancellation')).toBe('only');
@@ -56,14 +56,8 @@ test.describe('cancelled course discovery without JavaScript', () => {
       await page.goto(`/${locale}/`);
       await expect(page.locator('.latest-courses .course')).toHaveCount(20);
       await expect(page.locator('.cancelled-label')).toHaveCount(0);
-      expect(
-        (await request.get(`${search}?cancellation=invalid`)).status(),
-      ).toBe(400);
-      const legacy = await request.get(`/${locale}/?cancellation=only`, {
-        maxRedirects: 0,
-      });
-      expect(legacy.status()).toBe(308);
-      expect(legacy.headers().location).toBe(`${search}?cancellation=only`);
+      await page.goto(`${search}?cancellation=invalid`);
+      await expect(page.getByRole('alert')).toBeVisible();
     });
   }
 });

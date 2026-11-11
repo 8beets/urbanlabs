@@ -1,8 +1,9 @@
 import { expect, test } from '@playwright/test';
 
-for (const javaScriptEnabled of [false, true]) {
-  test.describe(`Alicante filters with JavaScript ${javaScriptEnabled ? 'enabled' : 'disabled'}`, () => {
-    test.use({ javaScriptEnabled });
+// Search needs JavaScript since it runs over the static index (ADR 0008).
+const javaScriptEnabled = true;
+{
+  test.describe('Alicante filters', () => {
     test('filters by community and city and preserves the selection across languages', async ({
       page,
     }) => {
@@ -12,9 +13,6 @@ for (const javaScriptEnabled of [false, true]) {
       await page
         .locator('#region')
         .selectOption({ label: 'Comunidad Valenciana' });
-      if (!javaScriptEnabled) {
-        await page.locator('button[type="submit"]').click();
-      }
       await expect(page.locator('#city option[value="alicante"]')).toHaveText(
         'Alicante',
       );

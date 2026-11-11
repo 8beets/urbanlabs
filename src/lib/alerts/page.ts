@@ -37,6 +37,20 @@ export function alertsConfigured(env: AlertEnv): boolean {
   }
 }
 
+/**
+ * Whether static pages may link to alerts, decided at build time from public
+ * configuration only (Turnstile site key and sender settings). Secrets are not
+ * available to the build; the alert pages still verify the full configuration per
+ * request with `alertsConfigured` and answer 503 while anything is missing.
+ */
+export function alertsAdvertised(
+  vars: EmailConfig & { TURNSTILE_SITE_KEY?: string },
+): boolean {
+  if (!vars.TURNSTILE_SITE_KEY) return false;
+  if (vars.EMAIL_PROVIDER === 'log') return true;
+  return vars.EMAIL_PROVIDER === 'brevo' && Boolean(vars.EMAIL_FROM);
+}
+
 function context(env: AlertEnv, origin: string, cities: City[]): AlertContext {
   return {
     db: env.DB,

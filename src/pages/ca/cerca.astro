@@ -1,15 +1,15 @@
 ---
-import { env } from 'cloudflare:workers';
 import Discovery from '../../components/Discovery.astro';
-import { loadDiscoveryPage } from '../../lib/courses/page';
-import { alertsConfigured } from '../../lib/alerts/page';
-const data = await loadDiscoveryPage(env.DB, Astro.url.searchParams);
-if (data.canonicalQuery !== undefined)
-  return Astro.redirect(
-    `/ca/cerca${data.canonicalQuery ? '?' + data.canonicalQuery : ''}`,
-    302,
-  );
-Astro.response.status = data.status;
+import {
+  alertsEnabled,
+  loadSearchShell,
+  officialSources,
+} from '../../lib/catalog/pages';
 ---
 
-<Discovery locale="ca" data={data} alerts={alertsConfigured(env)} />
+<Discovery
+  locale="ca"
+  data={loadSearchShell()}
+  sources={officialSources()}
+  alerts={alertsEnabled()}
+/>

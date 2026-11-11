@@ -1,8 +1,8 @@
 # Architecture
 
-This is one Astro application, not a monorepo. Native Astro renders HTML; GET forms work without client JavaScript. Paraglide message catalogs contain translated interface text. Source titles stay in their original language. Original schedule text remains stored unchanged; the Spanish interface translates known Catalan weekday names and weekday-list conjunctions without changing times, translating arbitrary prose, or inferring sessions.
+This is one Astro application, not a monorepo. Public pages are prerendered as static files from a catalogue snapshot of D1 and served as Workers static assets; only the alert pages and the 404 page run on the Worker ([ADR 0008](adr/0008-static-site.md), see [Static site](#static-site) below). Paraglide message catalogs contain translated interface text. Source titles stay in their original language. Original schedule text remains stored unchanged; the Spanish interface translates known Catalan weekday names and weekday-list conjunctions without changing times, translating arbitrary prose, or inferring sessions.
 
-Requests flow from pages to discovery services to the centralized database repository. Components receive view data and do not query D1. External HTML is escaped by Astro; the importer does not publish source descriptions or execute scripts.
+At build time, pages read the snapshot through `src/lib/catalog/pages.ts`; discovery is a set of pure functions over that data (`src/lib/catalog/query.ts`, `discovery.ts`) that the browser search reuses. The alert pages call services that use the centralized database repository. Components receive view data and never query D1. External HTML is escaped by Astro; the importer does not publish source descriptions or execute scripts.
 
 The ingestion adapter handles fetching and extraction, returning validated domain records without knowing about persistence. The runner registers the source and records an ingestion attempt, fetches the entire bounded snapshot, validates it, and commits courses, editions, provenance, and successful-run status in one D1 batch transaction. Failed attempts record an error while preserving existing course data.
 
@@ -10,7 +10,7 @@ D1 is the only canonical persistent store. Node SQLite validates SQL and transac
 
 Local Docker development uses a Linux Node 24 image with separate volumes for dependencies and the app's D1 state. The checks service has its own temporary state and includes Chromium, so runtime and browser checks run in the same Linux environment across supported Docker hosts. See [Docker setup](docker.md).
 
-The initial UI provides title search, price filtering, and bounded pages of 12 editions. Title search uses the SQLite FTS5 index `courses_fts` (migration `0008`) with the `unicode61 remove_diacritics 2` tokenizer, so matching ignores case, accents, and composed/decomposed Unicode (`fotografia` finds `Fotografía`). Each typed word must match the start of a title word; mid-word substrings (`graf`) no longer match. User input is quoted before reaching `MATCH`, so FTS5 operators are inert. Triggers keep the index in sync with `title` and `reviewed_title`, and `courses` keeps the original accented titles for display. Note that D1 cannot export databases containing virtual tables.
+The initial UI provides title search, price filtering, and bounded pages of 12 editions. Title search follows the SQLite FTS5 index `courses_fts` (migration `0008`, `unicode61 remove_diacritics 2`): `src/lib/catalog/title-match.ts` reproduces it for the static search, so matching ignores case, accents, and composed/decomposed Unicode (`fotografia` finds `Fotografía`). Each typed word must match the start of a title word; mid-word substrings (`graf`) do not match, and query operators are plain words. Triggers keep the index in sync with `title` and `reviewed_title`, and `courses` keeps the original accented titles for display. Note that D1 cannot export databases containing virtual tables.
 
 No account is required for browsing. No analytics, trackers, cookies, sessions, Images binding, KV, R2, Queues, or Durable Objects are configured. Cron Triggers are deferred. The ingestion CLI runs outside a public Worker request; there is no public ingestion endpoint.
 
@@ -46,17 +46,17 @@ metadata and provenance are separate from external course parsing.
 Routing follows [Astro's built-in internationalization](https://docs.astro.build/en/guides/internationalization/).
 `astro.config.mjs` configures `es` (default) and `ca` with `prefixDefaultLocale: true`.
 Localized pages live in matching `src/pages/es/` and `src/pages/ca/` folders.
-Shared navigation uses `astro:i18n` URL helpers via `src/i18n/paths.ts`, with explicit
-translated path segments (`buscar`/`cerca`, `centros`/`centres`).
-`redirectToDefaultLocale: false` lets the required root page issue its existing
-query-preserving HTTP 308 redirect. Legacy centre redirects are endpoints so Astro
-can validate localized pages without treating those compatibility URLs as content.
-The shared `/api/filters` endpoint and static assets remain outside locale folders.
+Shared navigation uses the helpers in `src/i18n/paths.ts`, which build the same
+prefixed URLs as `astro:i18n` without that virtual module so browser scripts can use
+them, with explicit translated path segments (`buscar`/`cerca`, `centros`/`centres`).
+The legacy `/` and `/centros/*` redirects are static rules in `public/_redirects`.
+The search index (`/search/*.json`) and static assets remain outside locale folders.
 
 All page navigation includes a locale prefix: Spanish discovery is `/es/` and
 Catalan discovery is `/ca/`. Filters, pagination, centre links and language
 switching retain that prefix. Legacy `/`, `/centros` and `/centros/[slug]` routes
-return HTTP 308 redirects to their Spanish equivalents, preserving query strings.
+return HTTP 308 redirects to their Spanish equivalents; query strings are not
+guaranteed to survive (ADR 0008).
 Static assets and third-party source/map URLs retain their own paths.
 
 Directory and individual centre maps use `InteractiveCentreMap.astro` and the shared
@@ -141,8 +141,8 @@ source configuration; the adapter, SQL filters, and UI do not need a rewrite.
 
 ## Dependent filter options
 
-With JavaScript enabled, changing community, city, or centre fetches
-`GET /api/filters` and updates only the dependent select options. Community changes
+Changing community, city, or centre recomputes the dependent select options in the
+browser from the already loaded search index (no request). Community changes
 also reset the city locally. Centre options follow geography; category options
 follow geography and centre. Unavailable centre/category selections are cleared,
 while compatible selections, keyword, and price are retained. Results and the URL
@@ -195,3 +195,30 @@ unknown labels are preserved rather than automatically translated.
 Alert pages are rendered on demand with `Cache-Control: no-store` and are outside
 the public edge-cache allowlist. The search page links to the form, prefilled with
 the current category and city, only when `alertsConfigured` finds every setting.
+
+## Static site
+
+Decided in [ADR 0008](adr/0008-static-site.md) (issue #89).
+
+- `scripts/export-snapshot.ts` (`npm run snapshot`, `snapshot:production`) reads D1
+  with bounded queries (`src/lib/catalog/export.ts`) and writes a validated snapshot
+  (`.cache/snapshot.json`, or `URBANLABS_SNAPSHOT`). It never writes to D1.
+- `astro build` prerenders every public page from that snapshot in Node
+  (`prerenderEnvironment: 'node'`, `build.format: 'preserve'`): homepages, the search
+  shell, the centre directory, centre pages (`/es/centros/[slug]`, `/[slug]/2`, …),
+  and category pages (`/es/buscar/categoria`, `/es/buscar/categoria/[slug]`, …) that
+  keep the catalogue browsable without JavaScript.
+- The build also writes `/search/live.json` and `/search/archive.json`
+  (`src/lib/catalog/search-index.ts`). `src/lib/catalog/search-page.ts` loads them,
+  runs `discover()` for the URL query and renders results with
+  `discoveryResultsHtml()` and `courseCardHtml()`, the same functions the build uses.
+  While a filtered search loads, the prerendered unfiltered results stay hidden.
+- Invalid filters show the accessible error message (no HTTP 400 on a static page);
+  stale geographic selections are dropped with `history.replaceState`.
+- The centre directory lists every centre; with JavaScript, a filter form narrows the
+  list as the user types (`src/lib/institutions/directory-filter.ts`).
+- Prerendered cards carry `data-live-until`; `ExpiredCards.astro` hides editions that
+  ended since the build. Daily rebuilds remove them.
+- Alert pages (`prerender = false`) and the 404 page run on the Worker with D1.
+  `alertsAdvertised()` decides at build time, from public configuration only,
+  whether static pages link to alerts.

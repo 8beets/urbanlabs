@@ -1,12 +1,6 @@
 ---
-import { env } from 'cloudflare:workers';
 import Homepage from '../../components/Homepage.astro';
-import { loadHomepage } from '../../lib/courses/page';
-import { courseSearchPath, hasDiscoveryParams } from '../../i18n/paths';
-if (hasDiscoveryParams(Astro.url.searchParams))
-  return Astro.redirect(`${courseSearchPath('ca')}${Astro.url.search}`, 308);
-const data = await loadHomepage(env.DB);
-Astro.response.status = data.status;
+import { loadHomepage } from '../../lib/catalog/pages';
 ---
 
-<Homepage locale="ca" data={data} />
+<Homepage locale="ca" data={loadHomepage()} />

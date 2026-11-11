@@ -22,13 +22,18 @@ docker compose build
 docker compose up -d app
 ```
 
-Open http://127.0.0.1:4321/es/. The app applies local migrations before starting and shows an honest empty state until data is imported. Source edits are bind-mounted for Astro's development reload.
+Open http://127.0.0.1:4321/es/. The app applies local migrations and exports a catalogue snapshot before starting, and shows an honest empty state until data is imported. Source edits are bind-mounted for Astro's development reload.
 
 Fetch an approved public source into the container's local D1:
 
 ```sh
 docker compose exec app npm run ingest:live -- --source miram-sant-andreu
+docker compose exec app npm run snapshot
 ```
+
+Pages are built from a catalogue snapshot ([ADR 0008](adr/0008-static-site.md)); the
+app exports one at start-up, and `npm run snapshot` refreshes it after an import (the
+dev server picks up the new file on the next request).
 
 Stop the app while retaining its database:
 
@@ -42,7 +47,7 @@ docker compose down
 docker compose run --rm checks
 ```
 
-This runs formatting, linting, binding generation, TypeScript checks, deterministic tests, actual local D1 tests, migrations, a production build, and desktop/mobile Playwright tests. Its temporary database is separate from the app's database, so the suite can run without importing test fixtures into browsing data. It does not fetch live course websites.
+This runs formatting, linting, binding generation, TypeScript checks, deterministic tests, actual local D1 tests, migrations, a static build from the fixture snapshot with its asset budgets, and desktop/mobile Playwright tests against that build. Its temporary database is separate from the app's database, so the suite can run without importing test fixtures into browsing data. It does not fetch live course websites.
 
 Browser tests additionally use `.wrangler/e2e-state` and port 4322, with synthetic fixture records for centre/category navigation and pagination. This test state is distinct from `.wrangler/state`, even when running tests natively alongside the browsing app.
 

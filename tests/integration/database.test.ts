@@ -2,22 +2,16 @@ import { getSource } from '../../src/lib/sources';
 import { parseFilters } from '../../src/lib/courses/discovery';
 import { clearGeographyCache } from '../../src/lib/locations/geography';
 import { loadSourceStatuses } from '../../src/lib/db/ingestion-status';
-import { liveCutoffDate } from '../../src/lib/db/clock';
-import { clearReadCaches } from '../../src/lib/courses/facets';
-import { loadFilterOptions } from '../../src/lib/courses/filter-options';
-import { loadDiscoveryPage, loadHomepage } from '../../src/lib/courses/page';
+import { clearClockCache, liveCutoffDate } from '../../src/lib/db/clock';
 import { formatCourseTitle } from '../../src/lib/courses/title';
 import { registerSource } from '../../src/lib/db/ingestion';
+import { MAP_CENTRES_LIMIT } from '../../src/lib/catalog/export';
+import { centrePagesFrom, directoryFrom } from '../../src/lib/catalog/pages';
 import {
-  listInstitutions,
-  listMapCentres,
-  MAP_CENTRES_LIMIT,
-  findInstitution,
-} from '../../src/lib/db/institutions';
-import {
-  loadCentrePage,
-  loadDirectoryPage,
-} from '../../src/lib/institutions/pages';
+  catalogToday,
+  listLatestCourses as latestFromSnapshot,
+  PAGE_SIZE,
+} from '../../src/lib/catalog/query';
 import { DatabaseSync } from 'node:sqlite';
 import { sqliteContract } from '../helpers/sqlite-contract';
 import { readFileSync, readdirSync } from 'node:fs';
@@ -29,7 +23,10 @@ import {
   listLatestCourses,
   listCategories,
   listCentres,
-} from '../../src/lib/db/courses';
+  loadDiscoveryPage,
+  loadFilterOptions,
+  snapshotOf,
+} from '../helpers/catalog';
 
 import { parseTarragonaActivity } from '../../src/lib/ingestion/adapters/tarragona-centres-civics';
 import { parseAulaAbiertaPage } from '../../src/lib/ingestion/adapters/aula-abierta';
@@ -242,12 +239,16 @@ describe('SQLite migration and ingestion contract', () => {
     expect(options.centres.map((centre) => centre.id)).toEqual([
       santAndreu.institution.id,
     ]);
-    const centre = await loadCentrePage(
-      db,
-      'sant-andreu',
-      new URLSearchParams('page=2'),
-    );
-    expect(centre.courses.map((course) => course.is_cancelled)).toEqual([0, 1]);
+    const snapshot = await snapshotOf(db);
+    const centre = centrePagesFrom(snapshot, '2026-11-07').find(
+      (page) => page.centre.slug === 'sant-andreu',
+    )!;
+    // The second static page of the centre, which lists cancelled editions last.
+    expect(
+      centre.courses
+        .slice(PAGE_SIZE, PAGE_SIZE * 2)
+        .map((course) => course.is_cancelled),
+    ).toEqual([0, 1]);
     const failed = {
       fetchRecords: async () => {
         throw new Error('test source outage');
@@ -363,30 +364,25 @@ describe('SQLite migration and ingestion contract', () => {
   it('registers verified profiles independently of courses and preserves reviewed descriptions', async () => {
     await registerSource(db, santAndreu);
     await registerSource(db, canBaste);
-    expect(await listInstitutions(db)).toHaveLength(2);
-    const centre = await findInstitution(db, 'sant-andreu');
+    const centreBySlug = async (slug: string) =>
+      (await snapshotOf(db)).centres.find((row) => row.slug === slug);
+    expect((await snapshotOf(db)).centres).toHaveLength(2);
+    const centre = await centreBySlug('sant-andreu');
     expect(centre?.latitude).toBe(41.43088018380354);
     expect(centre?.coordinates_source_url).toContain('guia.barcelona.cat');
     sqlite.exec(
       "UPDATE institution_profiles SET description='Reviewed description', description_language='ca' WHERE institution_id='cc-sant-andreu'",
     );
     await registerSource(db, santAndreu);
-    expect((await findInstitution(db, 'sant-andreu'))?.description).toBe(
+    expect((await centreBySlug('sant-andreu'))?.description).toBe(
       'Reviewed description',
     );
-    const data = await loadCentrePage(db, 'sant-andreu', new URLSearchParams());
-    expect(data.status).toBe(200);
-    expect(data.courses).toEqual([]);
+    // Centres without courses still get a page; unknown slugs get none (a 404).
+    const pages = centrePagesFrom(await snapshotOf(db), '2026-11-07');
     expect(
-      (await loadCentrePage(db, 'unknown', new URLSearchParams())).status,
-    ).toBe(404);
-    expect(
-      (await loadCentrePage(db, 'sant-andreu', new URLSearchParams('page=-1')))
-        .status,
-    ).toBe(400);
-    expect(
-      (await loadDirectoryPage(db, new URLSearchParams('page=1001'))).status,
-    ).toBe(400);
+      pages.find((page) => page.centre.slug === 'sant-andreu')?.courses,
+    ).toEqual([]);
+    expect(pages.map((page) => page.centre.slug)).not.toContain('unknown');
     expect(() =>
       sqlite
         .prepare(
@@ -409,7 +405,7 @@ describe('SQLite migration and ingestion contract', () => {
         .run('can-baste', 'cc-sant-andreu'),
     ).toThrow();
   });
-  it('paginates the full directory and distinguishes outages from missing centres', async () => {
+  it('lists the full directory and fails the export loudly when D1 is unavailable', async () => {
     for (let index = 0; index < 25; index++) {
       await registerSource(db, {
         ...santAndreu,
@@ -422,30 +418,21 @@ describe('SQLite migration and ingestion contract', () => {
         },
       });
     }
-    const params = (query: string) => new URLSearchParams(query);
-    const first = await loadDirectoryPage(db, params(''));
-    const next = await loadDirectoryPage(db, params('page=2'));
-    expect(first.centres).toHaveLength(24);
-    expect(first.hasNext).toBe(true);
-    expect(next.centres).toHaveLength(1);
-    expect(next.hasNext).toBe(false);
-    expect(
-      new Set([...first.centres, ...next.centres].map((c) => c.id)).size,
-    ).toBe(25);
-    const found = await loadDirectoryPage(db, params('q=centre 07'));
-    expect(found.centres.map((c) => c.name)).toEqual(['Centre 07']);
+    const directory = directoryFrom(await snapshotOf(db));
+    expect(directory.centres).toHaveLength(25);
+    expect(new Set(directory.centres.map((c) => c.id)).size).toBe(25);
+    expect(directory.centres.map((c) => c.name)).toEqual(
+      [...directory.centres.map((c) => c.name)].sort(),
+    );
     const unavailable = {
       prepare: () => {
         throw new Error('database unavailable');
       },
     } as unknown as D1Database;
-    expect(
-      (await loadCentrePage(unavailable, 'test-centre', new URLSearchParams()))
-        .status,
-    ).toBe(503);
-    expect(
-      (await loadDirectoryPage(unavailable, new URLSearchParams())).status,
-    ).toBe(503);
+    // No snapshot means no build and no deployment: the live site keeps its last build.
+    await expect(snapshotOf(unavailable)).rejects.toThrow(
+      'database unavailable',
+    );
   });
   it('maps verified centres across directory pages, including centres without courses', async () => {
     await registerSource(db, santAndreu);
@@ -470,14 +457,9 @@ describe('SQLite migration and ingestion contract', () => {
         )
         .run(id, id, 41.4, 2.1, 'https://example.org/source', '2026-11-06');
     }
-    const page = await loadDirectoryPage(db, new URLSearchParams('page=2'));
-    expect(page.centres).toHaveLength(2);
+    const page = directoryFrom(await snapshotOf(db));
+    expect(page.centres).toHaveLength(26);
     expect(page.mapCentres).toHaveLength(26);
-    expect(
-      page.mapCentres.some(
-        (c) => !page.centres.some((listed) => listed.id === c.id),
-      ),
-    ).toBe(true);
     expect(page.mapHasMore).toBe(false);
     sqlite.exec(
       "UPDATE institution_profiles SET latitude=NULL,longitude=NULL,coordinates_source_url=NULL,coordinates_verified_at=NULL WHERE institution_id='test-map-0'",
@@ -488,12 +470,12 @@ describe('SQLite migration and ingestion contract', () => {
     sqlite.exec(
       "UPDATE institution_profiles SET coordinates_verified_at='' WHERE institution_id='test-map-2'",
     );
-    const map = await listMapCentres(db);
+    const { map, centres } = await snapshotOf(db);
     expect(map.mapCentres).toHaveLength(23);
     expect(map.mapCentres.find((c) => c.id === 'cc-sant-andreu')).toMatchObject(
       { latitude: 41.43088018380354, longitude: 2.1894124386376466 },
     );
-    expect(await listInstitutions(db)).toHaveLength(26);
+    expect(centres).toHaveLength(26);
   });
   it('bounds map data and reports truncation explicitly', async () => {
     for (let index = 0; index < MAP_CENTRES_LIMIT + 1; index++) {
@@ -517,7 +499,7 @@ describe('SQLite migration and ingestion contract', () => {
         )
         .run(id, id, 41.4, 2.1, 'https://example.org/source', '2026-11-06');
     }
-    const map = await listMapCentres(db);
+    const { map } = await snapshotOf(db);
     expect(map.mapCentres).toHaveLength(MAP_CENTRES_LIMIT);
     expect(map.mapHasMore).toBe(true);
   });
@@ -591,41 +573,23 @@ describe('SQLite migration and ingestion contract', () => {
         .get()?.p,
     ).toBe(12345);
   });
-  it('reads filter options once per window and again after the caches are cleared', async () => {
-    const active = records.map((record) => ({
-      ...record,
-      startDate: '2099-01-01',
-      endDate: '2099-12-31',
-    }));
-    await runIngestion(db, { fetchRecords: async () => active }, santAndreu);
-    const prepare = vi.spyOn(db, 'prepare');
-    const first = await loadDiscoveryPage(db, new URLSearchParams());
-    expect(first.categories.length).toBeGreaterThan(0);
-    // Different search text, price and page still need the same options.
-    const queries = prepare.mock.calls.length;
-    await loadDiscoveryPage(db, new URLSearchParams('q=anglès'));
-    await loadDiscoveryPage(db, new URLSearchParams('maxPrice=50&page=1'));
-    const sqlOf = (index: number) => String(prepare.mock.calls[index]?.[0]);
-    const later = prepare.mock.calls
-      .slice(queries)
-      .map((_, i) => sqlOf(queries + i));
-    // Only the course listing runs again: no geography, category or centre lookups.
-    expect(later).toHaveLength(2);
-    expect(later.every((sql) => sql.includes('FROM course_editions e'))).toBe(
-      true,
+  it('derives the static search date from the snapshot time zones, like the live cutoff', async () => {
+    const instant = new Date('2026-11-08T23:30:00Z');
+    await runIngestion(db, { fetchRecords: async () => records }, santAndreu);
+    const snapshot = await snapshotOf(db, instant);
+    expect(snapshot.timeZones).toEqual(['Europe/Madrid']);
+    clearClockCache(db);
+    expect(catalogToday(snapshot, instant)).toBe(
+      await liveCutoffDate(db, instant),
     );
-    clearReadCaches(db);
-    const afterClear = prepare.mock.calls.length;
-    await loadDiscoveryPage(db, new URLSearchParams());
-    expect(prepare.mock.calls.length - afterClear).toBeGreaterThan(2);
   });
   it('derives the live cutoff from the time zones of the institutions in the database', async () => {
     const instant = new Date('2026-11-08T23:30:00Z');
-    clearReadCaches(db);
+    clearClockCache(db);
     // No institution yet: fall back to UTC rather than a hard-coded place.
     expect(await liveCutoffDate(db, instant)).toBe('2026-11-08');
     await runIngestion(db, { fetchRecords: async () => records }, santAndreu);
-    clearReadCaches(db);
+    clearClockCache(db);
     // Europe/Madrid is already on the 9th, so the cutoff follows the data.
     expect(await liveCutoffDate(db, instant)).toBe('2026-11-09');
     sqlite
@@ -633,7 +597,7 @@ describe('SQLite migration and ingestion contract', () => {
         "INSERT INTO institutions (id,name,official_url,city,country,address,timezone) VALUES ('x-bogota','Bogotá','https://example.org','Bogotá','CO','a','America/Bogota')",
       )
       .run();
-    clearReadCaches(db);
+    clearClockCache(db);
     // An edition ending on the 8th stays listed until the 8th ends in Bogotá.
     expect(await liveCutoffDate(db, instant)).toBe('2026-11-08');
   });
@@ -801,22 +765,15 @@ describe('SQLite migration and ingestion contract', () => {
       ),
     ).toBe(true);
   });
-  it('handles empty and unavailable latest-course lists explicitly', async () => {
-    expect(await loadHomepage(db)).toEqual({
-      courses: [],
-      error: null,
-      status: 200,
-    });
+  it('handles an empty latest-course list and fails the export when D1 is unavailable', async () => {
+    const snapshot = await snapshotOf(db);
+    expect(latestFromSnapshot(snapshot.editions, '2026-11-07')).toEqual([]);
     const broken = {
       prepare: () => {
         throw new Error('database unavailable');
       },
     } as unknown as D1Database;
-    expect(await loadHomepage(broken)).toEqual({
-      courses: [],
-      error: 'unavailable',
-      status: 503,
-    });
+    await expect(snapshotOf(broken)).rejects.toThrow('database unavailable');
   });
   it('backfills stable centre slugs when upgrading existing data', () => {
     const legacy = new DatabaseSync(':memory:');

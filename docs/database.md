@@ -104,14 +104,25 @@ Catalan month names taken from the date-fns locale and validated as real calenda
 days. Display still uses `Intl.DateTimeFormat`, because date-fns' Catalan patterns
 lack the "de" and apostrophe elision that Intl produces.
 
-### Read caches
+### Read paths
 
-Reference lookups that change only through migrations, ingestion or reviewed profile
-syncs are memoized per Worker isolate for five minutes (`src/lib/cache/ttl-memo.ts`):
-the geography catalogue, category and centre filter options (keyed by geography,
-cancellation and selected centre, not by search text, price or page), and the centre
-directory and map data. Concurrent callers share one in-flight load and failures are
-never kept. Tests that change data in place call `clearReadCaches(db)`.
+Public pages no longer query D1 per request ([ADR 0008](adr/0008-static-site.md)).
+`src/lib/catalog/export.ts` reads everything the static build publishes in one pass:
+geography, institution locations and time zones, centre profiles and map points
+(bounded at 1,000 rows each, 500 map points plus a truncation flag), and every
+edition with its source record, keyset-paginated by the `source_records` primary key
+in pages of 500 and capped at 50,000. The export fails instead of truncating, and its
+result is validated, so a schema drift fails the build rather than a page.
+
+The discovery orderings and filters of the former SQL queries are reproduced in
+`src/lib/catalog/query.ts` (SQLite BINARY collation, the `live_until` sentinel for
+unknown end dates, category groups expanded before pagination). The integration tests
+run the same assertions as before through export + pure code.
+
+Only the alert pages read D1 at request time. Their reference lookups (geography,
+the live-cutoff time zones) are memoized per Worker isolate for five minutes
+(`src/lib/cache/ttl-memo.ts`); tests that change data in place clear them with
+`clearGeographyCache(db)` and `clearClockCache(db)`.
 
 Discovery sorts unexpired cancelled editions last before pagination; the homepage
 excludes them. Search accepts `cancellation=hide` or `cancellation=only` (omitting it

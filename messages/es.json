@@ -48,7 +48,6 @@
   "noCentres": "Todavía no hay centros publicados.",
   "temporarilyClosed": "Cerrado temporalmente",
   "searchCentres": "Buscar centro por nombre o dirección",
-  "searchCentresSubmit": "Buscar centros",
   "noMatchingCentres": "Ningún centro coincide con la búsqueda.",
   "soldOut": "Sin plazas",
   "placesFilter": "Plazas",
@@ -67,8 +66,6 @@
   "price": "Precio máximo (€)",
   "submit": "Buscar cursos",
   "filters": "Filtros de búsqueda",
-  "filtersLoading": "Actualizando los filtros…",
-  "filtersFailed": "No se han podido actualizar los filtros. Puedes volver a cambiar la selección o buscar con los filtros actuales.",
   "refine": "Afinar la búsqueda",
   "region": "Comunidad autónoma",
   "city": "Ciudad",
@@ -207,5 +204,13 @@
   "alertsEmailStarts": "Empieza: {date}",
   "alertsEmailOfficial": "Web oficial",
   "alertsEmailFooter": "Recibes este correo porque creaste un aviso en UrbanLabs.",
-  "alertsEmailUnsubscribe": "Darte de baja"
+  "alertsEmailUnsubscribe": "Darte de baja",
+  "searchLoading": "Cargando los cursos…",
+  "searchNeedsJavaScript": "La búsqueda con filtros necesita JavaScript. Sin él, puedes explorar los cursos por categoría o por centro.",
+  "categoriesTitle": "Cursos por categoría",
+  "categoriesIntro": "Todas las categorías con cursos vigentes. Cada página enlaza a la información oficial de cada curso.",
+  "categoryPageIntro": "Cursos vigentes de esta categoría en todos los centros.",
+  "searchThisCategory": "Filtrar esta categoría en el buscador",
+  "browseByCategory": "Explorar por categoría",
+  "browseByCentre": "Explorar por centro"
 }

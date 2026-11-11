@@ -1,0 +1,4 @@
+# Legacy unprefixed URLs (static rules; query strings are not carried over).
+/ /es/ 308
+/centros /es/centros 308
+/centros/* /es/centros/:splat 308

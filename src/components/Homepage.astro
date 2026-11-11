@@ -1,15 +1,15 @@
 ---
-import { pageErrorMessage } from '../i18n/ui';
 import { m } from '../paraglide/messages.js';
 import { type Locale } from '../i18n/ui';
 import { courseSearchPath, homePath } from '../i18n/paths';
-import type { HomepagePageData } from '../lib/courses/page';
+import type { CourseListing } from '../lib/catalog/types';
 import SiteLayout from '../layouts/SiteLayout.astro';
 import CourseCard from './CourseCard.astro';
 import Icon from './Icon.astro';
+import ExpiredCards from './ExpiredCards.astro';
 interface Props {
   locale: Locale;
-  data: HomepagePageData;
+  data: { courses: CourseListing[] };
 }
 const { locale, data } = Astro.props;
 const themes = [
@@ -24,10 +24,7 @@ const themes = [
   locale={locale}
   title={m.pageTitle({}, { locale })}
   section="home"
-  languagePaths={{
-    es: `${homePath('es')}${Astro.url.search}`,
-    ca: `${homePath('ca')}${Astro.url.search}`,
-  }}
+  languagePaths={{ es: homePath('es'), ca: homePath('ca') }}
 >
   <section class="hero" aria-labelledby="title">
     <div class="hero-copy">
@@ -71,14 +68,7 @@ const themes = [
         {m.viewAllCourses({}, { locale })} <Icon name="arrow" />
       </a>
     </div>
-    {data.error && (
-      <p role="alert" class="error">
-        {pageErrorMessage(data.error, locale)}
-      </p>
-    )}
-    {!data.error && !data.courses.length && (
-      <p>{m.latestEmpty({}, { locale })}</p>
-    )}
+    {!data.courses.length && <p>{m.latestEmpty({}, { locale })}</p>}
     <div class="grid">
       {data.courses.map((course) => (
         <CourseCard
@@ -93,4 +83,5 @@ const themes = [
     <Icon name="info" />
     <p>{m.notice({}, { locale })}</p>
   </aside>
+  <ExpiredCards />
 </SiteLayout>

@@ -1,15 +1,8 @@
-import {
-  parseGeography,
-  loadGeography,
-  reconcileGeography,
-  type Geography,
-} from '../locations/geography';
-import { listCourses, type DiscoveryFilters } from '../db/courses';
-import { liveCutoffDate } from '../db/clock';
-import { loadCategoryOptions, loadCentreOptions } from './facets';
+import { parseGeography } from '../locations/geography';
+import type { DiscoveryFilters } from '../catalog/types';
 import { canonicalCategory } from './categories';
 import { parsePage } from '../pagination';
-import { isStartMonth, startMonthOptions } from './start-month';
+import { isStartMonth } from './start-month';
 
 export function parseFilters(params: URLSearchParams): DiscoveryFilters {
   const page = parsePage(params);
@@ -29,7 +22,7 @@ export function parseFilters(params: URLSearchParams): DiscoveryFilters {
     )
   )
     throw new Error('Invalid category');
-  // D1 LIKE patterns have a 50-byte limit, including wildcard delimiters.
+  // Keeps search terms short and bounded; long input is rejected, not truncated.
   if (new TextEncoder().encode(q).length > 40)
     throw new Error('Search too long');
   const maxPrice = params.get('maxPrice') ?? '';
@@ -55,29 +48,5 @@ export function parseFilters(params: URLSearchParams): DiscoveryFilters {
     places,
     archive: archive === '1',
     maxPriceCents: maxPrice ? Math.round(Number(maxPrice) * 100) : null,
-  };
-}
-
-export async function discoverCourses(
-  db: D1Database,
-  params: URLSearchParams,
-  geography?: Geography,
-) {
-  const catalog = geography ?? (await loadGeography(db));
-  const parsed = parseFilters(params);
-  const filters = { ...parsed, ...reconcileGeography(parsed, catalog) };
-  const today = await liveCutoffDate(db);
-  const [listing, categories, centres] = await Promise.all([
-    listCourses(db, filters, today),
-    loadCategoryOptions(db, filters.centre, filters),
-    loadCentreOptions(db, filters),
-  ]);
-  return {
-    filters,
-    ...listing,
-    categories,
-    centres,
-    geography: catalog,
-    startMonths: startMonthOptions(today, filters.archive),
   };
 }

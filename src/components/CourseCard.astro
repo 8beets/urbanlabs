@@ -1,90 +1,14 @@
 ---
-import { m } from '../paraglide/messages.js';
-import { courseSearchPath, centreDirectoryPath } from '../i18n/paths';
-import { formatLocalDate, categoryLabel, type Locale } from '../i18n/ui';
-import { formatCourseTitle } from '../lib/courses/title';
-import { formatSchedule } from '../i18n/schedule';
-import type { CourseListing } from '../lib/db/courses';
-import Icon from './Icon.astro';
+import { courseCardHtml } from '../lib/courses/card';
+import type { Locale } from '../i18n/ui';
+import type { CourseListing } from '../lib/catalog/types';
 interface Props {
   locale: Locale;
   course: CourseListing;
-  filterParams: URLSearchParams;
+  filterParams?: URLSearchParams;
 }
 const { locale, course, filterParams } = Astro.props;
-const title = course.title_reviewed
-  ? course.title
-  : formatCourseTitle(course.title, locale);
-const base = courseSearchPath(locale);
-const centreBase = centreDirectoryPath(locale);
-const categoryParams = new URLSearchParams(filterParams);
-categoryParams.delete('page');
-if (course.category) categoryParams.set('category', course.category);
+// The browser search renders cards with the same function (src/lib/courses/card.ts).
 ---
 
-<article class="course">
-  {course.is_cancelled === 1 && (
-    <p class="cancelled-label">{m.cancelled({}, { locale })}</p>
-  )}
-  {course.is_sold_out === 1 && (
-    <p class="sold-out-label">{m.soldOut({}, { locale })}</p>
-  )}
-  {course.category && (
-    <a class="course-category" href={`${base}?${categoryParams}`}>
-      {categoryLabel(course.category, locale)}
-    </a>
-  )}
-  <h3 title={title !== course.title ? course.title : undefined}>{title}</h3>
-  <p class="institution">
-    <Icon name="pin" />
-    <a href={`${centreBase}/${course.institution_slug}`}>
-      {course.institution}
-    </a>
-  </p>
-  <p class="course-date">
-    <Icon name="calendar" />
-    <span>
-      {course.start_date
-        ? formatLocalDate(course.start_date, locale)
-        : m.unknownDates({}, { locale })}
-      {course.end_date &&
-        course.end_date !== course.start_date &&
-        ` – ${formatLocalDate(course.end_date, locale)}`}
-    </span>
-  </p>
-  {course.schedule_text && (
-    <p class="schedule">
-      <Icon name="clock" />
-      <span>{formatSchedule(course.schedule_text, locale)}</span>
-    </p>
-  )}
-  <div class="course-action">
-    {!(course.is_cancelled === 1 && course.price_cents === 0) && (
-      <p
-        class:list={['price', { 'price-unknown': course.price_cents === null }]}
-      >
-        {course.price_cents === null
-          ? m.unknownPrice({}, { locale })
-          : course.price_cents === 0
-            ? m.freePrice({}, { locale })
-            : new Intl.NumberFormat(locale, {
-                style: 'currency',
-                currency: course.currency ?? 'EUR',
-              }).format(course.price_cents / 100)}
-      </p>
-    )}
-    <a class="source-link" href={course.official_url}>
-      {m.source({}, { locale })}
-      <Icon name="external" />
-    </a>
-  </div>
-  <p class="verified">
-    {m.verified({}, { locale })}{' '}
-    <time datetime={course.last_successfully_verified_at}>
-      {formatLocalDate(
-        course.last_successfully_verified_at.slice(0, 10),
-        locale,
-      )}
-    </time>
-  </p>
-</article>
+<Fragment set:html={courseCardHtml(course, locale, filterParams)} />

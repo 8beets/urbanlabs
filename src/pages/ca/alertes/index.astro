@@ -2,6 +2,8 @@
 import { env } from 'cloudflare:workers';
 import AlertSignup from '../../../components/AlertSignup.astro';
 import { loadSignupPage } from '../../../lib/alerts/page';
+// Alerts need a request: they stay on demand on the Worker; every other page is static.
+export const prerender = false;
 const data = await loadSignupPage(env, Astro.request, Astro.url, 'ca');
 Astro.response.status = data.status;
 Astro.response.headers.set('Cache-Control', 'no-store');

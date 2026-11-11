@@ -1,25 +1,16 @@
 ---
-import { pageErrorMessage } from '../i18n/ui';
 import { m } from '../paraglide/messages.js';
 import { centreDirectoryPath } from '../i18n/paths';
 import { type Locale } from '../i18n/ui';
-import type { DirectoryPageData } from '../lib/institutions/pages';
+import type { DirectoryData } from '../lib/catalog/pages';
 import CentreDirectoryMap from './CentreDirectoryMap.astro';
 import SiteLayout from '../layouts/SiteLayout.astro';
 interface Props {
   locale: Locale;
-  data: DirectoryPageData;
+  data: DirectoryData;
 }
 const { locale, data } = Astro.props;
 const base = centreDirectoryPath(locale);
-// Pagination keeps the active search and city filter.
-const pageHref = (page: number) => {
-  const query = new URLSearchParams();
-  if (data.q) query.set('q', data.q);
-  if (data.city) query.set('city', data.city);
-  query.set('page', String(page));
-  return `${base}?${query}`;
-};
 ---
 
 <SiteLayout
@@ -28,59 +19,50 @@ const pageHref = (page: number) => {
   description={m.directoryIntro({}, { locale })}
   section="centres"
   languagePaths={{
-    es: `${centreDirectoryPath('es')}${Astro.url.search}`,
-    ca: `${centreDirectoryPath('ca')}${Astro.url.search}`,
+    es: centreDirectoryPath('es'),
+    ca: centreDirectoryPath('ca'),
   }}
 >
   <section class="centre-heading">
     <h1>{m.directoryTitle({}, { locale })}</h1>
     <p class="intro">{m.directoryIntro({}, { locale })}</p>
   </section>
-  {data.error && (
-    <p role="alert" class="error">
-      {pageErrorMessage(data.error, locale)}
-    </p>
-  )}
-  {!data.error && !data.centres.length && (
-    <p>
-      {data.q || data.city
-        ? m.noMatchingCentres({}, { locale })
-        : m.noCentres({}, { locale })}
-    </p>
-  )}
-  {!data.error && (
-    <CentreDirectoryMap
-      locale={locale}
-      centres={data.mapCentres}
-      limited={data.mapHasMore}
-    />
-  )}
-  {!data.error && (
-    <form class="centre-search" method="get" action={base}>
+  {!data.centres.length && <p>{m.noCentres({}, { locale })}</p>}
+  <CentreDirectoryMap
+    locale={locale}
+    centres={data.mapCentres}
+    limited={data.mapHasMore}
+  />
+  {data.centres.length > 0 && (
+    <form class="centre-search" role="search" data-centre-filter hidden>
       <label for="centre-q">{m.searchCentres({}, { locale })}</label>
       <input
         id="centre-q"
         type="search"
         name="q"
-        value={data.q}
         maxlength="100"
         autocomplete="off"
+        aria-controls="centre-list"
       />
       <label for="centre-city">{m.city({}, { locale })}</label>
-      <select id="centre-city" name="city">
+      <select id="centre-city" name="city" aria-controls="centre-list">
         <option value="">{m.allCities({}, { locale })}</option>
         {data.cities.map((city) => (
-          <option value={city} selected={city === data.city}>
-            {city}
-          </option>
+          <option value={city}>{city}</option>
         ))}
       </select>
-      <button type="submit">{m.searchCentresSubmit({}, { locale })}</button>
     </form>
   )}
+  <p role="status" aria-live="polite" data-centre-empty hidden>
+    {m.noMatchingCentres({}, { locale })}
+  </p>
   <div id="centre-list" class="grid centre-directory">
     {data.centres.map((centre) => (
-      <article class="course">
+      <article
+        class="course"
+        data-centre-name={`${centre.name} ${centre.address}`}
+        data-centre-city={centre.city}
+      >
         <h2>
           <a href={`${base}/${centre.slug}`}>{centre.name}</a>
         </h2>
@@ -98,16 +80,12 @@ const pageHref = (page: number) => {
       </article>
     ))}
   </div>
-  <nav class="pagination" aria-label={m.pagination({}, { locale })}>
-    {data.page > 1 && (
-      <a href={pageHref(data.page - 1)} rel="prev">
-        ← {m.previous({}, { locale })}
-      </a>
-    )}
-    {data.hasNext && data.page < 1000 && (
-      <a href={pageHref(data.page + 1)} rel="next">
-        {m.next({}, { locale })} →
-      </a>
-    )}
-  </nav>
 </SiteLayout>
+
+<script>
+  import { enhanceCentreFilter } from '../lib/institutions/directory-filter';
+  for (const form of document.querySelectorAll<HTMLFormElement>(
+    '[data-centre-filter]',
+  ))
+    enhanceCentreFilter(form);
+</script>

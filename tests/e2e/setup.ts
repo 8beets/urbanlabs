@@ -1,11 +1,15 @@
 import { getSource } from '../../src/lib/sources';
 import { splitStatements } from '../helpers/split-sql';
-import { readFileSync, readdirSync } from 'node:fs';
 import { getPlatformProxy } from 'wrangler';
 import { runIngestion } from '../../src/lib/ingestion/run';
 import { parseMiramPage } from '../../src/lib/ingestion/adapters/miram';
 import { selectSources } from '../../src/lib/sources';
 import { E2E_ALERT_IDS } from './alert-fixtures';
+import { mkdirSync, readFileSync, readdirSync, writeFileSync } from 'node:fs';
+import { exportSnapshot } from '../../src/lib/catalog/export';
+
+// The static build reads this snapshot of the seeded E2E database.
+export const E2E_SNAPSHOT = '.cache/e2e-snapshot.json';
 
 const santAndreu = getSource('miram-sant-andreu');
 const canBaste = getSource('miram-can-baste');
@@ -286,6 +290,8 @@ async function setup() {
         )
         .bind(id, `test-${id}@example.invalid`)
         .run();
+    mkdirSync('.cache', { recursive: true });
+    writeFileSync(E2E_SNAPSHOT, JSON.stringify(await exportSnapshot(db)));
   } finally {
     await platform.dispose();
   }

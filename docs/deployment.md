@@ -188,3 +188,33 @@ sends at most `ALERT_DAILY_LIMIT` (default 250) emails, below Brevo's free
 Local development and E2E use the `log` adapter, Turnstile's documented always-pass
 test keys and a throwaway token secret from the top-level `vars` in `wrangler.jsonc`.
 Those values are not inherited by `env.production`.
+
+## Static site — issue #89
+
+Public pages are now prerendered from a production snapshot and served as Workers
+static assets; only the alert pages and the 404 page run on the Worker
+([ADR 0008](adr/0008-static-site.md)). The `Build and deploy` workflow
+(`.github/workflows/deploy.yml`) runs, in order:
+
+1. `npm run db:migrate:production`
+2. `npm run snapshot:production` (read-only export of production D1 through Wrangler)
+3. `npm run build:production`
+4. `npm run check:build` (Free-plan static asset limits and a 150 KB gzipped budget
+   for `/search/live.json`)
+5. `wrangler deploy --config dist/server/wrangler.json`
+
+It is called by CI for pushes to `main`, and also runs after every finished
+`Scheduled ingestion` run and daily at 23:17 UTC (just after midnight in Madrid), as
+approved in issue #89. A failure at any step deploys nothing, so the previous build
+stays live. It needs the existing `CLOUDFLARE_API_TOKEN` (with D1 read/edit) and
+`CLOUDFLARE_ACCOUNT_ID` secrets. `npm run deploy:production` runs the same steps
+locally after explicit approval.
+
+Whether static pages link to email alerts is decided at build time: they do when
+`TURNSTILE_SITE_KEY` and the sender configuration (`EMAIL_PROVIDER=brevo` with
+`EMAIL_FROM`) are in `env.production.vars`. After adding them, redeploy (or wait for
+the next scheduled build) so the links appear.
+
+Verified locally with `wrangler dev` on the build output: prerendered pages, the
+search index and `_redirects` rules are served without invoking the Worker; the alert
+pages and unknown URLs are. This has not yet been verified on the production account.

@@ -1,0 +1,84 @@
+name: Build and deploy
+# Rebuilds the static site from a fresh production snapshot and deploys it
+# (docs/adr/0008-static-site.md). Automatic production deploys were approved for:
+#   - pushes to main, after CI checks pass (called from ci.yml);
+#   - every finished ingestion run, so new data is published;
+#   - a daily run just after midnight in Madrid, so ended editions leave the pages.
+on:
+  workflow_call:
+  workflow_run:
+    workflows: [Scheduled ingestion]
+    types: [completed]
+  schedule:
+    # 23:17 UTC is 00:17 in Madrid in winter and 01:17 in summer. GitHub schedules are
+    # best effort; the ingestion-triggered deploys are the other safety net.
+    - cron: '17 23 * * *'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  deploy:
+    name: Deploy production
+    # A partly failed ingestion still published the sources that succeeded; failed
+    # sources keep their previous data, so the rebuild is safe either way.
+    if: >-
+      github.event_name != 'workflow_run' ||
+      github.event.workflow_run.conclusion == 'success' ||
+      github.event.workflow_run.conclusion == 'failure'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    concurrency:
+      group: urbanlabs-production
+      cancel-in-progress: false
+    env:
+      ASTRO_TELEMETRY_DISABLED: '1'
+      WRANGLER_SEND_METRICS: 'false'
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - name: Check this commit is still main
+        id: current
+        shell: bash
+        run: |
+          current_head=$(git ls-remote origin refs/heads/main | cut -f1)
+          test -n "$current_head"
+          if [ "$current_head" = "$GITHUB_SHA" ]; then
+            echo "deploy=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "deploy=false" >> "$GITHUB_OUTPUT"
+            echo "Skipping deployment because main has a newer commit."
+          fi
+      # Migrations run first: the snapshot export and the alert pages use the new schema.
+      - name: Apply production database migrations
+        if: steps.current.outputs.deploy == 'true'
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: npm run db:migrate:production
+      # Read-only. If D1 is unreachable the job stops here and the live site keeps
+      # its previous build.
+      - name: Export the production catalogue snapshot
+        if: steps.current.outputs.deploy == 'true'
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: npm run snapshot:production
+      - name: Build the static site
+        if: steps.current.outputs.deploy == 'true'
+        run: npm run build:production
+      - name: Check Free-plan asset limits and the search index budget
+        if: steps.current.outputs.deploy == 'true'
+        run: npm run check:build
+      - name: Deploy to Cloudflare
+        if: steps.current.outputs.deploy == 'true'
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: npm exec wrangler -- deploy --config dist/server/wrangler.json

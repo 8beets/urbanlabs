@@ -93,7 +93,7 @@ for (const locale of ['es', 'ca'] as const) {
     await page.goto(`${base}/sant-andreu`);
     await expect(page.locator('.course')).toHaveCount(12);
     await page.locator('a[rel="next"]').click();
-    await expect(page).toHaveURL(`${base}/sant-andreu?page=2`);
+    await expect(page).toHaveURL(`${base}/sant-andreu/2`);
     expect(await page.locator('.course').count()).toBeGreaterThan(0);
     await expect(
       page.locator('.course .institution a').first().first(),
@@ -103,7 +103,7 @@ for (const locale of ['es', 'ca'] as const) {
       .getByRole('link', { name: locale === 'es' ? 'Català' : 'Español' })
       .click();
     await expect(page).toHaveURL(
-      `${locale === 'es' ? '/ca/centres' : '/es/centros'}/sant-andreu?page=2`,
+      `${locale === 'es' ? '/ca/centres' : '/es/centros'}/sant-andreu/2`,
     );
     await page.goto(`${base}/test-no-location`);
     await expect(page.locator('.centre-map [data-centre-map]')).toHaveCount(0);
@@ -119,22 +119,21 @@ for (const locale of ['es', 'ca'] as const) {
       .map((link) => link.name);
     expect(closedNames).toHaveLength(1);
     expect(closedNames[0]).toContain('Casa del Mig');
-    await page.goto(`${base}?q=casa+del+mig`);
-    await expect(page.locator('.centre-directory .closure-label')).toHaveText(
+    // The directory filter narrows the static list as the user types, ignoring accents.
+    const visible = page.locator('.centre-directory article:visible');
+    await page.locator('#centre-q').fill('casa del mig');
+    await expect(visible.locator('.closure-label')).toHaveText(
       locale === 'es' ? 'Cerrado temporalmente' : 'Tancat temporalment',
     );
-    // The directory search works without JavaScript, ignores accents and keeps its URL.
-    await page.goto(`${base}?q=civic+pienc`);
-    await expect(page.locator('.centre-directory article')).toHaveCount(1);
-    await expect(page.locator('#centre-q')).toHaveValue('civic pienc');
-    await page.goto(`${base}?q=zzzz`);
-    await expect(page.locator('.centre-directory article')).toHaveCount(0);
-    await expect(page.locator('#centre-list')).toBeEmpty();
+    await page.locator('#centre-q').fill('civic pienc');
+    await expect(visible).toHaveCount(1);
+    await page.locator('#centre-q').fill('zzzz');
+    await expect(visible).toHaveCount(0);
+    await expect(page.locator('[data-centre-empty]')).toBeVisible();
     await page.goto(`${base}/fab-casa-del-mig`);
     await expect(page.locator('.error')).toContainText(
       locale === 'es' ? 'cerrado temporalmente' : 'tancat temporalment',
     );
     expect((await page.goto(`${base}/unknown`))?.status()).toBe(404);
-    expect((await page.goto(`${base}?page=-1`))?.status()).toBe(400);
   });
 }

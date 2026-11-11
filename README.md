@@ -91,11 +91,17 @@ npm run dev
 ```
 
 Open http://127.0.0.1:4321/es/. Local D1 data is stored at `.wrangler/state/v3`.
-The database starts empty; in another terminal, import an approved source when needed:
+Public pages are built from a catalogue snapshot ([ADR 0008](docs/adr/0008-static-site.md)),
+so export one after importing data, and again whenever local data changes:
 
 ```sh
 npm run ingest:live -- --source miram-sant-andreu
+npm run snapshot   # local D1 → .cache/snapshot.json
 ```
+
+Without real data, `npm run snapshot:fixture` seeds an isolated database from the
+saved test fixtures and writes `.cache/e2e-snapshot.json`; point the build or dev
+server at it with `URBANLABS_SNAPSHOT=.cache/e2e-snapshot.json`.
 
 `npm run ingest` only prints instructions. `npm run ingest:live` explicitly opts
 into fetching approved public sources and writing local D1. `npm run source:verify`
@@ -110,7 +116,9 @@ npm run lint
 npm run typecheck
 npm test
 npm run test:d1
-npm run build
+npm run snapshot:fixture
+URBANLABS_SNAPSHOT=.cache/e2e-snapshot.json npm run build
+npm run check:build
 npx playwright install chromium
 npm run test:e2e
 ```
@@ -118,12 +126,15 @@ npm run test:e2e
 `npm test` uses saved source fixtures and real Node SQLite for SQL contract tests.
 `npm run test:d1` exercises the actual local D1 runtime separately. Playwright covers
 Spanish and Catalan discovery, filtering, pagination, centre pages, embedded-map
-URLs, language switching, legacy redirects, and desktop/mobile behaviour. Routine
+URLs, language switching, legacy redirects, and desktop/mobile behaviour, against the
+static build served by `wrangler dev` (assets first, alert pages on the Worker). Routine
 tests do not contact source websites or map services.
 
 The [CI workflow](https://github.com/8beets/urbanlabs/actions/workflows/ci.yml)
-runs formatting, lint, TypeScript, unit/D1 tests, migrations and the build on Linux,
-then deploys successful pushes to `main` to Cloudflare. Playwright is temporarily
+runs formatting, lint, TypeScript, unit/D1 tests, migrations, a fixture build and its
+asset budgets on Linux, then deploys successful pushes to `main` to Cloudflare. The
+[deployment workflow](.github/workflows/deploy.yml) also rebuilds from production data
+after each ingestion run and daily. Playwright is temporarily
 skipped in GitHub Actions; run browser tests locally or with Docker. See [deployment setup](docs/deployment.md#automatic-deployment-from-github)
 for the required GitHub secrets. The [Docker check suite](docs/docker.md#run-checks)
 also includes binding generation and local migrations. For hosts without Chromium's
@@ -133,7 +144,7 @@ system dependencies, use Docker or follow Playwright's browser installation guid
 
 - [Asset credits and logo](docs/assets.md)
 - [Design screenshots (test fixtures)](docs/screenshots/README.md)
-- [Page and static asset cache policy](docs/caching.md)
+- [Static site and cache policy](docs/caching.md)
 - [Source research](docs/data-sources.md)
 - [Architecture](docs/architecture.md)
 - [Adapter development](docs/ingestion.md)

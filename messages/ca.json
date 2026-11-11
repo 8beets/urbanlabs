@@ -48,7 +48,6 @@
   "noCentres": "Encara no hi ha centres publicats.",
   "temporarilyClosed": "Tancat temporalment",
   "searchCentres": "Cerca centre per nom o adreça",
-  "searchCentresSubmit": "Cerca centres",
   "noMatchingCentres": "Cap centre coincideix amb la cerca.",
   "soldOut": "Sense places",
   "placesFilter": "Places",
@@ -67,8 +66,6 @@
   "price": "Preu màxim (€)",
   "submit": "Cerca cursos",
   "filters": "Filtres de cerca",
-  "filtersLoading": "Actualitzant els filtres…",
-  "filtersFailed": "No s’han pogut actualitzar els filtres. Pots tornar a canviar la selecció o cercar amb els filtres actuals.",
   "refine": "Afina la cerca",
   "region": "Comunitat autònoma",
   "city": "Ciutat",
@@ -207,5 +204,13 @@
   "alertsEmailStarts": "Comença: {date}",
   "alertsEmailOfficial": "Web oficial",
   "alertsEmailFooter": "Reps aquest correu perquè vas crear un avís a UrbanLabs.",
-  "alertsEmailUnsubscribe": "Donar-te de baixa"
+  "alertsEmailUnsubscribe": "Donar-te de baixa",
+  "searchLoading": "S’estan carregant els cursos…",
+  "searchNeedsJavaScript": "La cerca amb filtres necessita JavaScript. Sense, pots explorar els cursos per categoria o per centre.",
+  "categoriesTitle": "Cursos per categoria",
+  "categoriesIntro": "Totes les categories amb cursos vigents. Cada pàgina enllaça a la informació oficial de cada curs.",
+  "categoryPageIntro": "Cursos vigents d’aquesta categoria a tots els centres.",
+  "searchThisCategory": "Filtrar aquesta categoria al cercador",
+  "browseByCategory": "Explorar per categoria",
+  "browseByCentre": "Explorar per centre"
 }

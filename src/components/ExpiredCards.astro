@@ -1,0 +1,16 @@
+---
+import { catalogTimeZones } from '../lib/catalog/pages';
+const timeZones = catalogTimeZones();
+---
+
+<script
+  is:inline
+  type="application/json"
+  id="catalog-time-zones"
+  set:html={JSON.stringify(timeZones).replaceAll('<', '\\u003c')}
+/>
+<script>
+  import { hideExpiredCards } from '../lib/catalog/hide-expired';
+  const zones = document.getElementById('catalog-time-zones')?.textContent;
+  hideExpiredCards(document, zones ? JSON.parse(zones) : []);
+</script>

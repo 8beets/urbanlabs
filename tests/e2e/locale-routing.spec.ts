@@ -13,25 +13,24 @@ test.beforeEach(async ({ page }) => {
   );
 });
 
-test('legacy Spanish URLs redirect permanently and retain query parameters', async ({
+test('legacy Spanish URLs redirect permanently to their prefixed paths', async ({
   request,
   page,
 }) => {
-  const query =
-    '?category=IDIOMES&centre=cc-sant-andreu&page=2&q=TEST%20workshop';
   for (const [oldPath, newPath] of [
     ['/', '/es/'],
     ['/centros', '/es/centros'],
     ['/centros/sant-andreu', '/es/centros/sant-andreu'],
-  ]) {
-    const response = await request.get(oldPath + query, { maxRedirects: 0 });
+  ] as const) {
+    const response = await request.get(oldPath, { maxRedirects: 0 });
     expect(response.status()).toBe(308);
-    expect(response.headers().location).toBe(newPath + query);
+    expect(new URL(response.headers().location!, 'http://x').pathname).toBe(
+      newPath,
+    );
   }
-  await page.goto('/?centre=cc-sant-andreu#discovery');
-  await expect(page).toHaveURL('/es/buscar?centre=cc-sant-andreu#discovery');
+  await page.goto('/centros/sant-andreu');
+  await expect(page).toHaveURL('/es/centros/sant-andreu');
   await expect(page.locator('html')).toHaveAttribute('lang', 'es');
-  await expect(page.locator('#centre')).toHaveValue('cc-sant-andreu');
 });
 
 test('all page links and search forms use explicit locale prefixes', async ({
@@ -43,7 +42,7 @@ test('all page links and search forms use explicit locale prefixes', async ({
       `/${locale}/`,
       `${locale === 'es' ? '/es/buscar' : '/ca/cerca'}?centre=cc-sant-andreu`,
       `/${locale}/${centres}`,
-      `/${locale}/${centres}/sant-andreu?page=2`,
+      `/${locale}/${centres}/sant-andreu/2`,
     ]) {
       await page.goto(path);
       await expect(page.locator('html')).toHaveAttribute('lang', locale);
@@ -64,7 +63,7 @@ test('all page links and search forms use explicit locale prefixes', async ({
   }
 });
 
-test('unsupported locale routes return 404 and shared endpoints remain available', async ({
+test('unsupported locale routes return 404 and the search index is available', async ({
   request,
 }) => {
   for (const path of [
@@ -77,36 +76,26 @@ test('unsupported locale routes return 404 and shared endpoints remain available
     const response = await request.get(path, { maxRedirects: 0 });
     expect(response.status(), path).toBe(404);
   }
-  const response = await request.get('/api/filters?locale=ca');
+  const response = await request.get('/search/live.json');
   expect(response.status()).toBe(200);
   expect(response.headers()['content-type']).toContain('application/json');
-  expect(await response.json()).toHaveProperty('centres');
+  expect((await response.json()).editions.length).toBeGreaterThan(0);
 });
 
-test('concurrent localized pages and API responses retain their own translations', async ({
+test('prerendered pages carry their own language and set no cookies', async ({
   request,
 }) => {
   await Promise.all(
     ['es', 'ca'].map(async (locale) => {
       const search = locale === 'es' ? 'buscar' : 'cerca';
-      const response = await request.get(
-        `/${locale}/${search}?maxPrice=invalid`,
-      );
-      expect(response.status()).toBe(400);
+      const response = await request.get(`/${locale}/${search}`);
+      expect(response.status()).toBe(200);
       expect(response.headers()['set-cookie']).toBeUndefined();
       const html = await response.text();
       expect(html).toContain(`lang="${locale}"`);
       expect(html).toContain(
-        locale === 'es' ? 'Revisa los filtros:' : 'Revisa els filtres:',
+        locale === 'es' ? 'Todas las categorías' : 'Totes les categories',
       );
-
-      const options = await request.get(`/api/filters?locale=${locale}`);
-      expect(options.status()).toBe(200);
-      const body = await options.json();
-      expect(body.categories).toContainEqual({
-        value: 'FOTOGRAFIA',
-        label: locale === 'es' ? 'Fotografía' : 'Fotografia',
-      });
     }),
   );
 });

@@ -1,27 +1,22 @@
 import { describe, expect, it } from 'vitest';
-import {
-  centreCities,
-  filterCentres,
-} from '../../src/lib/institutions/directory-filter';
-import type { Centre } from '../../src/lib/db/institutions';
+import { centreMatches } from '../../src/lib/institutions/directory-filter';
 
-const centre = (name: string, city: string, address = 'Carrer X'): Centre =>
-  ({ name, city, address }) as Centre;
-const all = [
-  centre('Centre Cívic Fort Pienc', 'Barcelona', 'Carrer d’Ausiàs Marc'),
-  centre('Centre Cultural Alicante', 'Alicante'),
-  centre('Casa Elizalde', 'Barcelona'),
-];
+const centres = [
+  ['Centre Cívic Fort Pienc Carrer d’Ausiàs Marc', 'Barcelona'],
+  ['Centre Cultural Alicante Carrer X', 'Alicante'],
+  ['Casa Elizalde Carrer X', 'Barcelona'],
+] as const;
+const matching = (filter: { q: string; city: string }) =>
+  centres.filter(([text, city]) => centreMatches(text, city, filter));
 
 describe('directory filter', () => {
   it('ignores accents and case and requires every word', () => {
-    expect(filterCentres(all, { q: 'CIVIC pienc', city: '' })).toHaveLength(1);
-    expect(filterCentres(all, { q: 'ausias', city: '' })).toHaveLength(1);
-    expect(filterCentres(all, { q: 'centre zzz', city: '' })).toHaveLength(0);
+    expect(matching({ q: 'CIVIC pienc', city: '' })).toHaveLength(1);
+    expect(matching({ q: 'ausias', city: '' })).toHaveLength(1);
+    expect(matching({ q: 'centre zzz', city: '' })).toHaveLength(0);
   });
-  it('filters by city and lists cities once, sorted', () => {
-    expect(filterCentres(all, { q: '', city: 'Alicante' })).toHaveLength(1);
-    expect(filterCentres(all, { q: '', city: '' })).toHaveLength(3);
-    expect(centreCities(all)).toEqual(['Alicante', 'Barcelona']);
+  it('filters by city', () => {
+    expect(matching({ q: '', city: 'Alicante' })).toHaveLength(1);
+    expect(matching({ q: '', city: '' })).toHaveLength(3);
   });
 });

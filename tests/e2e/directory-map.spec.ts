@@ -1,12 +1,12 @@
 import { expect, test } from '@playwright/test';
 import { sources } from '../../src/lib/sources';
-import { CENTRES_PAGE_SIZE } from '../../src/lib/db/institutions';
 import { directoryLinks } from './directory';
 
 // Every registry centre has verified coordinates, plus the isolated test centre without a
 // location that appears in the list but not on the map.
 
-const firstPage = Math.min(sources.length + 1, CENTRES_PAGE_SIZE);
+// The static directory lists every centre on one page.
+const firstPage = sources.length + 1;
 
 // Saved transparent PNG: routine map checks never fetch third-party tiles.
 const tile = Buffer.from(
@@ -101,10 +101,10 @@ test.describe('without JavaScript', () => {
     });
     await page.goto('/es/centros');
     await expect(page.locator('[data-map-canvas]')).toBeHidden();
-    // Every centre stays reachable through plain pagination links.
+    // Every centre stays reachable in the static list.
     expect(await directoryLinks(page)).toHaveLength(sources.length + 1);
     expect(tileRequests).toBe(0);
-    await page.goto('/es/centros?q=sant+andreu');
+    await expect(page.locator('#centre-q')).toBeHidden();
     await page
       .locator('.centre-directory a[href="/es/centros/sant-andreu"]')
       .click();
