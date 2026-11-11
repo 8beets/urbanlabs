@@ -10,9 +10,14 @@ import { hasSoldOutNotice } from '../normalization/availability';
 import { createSourceFetcher, type FetchOptions } from '../http';
 import type { CourseRecord, SourceAdapter, SourceConfig } from '../types';
 
-// Footers of full cards: "places exhaurides" and "no queden places online" (both seen live).
+// Footers of full cards seen live. Cotxeres Borrell prefixes the notice with a counter
+// and a date ("0 20/07/2026 Places exhaurides…").
 const fullNotice =
-  /^(?:Places exhaurides\b|En aquests moments no queden places online per aquesta activitat\.$)/iu;
+  /^(?:(?:\d+ \d{2}\/\d{2}\/\d{4} )?Places exhaurides\b|En aquests moments no queden places online per aquesta activitat\.$)/iu;
+
+// Advance-preview footers seen live on cards without an identifier (Vil·la Urània, Sant Martí).
+const previewNotice =
+  /^(?:Podreu realitzar les inscripcions en línia a partir del|Les inscripcions on-line les podreu fer a partir del) \d{2}\/\d{2}\/\d{4}$/u;
 
 export function parseMiramPage(
   html: string,
@@ -43,9 +48,7 @@ export function parseMiramPage(
       card.find('input[name="activitat"]').attr('value');
     if (
       !externalId &&
-      /^Podreu realitzar les inscripcions en línia a partir del \d{2}\/\d{2}\/\d{4}$/u.test(
-        cleanText(card.find('.card-footer').text()),
-      )
+      previewNotice.test(cleanText(card.find('.card-footer').text()))
     ) {
       // Miram's advance previews expose no edition ID or dates. Do not invent one.
       unpublishedPreviews++;

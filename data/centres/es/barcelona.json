@@ -804,5 +804,729 @@
       "verifiedAt": "2026-11-10",
       "robotsTxt": "absent"
     }
+  },
+  {
+    "id": "cc-can-clariana-cultural",
+    "slug": "can-clariana-cultural",
+    "name": "Centre Cívic Can Clariana Cultural",
+    "officialUrl": "https://ajuntament.barcelona.cat/ccivics/canclarianacultural",
+    "address": "Carrer de Felip II, 222, 08027 Barcelona",
+    "country": "ES",
+    "city": "Barcelona",
+    "cityId": "barcelona",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "phone": "937637299",
+      "detailsSourceUrl": "https://guia.barcelona.cat/ca/detall/centre-civic-can-clariana-cultural_99400514934.html",
+      "detailsVerifiedAt": "2026-11-11",
+      "location": {
+        "latitude": 41.42755131086321,
+        "longitude": 2.1784411209301746,
+        "sourceUrl": "https://guia.barcelona.cat/ca/detall/centre-civic-can-clariana-cultural_99400514934.html",
+        "verifiedAt": "2026-11-11"
+      }
+    },
+    "registration": {
+      "platform": "miram",
+      "origin": "https://canclariana.inscripcionscc.com",
+      "centreCode": 55,
+      "activityType": "AC",
+      "verifiedAt": "2026-11-11",
+      "robotsTxt": "absent"
+    }
+  },
+  {
+    "id": "cc-can-deu",
+    "slug": "can-deu",
+    "name": "Centre Cívic Can Deu",
+    "officialUrl": "https://ajuntament.barcelona.cat/ccivics/candeu",
+    "address": "Plaça de la Concòrdia, 13, 08014 Barcelona",
+    "country": "ES",
+    "city": "Barcelona",
+    "cityId": "barcelona",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "phone": "934101007",
+      "detailsSourceUrl": "https://guia.barcelona.cat/ca/detall/centre-civic-can-deu_92086017856.html",
+      "detailsVerifiedAt": "2026-11-11",
+      "location": {
+        "latitude": 41.386794007741514,
+        "longitude": 2.1325216465394625,
+        "sourceUrl": "https://guia.barcelona.cat/ca/detall/centre-civic-can-deu_92086017856.html",
+        "verifiedAt": "2026-11-11"
+      }
+    },
+    "registration": {
+      "platform": "miram",
+      "origin": "https://cccandeu.inscripcionscc.com",
+      "centreCode": 44,
+      "activityType": "AC",
+      "verifiedAt": "2026-11-11",
+      "robotsTxt": "absent"
+    }
+  },
+  {
+    "id": "cc-can-felipa",
+    "slug": "can-felipa",
+    "name": "Centre Cívic Can Felipa",
+    "officialUrl": "https://www.cccanfelipa.cat/",
+    "address": "Plaça de Josep Maria Huertas Claveria, 1, 08005 Barcelona",
+    "country": "ES",
+    "city": "Barcelona",
+    "cityId": "barcelona",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "phone": "932563840",
+      "detailsSourceUrl": "https://guia.barcelona.cat/ca/detall/centre-civic-can-felipa_92086035490.html",
+      "detailsVerifiedAt": "2026-11-11",
+      "location": {
+        "latitude": 41.40367975860696,
+        "longitude": 2.20050971216533,
+        "sourceUrl": "https://guia.barcelona.cat/ca/detall/centre-civic-can-felipa_92086035490.html",
+        "verifiedAt": "2026-11-11"
+      }
+    },
+    "registration": {
+      "platform": "miram",
+      "origin": "https://cccanfelipa.inscripcionscc.com",
+      "centreCode": 52,
+      "activityType": "AC",
+      "verifiedAt": "2026-11-11",
+      "robotsTxt": "absent"
+    }
+  },
+  {
+    "id": "cc-casa-groga",
+    "slug": "casa-groga",
+    "name": "Centre Cívic Casa Groga",
+    "officialUrl": "https://ajuntament.barcelona.cat/ccivics/casagroga",
+    "address": "Avinguda del Jordà, 27, 08035 Barcelona",
+    "country": "ES",
+    "city": "Barcelona",
+    "cityId": "barcelona",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "phone": "934186531",
+      "detailsSourceUrl": "https://guia.barcelona.cat/ca/detall/centre-civic-casa-groga_92086034483.html",
+      "detailsVerifiedAt": "2026-11-11",
+      "location": {
+        "latitude": 41.42689816008589,
+        "longitude": 2.1374633929572053,
+        "sourceUrl": "https://guia.barcelona.cat/ca/detall/centre-civic-casa-groga_92086034483.html",
+        "verifiedAt": "2026-11-11"
+      }
+    },
+    "registration": {
+      "platform": "miram",
+      "origin": "https://casagroga.inscripcionscc.com",
+      "centreCode": 3,
+      "activityType": "AC",
+      "verifiedAt": "2026-11-11",
+      "robotsTxt": "absent"
+    }
+  },
+  {
+    "id": "cc-casa-orlandai",
+    "slug": "casa-orlandai",
+    "name": "Centre Cívic Casa Orlandai",
+    "officialUrl": "https://casaorlandai.cat/",
+    "address": "Carrer de Jaume Piquet, 23, 08017 Barcelona",
+    "country": "ES",
+    "city": "Barcelona",
+    "cityId": "barcelona",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "phone": "932524262",
+      "detailsSourceUrl": "https://guia.barcelona.cat/ca/detall/centre-civic-casa-orlandai_99400180423.html",
+      "detailsVerifiedAt": "2026-11-11",
+      "location": {
+        "latitude": 41.3983599977031,
+        "longitude": 2.1246720318706647,
+        "sourceUrl": "https://guia.barcelona.cat/ca/detall/centre-civic-casa-orlandai_99400180423.html",
+        "verifiedAt": "2026-11-11"
+      }
+    },
+    "registration": {
+      "platform": "miram",
+      "origin": "https://casaorlandai.inscripcionscc.com",
+      "centreCode": 46,
+      "activityType": "AC",
+      "verifiedAt": "2026-11-11",
+      "robotsTxt": "absent"
+    }
+  },
+  {
+    "id": "cc-convent-de-sant-agusti",
+    "slug": "convent-de-sant-agusti",
+    "name": "Centre Cívic Convent de Sant Agustí",
+    "officialUrl": "https://conventagusti.com/",
+    "address": "Carrer del Comerç, 36, 08003 Barcelona",
+    "country": "ES",
+    "city": "Barcelona",
+    "cityId": "barcelona",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "phone": "932565000",
+      "detailsSourceUrl": "https://guia.barcelona.cat/ca/detall/centre-civic-convent-de-sant-agusti_98286141841.html",
+      "detailsVerifiedAt": "2026-11-11",
+      "location": {
+        "latitude": 41.38741922402338,
+        "longitude": 2.181725967522791,
+        "sourceUrl": "https://guia.barcelona.cat/ca/detall/centre-civic-convent-de-sant-agusti_98286141841.html",
+        "verifiedAt": "2026-11-11"
+      }
+    },
+    "registration": {
+      "platform": "miram",
+      "origin": "https://conventagusti.inscripcionscc.com",
+      "centreCode": 47,
+      "activityType": "AC",
+      "verifiedAt": "2026-11-11",
+      "robotsTxt": "absent"
+    }
+  },
+  {
+    "id": "cc-cotxeres-borrell",
+    "slug": "cotxeres-borrell",
+    "name": "Centre Cívic Cotxeres Borrell",
+    "officialUrl": "https://cotxeresborrell.net/",
+    "address": "Carrer de Viladomat, 2-8, 08015 Barcelona",
+    "country": "ES",
+    "city": "Barcelona",
+    "cityId": "barcelona",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "phone": "933248350",
+      "detailsSourceUrl": "https://guia.barcelona.cat/ca/detall/centre-civic-cotxeres-borrell_2011131453.html",
+      "detailsVerifiedAt": "2026-11-11",
+      "location": {
+        "latitude": 41.37557224589931,
+        "longitude": 2.1629307624189775,
+        "sourceUrl": "https://guia.barcelona.cat/ca/detall/centre-civic-cotxeres-borrell_2011131453.html",
+        "verifiedAt": "2026-11-11"
+      }
+    },
+    "registration": {
+      "platform": "miram",
+      "origin": "https://cotxeresborrell.inscripcionscc.com",
+      "centreCode": 2,
+      "activityType": "AC",
+      "verifiedAt": "2026-11-11",
+      "robotsTxt": "absent"
+    }
+  },
+  {
+    "id": "cc-besos-i-el-maresme",
+    "slug": "besos-i-el-maresme",
+    "name": "Centre Cívic del Besòs i el Maresme",
+    "officialUrl": "https://ajuntament.barcelona.cat/ccivics/elbesosielmaresme",
+    "address": "Rambla de Prim, 87-89, 08019 Barcelona",
+    "country": "ES",
+    "city": "Barcelona",
+    "cityId": "barcelona",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "phone": "932564901",
+      "detailsSourceUrl": "https://guia.barcelona.cat/ca/detall/centre-civic-del-besos-i-el-maresme_93316140842.html",
+      "detailsVerifiedAt": "2026-11-11",
+      "location": {
+        "latitude": 41.416486356252896,
+        "longitude": 2.211812118761215,
+        "sourceUrl": "https://guia.barcelona.cat/ca/detall/centre-civic-del-besos-i-el-maresme_93316140842.html",
+        "verifiedAt": "2026-11-11"
+      }
+    },
+    "registration": {
+      "platform": "miram",
+      "origin": "https://besos.inscripcionscc.com",
+      "centreCode": 15,
+      "activityType": "AC",
+      "verifiedAt": "2026-11-11",
+      "robotsTxt": "absent"
+    }
+  },
+  {
+    "id": "cc-bon-pastor",
+    "slug": "bon-pastor",
+    "name": "Centre Cívic Bon Pastor",
+    "officialUrl": "https://ajuntament.barcelona.cat/ccivics/bonpastor",
+    "address": "Plaça de Robert Gerhard, 3-4, 08030 Barcelona",
+    "country": "ES",
+    "city": "Barcelona",
+    "cityId": "barcelona",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "phone": "933147947",
+      "detailsSourceUrl": "https://guia.barcelona.cat/ca/detall/centre-civic-del-bon-pastor_92086029928.html",
+      "detailsVerifiedAt": "2026-11-11",
+      "location": {
+        "latitude": 41.434812438103414,
+        "longitude": 2.2049292862975705,
+        "sourceUrl": "https://guia.barcelona.cat/ca/detall/centre-civic-del-bon-pastor_92086029928.html",
+        "verifiedAt": "2026-11-11"
+      }
+    },
+    "registration": {
+      "platform": "miram",
+      "origin": "https://bonpastor.inscripcionscc.com",
+      "centreCode": 31,
+      "activityType": "AC",
+      "verifiedAt": "2026-11-11",
+      "robotsTxt": "absent"
+    }
+  },
+  {
+    "id": "cc-drassanes",
+    "slug": "drassanes",
+    "name": "Centre Cívic Drassanes",
+    "officialUrl": "https://ajuntament.barcelona.cat/ccivics/drassanes",
+    "address": "Carrer Nou de la Rambla, 43, 08001 Barcelona",
+    "country": "ES",
+    "city": "Barcelona",
+    "cityId": "barcelona",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "phone": "934412280",
+      "detailsSourceUrl": "https://guia.barcelona.cat/ca/detall/centre-civic-drassanes_92086034526.html",
+      "detailsVerifiedAt": "2026-11-11",
+      "location": {
+        "latitude": 41.37767838726746,
+        "longitude": 2.172864399551599,
+        "sourceUrl": "https://guia.barcelona.cat/ca/detall/centre-civic-drassanes_92086034526.html",
+        "verifiedAt": "2026-11-11"
+      }
+    },
+    "registration": {
+      "platform": "miram",
+      "origin": "https://ccdrassanes.inscripcionscc.com",
+      "centreCode": 53,
+      "activityType": "AC",
+      "verifiedAt": "2026-11-11",
+      "robotsTxt": "absent",
+      "exclusions": [
+        {
+          "categoryCode": "BD",
+          "reason": "The Barcelona Districte Cultural category lists programmed shows and their side activities, outside the course directory."
+        }
+      ]
+    }
+  },
+  {
+    "id": "cc-el-carmel",
+    "slug": "el-carmel",
+    "name": "Centre Cívic El Carmel",
+    "officialUrl": "https://ajuntament.barcelona.cat/ccivics/carmel",
+    "address": "Carrer del Santuari, 27-29, 08032 Barcelona",
+    "country": "ES",
+    "city": "Barcelona",
+    "cityId": "barcelona",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "phone": "932563333",
+      "detailsSourceUrl": "https://guia.barcelona.cat/ca/detall/centre-civic-el-carmel_92086031534.html",
+      "detailsVerifiedAt": "2026-11-11",
+      "location": {
+        "latitude": 41.42026751883118,
+        "longitude": 2.1511765613690907,
+        "sourceUrl": "https://guia.barcelona.cat/ca/detall/centre-civic-el-carmel_92086031534.html",
+        "verifiedAt": "2026-11-11"
+      }
+    },
+    "registration": {
+      "platform": "miram",
+      "origin": "https://carmel.inscripcionscc.com",
+      "centreCode": 28,
+      "activityType": "AC",
+      "verifiedAt": "2026-11-11",
+      "robotsTxt": "absent"
+    }
+  },
+  {
+    "id": "cc-el-coll-la-bruguera",
+    "slug": "el-coll-la-bruguera",
+    "name": "Centre Cívic El Coll - La Bruguera",
+    "officialUrl": "https://ajuntament.barcelona.cat/ccivics/elcoll",
+    "address": "Carrer de l'Aldea, 15, 08023 Barcelona",
+    "country": "ES",
+    "city": "Barcelona",
+    "cityId": "barcelona",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "phone": "932562877",
+      "detailsSourceUrl": "https://guia.barcelona.cat/ca/detall/centre-civic-el-coll-la-bruguera_92127125234.html",
+      "detailsVerifiedAt": "2026-11-11",
+      "location": {
+        "latitude": 41.41860650477411,
+        "longitude": 2.149915320833742,
+        "sourceUrl": "https://guia.barcelona.cat/ca/detall/centre-civic-el-coll-la-bruguera_92127125234.html",
+        "verifiedAt": "2026-11-11"
+      }
+    },
+    "registration": {
+      "platform": "miram",
+      "origin": "https://ccelcoll.inscripcionscc.com",
+      "centreCode": 12,
+      "activityType": "AC",
+      "verifiedAt": "2026-11-11",
+      "robotsTxt": "absent"
+    }
+  },
+  {
+    "id": "cc-font-de-la-guatlla",
+    "slug": "font-de-la-guatlla",
+    "name": "Centre Cívic Font de la Guatlla",
+    "officialUrl": "https://ajuntament.barcelona.cat/ccivics/fontdelaguatlla",
+    "address": "Carrer del Rabí Rubèn, 22-26, 08004 Barcelona",
+    "country": "ES",
+    "city": "Barcelona",
+    "cityId": "barcelona",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "phone": "934248506",
+      "detailsSourceUrl": "https://guia.barcelona.cat/ca/detall/centre-civic-font-de-la-guatlla_94322130925.html",
+      "detailsVerifiedAt": "2026-11-11",
+      "location": {
+        "latitude": 41.370587440986846,
+        "longitude": 2.147525318360155,
+        "sourceUrl": "https://guia.barcelona.cat/ca/detall/centre-civic-font-de-la-guatlla_94322130925.html",
+        "verifiedAt": "2026-11-11"
+      }
+    },
+    "registration": {
+      "platform": "miram",
+      "origin": "https://laguatlla.inscripcionscc.com",
+      "centreCode": 21,
+      "activityType": "AC",
+      "verifiedAt": "2026-11-11",
+      "robotsTxt": "absent"
+    }
+  },
+  {
+    "id": "cc-guinardo",
+    "slug": "guinardo",
+    "name": "Centre Cívic Guinardó",
+    "officialUrl": "https://ajuntament.barcelona.cat/ccivics/guinardo/",
+    "address": "Ronda del Guinardó, 113-133, 08041 Barcelona",
+    "country": "ES",
+    "city": "Barcelona",
+    "cityId": "barcelona",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "phone": "934503987",
+      "detailsSourceUrl": "https://guia.barcelona.cat/ca/detall/centre-civic-guinardo_92086003455.html",
+      "detailsVerifiedAt": "2026-11-11",
+      "location": {
+        "latitude": 41.41607687588995,
+        "longitude": 2.1733610333293782,
+        "sourceUrl": "https://guia.barcelona.cat/ca/detall/centre-civic-guinardo_92086003455.html",
+        "verifiedAt": "2026-11-11"
+      }
+    },
+    "registration": {
+      "platform": "miram",
+      "origin": "https://guinardo.inscripcionscc.com",
+      "centreCode": 37,
+      "activityType": "AC",
+      "verifiedAt": "2026-11-11",
+      "robotsTxt": "absent",
+      "exclusions": [
+        {
+          "categoryCode": "sm",
+          "reason": "Adult planetarium and telescope sessions are one-off shows, outside the course directory."
+        },
+        {
+          "categoryCode": "GE",
+          "reason": "Guinardó a Escena lists stage performances, outside the course directory."
+        },
+        {
+          "categoryCode": "XP",
+          "reason": "The exhibitions category lists exhibition-related events, outside the course directory."
+        },
+        {
+          "externalId": "3861",
+          "reason": "A one-off family planetarium or telescope session, outside the course directory."
+        },
+        {
+          "externalId": "3862",
+          "reason": "A one-off family planetarium or telescope session, outside the course directory."
+        },
+        {
+          "externalId": "3863",
+          "reason": "A one-off family planetarium or telescope session, outside the course directory."
+        },
+        {
+          "externalId": "3874",
+          "reason": "A one-off family planetarium or telescope session, outside the course directory."
+        },
+        {
+          "externalId": "3907",
+          "reason": "A one-off family planetarium or telescope session, outside the course directory."
+        },
+        {
+          "externalId": "3908",
+          "reason": "A one-off family planetarium or telescope session, outside the course directory."
+        },
+        {
+          "externalId": "3909",
+          "reason": "A one-off family planetarium or telescope session, outside the course directory."
+        },
+        {
+          "externalId": "3912",
+          "reason": "A one-off round table for artists, outside the course directory."
+        }
+      ]
+    }
+  },
+  {
+    "id": "cc-joan-oliver-pere-quart",
+    "slug": "joan-oliver-pere-quart",
+    "name": "Centre Cívic Joan Oliver - Pere Quart",
+    "officialUrl": "https://ajuntament.barcelona.cat/ccivics/perequart",
+    "address": "Carrer del Comandant Benítez, 6, 08028 Barcelona",
+    "country": "ES",
+    "city": "Barcelona",
+    "cityId": "barcelona",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "phone": "933398261",
+      "detailsSourceUrl": "https://guia.barcelona.cat/ca/detall/centre-civic-joan-oliver-pere-quart_99125133528.html",
+      "detailsVerifiedAt": "2026-11-11",
+      "location": {
+        "latitude": 41.37933180540103,
+        "longitude": 2.127776128826079,
+        "sourceUrl": "https://guia.barcelona.cat/ca/detall/centre-civic-joan-oliver-pere-quart_99125133528.html",
+        "verifiedAt": "2026-11-11"
+      }
+    },
+    "registration": {
+      "platform": "miram",
+      "origin": "https://ccperequart.inscripcionscc.com",
+      "centreCode": 16,
+      "activityType": "AC",
+      "verifiedAt": "2026-11-11",
+      "robotsTxt": "absent"
+    }
+  },
+  {
+    "id": "cc-l-electric",
+    "slug": "l-electric",
+    "name": "Centre Cívic l'Elèctric",
+    "officialUrl": "https://ajuntament.barcelona.cat/ccivics/lelectric",
+    "address": "Carretera de Vallvidrera a les Planes, km 6,5, 08017 Barcelona",
+    "country": "ES",
+    "city": "Barcelona",
+    "cityId": "barcelona",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "phone": "932054009",
+      "detailsSourceUrl": "https://guia.barcelona.cat/ca/detall/centre-civic-l-electric_95076132622.html",
+      "detailsVerifiedAt": "2026-11-11",
+      "location": {
+        "latitude": 41.419167750404895,
+        "longitude": 2.0978915121246664,
+        "sourceUrl": "https://guia.barcelona.cat/ca/detall/centre-civic-l-electric_95076132622.html",
+        "verifiedAt": "2026-11-11"
+      }
+    },
+    "registration": {
+      "platform": "miram",
+      "origin": "https://cclelectric.inscripcionscc.com",
+      "centreCode": 40,
+      "activityType": "AC",
+      "verifiedAt": "2026-11-11",
+      "robotsTxt": "absent"
+    }
+  },
+  {
+    "id": "cc-la-sagrera-la-barraca",
+    "slug": "la-sagrera-la-barraca",
+    "name": "Centre Cívic La Sagrera La Barraca",
+    "officialUrl": "https://ajuntament.barcelona.cat/ccivics/lasagrera",
+    "address": "Carrer de Martí Molins, 29, 08027 Barcelona",
+    "country": "ES",
+    "city": "Barcelona",
+    "cityId": "barcelona",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "phone": "933511702",
+      "detailsSourceUrl": "https://guia.barcelona.cat/ca/detall/centre-civic-la-sagrera-la-barraca_92086005115.html",
+      "detailsVerifiedAt": "2026-11-11",
+      "location": {
+        "latitude": 41.42397425702554,
+        "longitude": 2.1891508567064406,
+        "sourceUrl": "https://guia.barcelona.cat/ca/detall/centre-civic-la-sagrera-la-barraca_92086005115.html",
+        "verifiedAt": "2026-11-11"
+      }
+    },
+    "registration": {
+      "platform": "miram",
+      "origin": "https://sagrera.inscripcionscc.com",
+      "centreCode": 23,
+      "activityType": "AC",
+      "verifiedAt": "2026-11-11",
+      "robotsTxt": "absent"
+    }
+  },
+  {
+    "id": "cc-sagrada-familia",
+    "slug": "sagrada-familia",
+    "name": "Centre Cívic Sagrada Família",
+    "officialUrl": "https://www.ccsagradafamilia.net/",
+    "address": "Carrer de Provença, 480, 08025 Barcelona",
+    "country": "ES",
+    "city": "Barcelona",
+    "cityId": "barcelona",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "phone": "934508917",
+      "detailsSourceUrl": "https://guia.barcelona.cat/ca/detall/centre-civic-sagrada-familia_1206105105.html",
+      "detailsVerifiedAt": "2026-11-11",
+      "location": {
+        "latitude": 41.40541560676076,
+        "longitude": 2.1767746457391186,
+        "sourceUrl": "https://guia.barcelona.cat/ca/detall/centre-civic-sagrada-familia_1206105105.html",
+        "verifiedAt": "2026-11-11"
+      }
+    },
+    "registration": {
+      "platform": "miram",
+      "origin": "https://sagradafamilia.inscripcionscc.com",
+      "centreCode": 39,
+      "activityType": "AC",
+      "verifiedAt": "2026-11-11",
+      "robotsTxt": "absent",
+      "exclusions": [
+        {
+          "categoryCode": "RP",
+          "reason": "The \"Parlem...\" category lists one-off talks, outside the course directory."
+        }
+      ]
+    }
+  },
+  {
+    "id": "cc-sant-marti",
+    "slug": "sant-marti",
+    "name": "Centre Cívic Sant Martí",
+    "officialUrl": "https://ajuntament.barcelona.cat/ccivics/santmarti",
+    "address": "Carrer de la Selva de Mar, 215, 08020 Barcelona",
+    "country": "ES",
+    "city": "Barcelona",
+    "cityId": "barcelona",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "phone": "932565760",
+      "detailsSourceUrl": "https://guia.barcelona.cat/ca/detall/centre-civic-sant-marti_92086005093.html",
+      "detailsVerifiedAt": "2026-11-11",
+      "location": {
+        "latitude": 41.41665521642997,
+        "longitude": 2.198581654422569,
+        "sourceUrl": "https://guia.barcelona.cat/ca/detall/centre-civic-sant-marti_92086005093.html",
+        "verifiedAt": "2026-11-11"
+      }
+    },
+    "registration": {
+      "platform": "miram",
+      "origin": "https://santmarti.inscripcionscc.com",
+      "centreCode": 17,
+      "activityType": "AC",
+      "verifiedAt": "2026-11-11",
+      "robotsTxt": "absent",
+      "exclusions": [
+        {
+          "externalId": "2633",
+          "reason": "\"Petit pantalla\" is a children's film screening, outside the course directory."
+        }
+      ]
+    }
+  },
+  {
+    "id": "cc-teixonera",
+    "slug": "teixonera",
+    "name": "Centre Cívic Teixonera",
+    "officialUrl": "https://ajuntament.barcelona.cat/ccivics/teixonera",
+    "address": "Carrer d'Arenys, 75, 08035 Barcelona",
+    "country": "ES",
+    "city": "Barcelona",
+    "cityId": "barcelona",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "phone": "932563388",
+      "detailsSourceUrl": "https://guia.barcelona.cat/ca/detall/centre-civic-teixonera_95020142037.html",
+      "detailsVerifiedAt": "2026-11-11",
+      "location": {
+        "latitude": 41.422665250088244,
+        "longitude": 2.1445697223611813,
+        "sourceUrl": "https://guia.barcelona.cat/ca/detall/centre-civic-teixonera_95020142037.html",
+        "verifiedAt": "2026-11-11"
+      }
+    },
+    "registration": {
+      "platform": "miram",
+      "origin": "https://teixonera.inscripcionscc.com",
+      "centreCode": 19,
+      "activityType": "AC",
+      "verifiedAt": "2026-11-11",
+      "robotsTxt": "absent"
+    }
+  },
+  {
+    "id": "cc-tomasa-cuevas-les-corts",
+    "slug": "tomasa-cuevas-les-corts",
+    "name": "Centre Cívic Tomasa Cuevas - Les Corts",
+    "officialUrl": "https://ajuntament.barcelona.cat/ccivics/tomasacuevas",
+    "address": "Carrer de Dolors Masferrer i Bosch, 33-35, 08028 Barcelona",
+    "country": "ES",
+    "city": "Barcelona",
+    "cityId": "barcelona",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "phone": "932916462",
+      "detailsSourceUrl": "https://guia.barcelona.cat/ca/detall/centre-civic-tomasa-cuevas-les-corts_99026095631.html",
+      "detailsVerifiedAt": "2026-11-11",
+      "location": {
+        "latitude": 41.38495205031265,
+        "longitude": 2.1281680265887797,
+        "sourceUrl": "https://guia.barcelona.cat/ca/detall/centre-civic-tomasa-cuevas-les-corts_99026095631.html",
+        "verifiedAt": "2026-11-11"
+      }
+    },
+    "registration": {
+      "platform": "miram",
+      "origin": "https://lescorts.inscripcionscc.com",
+      "centreCode": 35,
+      "activityType": "AC",
+      "verifiedAt": "2026-11-11",
+      "robotsTxt": "absent"
+    }
+  },
+  {
+    "id": "cc-torre-llobeta",
+    "slug": "torre-llobeta",
+    "name": "Centre Cívic Torre Llobeta",
+    "officialUrl": "https://ajuntament.barcelona.cat/ccivics/torrellobeta",
+    "address": "Carrer de Santa Fe, 2 bis, 08031 Barcelona",
+    "country": "ES",
+    "city": "Barcelona",
+    "cityId": "barcelona",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "phone": "933585614",
+      "detailsSourceUrl": "https://guia.barcelona.cat/ca/detall/centre-civic-torre-llobeta_92086004700.html",
+      "detailsVerifiedAt": "2026-11-11",
+      "location": {
+        "latitude": 41.42693150965028,
+        "longitude": 2.173966250593847,
+        "sourceUrl": "https://guia.barcelona.cat/ca/detall/centre-civic-torre-llobeta_92086004700.html",
+        "verifiedAt": "2026-11-11"
+      }
+    },
+    "registration": {
+      "platform": "miram",
+      "origin": "https://torrellobeta.inscripcionscc.com",
+      "centreCode": 54,
+      "activityType": "AC",
+      "verifiedAt": "2026-11-11",
+      "robotsTxt": "absent"
+    }
   }
 ]

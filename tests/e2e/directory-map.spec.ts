@@ -104,7 +104,7 @@ test.describe('without JavaScript', () => {
     // Every centre stays reachable through plain pagination links.
     expect(await directoryLinks(page)).toHaveLength(sources.length + 1);
     expect(tileRequests).toBe(0);
-    await page.goto('/es/centros');
+    await page.goto('/es/centros?q=sant+andreu');
     await page
       .locator('.centre-directory a[href="/es/centros/sant-andreu"]')
       .click();

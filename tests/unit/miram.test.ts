@@ -32,6 +32,16 @@ describe('Miram source fixture', () => {
       records: [],
       unpublishedPreviews: 1,
     });
+    // Sant Martí's wording for the same preview.
+    expect(
+      parseMiramPage(
+        html.replace(
+          'Podreu realitzar les inscripcions en línia',
+          'Les inscripcions on-line les podreu fer',
+        ),
+        url,
+      ).unpublishedPreviews,
+    ).toBe(1);
     expect(() =>
       parseMiramPage(
         html.replace('Podreu realitzar', 'Unexpected layout'),
@@ -59,6 +69,13 @@ describe('Miram source fixture', () => {
           /Places exhaurides[^<]*/u,
           'En aquests moments no queden places online per aquesta activitat.',
         ),
+        url,
+      ).fullWithoutId,
+    ).toBe(1);
+    // Cotxeres Borrell prefixes the same notice with a counter and a date.
+    expect(
+      parseMiramPage(
+        html.replace('Places exhaurides', '0 20/07/2026 Places exhaurides'),
         url,
       ).fullWithoutId,
     ).toBe(1);

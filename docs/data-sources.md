@@ -157,6 +157,48 @@ Verified on 2026-11-10 on the shared Miram adapter:
 - Emails are omitted because the registration and municipal pages were not cross-checked.
 - The same metadata-only collection, unknown availability/language, base-price and reuse-review limitations described above apply.
 
+## Barcelona civic centres batch (issues #19–#49)
+
+Verified on 2026-11-11 on the shared Miram adapter:
+
+| Centre                                 | Source ID                       | Editions | Verified registration root                                                                 |
+| -------------------------------------- | ------------------------------- | -------: | ------------------------------------------------------------------------------------------ |
+| Centre Cívic Can Clariana Cultural     | `miram-can-clariana-cultural`   |       24 | https://canclariana.inscripcionscc.com/MiramModular/buscador/buscador.jsp?g=1&c=55&t=AC    |
+| Centre Cívic Can Deu                   | `miram-can-deu`                 |      112 | https://cccandeu.inscripcionscc.com/MiramModular/buscador/buscador.jsp?g=1&c=44&t=AC       |
+| Centre Cívic Can Felipa                | `miram-can-felipa`              |       41 | https://cccanfelipa.inscripcionscc.com/MiramModular/buscador/buscador.jsp?g=1&c=52&t=AC    |
+| Centre Cívic Casa Groga                | `miram-casa-groga`              |       14 | https://casagroga.inscripcionscc.com/MiramModular/buscador/buscador.jsp?g=1&c=3&t=AC       |
+| Centre Cívic Casa Orlandai             | `miram-casa-orlandai`           |       41 | https://casaorlandai.inscripcionscc.com/MiramModular/buscador/buscador.jsp?g=1&c=46&t=AC   |
+| Centre Cívic Convent de Sant Agustí    | `miram-convent-de-sant-agusti`  |       33 | https://conventagusti.inscripcionscc.com/MiramModular/buscador/buscador.jsp?g=1&c=47&t=AC  |
+| Centre Cívic Cotxeres Borrell          | `miram-cotxeres-borrell`        |       96 | https://cotxeresborrell.inscripcionscc.com/MiramModular/buscador/buscador.jsp?g=1&c=2&t=AC |
+| Centre Cívic del Besòs i el Maresme    | `miram-besos-i-el-maresme`      |       54 | https://besos.inscripcionscc.com/MiramModular/buscador/buscador.jsp?g=1&c=15&t=AC          |
+| Centre Cívic Bon Pastor                | `miram-bon-pastor`              |       12 | https://bonpastor.inscripcionscc.com/MiramModular/buscador/buscador.jsp?g=1&c=31&t=AC      |
+| Centre Cívic Drassanes                 | `miram-drassanes`               |       49 | https://ccdrassanes.inscripcionscc.com/MiramModular/buscador/buscador.jsp?g=1&c=53&t=AC    |
+| Centre Cívic El Carmel                 | `miram-el-carmel`               |       30 | https://carmel.inscripcionscc.com/MiramModular/buscador/buscador.jsp?g=1&c=28&t=AC         |
+| Centre Cívic El Coll - La Bruguera     | `miram-el-coll-la-bruguera`     |       13 | https://ccelcoll.inscripcionscc.com/MiramModular/buscador/buscador.jsp?g=1&c=12&t=AC       |
+| Centre Cívic Font de la Guatlla        | `miram-font-de-la-guatlla`      |       73 | https://laguatlla.inscripcionscc.com/MiramModular/buscador/buscador.jsp?g=1&c=21&t=AC      |
+| Centre Cívic Guinardó                  | `miram-guinardo`                |       41 | https://guinardo.inscripcionscc.com/MiramModular/buscador/buscador.jsp?g=1&c=37&t=AC       |
+| Centre Cívic Joan Oliver - Pere Quart  | `miram-joan-oliver-pere-quart`  |      109 | https://ccperequart.inscripcionscc.com/MiramModular/buscador/buscador.jsp?g=1&c=16&t=AC    |
+| Centre Cívic l'Elèctric                | `miram-l-electric`              |       10 | https://cclelectric.inscripcionscc.com/MiramModular/buscador/buscador.jsp?g=1&c=40&t=AC    |
+| Centre Cívic La Sagrera La Barraca     | `miram-la-sagrera-la-barraca`   |       42 | https://sagrera.inscripcionscc.com/MiramModular/buscador/buscador.jsp?g=1&c=23&t=AC        |
+| Centre Cívic Sagrada Família           | `miram-sagrada-familia`         |      146 | https://sagradafamilia.inscripcionscc.com/MiramModular/buscador/buscador.jsp?g=1&c=39&t=AC |
+| Centre Cívic Sant Martí                | `miram-sant-marti`              |       32 | https://santmarti.inscripcionscc.com/MiramModular/buscador/buscador.jsp?g=1&c=17&t=AC      |
+| Centre Cívic Teixonera                 | `miram-teixonera`               |       39 | https://teixonera.inscripcionscc.com/MiramModular/buscador/buscador.jsp?g=1&c=19&t=AC      |
+| Centre Cívic Tomasa Cuevas - Les Corts | `miram-tomasa-cuevas-les-corts` |       44 | https://lescorts.inscripcionscc.com/MiramModular/buscador/buscador.jsp?g=1&c=35&t=AC       |
+| Centre Cívic Torre Llobeta             | `miram-torre-llobeta`           |        3 | https://torrellobeta.inscripcionscc.com/MiramModular/buscador/buscador.jsp?g=1&c=54&t=AC   |
+
+- Edition counts come from a live crawl without persistence, after exclusions; every record validated. Unknown start dates are kept `null`: Tomasa Cuevas - Les Corts 9 (no parsable date range on the card), Sant Martí 3 (the same three also have no price). Production ingestion is a separate, explicitly approved operation.
+- Hosts were found by their `inscripcionscc.com` names, municipal pages (Pere Quart and Tomasa Cuevas link theirs) and city-guide listings (El Coll, Font de la Guatlla), then confirmed by each host's page title and footer (centre name and street address). Every host returned HTTP 404 for `robots.txt`; the adapter rechecks it on every run.
+- Phone numbers, addresses and coordinates come from each centre's `guia.barcelona.cat` entry (`loadmapdetall` configuration), respecting its 10-second crawl delay. Postcodes come from the registration footers. Official URLs are the municipal `ajuntament.barcelona.cat/ccivics/…` page, or the centre's own site where the guide lists one (Can Felipa, Casa Orlandai, Convent de Sant Agustí, Cotxeres Borrell, Sagrada Família).
+- Parser: Cotxeres Borrell prints its full-card notice as "0 20/07/2026 Places exhaurides…", and Sant Martí shows an ID-less preview reading "Les inscripcions on-line les podreu fer a partir del …". Both exact forms are now recognised; any other identifier-less card still stops ingestion. Sant Andreu shows a similar "Podreu realitzar les inscripcions on-line…" footer on cards that do have IDs, so that wording is deliberately not treated as a preview.
+- Exclusions: Guinardó categories `sm` (adult planetarium and telescope sessions), `GE` (stage performances) and `XP` (exhibition events), its family planetarium sessions `3861`–`3863`, `3874`, `3907`–`3909` and round table `3912` (the two family astronomy workshops stay); Sagrada Família category `RP` ("Parlem…" talks); Drassanes category `BD` (Barcelona Districte Cultural shows, including an ID-less preview); Sant Martí `2633` (children's film screening). Guided walks and itineraries (Sagrada Família `IT`, Pere Quart `SO`, Font de la Guatlla `09`) are kept, as at Navas.
+- Not added yet:
+  - **Can Verdaguer (#22)**: `canverdaguer.inscripcionscc.com` (centre code 24) currently publishes only the `CE` shows-and-talks type, so there is no course catalogue to verify.
+  - **Cotxeres de Sants (#28) and Casinet d'Hostafrancs (#25)**: both register through one combined host, `cotxerescasinet.inscripcionscc.com` ("Centre Cívic Cotxeres-Casinet", centre code 34). Splitting its editions between the two venues needs a modelling decision.
+  - **Josep Maria Trias i Peitx (#37)**: older programmes point to `inscripcions.ccrierablanca.com`, which does not resolve, and the host is outside the approved Miram suffixes.
+  - **La Cadena (#39)**: `lacadena.inscripcionscc.com` currently exposes no navigation or centre code.
+- Emails are omitted because the registration and municipal pages were not cross-checked.
+- The same metadata-only collection, unknown availability/language, base-price and reuse-review limitations described above apply.
+
 ## Alicante — Aula Abierta (municipal culture classes), paused
 
 - Listing: https://w3.alicante.es/cultura/aula-abierta/consulta-cursos.php (optionally `?aula=<code>`); researched 2026-11-09.

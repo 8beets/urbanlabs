@@ -38,10 +38,12 @@ for (const locale of ['es', 'ca'] as const) {
     expect(links).toHaveLength(sources.length + 1);
     for (const source of sources) {
       const profile = centreProfile(source.institution.id);
-      expect(links).toContainEqual({
-        href: `${base}/${profile.slug}`,
-        name: source.institution.name,
-      });
+      expect(links).toContainEqual(
+        expect.objectContaining({
+          href: `${base}/${profile.slug}`,
+          name: source.institution.name,
+        }),
+      );
     }
     for (const source of sources) {
       const profile = centreProfile(source.institution.id);
@@ -111,17 +113,16 @@ for (const locale of ['es', 'ca'] as const) {
     );
     await expect(page.locator('.course')).toHaveCount(0);
     await page.goto(base);
-    // Only centres flagged as temporarily closed carry the label in the directory.
-    const closed = page.locator('.centre-directory .closure-label');
-    await expect(closed).toHaveCount(1);
-    await expect(closed).toHaveText(
+    // Only centres flagged as temporarily closed carry the label, on any directory page.
+    const closedNames = (await directoryLinks(page))
+      .filter((link) => link.closed)
+      .map((link) => link.name);
+    expect(closedNames).toHaveLength(1);
+    expect(closedNames[0]).toContain('Casa del Mig');
+    await page.goto(`${base}?q=casa+del+mig`);
+    await expect(page.locator('.centre-directory .closure-label')).toHaveText(
       locale === 'es' ? 'Cerrado temporalmente' : 'Tancat temporalment',
     );
-    await expect(
-      page.locator('.centre-directory article', {
-        has: page.locator('.closure-label'),
-      }),
-    ).toContainText('Casa del Mig');
     // The directory search works without JavaScript, ignores accents and keeps its URL.
     await page.goto(`${base}?q=civic+pienc`);
     await expect(page.locator('.centre-directory article')).toHaveCount(1);
