@@ -14,7 +14,15 @@ import {
   listCategories,
   listCourses,
   listLatestCourses,
+  listNewCourses,
 } from '../../src/lib/db/courses';
+import {
+  confirmSubscription,
+  findSubscription,
+  insertPendingSubscription,
+  listDueSubscriptions,
+  markDigestsSent,
+} from '../../src/lib/db/subscriptions';
 
 const santAndreu = getSource('miram-sant-andreu');
 
@@ -150,6 +158,46 @@ it('applies the migration and imports idempotently in the actual local D1 runtim
     expect(
       await db.prepare('SELECT count(*) AS n FROM source_records').first('n'),
     ).toBe(4);
+
+    // Alert subscriptions: the expression unique index and the repository SQL in real D1.
+    const alert = {
+      email: 'ana@example.org',
+      locale: 'es' as const,
+      category: null,
+      countryCode: 'ES',
+      cityId: 'barcelona',
+    };
+    const id = crypto.randomUUID();
+    await insertPendingSubscription(db, id, alert, '2020-01-01T00:00:00.000Z');
+    await insertPendingSubscription(
+      db,
+      crypto.randomUUID(),
+      alert,
+      '2020-01-01T00:00:00.000Z',
+    );
+    expect((await findSubscription(db, alert.email, alert))?.id).toBe(id);
+    await confirmSubscription(db, id, '2020-01-02T00:00:00.000Z');
+    expect(
+      (await listDueSubscriptions(db, '2020-01-09T00:00:00.000Z', 10)).map(
+        (row) => row.id,
+      ),
+    ).toEqual([id]);
+    const fresh = await listNewCourses(
+      db,
+      '2020-01-01T00:00:00.000Z',
+      '2026-11-06',
+    );
+    expect(fresh.courses).toHaveLength(4);
+    expect(fresh.courses.every((course) => course.cityId === 'barcelona')).toBe(
+      true,
+    );
+    await markDigestsSent(db, [id], '2020-01-09T00:00:00.000Z');
+    expect(
+      await listDueSubscriptions(db, '2020-01-09T00:00:00.000Z', 10),
+    ).toHaveLength(1);
+    expect(
+      await listDueSubscriptions(db, '2020-01-08T23:59:59.000Z', 10),
+    ).toHaveLength(0);
   } finally {
     await platform.dispose();
   }

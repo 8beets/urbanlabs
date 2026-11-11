@@ -1,0 +1,43 @@
+name: Course alert digests
+on:
+  # Manual only until the Brevo domain, secrets and migration 0011 are in place
+  # (docs/deployment.md). Then add a daily schedule, e.g. cron: '23 7 * * *'.
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Report what would be sent without sending or writing'
+        type: boolean
+        default: true
+permissions:
+  contents: read
+concurrency:
+  group: urbanlabs-alerts
+  cancel-in-progress: false
+env:
+  WRANGLER_SEND_METRICS: 'false'
+  CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+  CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+jobs:
+  digests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      EMAIL_PROVIDER: brevo
+      BREVO_API_KEY: ${{ secrets.BREVO_API_KEY }}
+      EMAIL_FROM: ${{ vars.EMAIL_FROM }}
+      SITE_URL: ${{ vars.SITE_URL }}
+      ALERT_TOKEN_SECRET: ${{ secrets.ALERT_TOKEN_SECRET }}
+      DRY_RUN: ${{ inputs.dry_run }}
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - run: npm run i18n:compile
+      - name: Send due digests
+        run: |
+          if [ "$DRY_RUN" = "true" ]; then npm run alerts:send -- --dry-run; else npm run alerts:send; fi

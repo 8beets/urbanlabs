@@ -11,12 +11,15 @@ import CourseFilters from './CourseFilters.astro';
 import SiteLayout from '../layouts/SiteLayout.astro';
 import CourseCard from './CourseCard.astro';
 import Icon from './Icon.astro';
+import { alertPath } from '../lib/alerts/emails';
 
 interface Props {
   locale: Locale;
   data: DiscoveryPageData;
+  /** Whether email alerts are configured in this deployment. */
+  alerts?: boolean;
 }
-const { locale, data } = Astro.props;
+const { locale, data, alerts = false } = Astro.props;
 const { courses, centres, filters, hasNext, error } = data;
 const officialSources = sources.filter((source) => {
   const city = data.geography.cities.find(
@@ -88,6 +91,11 @@ if (filters.maxPriceCents !== null)
     key: 'maxPrice',
     label: `${m.price({}, { locale })}: ${new Intl.NumberFormat(locale, { style: 'currency', currency: 'EUR' }).format(filters.maxPriceCents / 100)}`,
   });
+// Alerts follow only category and city; other filters are not part of a subscription.
+const alertParams = new URLSearchParams();
+if (filters.category) alertParams.set('category', filters.category);
+if (filters.city) alertParams.set('city', filters.city);
+const alertUrl = `${alertPath(locale)}${alertParams.size ? `?${alertParams}` : ''}`;
 function pageUrl(page: number) {
   const params = new URLSearchParams(Astro.url.searchParams);
   params.set('page', String(page));
@@ -143,6 +151,11 @@ function filterUrl(key: string, value: string) {
             <a href={root}>{m.clear({}, { locale })}</a>
           )}
         </div>
+        {alerts && !archive && (
+          <p class="alert-link">
+            <a href={alertUrl}>{m.alertsFromSearch({}, { locale })}</a>
+          </p>
+        )}
         {appliedFilters.length > 0 && (
           <div
             class="applied-filters"

@@ -118,3 +118,18 @@ excludes them. Search accepts `cancellation=hide` or `cancellation=only` (omitti
 shows all). The filter composes with geography, centre, category, search, and price,
 and narrows dependent centre/category options. Source prices remain stored even when
 a zero price is hidden on a cancelled card.
+
+### Alert subscriptions (personal data)
+
+`0011_course_alerts.sql` adds `alert_subscriptions`, the only table holding personal
+data (an email address). Each row targets a category, a city, or both; a CHECK
+enforces that at least one is set. The unique expression index on
+`(email, ifnull(category,''), ifnull(city_id,''))` allows one row per address and
+target. The city references `cities(country_code, id)`. Confirmed rows always have
+`confirmed_at` and `last_digest_at`; confirmation sets `last_digest_at`, so finding
+due digests is one indexed range on `(status, last_digest_at)`.
+
+No token is stored: links are HMAC-signed from the row id. Retention: unsubscribing
+deletes the row, and the alerts job deletes pending rows older than 7 days.
+`listNewCourses` reads the `source_records_first_seen` index once per digest run,
+capped at 2,000 editions.

@@ -16,6 +16,7 @@ UrbanLabs helps people discover courses and visit the organizer's official listi
 - Localized centre directories and individual centre pages with verified contact details, shared Leaflet/OpenStreetMap maps, and upcoming courses.
 - Localized 404 page with links to the homepage, course search, and centre directory; unknown URLs default to Spanish unless prefixed with `/ca/`.
 - Explicit source cancellations are labelled in Spanish and Catalan, sorted after other courses, and excluded from the homepage. Search can hide or show only cancelled courses; zero prices are hidden on cancelled cards.
+- Weekly email alerts for new courses by category and/or city: Turnstile-protected double opt-in, one-click unsubscribe that deletes the data, and a swappable email provider (Brevo free tier). Disabled until production email is configured; see [ADR 0007](docs/adr/0007-email-alerts.md).
 - Deterministic unit/SQLite contract tests, a separate D1 runtime suite, Playwright tests, and CI.
 
 Sources verified on 2026-11-06:

@@ -15,12 +15,23 @@
       "migrations_dir": "migrations",
     },
   ],
+  // Local development and E2E only: Turnstile's documented always-pass test keys, a
+  // throwaway token secret, and the log email adapter. Vars are not inherited by envs.
+  "vars": {
+    "EMAIL_PROVIDER": "log",
+    "TURNSTILE_SITE_KEY": "1x00000000000000000000AA",
+    "TURNSTILE_SECRET_KEY": "1x0000000000000000000000000000000AA",
+    "ALERT_TOKEN_SECRET": "local-development-only-not-a-real-secret-000",
+  },
   "observability": { "enabled": true, "traces": { "enabled": true } },
   "env": {
     "production": {
       "name": "learnaprop",
       "workers_dev": true,
       "preview_urls": false,
+      // Alerts stay hidden until TURNSTILE_SITE_KEY and EMAIL_FROM are added here and the
+      // BREVO_API_KEY, TURNSTILE_SECRET_KEY and ALERT_TOKEN_SECRET secrets exist (docs/deployment.md).
+      "vars": { "EMAIL_PROVIDER": "brevo" },
       "d1_databases": [
         {
           "binding": "DB",

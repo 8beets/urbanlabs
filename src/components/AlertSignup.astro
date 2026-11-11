@@ -1,0 +1,130 @@
+---
+import { m } from '../paraglide/messages.js';
+import { cityLabel } from '../i18n/geography';
+import { courseSearchPath } from '../i18n/paths';
+import { categoryLabel, type Locale } from '../i18n/ui';
+import { alertPath } from '../lib/alerts/emails';
+import type { SignupPageData } from '../lib/alerts/page';
+import SiteLayout from '../layouts/SiteLayout.astro';
+
+interface Props {
+  locale: Locale;
+  data: SignupPageData;
+}
+const { locale, data } = Astro.props;
+const { values } = data;
+const errors = {
+  email: m.alertsInvalidEmail,
+  target: m.alertsInvalidTarget,
+  verification: m.alertsVerificationFailed,
+} as const;
+const query = Astro.request.method === 'GET' ? Astro.url.search : '';
+---
+
+<SiteLayout
+  locale={locale}
+  title={m.alertsPageTitle({}, { locale })}
+  section="none"
+  languagePaths={{
+    es: `${alertPath('es')}${query}`,
+    ca: `${alertPath('ca')}${query}`,
+  }}
+>
+  <section class="alert-page" aria-labelledby="title">
+    <h1 id="title">{m.alertsTitle({}, { locale })}</h1>
+    <p class="intro">{m.alertsIntro({}, { locale })}</p>
+    {data.state === 'unavailable' && (
+      <p role="alert" class="error">
+        {m.alertsUnavailable({}, { locale })}
+      </p>
+    )}
+    {data.state === 'sent' && (
+      <p role="status" class="notice">
+        {m.alertsCheckInbox({}, { locale })}
+      </p>
+    )}
+    {data.state !== 'unavailable' && (
+      <form method="post" class="alert-form" novalidate>
+        {data.error && (
+          <p role="alert" id="alert-error" class="error">
+            {errors[data.error]({}, { locale })}
+          </p>
+        )}
+        <div>
+          <label for="email">{m.alertsEmail({}, { locale })}</label>
+          <input
+            id="email"
+            name="email"
+            type="email"
+            autocomplete="email"
+            required
+            maxlength="254"
+            value={values.email}
+            aria-invalid={data.error === 'email' ? 'true' : undefined}
+            aria-describedby={
+              data.error === 'email' ? 'alert-error' : undefined
+            }
+          />
+        </div>
+        <fieldset
+          class="filter-group"
+          aria-describedby="target-hint"
+          aria-invalid={data.error === 'target' ? 'true' : undefined}
+        >
+          <legend id="target-hint">{m.alertsTargetHint({}, { locale })}</legend>
+          <div>
+            <label for="category">{m.category({}, { locale })}</label>
+            <select id="category" name="category">
+              <option value="" selected={!values.category}>
+                {m.alertsAnyCategory({}, { locale })}
+              </option>
+              {data.categories.map((category) => (
+                <option
+                  value={category}
+                  selected={values.category === category}
+                >
+                  {categoryLabel(category, locale)}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div>
+            <label for="city">{m.city({}, { locale })}</label>
+            <select id="city" name="city">
+              <option value="" selected={!values.city}>
+                {m.alertsAnyCity({}, { locale })}
+              </option>
+              {data.cities.map((city) => (
+                <option value={city.id} selected={values.city === city.id}>
+                  {cityLabel(city, locale)}
+                </option>
+              ))}
+            </select>
+          </div>
+        </fieldset>
+        <div
+          class="cf-turnstile"
+          data-sitekey={data.siteKey}
+          data-language={locale}
+        ></div>
+        <p class="alert-privacy">{m.alertsPrivacy({}, { locale })}</p>
+        <div>
+          <button type="submit">{m.alertsSubmit({}, { locale })}</button>
+        </div>
+      </form>
+    )}
+    <p>
+      <a href={courseSearchPath(locale)}>
+        {m.alertsBackToSearch({}, { locale })}
+      </a>
+    </p>
+  </section>
+  {data.state !== 'unavailable' && (
+    <script
+      is:inline
+      src="https://challenges.cloudflare.com/turnstile/v0/api.js"
+      async
+      defer
+    ></script>
+  )}
+</SiteLayout>

@@ -1,0 +1,73 @@
+---
+import { m } from '../paraglide/messages.js';
+import { courseSearchPath } from '../i18n/paths';
+import type { Locale } from '../i18n/ui';
+import { alertPath } from '../lib/alerts/emails';
+import type { TokenPageData } from '../lib/alerts/page';
+import SiteLayout from '../layouts/SiteLayout.astro';
+
+interface Props {
+  locale: Locale;
+  purpose: 'confirm' | 'unsubscribe';
+  data: TokenPageData;
+}
+const { locale, purpose, data } = Astro.props;
+const confirm = purpose === 'confirm';
+const title = confirm
+  ? m.alertsConfirmTitle({}, { locale })
+  : m.alertsUnsubscribeTitle({}, { locale });
+const query = data.token ? `?token=${encodeURIComponent(data.token)}` : '';
+---
+
+<SiteLayout
+  locale={locale}
+  title={`${title} · UrbanLabs`}
+  section="none"
+  languagePaths={{
+    es: `${alertPath('es', purpose)}${query}`,
+    ca: `${alertPath('ca', purpose)}${query}`,
+  }}
+>
+  <section class="alert-page" aria-labelledby="title">
+    <h1 id="title">{title}</h1>
+    {data.state === 'ask' && (
+      <form method="post" class="alert-form">
+        <p>
+          {confirm
+            ? m.alertsConfirmIntro({ target: data.target }, { locale })
+            : m.alertsUnsubscribeIntro({ target: data.target }, { locale })}
+        </p>
+        <input type="hidden" name="token" value={data.token} />
+        <div>
+          <button type="submit">
+            {confirm
+              ? m.alertsConfirmButton({}, { locale })
+              : m.alertsUnsubscribeButton({}, { locale })}
+          </button>
+        </div>
+      </form>
+    )}
+    {data.state === 'done' && (
+      <p role="status" class="notice">
+        {confirm
+          ? m.alertsConfirmed({}, { locale })
+          : m.alertsUnsubscribed({}, { locale })}
+      </p>
+    )}
+    {data.state === 'invalid' && (
+      <p role="alert" class="error">
+        {m.alertsInvalidLink({}, { locale })}
+      </p>
+    )}
+    {data.state === 'unavailable' && (
+      <p role="alert" class="error">
+        {m.alertsUnavailable({}, { locale })}
+      </p>
+    )}
+    <p>
+      <a href={courseSearchPath(locale)}>
+        {m.alertsBackToSearch({}, { locale })}
+      </a>
+    </p>
+  </section>
+</SiteLayout>

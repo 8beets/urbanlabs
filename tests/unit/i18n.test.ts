@@ -29,8 +29,18 @@ describe('Paraglide translation catalogs', () => {
       for (const [key, text] of Object.entries(translations)) {
         expect(text.trim(), `${locale}.${key}`).not.toBe('');
         expect(Object.hasOwn(m, key), key).toBe(true);
-        const message = m[key as keyof typeof m];
-        expect(message({}, { locale }), `${locale}.${key}`).toBe(text);
+        const message = m[key as keyof typeof m] as (
+          inputs: Record<string, string>,
+          options: { locale: typeof locale },
+        ) => string;
+        // Passing each placeholder its own literal name must reproduce the catalog text.
+        const inputs = Object.fromEntries(
+          [...text.matchAll(/\{(\w+)\}/g)].map(([placeholder, name]) => [
+            name!,
+            placeholder,
+          ]),
+        );
+        expect(message(inputs, { locale }), `${locale}.${key}`).toBe(text);
       }
     }
   });

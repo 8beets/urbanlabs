@@ -1,0 +1,18 @@
+---
+import { env } from 'cloudflare:workers';
+import AlertToken from '../../../components/AlertToken.astro';
+import { loadTokenPage } from '../../../lib/alerts/page';
+const data = await loadTokenPage(
+  env,
+  Astro.request,
+  Astro.url,
+  'es',
+  'unsubscribe',
+);
+Astro.response.status = data.status;
+Astro.response.headers.set('Cache-Control', 'no-store');
+// Tokens travel in the URL; keep them out of Referer headers.
+Astro.response.headers.set('Referrer-Policy', 'no-referrer');
+---
+
+<AlertToken locale="es" data={data} purpose="unsubscribe" />

@@ -5,6 +5,7 @@ import { getPlatformProxy } from 'wrangler';
 import { runIngestion } from '../../src/lib/ingestion/run';
 import { parseMiramPage } from '../../src/lib/ingestion/adapters/miram';
 import { selectSources } from '../../src/lib/sources';
+import { E2E_ALERT_IDS } from './alert-fixtures';
 
 const santAndreu = getSource('miram-sant-andreu');
 const canBaste = getSource('miram-can-baste');
@@ -275,6 +276,16 @@ async function setup() {
         "UPDATE courses SET reviewed_title='TEST REVIEWED COURSE: JOAN' WHERE title='TEST dance workshop'",
       )
       .run();
+    // Pending alert subscriptions, one per Playwright project, reset on every run so the
+    // confirm/unsubscribe flow starts from the same state. Synthetic addresses only.
+    for (const id of E2E_ALERT_IDS)
+      await db
+        .prepare(
+          `INSERT OR REPLACE INTO alert_subscriptions(id,email,locale,category,country_code,city_id,status,created_at)
+          VALUES (?, ?, 'es', 'IDIOMES', 'ES', 'barcelona', 'pending', '2099-01-01T00:00:00.000Z')`,
+        )
+        .bind(id, `test-${id}@example.invalid`)
+        .run();
   } finally {
     await platform.dispose();
   }
