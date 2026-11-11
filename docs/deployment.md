@@ -216,5 +216,5 @@ Whether static pages link to email alerts is decided at build time: they do when
 the next scheduled build) so the links appear.
 
 Verified locally with `wrangler dev` on the build output: prerendered pages, the
-search index and `_redirects` rules are served without invoking the Worker; the alert
+search index and the `/` redirect are served without invoking the Worker; the alert
 pages and unknown URLs are. This has not yet been verified on the production account.

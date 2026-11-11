@@ -13,24 +13,19 @@ test.beforeEach(async ({ page }) => {
   );
 });
 
-test('legacy Spanish URLs redirect permanently to their prefixed paths', async ({
+test('the bare domain opens the Spanish site; old unprefixed URLs are gone', async ({
   request,
   page,
 }) => {
-  for (const [oldPath, newPath] of [
-    ['/', '/es/'],
-    ['/centros', '/es/centros'],
-    ['/centros/sant-andreu', '/es/centros/sant-andreu'],
-  ] as const) {
-    const response = await request.get(oldPath, { maxRedirects: 0 });
-    expect(response.status()).toBe(308);
-    expect(new URL(response.headers().location!, 'http://x').pathname).toBe(
-      newPath,
-    );
-  }
-  await page.goto('/centros/sant-andreu');
-  await expect(page).toHaveURL('/es/centros/sant-andreu');
+  const root = await request.get('/', { maxRedirects: 0 });
+  expect(root.status()).toBe(308);
+  expect(new URL(root.headers().location!, 'http://x').pathname).toBe('/es/');
+  await page.goto('/');
+  await expect(page).toHaveURL('/es/');
   await expect(page.locator('html')).toHaveAttribute('lang', 'es');
+  // Old unprefixed centre URLs are not redirected (ADR 0008).
+  for (const path of ['/centros', '/centros/sant-andreu'])
+    expect((await request.get(path, { maxRedirects: 0 })).status()).toBe(404);
 });
 
 test('all page links and search forms use explicit locale prefixes', async ({

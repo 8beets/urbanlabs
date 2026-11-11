@@ -1,4 +1,2 @@
-# Legacy unprefixed URLs (static rules; query strings are not carried over).
+# The bare domain opens the Spanish site. Old unprefixed URLs are not redirected.
 / /es/ 308
-/centros /es/centros 308
-/centros/* /es/centros/:splat 308

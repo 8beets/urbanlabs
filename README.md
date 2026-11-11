@@ -126,7 +126,7 @@ npm run test:e2e
 `npm test` uses saved source fixtures and real Node SQLite for SQL contract tests.
 `npm run test:d1` exercises the actual local D1 runtime separately. Playwright covers
 Spanish and Catalan discovery, filtering, pagination, centre pages, embedded-map
-URLs, language switching, legacy redirects, and desktop/mobile behaviour, against the
+URLs, language switching, the root redirect, and desktop/mobile behaviour, against the
 static build served by `wrangler dev` (assets first, alert pages on the Worker). Routine
 tests do not contact source websites or map services.
 

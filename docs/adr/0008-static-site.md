@@ -40,7 +40,7 @@ remove_diacritics 2` prefix query (`title-match.ts`). The integration tests that
   Brevo, unchanged (ADR 0007). Whether static pages link to alerts is decided at
   build time from public configuration (`alertsAdvertised`); the alert pages still
   check the full configuration, secrets included, per request.
-- **Static routing.** `public/_redirects` holds the legacy redirects; `public/_headers`
+- **Static routing.** `public/_redirects` only sends `/` to `/es/`; `public/_headers`
   makes browsers revalidate HTML and the search index. Pages use
   `build.format: 'preserve'` so URLs keep their current shape (`/es/buscar`,
   `/es/centros/sant-andreu`). Centre and category pages paginate in the path
@@ -58,9 +58,10 @@ remove_diacritics 2` prefix query (`title-match.ts`). The integration tests that
 3. Pages may be up to about a day old (rebuilt after each ingestion and daily).
    Prerendered cards carry their end date, and a small script hides editions that
    ended since the build.
-4. Legacy query strings are not kept: old homepage filter URLs show the homepage,
-   old `?page=` links show the first page, and the directory filter is client-side
-   only. The search page keeps its filters in the URL so searches stay shareable.
+4. Old URLs are not kept: the unprefixed `/centros` URLs are no longer redirected
+   (only the bare domain `/` goes to `/es/`), old homepage filter URLs show the
+   homepage, old `?page=` links show the first page, and the directory filter is
+   client-side only. The search page keeps its filters in the URL so searches stay shareable.
 5. Production deploys without a human step on the triggers above.
 6. The change ships as one cutover; the site had no real traffic yet.
 

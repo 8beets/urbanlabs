@@ -49,14 +49,14 @@ Localized pages live in matching `src/pages/es/` and `src/pages/ca/` folders.
 Shared navigation uses the helpers in `src/i18n/paths.ts`, which build the same
 prefixed URLs as `astro:i18n` without that virtual module so browser scripts can use
 them, with explicit translated path segments (`buscar`/`cerca`, `centros`/`centres`).
-The legacy `/` and `/centros/*` redirects are static rules in `public/_redirects`.
+`public/_redirects` sends the bare domain `/` to `/es/`; old unprefixed URLs such as
+`/centros` are not redirected and return 404.
 The search index (`/search/*.json`) and static assets remain outside locale folders.
 
 All page navigation includes a locale prefix: Spanish discovery is `/es/` and
 Catalan discovery is `/ca/`. Filters, pagination, centre links and language
-switching retain that prefix. Legacy `/`, `/centros` and `/centros/[slug]` routes
-return HTTP 308 redirects to their Spanish equivalents; query strings are not
-guaranteed to survive (ADR 0008).
+switching retain that prefix. `/` redirects to `/es/`; the old unprefixed `/centros`
+and `/centros/[slug]` URLs are no longer redirected (ADR 0008).
 Static assets and third-party source/map URLs retain their own paths.
 
 Directory and individual centre maps use `InteractiveCentreMap.astro` and the shared
