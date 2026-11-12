@@ -51,16 +51,21 @@ describe('freshness check', () => {
     expect(report.sources[0]!.ageDays).toBeNull();
   });
   it('renders nothing when fresh and a readable report when not', () => {
-    expect(renderFreshnessReport({ profiles: [], sources: [] }, options)).toBe(
-      null,
-    );
+    expect(
+      renderFreshnessReport(
+        { profiles: [], sources: [], categories: [] },
+        options,
+      ),
+    ).toBe(null);
     const text = renderFreshnessReport(
       {
         profiles: [],
         sources: [{ id: 'a', lastSuccessAt: null, ageDays: null }],
+        categories: ['NOVA CATEGORIA'],
       },
       options,
     )!;
     expect(text).toContain('`a`: never imported');
+    expect(text).toContain('- `NOVA CATEGORIA`');
   });
 });

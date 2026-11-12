@@ -25,12 +25,12 @@ const SECRET = 'unit-test-secret-that-is-long-enough-000';
 const form = (values: Record<string, string>) => new URLSearchParams(values);
 
 describe('alert request validation', () => {
-  it('normalizes a valid request and canonicalizes the category', () => {
+  it('normalizes a valid request', () => {
     expect(
       parseAlertRequest(
         form({
           email: ' Ana@Example.ORG ',
-          category: 'Cuina',
+          category: 'cuina',
           city: 'barcelona',
         }),
         'ca',
@@ -38,18 +38,19 @@ describe('alert request validation', () => {
     ).toEqual({
       email: 'ana@example.org',
       locale: 'ca',
-      category: 'CUINA',
+      category: 'cuina',
       countryCode: null,
       cityId: 'barcelona',
     });
   });
 
   it.each([
-    [{ email: 'not-an-email', category: 'CUINA' }, 'email'],
-    [{ email: 'a@b.c<script>', category: 'CUINA' }, 'email'],
-    [{ email: `${'a'.repeat(250)}@b.cd`, category: 'CUINA' }, 'email'],
+    [{ email: 'not-an-email', category: 'cuina' }, 'email'],
+    [{ email: 'a@b.c<script>', category: 'cuina' }, 'email'],
+    [{ email: `${'a'.repeat(250)}@b.cd`, category: 'cuina' }, 'email'],
     [{ email: 'a@b.cd' }, 'target'],
     [{ email: 'a@b.cd', category: 'CU\u0000INA' }, 'category'],
+    [{ email: 'a@b.cd', category: 'CUINA' }, 'category'],
     [{ email: 'a@b.cd', city: 'Barcelona!' }, 'city'],
   ])('rejects %j', (values, reason) => {
     expect(() => parseAlertRequest(form(values), 'es')).toThrowError(
@@ -132,7 +133,7 @@ function course(overrides: Partial<NewCourse>): NewCourse {
 
 describe('digest matching', () => {
   const target = {
-    category: 'CUINA',
+    category: 'cuina',
     countryCode: 'ES',
     cityId: 'barcelona',
     lastDigestAt: '2026-11-01T00:00:00.000Z',
@@ -179,13 +180,15 @@ describe('alert emails', () => {
     expect(alertPath('ca', 'confirm')).toBe('/ca/alertes/confirmar');
     expect(alertPath('ca', 'unsubscribe')).toBe('/ca/alertes/baixa');
     expect(alertPath('es', 'unsubscribe')).toBe('/es/alertas/baja');
-    const target = { category: 'CUINA', countryCode: 'ES', cityId: 'alicante' };
-    expect(describeTarget(target, 'es', cities)).toBe('Cocina en Alicante');
+    const target = { category: 'cuina', countryCode: 'ES', cityId: 'alicante' };
+    expect(describeTarget(target, 'es', cities)).toBe(
+      'Cocina y gastronomía en Alicante',
+    );
     expect(describeTarget({ ...target, category: null }, 'ca', cities)).toBe(
       'cursos a Alacant',
     );
     expect(searchUrl('https://urbanlabs.example', target, 'ca')).toBe(
-      'https://urbanlabs.example/ca/cerca?category=CUINA&country=ES&city=alicante',
+      'https://urbanlabs.example/ca/cerca?category=cuina&country=ES&city=alicante',
     );
   });
 
@@ -195,7 +198,7 @@ describe('alert emails', () => {
       locale: 'es',
       target: 'Cocina',
       courses: [course({ title: '<script>alert(1)</script> & "co"' })],
-      searchUrl: 'https://urbanlabs.example/es/buscar?category=CUINA',
+      searchUrl: 'https://urbanlabs.example/es/buscar?category=cuina',
       unsubscribeUrl: 'https://urbanlabs.example/es/alertas/baja?token=a.b',
     });
     expect(message.html).not.toContain('<script>');

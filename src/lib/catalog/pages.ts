@@ -1,7 +1,6 @@
 import { sources } from '../sources';
 import { alertsAdvertised } from '../alerts/page';
 import type { AlertOptions } from '../alerts/options';
-import { foldText } from './title-match';
 import { defaultFilters, discover, type DiscoveryPageData } from './discovery';
 import { buildDate, loadSnapshot } from './snapshot-file';
 import {
@@ -116,15 +115,6 @@ export function directoryFrom(snapshot: Snapshot): DirectoryData {
   };
 }
 
-/** URL segment for a canonical category: folded, lowercase, hyphenated. */
-export function categorySlug(category: string): string {
-  return (
-    foldText(category)
-      .replace(/[^\p{L}\p{N}]+/gu, '-')
-      .replace(/^-+|-+$/g, '') || 'categoria'
-  );
-}
-
 export interface CategoryPage {
   slug: string;
   category: string;
@@ -132,8 +122,8 @@ export interface CategoryPage {
 }
 
 /**
- * One browsable page per category group with live editions, so the catalogue stays
- * reachable without JavaScript. Slugs are made unique deterministically.
+ * One browsable page per topic with live editions, so the catalogue stays reachable
+ * without JavaScript. Topic ids are the slugs.
  */
 export function loadCategoryPages(): CategoryPage[] {
   const { snapshot, today } = context();
@@ -145,20 +135,13 @@ export function categoryPagesFrom(
   today: string,
 ): CategoryPage[] {
   const { categories } = discover(snapshot, new URLSearchParams(), today);
-  const used = new Set<string>();
-  return categories.map((category) => {
-    const base = categorySlug(category);
-    let slug = base;
-    for (let n = 2; used.has(slug); n++) slug = `${base}-${n}`;
-    used.add(slug);
-    return {
-      slug,
-      category,
-      courses: filterCourses(
-        snapshot,
-        { ...defaultFilters, category },
-        today,
-      ).map(canonicalListing),
-    };
-  });
+  return categories.map((category) => ({
+    slug: category,
+    category,
+    courses: filterCourses(
+      snapshot,
+      { ...defaultFilters, category },
+      today,
+    ).map(canonicalListing),
+  }));
 }

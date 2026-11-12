@@ -3,8 +3,12 @@ import { courseCardHtml } from '../../src/lib/courses/card';
 import { escapeHtml } from '../../src/lib/html';
 import { discover } from '../../src/lib/catalog/discovery';
 import { discoveryResultsHtml } from '../../src/lib/catalog/discovery-view';
-import { categorySlug, categoryPagesFrom } from '../../src/lib/catalog/pages';
-import { catalogToday, liveUntil } from '../../src/lib/catalog/query';
+import { categoryPagesFrom } from '../../src/lib/catalog/pages';
+import {
+  canonicalListing,
+  catalogToday,
+  liveUntil,
+} from '../../src/lib/catalog/query';
 import {
   buildSearchIndexes,
   decodeIndexes,
@@ -144,11 +148,11 @@ describe('course card markup', () => {
   });
   it('keeps the active filters on the category link and marks liveness', () => {
     const html = courseCardHtml(
-      edition({}),
+      canonicalListing(edition({})),
       'ca',
       new URLSearchParams('q=test&page=3'),
     );
-    expect(html).toContain('href="/ca/cerca?q=test&amp;category=IDIOMES"');
+    expect(html).toContain('href="/ca/cerca?q=test&amp;category=idiomes"');
     expect(html).toContain('data-live-until="2099-02-01"');
     expect(html).toContain('href="/ca/centres/test"');
   });
@@ -195,13 +199,10 @@ describe('results view', () => {
 });
 
 describe('category pages', () => {
-  it('use readable, unique, deterministic slugs for canonical groups', () => {
-    expect(categorySlug('ESPAI FOTOGRÀFIC')).toBe('espai-fotografic');
-    expect(categorySlug("ReGENERA'T")).toBe('regenera-t');
-    expect(categorySlug('***')).toBe('categoria');
+  it('use topic ids as slugs, in topic order', () => {
     const pages = categoryPagesFrom(snapshot, '2026-11-11');
     expect(pages.map((page) => [page.slug, page.courses.length])).toEqual([
-      ['fotografia', 1],
+      ['fotografia-i-audiovisual', 1],
       ['idiomes', 1],
     ]);
   });

@@ -1,7 +1,10 @@
 import { appendFileSync, writeFileSync } from 'node:fs';
 import { parseArgs } from 'node:util';
 import { WranglerIngestionDatabase } from '../src/lib/db/wrangler-ingestion';
-import { loadSourceStatuses } from '../src/lib/db/ingestion-status';
+import {
+  loadSourceCategories,
+  loadSourceStatuses,
+} from '../src/lib/db/ingestion-status';
 import { centres } from '../src/lib/centres/registry';
 import {
   checkFreshness,
@@ -24,8 +27,11 @@ const statuses = offline
       new WranglerIngestionDatabase(),
       sources.map((source) => source.id),
     );
+const categories = offline
+  ? []
+  : await loadSourceCategories(new WranglerIngestionDatabase());
 const markdown = renderFreshnessReport(
-  checkFreshness(centres, statuses, options),
+  checkFreshness(centres, statuses, options, categories),
   options,
 );
 console.log(markdown ?? 'Everything is fresh.');

@@ -1,7 +1,8 @@
 ---
 import { m } from '../paraglide/messages.js';
 import { courseSearchPath } from '../i18n/paths';
-import { categoryLabel, type Locale } from '../i18n/ui';
+import { audienceLabel, categoryLabel, type Locale } from '../i18n/ui';
+import { AUDIENCES } from '../lib/courses/categories';
 import type { DiscoveryPageData } from '../lib/catalog/discovery';
 import { startMonthLabel } from '../lib/courses/start-month';
 import Icon from './Icon.astro';
@@ -22,6 +23,7 @@ const formFields = new Set([
   'q',
   'centre',
   'category',
+  'audience',
   'maxPrice',
   'start',
   'page',
@@ -129,6 +131,19 @@ const formFields = new Set([
             {categories.map((category) => (
               <option value={category} selected={filters.category === category}>
                 {categoryLabel(category, locale)}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div>
+          <label for="audience">{m.audience({}, { locale })}</label>
+          <select id="audience" name="audience">
+            <option value="" selected={!filters.audience}>
+              {m.allAudiences({}, { locale })}
+            </option>
+            {AUDIENCES.map((audience) => (
+              <option value={audience} selected={filters.audience === audience}>
+                {audienceLabel(audience, locale)}
               </option>
             ))}
           </select>

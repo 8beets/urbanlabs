@@ -52,7 +52,7 @@ describe('Paraglide translation catalogs', () => {
         await new Promise((resolve) => setTimeout(resolve, index % 3));
         return [
           m.searchTitle({}, { locale }),
-          categoryLabel('FOTOGRAFIA', locale),
+          categoryLabel('fotografia-i-audiovisual', locale),
           regionLabel({ id: 'catalunya', name: 'Catalunya' }, locale),
           cityLabel({ id: 'alicante', name: 'Alicante' }, locale),
           formatSchedule('Dilluns i dimarts', locale),
@@ -64,7 +64,7 @@ describe('Paraglide translation catalogs', () => {
       const translations = catalog(index % 2 ? 'ca' : 'es');
       expect(result).toEqual([
         translations.searchTitle,
-        translations.categoryPhotography,
+        translations.topicPhotography,
         translations.regionCatalunya,
         translations.cityAlicante,
         index % 2 ? 'Dilluns i dimarts' : 'Lunes y martes',
