@@ -34,7 +34,7 @@ jobs:
     timeout-minutes: 15
     # Chromium and its system libraries come preinstalled, so there is no browser
     # download or cache. Keep the tag equal to the locked @playwright/test version.
-    container: mcr.microsoft.com/playwright:v1.64.1-noble
+    container: mcr.microsoft.com/playwright:v1.64.1-resolute
     env:
       ASTRO_TELEMETRY_DISABLED: '1'
       WRANGLER_SEND_METRICS: 'false'
