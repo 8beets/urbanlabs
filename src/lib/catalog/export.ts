@@ -35,7 +35,7 @@ function bounded<T>(list: T[], limit: number, what: string): T[] {
 const editionColumns = `e.id, coalesce(c.reviewed_title, c.title) AS title,
   CASE WHEN c.reviewed_title IS NOT NULL THEN 1 ELSE 0 END AS title_reviewed, c.category,
   i.name AS institution, i.id AS institution_id, coalesce(p.slug, i.id) AS institution_slug,
-  e.start_date, e.end_date, e.schedule_text, e.price_cents, e.currency, e.is_cancelled, e.is_sold_out,
+  e.start_date, e.end_date, e.schedule_text, e.price_cents, e.currency, e.is_cancelled, e.is_sold_out, e.organizer,
   sr.official_url, sr.last_successfully_verified_at,
   sr.first_seen_at, sr.source_id, sr.external_id`;
 

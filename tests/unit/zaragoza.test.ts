@@ -41,7 +41,7 @@ describe('Zaragoza civic-centre parsing', () => {
     expect(() => currentProgramme({ result: [] })).toThrow('not found');
   });
 
-  it('maps real courses with season dates, weekly sessions and unknown price', () => {
+  it('maps real courses with season dates, weekly sessions, organiser and unknown price', () => {
     const records = parseZaragozaList(universidad, 2119);
     for (const record of records)
       expect(courseRecordSchema.safeParse(record).success).toBe(true);
@@ -60,8 +60,13 @@ describe('Zaragoza civic-centre parsing', () => {
       availability: null,
       isCancelled: false,
       isSoldOut: false,
+      organizer: 'Asociación de Mujeres AGUA',
       courseLanguage: null,
     });
+    // Events without a named organiser keep it unknown.
+    expect(
+      records.find((r) => r.title === 'Coro Gospel Aragón')!.organizer,
+    ).toBeNull();
     // A session note qualifies the weekly time instead of being dropped.
     expect(
       records.find((r) => r.title === 'Escritura creativa')!.scheduleText,

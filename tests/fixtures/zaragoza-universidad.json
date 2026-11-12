@@ -33,6 +33,12 @@
           ]
         }
       ],
+      "organizer": [
+        {
+          "id": 2813,
+          "title": "Asociación En clave de humor"
+        }
+      ],
       "program": {
         "id": 2425,
         "title": "Cursos y talleres Centros Cívicos 2026-2027"
@@ -67,6 +73,12 @@
               "endTime": "18:00"
             }
           ]
+        }
+      ],
+      "organizer": [
+        {
+          "id": 18245,
+          "title": "Asociación de Mujeres AGUA"
         }
       ],
       "program": {
@@ -120,6 +132,12 @@
           ]
         }
       ],
+      "organizer": [
+        {
+          "id": 18245,
+          "title": "Asociación de Mujeres AGUA"
+        }
+      ],
       "program": {
         "id": 2425,
         "title": "Cursos y talleres Centros Cívicos 2026-2027"
@@ -154,6 +172,12 @@
               "endTime": "21:30"
             }
           ]
+        }
+      ],
+      "organizer": [
+        {
+          "id": 17341,
+          "title": "AMPA IES Goya"
         }
       ],
       "program": {
@@ -192,6 +216,12 @@
           ]
         }
       ],
+      "organizer": [
+        {
+          "id": 6849,
+          "title": "Banda del Canal"
+        }
+      ],
       "program": {
         "id": 2425,
         "title": "Cursos y talleres Centros Cívicos 2026-2027"
@@ -226,6 +256,12 @@
               "endTime": "13:00"
             }
           ]
+        }
+      ],
+      "organizer": [
+        {
+          "id": 20997,
+          "title": "Cruz Roja en Zaragoza"
         }
       ],
       "program": {
@@ -263,6 +299,12 @@
               "endTime": "21:00"
             }
           ]
+        }
+      ],
+      "organizer": [
+        {
+          "id": 21013,
+          "title": "Asociación Cultural Cuentos de Arrebol"
         }
       ],
       "program": {
@@ -304,6 +346,12 @@
               "endTime": "20:00"
             }
           ]
+        }
+      ],
+      "organizer": [
+        {
+          "id": 6848,
+          "title": "Asociación Filatélica Zaragozana G.Sierra"
         }
       ],
       "program": {
@@ -377,6 +425,12 @@
               "endTime": "13:00"
             }
           ]
+        }
+      ],
+      "organizer": [
+        {
+          "id": 8617,
+          "title": "Asociación Cultural Aragón-Japón"
         }
       ],
       "program": {

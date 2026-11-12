@@ -37,6 +37,7 @@ function edition(overrides: Partial<SnapshotEdition>): SnapshotEdition {
     currency: 'EUR',
     is_cancelled: 0,
     is_sold_out: 0,
+    organizer: null,
     official_url: 'https://example.org/course',
     last_successfully_verified_at: '2026-11-10T00:00:00.000Z',
     first_seen_at: '2026-11-10T00:00:00.000Z',
@@ -155,6 +156,14 @@ describe('course card markup', () => {
     expect(html).toContain('href="/ca/cerca?q=test&amp;category=idiomes"');
     expect(html).toContain('data-live-until="2099-02-01"');
     expect(html).toContain('href="/ca/centres/test"');
+  });
+  it('names the organiser to ask when the price is unknown', () => {
+    const card = (organizer: string | null) =>
+      courseCardHtml(edition({ price_cents: null, organizer }), 'es');
+    expect(card('Asociación <AGUA>')).toContain(
+      'Precio: consultar con Asociación &lt;AGUA&gt;',
+    );
+    expect(card(null)).toContain('Precio por confirmar');
   });
 });
 

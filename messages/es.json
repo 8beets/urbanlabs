@@ -98,6 +98,7 @@
   "emptyHelp": "Estamos preparando el directorio con información de fuentes oficiales. Puedes consultar la programación del centro.",
   "source": "Consultar fuente oficial",
   "unknownPrice": "Precio por confirmar",
+  "priceFromOrganizer": "Precio: consultar con {organizer}",
   "freePrice": "Gratis",
   "unknownDates": "Fechas por confirmar",
   "verified": "Consultado el",

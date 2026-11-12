@@ -12,7 +12,9 @@ import type { CourseRecord, SourceAdapter, SourceConfig } from '../types';
 // its courses are run by local associations and listed per centre (`idLugar`). Each
 // course is an event with a stable numeric id, one location, season dates and weekly
 // sessions. Prices are not published (enrolment is with the organiser), so they stay
-// unknown. Rehearsals and meetings of resident groups share the programme and are left out.
+// unknown; the organiser's name is kept instead (its contacts, some personal, stay on
+// the course page). Rehearsals and meetings of resident groups share the programme and
+// are left out.
 
 const PROGRAMMES_PATH =
   '/sede/servicio/actividades/evento/programa-list.json?rows=50&q=title==*Centros*&sort=id%20desc';
@@ -64,6 +66,7 @@ const eventSchema = z.object({
       }),
     )
     .length(1),
+  organizer: z.array(z.object({ title: z.string() })).optional(),
 });
 
 const listSchema = z.object({
@@ -130,6 +133,8 @@ export function parseZaragozaList(
         availability: null,
         isCancelled: false,
         isSoldOut: false,
+        organizer:
+          cleanText(event.organizer?.[0]?.title ?? '').slice(0, 200) || null,
         courseLanguage: null,
       };
     });

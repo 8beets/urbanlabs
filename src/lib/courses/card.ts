@@ -25,7 +25,10 @@ export function iconHtml(name: IconName): string {
 }
 
 function priceText(course: CourseListing, locale: Locale): string {
-  if (course.price_cents === null) return m.unknownPrice({}, { locale });
+  if (course.price_cents === null)
+    return course.organizer
+      ? m.priceFromOrganizer({ organizer: course.organizer }, { locale })
+      : m.unknownPrice({}, { locale });
   if (course.price_cents === 0) return m.freePrice({}, { locale });
   return new Intl.NumberFormat(locale, {
     style: 'currency',

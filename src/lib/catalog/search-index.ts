@@ -16,7 +16,7 @@ import {
 // order instead (the same order across both files), and centre names and slugs are
 // listed once. `decodeIndexes` turns the files back into ordinary course listings.
 
-export const SEARCH_INDEX_VERSION = 2;
+export const SEARCH_INDEX_VERSION = 3;
 export const LIVE_INDEX_PATH = '/search/live.json';
 export const ARCHIVE_INDEX_PATH = '/search/archive.json';
 
@@ -44,6 +44,7 @@ const encodedEdition = z.tuple([
   text, // currency
   flag, // cancelled
   flag, // sold out
+  text, // organiser
   z.string().regex(/^https?:\/\/\S+$/), // official URL
   z.string(), // last verified date (yyyy-MM-dd)
 ]);
@@ -99,6 +100,7 @@ export function buildSearchIndexes(
       edition.currency,
       edition.is_cancelled,
       edition.is_sold_out,
+      edition.organizer,
       edition.official_url,
       edition.last_successfully_verified_at.slice(0, 10),
     ];
@@ -137,6 +139,7 @@ function decode(
     currency,
     cancelled,
     soldOut,
+    organizer,
     url,
     verified,
   ]: EncodedEdition,
@@ -158,6 +161,7 @@ function decode(
     currency,
     is_cancelled: cancelled,
     is_sold_out: soldOut,
+    organizer,
     official_url: url,
     last_successfully_verified_at: verified,
   };

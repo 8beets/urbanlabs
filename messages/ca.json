@@ -98,6 +98,7 @@
   "emptyHelp": "Estem preparant el directori amb informació de fonts oficials. Pots consultar la programació del centre.",
   "source": "Consulta la font oficial",
   "unknownPrice": "Preu per confirmar",
+  "priceFromOrganizer": "Preu: consulteu-lo amb {organizer}",
   "freePrice": "Gratuït",
   "unknownDates": "Dates per confirmar",
   "verified": "Consultat el",

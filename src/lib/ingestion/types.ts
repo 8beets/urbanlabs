@@ -42,6 +42,8 @@ export interface CourseRecord {
   isCancelled: boolean;
   /** True only when the source explicitly reports no places left. */
   isSoldOut: boolean;
+  /** Entity running the course when the source names one other than the centre. */
+  organizer?: string | null;
   courseLanguage: null;
 }
 
