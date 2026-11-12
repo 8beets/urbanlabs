@@ -120,11 +120,11 @@ export async function loadSignupPage(
     }
     const city = cities.find((row) => row.id === parsed.cityId);
     if (
-      (parsed.category !== null && !categories.includes(parsed.category)) ||
-      (parsed.cityId !== null && !city)
+      !city ||
+      (parsed.category !== null && !categories.includes(parsed.category))
     )
       return { ...data, status: 400, error: 'target' };
-    const alert = { ...parsed, countryCode: city?.country_code ?? null };
+    const alert = { ...parsed, countryCode: city.country_code };
     const verified = await verifyTurnstile(
       env.TURNSTILE_SECRET_KEY!,
       field('cf-turnstile-response'),

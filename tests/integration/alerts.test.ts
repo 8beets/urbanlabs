@@ -77,7 +77,7 @@ describe('course alerts against the SQLite contract', () => {
     vi.restoreAllMocks();
   });
 
-  it('enforces one target per row and one row per address and target', () => {
+  it('requires a city per row and allows one row per address and target', () => {
     const insert = (id: string, category: string | null, city: string | null) =>
       sqlite
         .prepare(
@@ -85,7 +85,8 @@ describe('course alerts against the SQLite contract', () => {
           VALUES (?, 'a@b.cd', 'es', ?, ?, ?, 'pending', '2020-01-01')`,
         )
         .run(id, category, city ? 'ES' : null, city);
-    expect(() => insert('1', null, null)).toThrow(/CHECK/);
+    expect(() => insert('1', null, null)).toThrow(/NOT NULL/);
+    expect(() => insert('1b', 'CUINA', null)).toThrow(/NOT NULL/);
     expect(() => insert('2', 'CUINA', 'nowhere')).toThrow(/FOREIGN KEY/);
     insert('3', null, 'barcelona');
     expect(() => insert('4', null, 'barcelona')).toThrow(/UNIQUE/);

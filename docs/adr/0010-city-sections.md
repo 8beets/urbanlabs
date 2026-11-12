@@ -36,8 +36,8 @@ value.
   so the centre and topic links point into the right city from any page.
 - **No redirects** from the previous URLs (`/es/buscar`, `/es/centros/<slug>`), as
   decided with the maintainer; they fall through to the 404 page, which links to the
-  city lists. Alert emails link to the city's search, or to the city list when the
-  subscription has no city.
+  city lists. Every alert subscription has a city (migration `0014`), optionally narrowed to a
+  topic, and its emails link to that city's search.
 - Ingestion, the database and the snapshot do not change.
 
 ## Consequences

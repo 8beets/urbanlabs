@@ -10,8 +10,8 @@ interface Row {
   email: string;
   locale: Subscription['locale'];
   category: string | null;
-  country_code: string | null;
-  city_id: string | null;
+  country_code: string;
+  city_id: string;
   status: Subscription['status'];
   created_at: string;
   confirmation_sent_at: string | null;
@@ -46,9 +46,9 @@ export async function findSubscription(
   const result = await db
     .prepare(
       `SELECT ${columns} FROM alert_subscriptions
-    WHERE email=? AND ifnull(category,'')=? AND ifnull(city_id,'')=? LIMIT 1`,
+    WHERE email=? AND ifnull(category,'')=? AND city_id=? LIMIT 1`,
     )
-    .bind(email, target.category ?? '', target.cityId ?? '')
+    .bind(email, target.category ?? '', target.cityId)
     .all<Row>();
   const row = result.results[0];
   return row ? toSubscription(row) : null;
