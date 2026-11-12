@@ -18,7 +18,7 @@ Centre and category navigation uses real database values, parameterized equality
 
 ## Discovery categories
 
-Courses are listed under one of 13 fixed topics (ADR 0009) and optionally one audience (families, children and young people, older people, women). `src/lib/courses/categories.ts` holds the reviewed tables and title rules and is the only place that decides either. Classification is a pure function of the stored source category and title, run at build time and in the browser search, so changing the tables needs only a rebuild. D1 keeps original category values unchanged for provenance.
+Courses are listed under one of 13 fixed topics (ADR 0009) and optionally one audience (families, children and young people, older people, women). The reviewed category tables live in `data/categories.json` (validated when loaded: known topics and audiences, no category listed twice); `src/lib/courses/categories.ts` holds the title rules and is the only code that decides either. Classification is a pure function of the stored source category and title, run at build time and in the browser search, so changing the tables needs only a rebuild. D1 keeps original category values unchanged for provenance.
 
 Topic ids are the `?category=` values and the category page slugs. Any other `category` value is rejected as an invalid filter. Topic choices follow the selected location and centre, in a fixed order.
 
@@ -124,9 +124,9 @@ or category stays visible and removable and can produce zero results.
 
 The reference catalog seeds Spain; Catalunya (Barcelona, Tarragona), Comunitat
 Valenciana (Alicante) and Aragón (Zaragoza). Tarragona and Alicante have no imported
-courses; their empty states do not link to programmes elsewhere. Regions and cities
-with a different Spanish and Catalan name are labelled per locale (e.g. Cataluña/
-Catalunya, Zaragoza/Saragossa).
+courses; their empty states do not link to programmes elsewhere. City names per locale
+(e.g. Zaragoza/Saragossa), the cities named in the site copy and footer data credits
+come from `data/geography.json`.
 Selections survive pagination and language switching. City options follow the region;
 a small progressive enhancement clears the city after a region change without
 submitting automatically. Without JavaScript, known stale child selections are

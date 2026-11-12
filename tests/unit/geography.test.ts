@@ -4,7 +4,9 @@ import {
   reconcileGeography,
   type Geography,
 } from '../../src/lib/locations/geography';
-import { cityLabel, regionLabel } from '../../src/i18n/geography';
+import { cityLabel, coveredCities } from '../../src/i18n/geography';
+import { cityRows, geography } from '../../src/lib/locations/registry';
+import { centres } from '../../src/lib/centres/registry';
 const catalog: Geography = {
   countries: [
     { code: 'ES', name: 'España' },
@@ -68,20 +70,24 @@ describe('geographic filters', () => {
       ),
     ).toEqual({ country: 'FR', region: '', city: '' });
   });
-  it('localizes region names without changing stable IDs', () => {
-    expect(regionLabel(catalog.regions[0]!, 'es')).toBe('Cataluña');
-    expect(regionLabel(catalog.regions[0]!, 'ca')).toBe('Catalunya');
-    const valenciana = {
-      id: 'comunitat-valenciana',
-      name: 'Comunitat Valenciana',
-    };
-    expect(regionLabel(valenciana, 'es')).toBe('Comunidad Valenciana');
-    expect(regionLabel(valenciana, 'ca')).toBe('Comunitat Valenciana');
-  });
   it('localizes Alicante and retains other city names', () => {
     const alicante = { id: 'alicante', name: 'Alicante' };
     expect(cityLabel(alicante, 'es')).toBe('Alicante');
     expect(cityLabel(alicante, 'ca')).toBe('Alacant');
     expect(cityLabel(catalog.cities[0]!, 'ca')).toBe('Barcelona');
+  });
+  it('names covered cities per locale from the geography data', () => {
+    expect(cityLabel({ id: 'zaragoza', name: 'Zaragoza' }, 'ca')).toBe(
+      'Saragossa',
+    );
+    expect(cityLabel({ id: 'oviedo', name: 'Oviedo' }, 'ca')).toBe('Oviedo');
+    expect(coveredCities('es')).toBe('Barcelona y Zaragoza');
+    expect(coveredCities('ca')).toBe('Barcelona i Saragossa');
+  });
+  it('lists every centre city with its region and country', () => {
+    for (const centre of centres)
+      expect(cityRows(centre.cityId)?.region.country).toBe(centre.country);
+    expect(cityRows('missing')).toBeNull();
+    expect(geography.cities.map((city) => city.id)).toContain('zaragoza');
   });
 });

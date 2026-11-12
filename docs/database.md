@@ -44,9 +44,12 @@ reviewed correction, or source provenance is changed. Future source registration
 atomically upserts its explicit country/city assignment with the institution and
 source; an unknown city or mismatched country fails the whole registration.
 
-To add another region, create a new numbered migration inserting its region and city
-rows, then configure each verified source's `institution.cityId` and country. The
-existing `institutions.city` text remains a display label, not a filter identity.
+Countries, regions and cities are reviewed data in `data/geography.json`, with each
+city's Spanish and Catalan name and any attribution its data licence requires. To add
+a city, add it there (and its region if new); registering a source upserts the rows
+its centre needs, so no migration is required. The centre registry fails to load if a
+centre's `cityId` is not listed. The existing `institutions.city` text remains a
+display label, not a filter identity. The seed migrations below predate this.
 
 `0006_alicante.sql` adds ES → Comunitat Valenciana → Alicante as reference
 locations. The interface displays Comunidad Valenciana/Alicante in Spanish and

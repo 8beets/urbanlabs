@@ -60,7 +60,7 @@ Verified on 2026-11-06:
 - The unchanged shared Miram adapter validated **113 distinct course editions** over 40 pages within the existing 60-page/1,000-record bounds. The seven course categories are Ciències i humanitats, Cuina, Recursos, Creativitat, Expressió, Salut, and Espai de fotografia F. Català-Roca.
 - Course scope is explicitly `g=1&c=29&t=AC`; the separate shows/conferences group is not crawled.
 - Minimal real fixtures cover photography `7350` and cooking `7284`, including prices, local dates, and original mixed-case category values.
-- Its categories are mapped to the public topics in `src/lib/courses/categories.ts` (ADR 0009); mixed ones such as Creativitat and Recursos are classified by title.
+- Its categories are mapped to the public topics in `data/categories.json` (ADR 0009); mixed ones such as Creativitat and Recursos are classified by title.
 - The existing metadata-only collection, unknown availability/language, base-price/supplement, and reuse-review limitations also apply. No provider descriptions or photographs are published.
 
 Cloud D1 holds 305 editions and 305 source records across the four imported centres. Discovery omits expired editions; course availability remains unconfirmed.

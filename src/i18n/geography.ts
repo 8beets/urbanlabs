@@ -1,21 +1,25 @@
-import { m } from '../paraglide/messages.js';
+import { geographyCity } from '../lib/locations/registry';
+import { sourceCities } from '../lib/sources';
 import type { Locale } from './ui';
-export function regionLabel(
-  region: { id: string; name: string },
-  locale: Locale,
-): string {
-  if (region.id === 'catalunya') return m.regionCatalunya({}, { locale });
-  if (region.id === 'comunitat-valenciana')
-    return m.regionValenciana({}, { locale });
-  if (region.id === 'aragon') return m.regionAragon({}, { locale });
-  return region.name;
-}
 
+/** A city's name in the locale (data/geography.json), or its stored name. */
 export function cityLabel(
   city: { id: string; name: string },
   locale: Locale,
 ): string {
-  if (city.id === 'alicante') return m.cityAlicante({}, { locale });
-  if (city.id === 'zaragoza') return m.cityZaragoza({}, { locale });
-  return city.name;
+  return geographyCity(city.id)?.names[locale] ?? city.name;
+}
+
+/** Cities with an approved source, labelled and sorted for the locale. */
+export function sourceCityLabels(locale: Locale) {
+  return sourceCities()
+    .map((city) => ({ ...city, label: cityLabel(city, locale) }))
+    .sort((a, b) => a.label.localeCompare(b.label, locale));
+}
+
+/** "Barcelona y Zaragoza": the cities UrbanLabs covers, for site copy. */
+export function coveredCities(locale: Locale): string {
+  return new Intl.ListFormat(locale, { type: 'conjunction' }).format(
+    sourceCityLabels(locale).map((city) => city.label),
+  );
 }

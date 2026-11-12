@@ -107,7 +107,7 @@ export function renderFreshnessReport(
     lines.push(
       '## Source categories without a reviewed topic',
       '',
-      'Their courses are classified by title rules only. Add each one to `src/lib/courses/categories.ts`.',
+      'Their courses are classified by title rules only. Add each one to `data/categories.json`.',
       '',
       ...report.categories.map((category) => `- \`${category}\``),
       '',

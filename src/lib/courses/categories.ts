@@ -1,4 +1,7 @@
+import { z } from 'zod';
 import { foldText } from '../catalog/title-match';
+// The explicit attribute is required by the Worker dev runtime (workerd) and Node.
+import data from '../../../data/categories.json' with { type: 'json' };
 
 // Centres label their courses with hundreds of inconsistent categories. Every course
 // is shown under one of these fixed topics instead, chosen deterministically from
@@ -30,288 +33,6 @@ export const AUDIENCES = [
   'dones',
 ] as const;
 export type Audience = (typeof AUDIENCES)[number];
-
-/** Reviewed source categories whose courses all belong to one topic. */
-const topicCategories: Record<Exclude<Topic, 'altres'>, readonly string[]> = {
-  'arts-i-manualitats': [
-    'ART I CREATIVITAT',
-    'ART I DISSENY',
-    'ARTS PLÀSTIQUES',
-    'PLÀSTICA',
-    'FET A MÀ',
-    'Arts Plàstiques i Visuals',
-    'ARTS VISUALS I PLÀSTIQUES',
-    '2- ARTS VISUALS I PLÀSTIQUES',
-    'ARTS PLÀSTIQUES I ARTS VISUALS',
-    'Arts visuals',
-    'FARINERA ART I CREACIÓ',
-    'Art tèxtil',
-    'Artesania',
-    'ARTESANIA, TÈXTIL I ARTS DECORATIVES',
-    '3- ARTESANIA, TÈXTIL I ARTS DECO.',
-    "ISA: FESTIVAL D'IL·LUSTRACIÓ",
-    'Tallers artístics',
-    'RECURSOS - CREATIVITAT - FET A MÀ',
-    'Dibuix, còmic i il·lustració',
-    'Artes plásticas',
-  ],
-  'fotografia-i-audiovisual': [
-    'FOTOGRAFIA',
-    'ESPAI FOTOGRÀFIC',
-    'ESPAI FOTOGRÀFIC PATI LLIMONA',
-    'Espai de fotografia F. Català-Roca',
-    'FOTOGRAFÍA I NOVES TECNOLOGIES',
-    'LABarraca_LAB',
-    'Audiovisual i fotografia',
-    'CINEMA',
-    'Ràdio i pòdcast',
-    'Cine',
-    'Imagen y sonido',
-  ],
-  musica: [
-    'MÚSICA',
-    'MÚSICA I VEU',
-    'MUSICA I VEU',
-    'Música i cant',
-    'EXPRESSIÓ MUSICAL',
-  ],
-  dansa: [
-    'BALL',
-    'DANSA',
-    'Danses',
-    'BALLS I DANSES',
-    'Dansa i balls',
-    'Dansa i moviment',
-    'Dansa i expressió corporal',
-    'BALL I MOVIMENT',
-    'MOVIMENT, EXPRESSIÓ I DANSES',
-    '7- ARTS ESCÈNIQUES I BALL',
-  ],
-  teatre: [
-    'TEATRE',
-    'ARTS ESCÈNIQUES',
-    'Teatre i interpretació',
-    'Teatre i recursos teatrals',
-    'ENTORN DE LES ARTS ESCÈNIQUES',
-    "Escola d'Arts Escèniques Tísner (4 a 17 anys)",
-    'CIRC',
-    'Teatro y Artes Escénicas',
-  ],
-  'activitat-fisica': [
-    'ACTIVITAT FÍSICA',
-    'ACTIVITAT FÍSICA I BENESTAR',
-    'SALUT',
-    'SALUT I BENESTAR',
-    'SALUT I BENESTAR FÍSIC',
-    'SALUT I ACTIVITAT FÍSICA',
-    '1- SALUT I ACTIVITAT FÍSICA',
-    'SALUT I CREIXEMENT PERSONAL : Activitats físiques que afavoreixen la salut',
-    'COS',
-    'COS I MENT',
-    'FARINERA COS I MENT',
-    'Benestar',
-    'Benestar personal',
-    'Deporte',
-  ],
-  benestar: [
-    'Creixement personal',
-    'SALUT I BENESTAR EMOCIONAL',
-    'Desarrollo personal',
-  ],
-  cuina: [
-    'CUINA',
-    'GASTRONOMIA',
-    'CUINA I GASTRONOMIA',
-    'GASTRONOMIA I ALIMENTACIÓ',
-    '9- GASTRONOMIA I ALIMENTACIÓ',
-    'CUINA I NUTRICIÓ',
-    'Cuina sostenible',
-    'Puntuals de cuina',
-    'A taula! Tallers de cuina',
-  ],
-  idiomes: ['IDIOMES', 'LLENGÜES', '4- LLENGÜES', 'Idiomas'],
-  'humanitats-i-ciencia': [
-    'HUMANITATS',
-    'CIÈNCIES I HUMANITATS',
-    'Humanitats i Ciències socials',
-    'HUMANÍSTICS I CIÈNCIES SOCIALS',
-    'Humanitats i Cultura',
-    'HUMANITATS, HISTÒRIA I CULTURA',
-    'Història',
-    'Actualitat i història',
-    'Antropologia',
-    'Art i pensament',
-    'Ciència',
-    'Natura i ciència',
-    'Astronomia',
-    'Sessions de Planetari | Familiars',
-    'CREACIÓ LITERÀRIA',
-    'EL MON DE LA PARAULA',
-    'Itineraris',
-    'SORTIDES',
-    'VISITES CULTURALS,VISITES GUIADES, SORTIDES i EXCURSIONS',
-    'Espai Dona',
-  ],
-  tecnologia: [
-    'NOVES TECNOLOGIES',
-    'Noves tecnologies i TIC',
-    'INFORMÀTICA',
-    'INFORMÀTICA I MULTIMEDIA',
-    'INFORMÀTICA I COMUNITAT DIGITAL',
-    'Tecnologia digital',
-    'Maker',
-    'MakerLab',
-    'Creació Visual i Sonora',
-    '1_Tallers de creació multimèdia i maker',
-    "4_Tallers d'informàtica per a gent gran",
-    '3_Tallers de fabricació digital i robòtica per infants, adolescents i joves',
-  ],
-  natura: [
-    'Medi ambient',
-    'Sostenibilitat i medi ambient',
-    'Ecologia urbana i sostenibilitat',
-    'Ciència i Natura',
-    'Ciència, natura i medi ambient',
-    'Hort al balcó',
-    'Aula Ambiental',
-    "Itineraris d'Aula Ambiental",
-    'MÉS ECO',
-  ],
-};
-
-/**
- * Reviewed source categories that mix topics or name an audience, format or
- * programme instead. Their courses are classified by title.
- */
-const mixedCategories: readonly string[] = [
-  'Formación',
-  'Otros',
-  'EXPRESSIÓ',
-  'Expressió i creativitat',
-  'EXPRESSIÓ CREATIVA',
-  'EXPRESSIÓ-Teatre,Dansa ...',
-  'Expressió i Moviment',
-  'CREATIVITAT',
-  'CREATIVITAT-Dibuix, Manualitats, Fotografia ...',
-  'Art i creació',
-  'Arts creatives',
-  'Arts i benestar',
-  'RECURSOS',
-  'RECURSOS I CREATIVITAT',
-  'Recursos i humanitats',
-  'RECURSOS PERSONALS',
-  'RECURSOS-Faciliten Recursos Personals',
-  'HABILITATS I COMPETÈNCIES',
-  'SALUT I CREIXEMENT PERSONAL',
-  'SALUT I ESPORT',
-  'Cos i moviment',
-  'Cos, Ment i Dansa',
-  'Música, dansa i teatre',
-  'ARTS ESCÈNIQUES I BALLS',
-  'ARTS ESCÈNIQUES I DANSA',
-  'ARTS ESCÈNIQUES: DANSES I TEATRE',
-  'Escola de Flamenc',
-  '(in)fusión flamenca',
-  'ESPECIALITZACIÓ DE JAZZ',
-  'ESPECIALITZACIÓ DE MEDI AMBIENT',
-  'Creació i tecnologia',
-  'Ciència, tecnologia i urbanisme',
-  'COMUNITAT DIGITAL',
-  'PARAULA',
-  'Comunicació',
-  'CULTURA',
-  'INNOVACIÓ SOCIAL',
-  'Fes-ho per tu',
-  'Autoaprenentatge per cooperació veinal',
-  'COMUNITARI',
-  'Tallers per a adults',
-  'Tallers nous de tardor',
-  'CÀPSULES',
-  '92- CÀPSULES',
-  'SEMINARIS',
-  'MONOGRÀFICS',
-  'Monografics',
-  'WORKSHOPS',
-  '93-VIU EL DISSABTE!',
-  "TROBA'T",
-  '#FEMBARRI',
-  '#elravalésverd',
-  'Ravalejant',
-  "ReGENERA'T",
-  '25N',
-  'DONA',
-  'Altres',
-  // Audience categories (see `audienceCategories`).
-  'FAMILIARS',
-  'ACTIVITATS FAMILIARS',
-  'TALLERS FAMILIARS',
-  'Tallers en família',
-  'TALLER EN FAMÍLIA',
-  'En família',
-  'EN FAMÍLIA-Realitzats amb la família',
-  'Cursos en família',
-  'Puntuals Familiars',
-  'Tallers per a infants i families',
-  'Infantil i familiar',
-  'Infants',
-  'Infantils',
-  'Tallers Infantil',
-  'INFANTILS i JUVENILS',
-  'Infants i joves',
-  'PER INFANTS I JOVES',
-  '91- INFANTS I JOVES',
-  'Tallers per a Infants i Joves',
-  'T. PER INFANTS, ADOLES. I JOVES',
-  'TALLERS PER A INFANTS, ADOLESCENTS I JOVES',
-  'Adolescents i Joves',
-  'Joves',
-  'Tallers Joves',
-  'GENT GRAN',
-  'Persones Grans',
-  'ESPECIAL GENT GRAN',
-];
-
-/** Reviewed source categories that name who the courses are for. */
-const audienceCategories: Record<Audience, readonly string[]> = {
-  families: [
-    'FAMILIARS',
-    'ACTIVITATS FAMILIARS',
-    'TALLERS FAMILIARS',
-    'Tallers en família',
-    'TALLER EN FAMÍLIA',
-    'En família',
-    'EN FAMÍLIA-Realitzats amb la família',
-    'Cursos en família',
-    'Puntuals Familiars',
-    'Tallers per a infants i families',
-    'Infantil i familiar',
-    'Sessions de Planetari | Familiars',
-  ],
-  'infants-i-joves': [
-    'Infants',
-    'Infantils',
-    'Tallers Infantil',
-    'INFANTILS i JUVENILS',
-    'Infants i joves',
-    'PER INFANTS I JOVES',
-    '91- INFANTS I JOVES',
-    'Tallers per a Infants i Joves',
-    'T. PER INFANTS, ADOLES. I JOVES',
-    'TALLERS PER A INFANTS, ADOLESCENTS I JOVES',
-    'Adolescents i Joves',
-    'Joves',
-    'Tallers Joves',
-    "Escola d'Arts Escèniques Tísner (4 a 17 anys)",
-    '3_Tallers de fabricació digital i robòtica per infants, adolescents i joves',
-  ],
-  'gent-gran': [
-    'GENT GRAN',
-    'Persones Grans',
-    'ESPECIAL GENT GRAN',
-    "4_Tallers d'informàtica per a gent gran",
-  ],
-  dones: ['DONA', 'Espai Dona'],
-};
 
 // Matched in order against the folded title (lowercase, no accents); the first match
 // wins, so narrower topics come first ("fotografia amb el mòbil" is photography,
@@ -394,31 +115,51 @@ function comparisonKey(value: string): string {
     .toLocaleUpperCase('ca');
 }
 
+const categories = z.array(z.string().trim().min(1).max(200));
+
 /**
- * Reviewed categories that name a topic but also hold courses of the listed topics
- * (Zaragoza's "Música" and "Deporte" include dance classes). A title rule for one of
- * those topics wins; otherwise the category's topic stands. Keys match like the tables.
+ * Reviewed source categories (data/categories.json), matched by `comparisonKey`:
+ * - `topics`: categories whose courses all belong to one topic.
+ * - `mixed`: categories that mix topics or name an audience, format or programme;
+ *   their courses are classified by title. Audience categories are listed here too.
+ * - `audiences`: categories that name who the courses are for.
+ * - `refinements`: categories that name a topic but also hold courses of the listed
+ *   topics (Zaragoza's "Música" includes dance); a title rule for one of those topics
+ *   wins, otherwise the category's topic stands.
  */
-const titleRefinements: Readonly<Record<string, readonly Topic[]>> = {
-  MÚSICA: ['dansa'],
-  Deporte: ['dansa'],
-  'Desarrollo personal': ['activitat-fisica'],
-};
+const reviewed = z
+  .strictObject({
+    topics: z.record(z.enum(TOPICS).exclude(['altres']), categories),
+    mixed: categories,
+    audiences: z.record(z.enum(AUDIENCES), categories),
+    refinements: z.record(z.string(), z.array(z.enum(TOPICS))),
+  })
+  .superRefine((tables, ctx) => {
+    // A category listed twice would silently take whichever entry comes last.
+    const keys = [...Object.values(tables.topics).flat(), ...tables.mixed].map(
+      comparisonKey,
+    );
+    for (const [index, key] of keys.entries())
+      if (keys.indexOf(key) !== index)
+        ctx.addIssue({
+          code: 'custom',
+          message: `Category listed twice: ${key}`,
+        });
+  })
+  .parse(data);
 
 /** Source category key → topic, or null when the title decides. */
 const categoryTopics = new Map<string, Topic | null>([
-  ...Object.entries(topicCategories).flatMap(([topic, categories]) =>
+  ...Object.entries(reviewed.topics).flatMap(([topic, categories]) =>
     categories.map(
       (category) => [comparisonKey(category), topic as Topic] as const,
     ),
   ),
-  ...mixedCategories.map(
-    (category) => [comparisonKey(category), null] as const,
-  ),
+  ...reviewed.mixed.map((category) => [comparisonKey(category), null] as const),
 ]);
 
 const refinements = new Map(
-  Object.entries(titleRefinements).map(
+  Object.entries(reviewed.refinements).map(
     ([category, topics]) =>
       [
         comparisonKey(category),
@@ -428,7 +169,7 @@ const refinements = new Map(
 );
 
 const categoryAudiences = new Map<string, Audience>(
-  Object.entries(audienceCategories).flatMap(([audience, categories]) =>
+  Object.entries(reviewed.audiences).flatMap(([audience, categories]) =>
     categories.map(
       (category) => [comparisonKey(category), audience as Audience] as const,
     ),
@@ -474,7 +215,7 @@ export function courseAudience({
   );
 }
 
-/** Source categories not yet reviewed into the tables above, for the freshness report. */
+/** Source categories not yet reviewed into data/categories.json, for the freshness report. */
 export function unmappedCategories(categories: Iterable<string>): string[] {
   return [
     ...new Set(
