@@ -1,15 +1,15 @@
 # UrbanLabs
 
-A free, open-source directory of affordable, in-person courses and workshops from local community organizations. Starting in Barcelona, with Spanish and Catalan interfaces.
+A free, open-source directory of affordable, in-person courses and workshops from local community organizations. Live in Barcelona and Zaragoza, with Spanish and Catalan interfaces.
 
 UrbanLabs helps people discover courses and visit the organizer's official listing. It does not handle bookings, payments, or learning management.
 
-**Public preview:** https://urbanlabs.fyi — 777 source-verified course editions across 11 Barcelona centres. This is a preview; availability remains unconfirmed and automated refresh is not configured.
+**Public preview:** https://urbanlabs.fyi — about 3,000 current, source-verified course editions from 69 centres: 46 in Barcelona and 23 Zaragoza civic centres (counts from 2026-11-12). Sources are refreshed daily by a scheduled GitHub Actions ingestion; availability remains unconfirmed.
 
 ## Features
 
 - Astro + strict TypeScript, Tailwind CSS, Cloudflare Workers, and D1 configuration.
-- Reusable Miram adapter with institution configuration separated from extraction.
+- Reusable adapters (Miram registration sites, Zaragoza's civic-centre events API, Alicante Aula Abierta, Tarragona civic centres) with centre configuration separated from extraction.
 - Versioned relational schema, atomic imports, stable identifiers, provenance, and failed-run tracking.
 - Spanish (`/es/`) and Catalan (`/ca/`) homepages show the latest 20 added, unexpired course editions. Dedicated search pages (`/es/buscar`, `/ca/cerca`) offer filters and pagination.
 - Browse by civic centre and normalized course category; category options reflect the selected centre, and equivalent provider categories share one filter. Combine these with region, city, search, and price using shareable URLs. Spain is the default country (the country selector is hidden); Cataluña/Catalunya, Comunidad Valenciana/Comunitat Valenciana and Aragón/Aragó are available, with Barcelona, Tarragona, Alicante/Alacant and Zaragoza/Saragossa as cities. Tarragona and Alicante have no imported courses yet. Community, city, and centre changes update dependent filter options without reloading; use Search to apply the selection to results.
