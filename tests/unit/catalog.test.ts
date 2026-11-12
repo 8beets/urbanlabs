@@ -197,7 +197,14 @@ describe('course card markup', () => {
       'href="/ca/barcelona/cursos?q=test&amp;category=idiomes"',
     );
     expect(html).toContain('data-live-until="2099-02-01"');
+    expect(html).toContain('data-topic="idiomes"');
     expect(html).toContain('href="/ca/barcelona/centres/test"');
+  });
+  it('leaves "altres" and raw categories on the neutral card', () => {
+    for (const category of ['altres', 'IDIOMES', null])
+      expect(courseCardHtml(edition({ category }), 'es')).not.toContain(
+        'data-topic',
+      );
   });
   it('names the organiser to ask when the price is unknown', () => {
     const card = (organizer: string | null) =>
