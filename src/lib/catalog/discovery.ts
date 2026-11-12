@@ -27,7 +27,8 @@ export interface DiscoveryPageData {
   error: 'invalid' | null;
 }
 
-const defaultFilters: DiscoveryFilters = {
+/** No filters: the unfiltered first page. */
+export const defaultFilters: DiscoveryFilters = {
   q: '',
   page: 1,
   maxPriceCents: null,
@@ -35,9 +36,11 @@ const defaultFilters: DiscoveryFilters = {
   centre: '',
 };
 
-function invalid(
+/** A results page without courses or choices, for invalid or unavailable searches. */
+export function emptyDiscovery(
   filters: DiscoveryFilters,
   geography: Geography,
+  error: DiscoveryPageData['error'],
 ): DiscoveryPageData {
   return {
     geography,
@@ -48,7 +51,7 @@ function invalid(
     filters,
     hasNext: false,
     total: 0,
-    error: 'invalid',
+    error,
   };
 }
 
@@ -65,13 +68,13 @@ export function discover(
   try {
     parsed = parseFilters(params);
   } catch {
-    return invalid(defaultFilters, emptyGeography);
+    return emptyDiscovery(defaultFilters, emptyGeography, 'invalid');
   }
   let normalized;
   try {
     normalized = reconcileGeography(parsed, catalog.geography);
   } catch {
-    return invalid(parsed, catalog.geography);
+    return emptyDiscovery(parsed, catalog.geography, 'invalid');
   }
   // A native form can submit a city outside the chosen region: drop the stale child
   // selection (and the page) and report the canonical query so the URL can follow.

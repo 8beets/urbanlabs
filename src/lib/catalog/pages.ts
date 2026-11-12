@@ -1,7 +1,7 @@
 import { sources } from '../sources';
 import { alertsAdvertised } from '../alerts/page';
 import { foldText } from './title-match';
-import { discover, type DiscoveryPageData } from './discovery';
+import { defaultFilters, discover, type DiscoveryPageData } from './discovery';
 import { buildDate, loadSnapshot } from './snapshot-file';
 import {
   canonicalListing,
@@ -59,14 +59,6 @@ export function searchIndexes(): { live: SearchIndex; archive: SearchIndex } {
   return buildSearchIndexes(snapshot, officialSources(), today);
 }
 
-const defaults = {
-  q: '',
-  page: 1,
-  maxPriceCents: null,
-  category: '',
-  centre: '',
-} as const;
-
 export interface CentrePage {
   centre: Centre;
   courses: CourseListing[];
@@ -81,7 +73,7 @@ export function centrePagesFrom(
     centre,
     courses: filterCourses(
       snapshot,
-      { ...defaults, centre: centre.id },
+      { ...defaultFilters, centre: centre.id },
       today,
     ).map(canonicalListing),
   }));
@@ -151,9 +143,11 @@ export function categoryPagesFrom(
     return {
       slug,
       category,
-      courses: filterCourses(snapshot, { ...defaults, category }, today).map(
-        canonicalListing,
-      ),
+      courses: filterCourses(
+        snapshot,
+        { ...defaultFilters, category },
+        today,
+      ).map(canonicalListing),
     };
   });
 }

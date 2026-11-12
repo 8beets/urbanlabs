@@ -11,7 +11,7 @@ and the `/api/filters` endpoint were removed.
 Pages and the search index change only when a new build is deployed: after every
 ingestion run, daily just after midnight in Madrid, and on pushes to `main`
 (`.github/workflows/deploy.yml`). Between builds, prerendered course cards that have
-since ended are hidden in the browser (`src/lib/catalog/hide-expired.ts`) and the
+since ended are hidden in the browser (`src/components/ExpiredCards.astro`) and the
 browser search recomputes liveness with the current date.
 
 ## Browser caching

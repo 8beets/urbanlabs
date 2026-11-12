@@ -9,7 +9,13 @@ import {
   replaceOptions,
   type FilterOption,
 } from '../courses/filter-controls';
-import { discover, filterOptions, type DiscoveryPageData } from './discovery';
+import {
+  defaultFilters,
+  discover,
+  emptyDiscovery,
+  filterOptions,
+  type DiscoveryPageData,
+} from './discovery';
 import { discoveryResultsHtml } from './discovery-view';
 import { catalogToday } from './query';
 import {
@@ -173,20 +179,6 @@ function updatePage(locale: Locale, params: URLSearchParams, archive: boolean) {
   }
 }
 
-function unavailableData(): DiscoveryPageData {
-  return {
-    geography: emptyGeography,
-    courses: [],
-    categories: [],
-    centres: [],
-    startMonths: [],
-    filters: { q: '', page: 1, maxPriceCents: null, category: '', centre: '' },
-    hasNext: false,
-    total: 0,
-    error: null,
-  };
-}
-
 export async function startSearchPage(root: HTMLElement): Promise<void> {
   const locale: Locale = root.dataset.locale === 'ca' ? 'ca' : 'es';
   const alerts = root.dataset.alerts === 'true';
@@ -250,7 +242,7 @@ export async function startSearchPage(root: HTMLElement): Promise<void> {
     );
     results.innerHTML = discoveryResultsHtml({
       locale,
-      data: unavailableData(),
+      data: emptyDiscovery(defaultFilters, emptyGeography, null),
       params,
       sources: [],
       alerts: false,
