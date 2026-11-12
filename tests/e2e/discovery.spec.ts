@@ -663,6 +663,21 @@ test.describe('dynamic filter options', () => {
     await expect(page.getByRole('alert')).toBeVisible();
     await expect(page.locator('article.course')).toHaveCount(0);
   });
+  test('a search script that never loads stops showing the loading message', async ({
+    page,
+  }) => {
+    await page.route('**/_astro/*.js', (route) => route.abort());
+    await page.goto('/es/buscar?q=TEST');
+    await expect(page.locator('.search-loading')).toBeVisible();
+    await expect(page.getByRole('alert')).toContainText('no está disponible', {
+      timeout: 15_000,
+    });
+    await expect(page.locator('.search-loading')).toBeHidden();
+    await expect(page.locator('[data-discovery-results]')).toBeHidden();
+    await expect(
+      page.getByRole('link', { name: 'Explorar por categoría' }),
+    ).toBeVisible();
+  });
 });
 
 test('places filter keeps its value in the URL and shows an applied chip', async ({

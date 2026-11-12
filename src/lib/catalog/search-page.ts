@@ -187,8 +187,10 @@ export async function startSearchPage(root: HTMLElement): Promise<void> {
   if (!results) return;
   let params = new URLSearchParams(location.search);
   const archive = params.get('archive') === '1';
-  const done = () =>
+  const done = () => {
     document.documentElement.removeAttribute('data-search-pending');
+    document.documentElement.removeAttribute('data-search-failed');
+  };
   results.setAttribute('aria-busy', 'true');
   try {
     const indexes = await Promise.all(

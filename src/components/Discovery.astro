@@ -55,12 +55,30 @@ const base = courseSearchPath(locale);
     <CourseFilters locale={locale} data={data} />
     {/* Hides the unfiltered prerendered results while a filtered search loads. */}
     <script is:inline>
-      if (location.search)
-        document.documentElement.setAttribute('data-search-pending', '');
+      if (location.search) {
+        const root = document.documentElement;
+        root.setAttribute('data-search-pending', '');
+        // If the search script never starts (it failed to download), stop waiting.
+        setTimeout(() => {
+          if (
+            root.hasAttribute('data-search-pending') &&
+            !document.querySelector('[data-discovery-results][aria-busy]')
+          )
+            root.setAttribute('data-search-failed', '');
+        }, 8000);
+      }
     </script>
     <div class="discovery-content">
       <p class="search-loading" role="status">
         {m.searchLoading({}, { locale })}
+      </p>
+      <p class="search-failed error" role="alert">
+        {m.unavailable({}, { locale })}{' '}
+        <a href={`${base}/categoria`}>{m.browseByCategory({}, { locale })}</a>
+        {' · '}
+        <a href={centreDirectoryPath(locale)}>
+          {m.browseByCentre({}, { locale })}
+        </a>
       </p>
       <div
         data-discovery-results

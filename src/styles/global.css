@@ -817,6 +817,13 @@ h3 {
 [data-search-pending] [data-discovery-results] {
   display: none;
 }
+.search-failed,
+[data-search-failed] .search-loading {
+  display: none;
+}
+[data-search-failed] .search-failed {
+  display: block;
+}
 
 .search-noscript {
   display: block;
