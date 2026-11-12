@@ -165,6 +165,7 @@ function platformSource(
         name: `${centre.name} · Centros Cívicos de Zaragoza`,
         // The centre's public activity listing; the adapter reads its `idLugar`.
         listingUrl: `${registration.origin}/sede/servicio/cultura/evento/list?idLugar=${registration.placeId}`,
+        centreCode: registration.placeId,
       };
   }
 }

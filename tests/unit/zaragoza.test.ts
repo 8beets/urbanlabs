@@ -183,6 +183,7 @@ describe('Zaragoza fetching', () => {
     expect(source.listingUrl).toBe(
       'https://www.zaragoza.es/sede/servicio/cultura/evento/list?idLugar=2119',
     );
+    expect(source.centreCode).toBe(2119);
     const zaragoza = centres.filter((c) => c.cityId === 'zaragoza');
     expect(zaragoza).toHaveLength(23);
     expect(zaragoza.every((c) => !c.pausedReason)).toBe(true);

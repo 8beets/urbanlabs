@@ -145,13 +145,8 @@ export function createZaragozaAdapter(
 ): SourceAdapter {
   return {
     async fetchRecords(source: SourceConfig) {
-      const root = new URL(source.listingUrl);
-      const place = Number(root.searchParams.get('idLugar'));
-      if (
-        root.origin !== ZARAGOZA_ORIGIN ||
-        !Number.isInteger(place) ||
-        place < 1
-      )
+      const place = source.centreCode;
+      if (place === undefined)
         throw new Error('Zaragoza source has no centre id');
       const get = createSourceFetcher(ZARAGOZA_ORIGIN, options);
       // The `User-agent: *` group disallows /api/, *.csv and other paths; the two JSON

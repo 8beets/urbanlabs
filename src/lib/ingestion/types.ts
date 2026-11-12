@@ -12,7 +12,7 @@ export interface SourceConfig {
   listingUrl: string;
   excludedCategoryCodes?: string[];
   excludedExternalIds?: string[];
-  /** Centre number used in the platform's activity codes (Tarragona civic centres). */
+  /** The centre's number on its platform (Tarragona activity codes, Zaragoza `idLugar`). */
   centreCode?: number;
   /** An empty listing is a valid, successful snapshot (seasonal centres). */
   mayBeEmpty?: boolean;

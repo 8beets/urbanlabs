@@ -29,7 +29,7 @@ import {
 
 import { parseTarragonaActivity } from '../../src/lib/ingestion/adapters/tarragona-centres-civics';
 import { parseAulaAbiertaPage } from '../../src/lib/ingestion/adapters/aula-abierta';
-import { parseZaragozaList } from '../../src/lib/ingestion/adapters/zaragoza-centros-civicos';
+import { universidadRecords } from '../helpers/zaragoza';
 import { centres } from '../../src/lib/centres/registry';
 import { toSourceConfig } from '../../src/lib/centres/schema';
 
@@ -1149,16 +1149,7 @@ describe('SQLite migration and ingestion contract', () => {
     const universidad = toSourceConfig(
       centres.find((c) => c.id === 'cc-zgz-universidad')!,
     );
-    const records = parseZaragozaList(
-      JSON.parse(
-        readFileSync(
-          new URL('../fixtures/zaragoza-universidad.json', import.meta.url),
-          'utf8',
-        ),
-      ),
-      2119,
-    );
-    const adapter = { fetchRecords: async () => records };
+    const adapter = { fetchRecords: async () => universidadRecords() };
     await runIngestion(db, adapter, universidad);
     await runIngestion(db, adapter, universidad);
     expect(sqlite.prepare('SELECT * FROM source_records').all()).toHaveLength(
