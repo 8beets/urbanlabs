@@ -6,6 +6,7 @@ import esBarcelona from '../../../data/centres/es/barcelona.json' with { type: '
 import esZaragoza from '../../../data/centres/es/zaragoza.json' with { type: 'json' };
 import { centreSchema, toSourceConfig, type Centre } from './schema';
 import type { CentreProfile } from './profile-schema';
+import { geographyCity } from '../locations/registry';
 
 // One JSON file per city at data/centres/<country>/<city>.json (lower-case ISO
 // country, seeded city ID). Import new files here; a test checks that every file
@@ -44,6 +45,12 @@ unique(
   centres.map((c) => toSourceConfig(c).listingUrl),
   'listing URL',
 );
+
+for (const centre of centres)
+  if (geographyCity(centre.cityId)?.country !== centre.country)
+    throw new Error(
+      `Centre ${centre.id} is in ${centre.country}/${centre.cityId}, which data/geography.json does not list`,
+    );
 
 export const centreProfiles: Record<string, CentreProfile> = Object.fromEntries(
   centres.map((c) => [c.id, { slug: c.slug, ...c.profile }]),
