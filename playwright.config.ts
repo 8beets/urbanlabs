@@ -3,7 +3,7 @@ import { defineConfig, devices } from '@playwright/test';
 const ci = Boolean(process.env.CI);
 
 // Run `npm run test:e2e`, which seeds the fixture database and builds the site once
-// (`npm run e2e:build`) before testing. `npx playwright test` reuses the last build.
+// (`npm run e2e:build`) before testing. `npm run e2e` reuses the last build.
 export default defineConfig({
   testDir: './tests/e2e',
   // Tests are independent (alert tests use their own subscription ids), so tests
@@ -22,7 +22,7 @@ export default defineConfig({
     // Serves the build like Cloudflare does (assets first, then the Worker for alert
     // pages) with the seeded local D1 state.
     command:
-      'npx wrangler dev --config dist/server/wrangler.json --persist-to .wrangler/e2e-state --port 4322 --ip 127.0.0.1',
+      'wrangler dev --config dist/server/wrangler.json --persist-to .wrangler/e2e-state --port 4322 --ip 127.0.0.1',
     url: 'http://127.0.0.1:4322',
     reuseExistingServer: false,
     stdout: 'pipe',

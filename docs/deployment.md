@@ -10,20 +10,20 @@ The preview is public and retains `noindex`. It is not a production-readiness cl
 
 ## Explicit deployment commands
 
-Sign in to the intended Cloudflare account with `npx wrangler login`, then inspect `npx wrangler whoami`. Credentials stay in Wrangler's user configuration, outside the repository. Account and database IDs in `wrangler.jsonc` are identifiers, not credentials.
+Sign in to the intended Cloudflare account with `npx --no-install wrangler login`, then inspect `npx --no-install wrangler whoami`. Credentials stay in Wrangler's user configuration, outside the repository. Account and database IDs in `wrangler.jsonc` are identifiers, not credentials.
 
 After approval for any new remote schema/resource changes:
 
 ```sh
 npm run db:migrate:production
 npm run build:production
-npx wrangler deploy --config dist/server/wrangler.json --dry-run
+npx --no-install wrangler deploy --config dist/server/wrangler.json --dry-run
 ```
 
 Review the generated configuration: Worker `learnaprop`, `workers_dev: true`, and `DB` pointing to the cloud database above. Then deploy the same artifact:
 
 ```sh
-npx wrangler deploy --config dist/server/wrangler.json
+npx --no-install wrangler deploy --config dist/server/wrangler.json
 ```
 
 For subsequent explicitly authorized deployments, `npm run deploy:production` builds and deploys. Astro's Cloudflare Vite adapter selects the production environment **at build time** via `CLOUDFLARE_ENV=production`; changing the environment only during deployment does not retarget a build. See [Cloudflare environments](https://developers.cloudflare.com/workers/vite-plugin/reference/cloudflare-environments/).

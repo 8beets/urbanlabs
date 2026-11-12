@@ -118,8 +118,8 @@ npm test
 npm run test:d1
 npm run e2e:build
 npm run check:build
-npx playwright install chromium
-npx playwright test   # reuses the build; npm run test:e2e builds first
+npx --no-install playwright install chromium
+npm run e2e   # reuses the build; npm run test:e2e builds first
 ```
 
 `npm test` uses saved source fixtures and real Node SQLite for SQL contract tests.

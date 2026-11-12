@@ -10,4 +10,4 @@ npm run test:d1
 npm run db:migrate
 npm run e2e:build
 npm run check:build
-npx playwright test
+npm run e2e

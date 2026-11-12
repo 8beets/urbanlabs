@@ -7,7 +7,7 @@ ENV ASTRO_TELEMETRY_DISABLED=1 \
 WORKDIR /workspace
 COPY package.json package-lock.json ./
 RUN npm ci \
-    && npx playwright install --with-deps chromium
+    && npx --no-install playwright install --with-deps chromium
 
 COPY . .
 EXPOSE 4321
