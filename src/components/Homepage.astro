@@ -29,7 +29,7 @@ const themes = [
   <section class="hero" aria-labelledby="title">
     <div class="hero-copy">
       <p class="hero-location">
-        <Icon name="pin" /> Barcelona
+        <Icon name="pin" /> {m.heroLocation({}, { locale })}
       </p>
       <h1 id="title">{m.title({}, { locale })}</h1>
       <p class="intro">{m.description({}, { locale })}</p>

@@ -122,9 +122,11 @@ resolved through foreign keys. Geography filters use parameterized SQL, and cent
 and category options respect the selected location. An incompatible selected centre
 or category stays visible and removable and can produce zero results.
 
-The reference catalog seeds Spain, Catalunya, Barcelona, and Tarragona. Tarragona
-has no imported courses; its empty state does not link to unrelated Barcelona
-programmes. The region label is Cataluña in Spanish and Catalunya in Catalan.
+The reference catalog seeds Spain; Catalunya (Barcelona, Tarragona), Comunitat
+Valenciana (Alicante) and Aragón (Zaragoza). Tarragona and Alicante have no imported
+courses; their empty states do not link to programmes elsewhere. Regions and cities
+with a different Spanish and Catalan name are labelled per locale (e.g. Cataluña/
+Catalunya, Zaragoza/Saragossa).
 Selections survive pagination and language switching. City options follow the region;
 a small progressive enhancement clears the city after a region change without
 submitting automatically. Without JavaScript, known stale child selections are
