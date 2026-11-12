@@ -1,6 +1,6 @@
 ---
 import { m } from '../paraglide/messages.js';
-import { centreDirectoryPath } from '../i18n/paths';
+import { centreDirectoryPath, centrePath } from '../i18n/paths';
 import { formatLocalDate, type Locale } from '../i18n/ui';
 import type { Centre, CourseListing } from '../lib/catalog/types';
 import SiteLayout from '../layouts/SiteLayout.astro';
@@ -9,18 +9,19 @@ import CourseCard from './CourseCard.astro';
 import ExpiredCards from './ExpiredCards.astro';
 interface Props {
   locale: Locale;
+  city: string;
   centre: Centre;
   courses: CourseListing[];
   page: number;
   prevUrl?: string | undefined;
   nextUrl?: string | undefined;
 }
-const { locale, centre, courses, page, prevUrl, nextUrl } = Astro.props;
-const base = centreDirectoryPath(locale);
+const { locale, city, centre, courses, page, prevUrl, nextUrl } = Astro.props;
+const base = centreDirectoryPath(locale, city);
 const suffix = page > 1 ? `/${page}` : '';
 const paths = {
-  es: `${centreDirectoryPath('es')}/${centre.slug}${suffix}`,
-  ca: `${centreDirectoryPath('ca')}/${centre.slug}${suffix}`,
+  es: `${centrePath('es', city, centre.slug)}${suffix}`,
+  ca: `${centrePath('ca', city, centre.slug)}${suffix}`,
 };
 const courseParams = new URLSearchParams({ centre: centre.id });
 ---
@@ -89,7 +90,7 @@ const courseParams = new URLSearchParams({ centre: centre.id });
         </p>
       )}
     </section>
-    <CentreMap locale={locale} centre={centre} />
+    <CentreMap locale={locale} centre={centre} base={base} />
     <section class="centre-courses" aria-labelledby="centre-courses">
       <h2 id="centre-courses">{m.centreCourses({}, { locale })}</h2>
       {!courses.length && <p>{m.noCentreCourses({}, { locale })}</p>}

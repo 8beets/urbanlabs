@@ -18,7 +18,10 @@ test.beforeEach(async ({ page }) => {
   );
 });
 for (const locale of ['es', 'ca'] as const) {
-  const base = locale === 'es' ? '/es/centros' : '/ca/centres';
+  const directory = (city: string) =>
+    `/${locale}/${city}/${locale === 'es' ? 'centros' : 'centres'}`;
+  const base = directory('barcelona');
+  const barcelona = sources.filter((s) => s.institution.cityId === 'barcelona');
   test(
     `${locale}: directory links to all centres and exact verified Leaflet markers`,
     { tag: '@mobile' },
@@ -29,16 +32,19 @@ for (const locale of ['es', 'ca'] as const) {
           name:
             locale === 'es' ? 'Navegación principal' : 'Navegació principal',
         })
-        .getByRole('link', {
-          name: locale === 'es' ? 'Centros' : 'Centres',
-          exact: true,
+        .locator('.nav-menu summary', {
+          hasText: locale === 'es' ? 'Centros' : 'Centres',
         })
         .click();
+      await page
+        .locator('.nav-menu[open]')
+        .getByRole('link', { name: 'Barcelona', exact: true })
+        .click();
       await expect(page).toHaveURL(new RegExp(`${base}$`));
-      // Every registry centre plus the isolated test centre without a verified location.
+      // Every Barcelona centre plus the isolated test centre without a verified location.
       const links = await directoryLinks(page);
-      expect(links).toHaveLength(sources.length + 1);
-      for (const source of sources) {
+      expect(links).toHaveLength(barcelona.length + 1);
+      for (const source of barcelona) {
         const profile = centreProfile(source.institution.id);
         expect(links).toContainEqual(
           expect.objectContaining({
@@ -49,7 +55,8 @@ for (const locale of ['es', 'ca'] as const) {
       }
       for (const source of sources) {
         const profile = centreProfile(source.institution.id);
-        await page.goto(`${base}/${profile.slug}`);
+        const centrePage = `${directory(source.institution.cityId)}/${profile.slug}`;
+        await page.goto(centrePage);
         await expect(page.getByRole('heading', { level: 1 })).toHaveText(
           source.institution.name,
         );
@@ -81,7 +88,7 @@ for (const locale of ['es', 'ca'] as const) {
         ).toHaveAttribute('href', 'https://www.openstreetmap.org/copyright');
         await expect(
           page.locator('.course .institution a').first(),
-        ).toHaveAttribute('href', `${base}/${profile.slug}`);
+        ).toHaveAttribute('href', centrePage);
         expect(
           await page.evaluate(
             () => document.documentElement.scrollWidth <= window.innerWidth,
@@ -106,7 +113,7 @@ for (const locale of ['es', 'ca'] as const) {
       .getByRole('link', { name: locale === 'es' ? 'Català' : 'Español' })
       .click();
     await expect(page).toHaveURL(
-      `${locale === 'es' ? '/ca/centres' : '/es/centros'}/sant-andreu/2`,
+      `${locale === 'es' ? '/ca/barcelona/centres' : '/es/barcelona/centros'}/sant-andreu/2`,
     );
     await page.goto(`${base}/test-no-location`);
     await expect(page.locator('.centre-map [data-centre-map]')).toHaveCount(0);

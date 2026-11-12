@@ -1,6 +1,8 @@
 ---
 import { m } from '../paraglide/messages.js';
-import { courseSearchPath, centreDirectoryPath } from '../i18n/paths';
+import { centreDirectoryPath, cityPath, courseSearchPath } from '../i18n/paths';
+import { cityLabel } from '../i18n/geography';
+import type { City } from '../lib/locations/geography';
 import { type Locale } from '../i18n/ui';
 import type { DiscoveryPageData } from '../lib/catalog/discovery';
 import { discoveryResultsHtml } from '../lib/catalog/discovery-view';
@@ -11,25 +13,31 @@ import Icon from './Icon.astro';
 
 interface Props {
   locale: Locale;
+  city: City;
   /** The unfiltered search, prerendered; the browser renders every other query. */
   data: DiscoveryPageData;
   sources: OfficialSource[];
   /** Whether this build links to email alerts. */
   alerts: boolean;
 }
-const { locale, data, sources, alerts } = Astro.props;
-const base = courseSearchPath(locale);
+const { locale, city, data, sources, alerts } = Astro.props;
+const base = courseSearchPath(locale, city.id);
+const name = cityLabel(city, locale);
+const title = m.cityCoursesTitle({ city: name }, { locale });
 ---
 
 <SiteLayout
   locale={locale}
-  title={m.searchPageTitle({}, { locale })}
+  title={`${title} · UrbanLabs`}
   section="courses"
-  languagePaths={{ es: courseSearchPath('es'), ca: courseSearchPath('ca') }}
+  languagePaths={{
+    es: courseSearchPath('es', city.id),
+    ca: courseSearchPath('ca', city.id),
+  }}
 >
   <section class="search-heading" aria-labelledby="title">
     <h1 id="title" data-search-title>
-      {m.searchTitle({}, { locale })}
+      {title}
     </h1>
     <p class="intro" data-search-intro>
       {m.searchIntro({}, { locale })}
@@ -38,9 +46,11 @@ const base = courseSearchPath(locale);
   <noscript>
     <p class="notice search-noscript">
       {m.searchNeedsJavaScript({}, { locale })}{' '}
-      <a href={`${base}/categoria`}>{m.browseByCategory({}, { locale })}</a>
+      <a href={cityPath(locale, city.id)}>
+        {m.browseByCategory({}, { locale })}
+      </a>
       {' · '}
-      <a href={centreDirectoryPath(locale)}>
+      <a href={centreDirectoryPath(locale, city.id)}>
         {m.browseByCentre({}, { locale })}
       </a>
     </p>
@@ -50,6 +60,7 @@ const base = courseSearchPath(locale);
     class="discovery-layout"
     data-search-page
     data-locale={locale}
+    data-city={city.id}
     data-alerts={alerts ? 'true' : 'false'}
   >
     <CourseFilters locale={locale} data={data} />
@@ -74,9 +85,11 @@ const base = courseSearchPath(locale);
       </p>
       <p class="search-failed error" role="alert">
         {m.unavailable({}, { locale })}{' '}
-        <a href={`${base}/categoria`}>{m.browseByCategory({}, { locale })}</a>
+        <a href={cityPath(locale, city.id)}>
+          {m.browseByCategory({}, { locale })}
+        </a>
         {' · '}
-        <a href={centreDirectoryPath(locale)}>
+        <a href={centreDirectoryPath(locale, city.id)}>
           {m.browseByCentre({}, { locale })}
         </a>
       </p>
@@ -92,6 +105,9 @@ const base = courseSearchPath(locale);
       />
     </div>
   </div>
+  <p class="archive-link">
+    <a href={`${base}?archive=1`}>{m.archiveLink({}, { locale })}</a>
+  </p>
   <aside class="notice">
     <Icon name="info" />
     <p>{m.notice({}, { locale })}</p>

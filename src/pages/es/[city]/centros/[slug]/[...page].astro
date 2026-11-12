@@ -1,0 +1,33 @@
+---
+import type { GetStaticPaths, Page } from 'astro';
+import CentreDetail from '../../../../../components/CentreDetail.astro';
+import { loadCentrePages } from '../../../../../lib/catalog/pages';
+import { PAGE_SIZE } from '../../../../../lib/catalog/query';
+import type { Centre, CourseListing } from '../../../../../lib/catalog/types';
+
+export const getStaticPaths = (({ paginate }) =>
+  loadCentrePages().flatMap(({ centre, city, courses }) =>
+    paginate(courses, {
+      pageSize: PAGE_SIZE,
+      params: { city, slug: centre.slug },
+      props: { centre, city },
+    }),
+  )) satisfies GetStaticPaths;
+
+interface Props {
+  centre: Centre;
+  city: string;
+  page: Page<CourseListing>;
+}
+const { centre, city, page } = Astro.props;
+---
+
+<CentreDetail
+  locale="es"
+  city={city}
+  centre={centre}
+  courses={page.data}
+  page={page.currentPage}
+  prevUrl={page.url.prev}
+  nextUrl={page.url.next}
+/>

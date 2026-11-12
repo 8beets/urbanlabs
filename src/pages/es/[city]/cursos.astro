@@ -1,0 +1,30 @@
+---
+import type { GetStaticPaths } from 'astro';
+import Discovery from '../../../components/Discovery.astro';
+import {
+  alertsEnabled,
+  loadCities,
+  loadSearchShell,
+  officialSources,
+} from '../../../lib/catalog/pages';
+import type { City } from '../../../lib/locations/geography';
+
+export const getStaticPaths = (() =>
+  loadCities().map(({ city }) => ({
+    params: { city: city.id },
+    props: { city },
+  }))) satisfies GetStaticPaths;
+
+interface Props {
+  city: City;
+}
+const { city } = Astro.props;
+---
+
+<Discovery
+  locale="es"
+  city={city}
+  data={loadSearchShell(city.id)}
+  sources={officialSources().filter((source) => source.cityId === city.id)}
+  alerts={alertsEnabled()}
+/>

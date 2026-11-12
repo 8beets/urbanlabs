@@ -18,3 +18,19 @@ export function getSource(sourceId: string): SourceConfig {
   if (!source) throw new Error(`Unknown approved source: ${sourceId}`);
   return source;
 }
+
+/**
+ * Cities with at least one approved source, by name, for the navigation. Read from the
+ * bundled registry so pages rendered on the Worker (alerts, 404) can list them too.
+ */
+export function sourceCities(): { id: string; name: string }[] {
+  const cities = new Map(
+    sources.map((source) => [
+      source.institution.cityId,
+      source.institution.city,
+    ]),
+  );
+  return [...cities]
+    .map(([id, name]) => ({ id, name }))
+    .sort((a, b) => a.name.localeCompare(b.name, 'es'));
+}

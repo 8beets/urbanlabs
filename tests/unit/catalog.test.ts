@@ -30,6 +30,7 @@ function edition(overrides: Partial<SnapshotEdition>): SnapshotEdition {
     institution: 'TEST centre',
     institution_id: 'cc-test',
     institution_slug: 'test',
+    city_id: 'barcelona',
     start_date: '2099-01-01',
     end_date: '2099-02-01',
     schedule_text: null,
@@ -82,7 +83,12 @@ const snapshot: Snapshot = {
 
 describe('search index files', () => {
   it('split live and past editions at the build date, each edition once', () => {
-    const { live, archive } = buildSearchIndexes(snapshot, [], '2026-11-11');
+    const { live, archive } = buildSearchIndexes(
+      snapshot,
+      [],
+      '2026-11-11',
+      'barcelona',
+    );
     expect(searchIndexSchema.parse(live)).toEqual(live);
     const titles = (index: typeof live) =>
       decodeIndexes([index]).editions.map((e) => e.id);
@@ -108,6 +114,40 @@ describe('search index files', () => {
       last_successfully_verified_at: '2026-11-10',
     });
     expect(decoded[0]).not.toHaveProperty('first_seen_at');
+  });
+  it('hold only their own city’s editions and sources', () => {
+    const elsewhere = {
+      ...snapshot,
+      editions: [
+        ...snapshot.editions,
+        edition({ id: 'zgz', city_id: 'zaragoza', institution_id: 'cc-zgz' }),
+      ],
+    };
+    const source = (cityId: string) => ({
+      institutionId: `cc-${cityId}`,
+      institutionName: cityId,
+      country: 'ES',
+      cityId,
+      listingUrl: `https://example.org/${cityId}`,
+    });
+    const sources = [source('barcelona'), source('zaragoza')];
+    const barcelona = buildSearchIndexes(
+      elsewhere,
+      sources,
+      '2026-11-11',
+      'barcelona',
+    );
+    const zaragoza = buildSearchIndexes(
+      elsewhere,
+      sources,
+      '2026-11-11',
+      'zaragoza',
+    );
+    expect(barcelona.live.editions).toHaveLength(2);
+    expect(barcelona.live.sources.map((s) => s.cityId)).toEqual(['barcelona']);
+    expect(decodeIndexes([zaragoza.live]).editions).toMatchObject([
+      { city_id: 'zaragoza', institution_id: 'cc-zgz' },
+    ]);
   });
   it('treat an unknown end date as not ended and use the catalogue date', () => {
     expect(liveUntil({ end_date: null })).toBe('9999-12-31');
@@ -153,9 +193,11 @@ describe('course card markup', () => {
       'ca',
       new URLSearchParams('q=test&page=3'),
     );
-    expect(html).toContain('href="/ca/cerca?q=test&amp;category=idiomes"');
+    expect(html).toContain(
+      'href="/ca/barcelona/cursos?q=test&amp;category=idiomes"',
+    );
     expect(html).toContain('data-live-until="2099-02-01"');
-    expect(html).toContain('href="/ca/centres/test"');
+    expect(html).toContain('href="/ca/barcelona/centres/test"');
   });
   it('names the organiser to ask when the price is unknown', () => {
     const card = (organizer: string | null) =>
@@ -169,8 +211,13 @@ describe('course card markup', () => {
 
 describe('results view', () => {
   it('renders applied filters, pagination links and the honest empty state', () => {
-    const params = new URLSearchParams('q=zzz&city=barcelona');
-    const data = discover(snapshot, params, '2026-11-11');
+    // The page's city scopes the search; it is not part of the URL query.
+    const params = new URLSearchParams('q=zzz');
+    const data = discover(
+      snapshot,
+      new URLSearchParams('q=zzz&city=barcelona'),
+      '2026-11-11',
+    );
     const html = discoveryResultsHtml({
       locale: 'es',
       data,
@@ -187,7 +234,8 @@ describe('results view', () => {
       alerts: true,
     });
     expect(html).toContain('Buscar por título: zzz');
-    expect(html).toContain('href="/es/buscar?city=barcelona"');
+    expect(html).toContain('href="/es/barcelona/cursos"');
+    expect(html).not.toContain('Ciudad:');
     expect(html).toContain('class="empty"');
     expect(html).toContain('https://example.org/listing');
     expect(html).toContain('href="/es/alertas?city=barcelona"');
@@ -208,11 +256,13 @@ describe('results view', () => {
 });
 
 describe('category pages', () => {
-  it('use topic ids as slugs, in topic order', () => {
+  it('use topic ids as slugs, per city, in topic order', () => {
     const pages = categoryPagesFrom(snapshot, '2026-11-11');
-    expect(pages.map((page) => [page.slug, page.courses.length])).toEqual([
-      ['fotografia-i-audiovisual', 1],
-      ['idiomes', 1],
+    expect(
+      pages.map((page) => [page.city, page.slug, page.courses.length]),
+    ).toEqual([
+      ['barcelona', 'fotografia-i-audiovisual', 1],
+      ['barcelona', 'idiomes', 1],
     ]);
   });
 });

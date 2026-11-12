@@ -96,6 +96,65 @@ nav {
   color: var(--ink);
   font-weight: 700;
 }
+/* Native disclosures listing the cities; they work without JavaScript. */
+.nav-menu {
+  position: relative;
+}
+.nav-menu summary {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 44px;
+  padding: 8px 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  list-style: none;
+}
+.nav-menu summary::-webkit-details-marker {
+  display: none;
+}
+.nav-menu summary::after {
+  content: '';
+  width: 7px;
+  height: 7px;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: translateY(-2px) rotate(45deg);
+}
+.nav-menu[open] summary::after {
+  transform: translateY(2px) rotate(-135deg);
+}
+.nav-menu[data-current] summary {
+  background: var(--sky);
+  font-weight: 700;
+}
+.nav-menu ul {
+  position: absolute;
+  z-index: 20;
+  top: calc(100% + 4px);
+  left: 0;
+  min-width: 220px;
+  margin: 0;
+  padding: 6px;
+  list-style: none;
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  box-shadow: 0 8px 24px rgb(32 57 75 / 0.14);
+}
+/* The last menu opens towards the left so it stays on narrow screens. */
+.nav-menu:last-child ul {
+  right: 0;
+  left: auto;
+}
+.header .nav-menu ul a {
+  display: flex;
+  padding: 8px 12px;
+  border-radius: 6px;
+}
+.header .nav-menu ul a:hover {
+  background: var(--sky);
+}
 .language-nav {
   gap: 0;
   padding: 3px;
@@ -709,7 +768,8 @@ h3 {
     flex-basis: 100%;
     justify-content: space-between;
   }
-  .primary-nav a {
+  .primary-nav a,
+  .nav-menu summary {
     padding: 8px 14px;
   }
   .language-nav a {
@@ -849,4 +909,10 @@ h3 {
   overflow: hidden;
   clip-path: inset(50%);
   white-space: nowrap;
+}
+.city-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px 24px;
 }

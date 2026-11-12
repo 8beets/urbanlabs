@@ -1,5 +1,5 @@
 import { m } from '../../paraglide/messages.js';
-import { courseSearchPath, centreDirectoryPath } from '../../i18n/paths';
+import { centrePath, courseSearchPath } from '../../i18n/paths';
 import { formatLocalDate, categoryLabel, type Locale } from '../../i18n/ui';
 import { formatSchedule } from '../../i18n/schedule';
 import { formatCourseTitle } from './title';
@@ -66,10 +66,10 @@ export function courseCardHtml(
       ? `<p class="sold-out-label">${escapeHtml(m.soldOut({}, { locale }))}</p>`
       : '',
     course.category
-      ? `<a class="course-category" href="${escapeHtml(`${courseSearchPath(locale)}?${categoryParams}`)}">${escapeHtml(categoryLabel(course.category, locale))}</a>`
+      ? `<a class="course-category" href="${escapeHtml(`${courseSearchPath(locale, course.city_id)}?${categoryParams}`)}">${escapeHtml(categoryLabel(course.category, locale))}</a>`
       : '',
     `<h3${title !== course.title ? ` title="${escapeHtml(course.title)}"` : ''}>${escapeHtml(title)}</h3>`,
-    `<p class="institution">${iconHtml('pin')}<a href="${escapeHtml(`${centreDirectoryPath(locale)}/${course.institution_slug}`)}">${escapeHtml(course.institution)}</a></p>`,
+    `<p class="institution">${iconHtml('pin')}<a href="${escapeHtml(centrePath(locale, course.city_id, course.institution_slug))}">${escapeHtml(course.institution)}</a></p>`,
     `<p class="course-date">${iconHtml('calendar')}<span>${escapeHtml(dates)}</span></p>`,
     course.schedule_text
       ? `<p class="schedule">${iconHtml('clock')}<span>${escapeHtml(formatSchedule(course.schedule_text, locale))}</span></p>`

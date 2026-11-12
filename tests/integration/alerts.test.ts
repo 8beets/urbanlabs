@@ -186,7 +186,7 @@ describe('course alerts against the SQLite contract', () => {
     expect(digest.to).toBe('ana@example.org');
     expect(digest.text).toContain(records[0]!.title);
     expect(digest.text).toContain(
-      `${SITE}/es/buscar?category=idiomes&country=ES&city=barcelona`,
+      `${SITE}/es/barcelona/cursos?category=idiomes`,
     );
     expect(
       count(

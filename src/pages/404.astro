@@ -1,6 +1,6 @@
 ---
 import { m } from '../paraglide/messages.js';
-import { courseSearchPath, centreDirectoryPath, homePath } from '../i18n/paths';
+import { citiesCentresPath, citiesCoursesPath, homePath } from '../i18n/paths';
 import SiteLayout from '../layouts/SiteLayout.astro';
 // Rendered on the Worker for unknown paths, so the language follows the requested URL.
 export const prerender = false;
@@ -25,10 +25,10 @@ Astro.response.status = 404;
         <a href={homePath(locale)}>{m.homeNav({}, { locale })}</a>
       </li>
       <li>
-        <a href={courseSearchPath(locale)}>{m.searchTitle({}, { locale })}</a>
+        <a href={citiesCoursesPath(locale)}>{m.searchTitle({}, { locale })}</a>
       </li>
       <li>
-        <a href={centreDirectoryPath(locale)}>{m.centresNav({}, { locale })}</a>
+        <a href={citiesCentresPath(locale)}>{m.centresNav({}, { locale })}</a>
       </li>
     </ul>
   </section>

@@ -3,10 +3,10 @@ import { sources } from '../../src/lib/sources';
 import { directoryLinks } from './directory';
 
 // Every registry centre has verified coordinates, plus the isolated test centre without a
-// location that appears in the list but not on the map.
-
-// The static directory lists every centre on one page.
-const firstPage = sources.length + 1;
+// location that appears in the list but not on the map. The Barcelona directory lists
+// only Barcelona's centres (docs/adr/0010-city-sections.md), on one page.
+const barcelona = sources.filter((s) => s.institution.cityId === 'barcelona');
+const firstPage = barcelona.length + 1;
 
 // Saved transparent PNG: routine map checks never fetch third-party tiles.
 const tile = Buffer.from(
@@ -25,7 +25,8 @@ test.beforeEach(async ({ page }) => {
   );
 });
 for (const locale of ['es', 'ca']) {
-  const base = locale === 'es' ? '/es/centros' : '/ca/centres';
+  const base =
+    locale === 'es' ? '/es/barcelona/centros' : '/ca/barcelona/centres';
   test(
     `${locale}: directory shows all verified markers and keyboard-accessible centre links`,
     { tag: '@mobile' },
@@ -34,7 +35,7 @@ for (const locale of ['es', 'ca']) {
       const map = page.locator('[data-centre-map]');
       await expect(map).toHaveAttribute('data-map-ready', 'true');
       await expect(page.locator('.centre-map-marker')).toHaveCount(
-        sources.length,
+        barcelona.length,
       );
       await expect(page.locator('.centre-directory article')).toHaveCount(
         firstPage,
@@ -78,7 +79,7 @@ test('tile failures keep verified markers and the full directory available', asy
   await page.route('https://tile.openstreetmap.org/**', (route) =>
     route.abort(),
   );
-  await page.goto('/es/centros');
+  await page.goto('/es/barcelona/centros');
   await expect(page.locator('[data-centre-map]')).toHaveAttribute(
     'data-map-ready',
     'true',
@@ -86,7 +87,9 @@ test('tile failures keep verified markers and the full directory available', asy
   await expect(page.locator('[data-map-status]')).toContainText(
     'No se ha podido cargar el fondo',
   );
-  await expect(page.locator('.centre-map-marker')).toHaveCount(sources.length);
+  await expect(page.locator('.centre-map-marker')).toHaveCount(
+    barcelona.length,
+  );
   await expect(page.locator('.centre-directory article')).toHaveCount(
     firstPage,
   );
@@ -102,16 +105,18 @@ test.describe('without JavaScript', () => {
       page.on('request', (request) => {
         if (request.url().includes('tile.openstreetmap.org')) tileRequests++;
       });
-      await page.goto('/es/centros');
+      await page.goto('/es/barcelona/centros');
       await expect(page.locator('[data-map-canvas]')).toBeHidden();
       // Every centre stays reachable in the static list.
-      expect(await directoryLinks(page)).toHaveLength(sources.length + 1);
+      expect(await directoryLinks(page)).toHaveLength(firstPage);
       expect(tileRequests).toBe(0);
       await expect(page.locator('#centre-q')).toBeHidden();
       await page
-        .locator('.centre-directory a[href="/es/centros/sant-andreu"]')
+        .locator(
+          '.centre-directory a[href="/es/barcelona/centros/sant-andreu"]',
+        )
         .click();
-      await expect(page).toHaveURL('/es/centros/sant-andreu');
+      await expect(page).toHaveURL('/es/barcelona/centros/sant-andreu');
     },
   );
 });

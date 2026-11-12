@@ -35,7 +35,7 @@ test('all page links and search forms use explicit locale prefixes', async ({
     const centres = locale === 'es' ? 'centros' : 'centres';
     for (const path of [
       `/${locale}/`,
-      `${locale === 'es' ? '/es/buscar' : '/ca/cerca'}?centre=cc-sant-andreu`,
+      `${locale === 'es' ? '/es/barcelona/cursos' : '/ca/barcelona/cursos'}?centre=cc-sant-andreu`,
       `/${locale}/${centres}`,
       `/${locale}/${centres}/sant-andreu/2`,
     ]) {
@@ -67,11 +67,13 @@ test('unsupported locale routes return 404 and the search index is available', a
     '/buscar',
     '/ca/buscar',
     '/es/cerca',
+    '/es/alicante/cursos',
+    '/es/barcelona/cerca',
   ]) {
     const response = await request.get(path, { maxRedirects: 0 });
     expect(response.status(), path).toBe(404);
   }
-  const response = await request.get('/search/live.json');
+  const response = await request.get('/search/barcelona/live.json');
   expect(response.status()).toBe(200);
   expect(response.headers()['content-type']).toContain('application/json');
   expect((await response.json()).editions.length).toBeGreaterThan(0);
@@ -82,8 +84,7 @@ test('prerendered pages carry their own language and set no cookies', async ({
 }) => {
   await Promise.all(
     ['es', 'ca'].map(async (locale) => {
-      const search = locale === 'es' ? 'buscar' : 'cerca';
-      const response = await request.get(`/${locale}/${search}`);
+      const response = await request.get(`/${locale}/barcelona/cursos`);
       expect(response.status()).toBe(200);
       expect(response.headers()['set-cookie']).toBeUndefined();
       const html = await response.text();

@@ -6,18 +6,18 @@ import { AUDIENCES } from '../lib/courses/categories';
 import type { DiscoveryPageData } from '../lib/catalog/discovery';
 import { startMonthLabel } from '../lib/courses/start-month';
 import Icon from './Icon.astro';
-import LocationFilters from './LocationFilters.astro';
 
 interface Props {
   locale: Locale;
   data: Pick<
     DiscoveryPageData,
-    'filters' | 'centres' | 'categories' | 'error' | 'geography' | 'startMonths'
+    'filters' | 'centres' | 'categories' | 'error' | 'startMonths'
   >;
 }
 const { locale, data } = Astro.props;
 const { filters, centres, categories, error, startMonths } = data;
-const base = courseSearchPath(locale);
+// Search pages always belong to a city (docs/adr/0010-city-sections.md).
+const base = courseSearchPath(locale, filters.city ?? '');
 // New filter controls belong in this same GET form. Omit page on submit to reset pagination.
 const formFields = new Set([
   'q',
@@ -27,9 +27,6 @@ const formFields = new Set([
   'maxPrice',
   'start',
   'page',
-  'country',
-  'region',
-  'city',
   'cancellation',
   'places',
 ]);
@@ -69,7 +66,6 @@ const formFields = new Set([
       </div>
       <fieldset class="filter-group">
         <legend>{m.refine({}, { locale })}</legend>
-        <LocationFilters locale={locale} data={data} />
         <div>
           <label for="cancellation">
             {m.cancellationFilter({}, { locale })}

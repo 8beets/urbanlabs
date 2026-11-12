@@ -1,6 +1,7 @@
 import { m } from '../../paraglide/messages.js';
 import { categoryLabel, formatLocalDate, type Locale } from '../../i18n/ui';
 import { cityLabel } from '../../i18n/geography';
+import { citiesCoursesPath, courseSearchPath } from '../../i18n/paths';
 import { escapeHtml } from '../html';
 import type { EmailMessage } from './email-sender';
 import type { AlertTarget, NewCourse } from './subscription';
@@ -51,11 +52,13 @@ export function searchUrl(
   target: AlertTarget,
   locale: Locale,
 ): string {
+  // Searches belong to a city (docs/adr/0010-city-sections.md); an alert without a
+  // city links to the list of cities.
+  if (!target.cityId) return `${siteUrl}${citiesCoursesPath(locale)}`;
   const params = new URLSearchParams();
   if (target.category) params.set('category', target.category);
-  if (target.countryCode) params.set('country', target.countryCode);
-  if (target.cityId) params.set('city', target.cityId);
-  return `${siteUrl}/${locale}/${m.pathSearch({}, { locale })}?${params}`;
+  const query = params.size ? `?${params}` : '';
+  return `${siteUrl}${courseSearchPath(locale, target.cityId)}${query}`;
 }
 
 function layout(locale: Locale, body: string): string {

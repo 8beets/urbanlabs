@@ -200,7 +200,7 @@ static assets; only the alert pages and the 404 page run on the Worker
 2. `npm run snapshot:production` (read-only export of production D1 through Wrangler)
 3. `npm run build:production`
 4. `npm run check:build` (Free-plan static asset limits and a 150 KB gzipped budget
-   for `/search/live.json`)
+   for each city's `/search/<city>/live.json`)
 5. `wrangler deploy --config dist/server/wrangler.json`
 
 It is called by CI for pushes to `main`, and also runs after every finished

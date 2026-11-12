@@ -1,6 +1,6 @@
 ---
 import { m } from '../paraglide/messages.js';
-import { courseSearchPath } from '../i18n/paths';
+import { citiesCoursesPath } from '../i18n/paths';
 import type { Locale } from '../i18n/ui';
 import { alertPath } from '../lib/alerts/emails';
 import type { TokenPageData } from '../lib/alerts/page';
@@ -65,7 +65,7 @@ const query = data.token ? `?token=${encodeURIComponent(data.token)}` : '';
       </p>
     )}
     <p>
-      <a href={courseSearchPath(locale)}>
+      <a href={citiesCoursesPath(locale)}>
         {m.alertsBackToSearch({}, { locale })}
       </a>
     </p>

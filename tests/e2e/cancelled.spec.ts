@@ -2,7 +2,8 @@ import { expect, test } from '@playwright/test';
 
 test.describe('cancelled course discovery', () => {
   for (const locale of ['es', 'ca'] as const) {
-    const search = locale === 'es' ? '/es/buscar' : '/ca/cerca';
+    const search =
+      locale === 'es' ? '/es/barcelona/cursos' : '/ca/barcelona/cursos';
     const label = locale === 'es' ? 'Cancelado' : 'Cancel·lat';
     test(`${locale}: cancellation labels, prices, ordering and filters`, async ({
       page,
@@ -65,7 +66,7 @@ test.describe('cancelled course discovery', () => {
 test('changing cancellation updates dependent options before explicit submission', async ({
   page,
 }) => {
-  await page.goto('/es/buscar');
+  await page.goto('/es/barcelona/cursos');
   if (page.viewportSize()!.width < 800)
     await page.locator('#filter-panel summary').click();
   await page.locator('#cancellation').selectOption('only');

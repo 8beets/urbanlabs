@@ -1,7 +1,7 @@
 ---
 import { m } from '../paraglide/messages.js';
 import { cityLabel } from '../i18n/geography';
-import { courseSearchPath } from '../i18n/paths';
+import { citiesCoursesPath } from '../i18n/paths';
 import { categoryLabel, type Locale } from '../i18n/ui';
 import { alertPath } from '../lib/alerts/emails';
 import type { SignupPageData } from '../lib/alerts/page';
@@ -114,7 +114,7 @@ const query = Astro.request.method === 'GET' ? Astro.url.search : '';
       </form>
     )}
     <p>
-      <a href={courseSearchPath(locale)}>
+      <a href={citiesCoursesPath(locale)}>
         {m.alertsBackToSearch({}, { locale })}
       </a>
     </p>

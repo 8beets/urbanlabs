@@ -8,9 +8,10 @@ test(
     for (const locale of ['es', 'ca']) {
       for (const path of [
         `/${locale}/`,
-        locale === 'es' ? '/es/buscar' : '/ca/cerca',
+        locale === 'es' ? '/es/barcelona/cursos' : '/ca/barcelona/cursos',
         locale === 'es' ? '/es/centros' : '/ca/centres',
-        `${locale === 'es' ? '/es/centros' : '/ca/centres'}/sant-andreu`,
+        locale === 'es' ? '/es/barcelona/centros' : '/ca/barcelona/centres',
+        `${locale === 'es' ? '/es/barcelona/centros' : '/ca/barcelona/centres'}/sant-andreu`,
       ]) {
         await page.goto(path);
         for (const width of [1440, 1920, 2560, 390, 320]) {
@@ -36,7 +37,10 @@ test(
             const photos = (await page.locator('.hero-photos').boundingBox())!;
             expect(photos.width).toBeLessThanOrEqual(560);
           }
-          if (path === (locale === 'es' ? '/es/buscar' : '/ca/cerca')) {
+          if (
+            path ===
+            (locale === 'es' ? '/es/barcelona/cursos' : '/ca/barcelona/cursos')
+          ) {
             const sidebar = (await page
               .locator('.filter-sidebar')
               .boundingBox())!;

@@ -1,35 +1,40 @@
 ---
 import { m } from '../paraglide/messages.js';
 import { centreDirectoryPath } from '../i18n/paths';
+import { cityLabel } from '../i18n/geography';
+import type { City } from '../lib/locations/geography';
 import { type Locale } from '../i18n/ui';
 import type { DirectoryData } from '../lib/catalog/pages';
 import CentreDirectoryMap from './CentreDirectoryMap.astro';
 import SiteLayout from '../layouts/SiteLayout.astro';
 interface Props {
   locale: Locale;
+  city: City;
   data: DirectoryData;
 }
-const { locale, data } = Astro.props;
-const base = centreDirectoryPath(locale);
+const { locale, city, data } = Astro.props;
+const base = centreDirectoryPath(locale, city.id);
+const title = m.cityCentresTitle({ city: cityLabel(city, locale) }, { locale });
 ---
 
 <SiteLayout
   locale={locale}
-  title={`${m.directoryTitle({}, { locale })} · UrbanLabs`}
+  title={`${title} · UrbanLabs`}
   description={m.directoryIntro({}, { locale })}
   section="centres"
   languagePaths={{
-    es: centreDirectoryPath('es'),
-    ca: centreDirectoryPath('ca'),
+    es: centreDirectoryPath('es', city.id),
+    ca: centreDirectoryPath('ca', city.id),
   }}
 >
   <section class="centre-heading">
-    <h1>{m.directoryTitle({}, { locale })}</h1>
+    <h1>{title}</h1>
     <p class="intro">{m.directoryIntro({}, { locale })}</p>
   </section>
   {!data.centres.length && <p>{m.noCentres({}, { locale })}</p>}
   <CentreDirectoryMap
     locale={locale}
+    base={base}
     centres={data.mapCentres}
     limited={data.mapHasMore}
   />
@@ -44,13 +49,6 @@ const base = centreDirectoryPath(locale);
         autocomplete="off"
         aria-controls="centre-list"
       />
-      <label for="centre-city">{m.city({}, { locale })}</label>
-      <select id="centre-city" name="city" aria-controls="centre-list">
-        <option value="">{m.allCities({}, { locale })}</option>
-        {data.cities.map((city) => (
-          <option value={city}>{city}</option>
-        ))}
-      </select>
     </form>
   )}
   <p role="status" aria-live="polite" data-centre-empty hidden>
@@ -61,7 +59,6 @@ const base = centreDirectoryPath(locale);
       <article
         class="course"
         data-centre-name={`${centre.name} ${centre.address}`}
-        data-centre-city={centre.city}
       >
         <h2>
           <a href={`${base}/${centre.slug}`}>{centre.name}</a>
