@@ -3,7 +3,8 @@ import { splitStatements } from '../helpers/split-sql';
 import { getPlatformProxy } from 'wrangler';
 import { runIngestion } from '../../src/lib/ingestion/run';
 import { parseMiramPage } from '../../src/lib/ingestion/adapters/miram';
-import { selectSources } from '../../src/lib/sources';
+import { selectSources, sources } from '../../src/lib/sources';
+import { universidadRecords } from '../helpers/zaragoza';
 import { E2E_ALERT_IDS } from './alert-fixtures';
 import { mkdirSync, readFileSync, readdirSync, writeFileSync } from 'node:fs';
 import { exportSnapshot } from '../../src/lib/catalog/export';
@@ -271,6 +272,34 @@ async function setup() {
             },
           ],
         },
+        source,
+      );
+    }
+    // Zaragoza: the saved Universidad listing, and one explicitly synthetic course for
+    // every other civic centre so each active source has a centre page and marker.
+    const universidad = universidadRecords().map((record) => ({
+      ...record,
+      startDate: '2099-01-01',
+      endDate: '2099-12-31',
+    }));
+    for (const source of sources.filter(
+      (s) => s.platform === 'zaragoza-centros-civicos',
+    )) {
+      const place = source.centreCode!;
+      const zaragozaRecords =
+        place === 2119
+          ? universidad
+          : [
+              {
+                ...universidad[0]!,
+                externalId: `99${place}`,
+                title: `TEST workshop ${source.institution.name}`,
+                officialUrl: source.institution.url,
+              },
+            ];
+      await runIngestion(
+        db,
+        { fetchRecords: async () => zaragozaRecords },
         source,
       );
     }

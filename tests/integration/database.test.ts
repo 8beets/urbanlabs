@@ -29,6 +29,7 @@ import {
 
 import { parseTarragonaActivity } from '../../src/lib/ingestion/adapters/tarragona-centres-civics';
 import { parseAulaAbiertaPage } from '../../src/lib/ingestion/adapters/aula-abierta';
+import { universidadRecords } from '../helpers/zaragoza';
 import { centres } from '../../src/lib/centres/registry';
 import { toSourceConfig } from '../../src/lib/centres/schema';
 
@@ -1141,6 +1142,41 @@ describe('SQLite migration and ingestion contract', () => {
     });
     expect(
       (await listCourses(db, { ...filters, city: 'barcelona' }, '2026-11-10'))
+        .courses,
+    ).toHaveLength(0);
+  });
+  it('ingests Zaragoza civic-centre courses idempotently under Aragón and Zaragoza', async () => {
+    const universidad = toSourceConfig(
+      centres.find((c) => c.id === 'cc-zgz-universidad')!,
+    );
+    const adapter = { fetchRecords: async () => universidadRecords() };
+    await runIngestion(db, adapter, universidad);
+    await runIngestion(db, adapter, universidad);
+    expect(sqlite.prepare('SELECT * FROM source_records').all()).toHaveLength(
+      8,
+    );
+    const filters = {
+      q: '',
+      centre: '',
+      category: '',
+      maxPriceCents: null,
+      page: 1,
+    };
+    const found = await listCourses(
+      db,
+      { ...filters, region: 'aragon', city: 'zaragoza', category: 'dansa' },
+      '2026-11-12',
+    );
+    expect(found.courses.map((c) => c.title).sort()).toEqual([
+      'Bailes Latinos',
+      'Bailes y coreografías',
+    ]);
+    expect(found.courses[0]).toMatchObject({
+      price_cents: null,
+      institution: 'Centro Cívico Universidad',
+    });
+    expect(
+      (await listCourses(db, { ...filters, city: 'barcelona' }, '2026-11-12'))
         .courses,
     ).toHaveLength(0);
   });

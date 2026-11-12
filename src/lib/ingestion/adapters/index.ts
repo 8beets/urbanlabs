@@ -1,6 +1,7 @@
 import { createAulaAbiertaAdapter } from './aula-abierta';
 import { createMiramAdapter } from './miram';
 import { createTarragonaAdapter } from './tarragona-centres-civics';
+import { createZaragozaAdapter } from './zaragoza-centros-civicos';
 import type { FetchOptions } from '../http';
 import type { SourceAdapter, SourceConfig } from '../types';
 
@@ -16,5 +17,7 @@ export function adapterFor(
       return createAulaAbiertaAdapter(options);
     case 'tarragona-centres-civics':
       return createTarragonaAdapter(options);
+    case 'zaragoza-centros-civicos':
+      return createZaragozaAdapter(options);
   }
 }

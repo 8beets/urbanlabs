@@ -27,6 +27,21 @@ describe('localized schedule display', () => {
     },
   );
 
+  it.each([
+    [
+      'Sábado 11:30–13:00. 2º sábado de mes',
+      'Dissabte 11:30–13:00. 2º dissabte de mes',
+    ],
+    [
+      'Lunes 09:30–10:30 · Miércoles 15:30–16:30',
+      'Dilluns 09:30–10:30 · Dimecres 15:30–16:30',
+    ],
+    ['DOMINGOS', 'DIUMENGES'],
+    ['Martesana', 'Martesana'],
+  ])('formats Spanish source weekdays %s in Catalan', (source, expected) => {
+    expect(formatSchedule(source, 'ca')).toBe(expected);
+  });
+
   it('keeps original Catalan schedules unchanged', () => {
     const source = 'Dilluns i dimecres de 9.30 a 11 h';
     expect(formatSchedule(source, 'ca')).toBe(source);

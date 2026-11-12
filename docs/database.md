@@ -54,6 +54,15 @@ Comunitat Valenciana/Alacant in Catalan. No institutions or courses are assigned
 these filters show an empty state until verified sources are imported. Apply this
 additive migration before deploying the updated location labels.
 
+`0012_zaragoza.sql` adds ES → Aragón → Zaragoza as reference locations, labelled
+Aragón/Zaragoza in Spanish and Aragó/Saragossa in Catalan. Centres are assigned when
+their reviewed sources are first ingested. Apply it before ingesting Zaragoza sources.
+
+`0013_edition_organizer.sql` adds a nullable `course_editions.organizer`: the entity
+running the course when the source names one other than the centre (Zaragoza's
+associations). Cards with an unknown price name it as the contact for the price. Apply
+this additive migration before ingesting with the updated adapters.
+
 `0007_cancelled_editions.sql` adds the constrained `course_editions.is_cancelled`
 flag. It records an explicit source cancellation separately from availability. Zero
 means no cancellation has been recorded, not that the course is available. Existing

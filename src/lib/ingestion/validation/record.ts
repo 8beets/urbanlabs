@@ -14,5 +14,6 @@ export const courseRecordSchema = z.object({
   availability: z.null(),
   isCancelled: z.boolean(),
   isSoldOut: z.boolean(),
+  organizer: z.string().min(1).max(200).nullable().optional(),
   courseLanguage: z.null(),
 });

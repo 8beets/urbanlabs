@@ -20,6 +20,7 @@ export interface CourseListing {
   currency: string | null;
   is_cancelled: 0 | 1;
   is_sold_out: 0 | 1;
+  organizer: string | null;
   official_url: string;
   last_successfully_verified_at: string;
 }
@@ -59,6 +60,7 @@ export const courseListingSchema = z.object({
   currency: nullableText,
   is_cancelled: flag,
   is_sold_out: flag,
+  organizer: nullableText,
   official_url: webUrl,
   last_successfully_verified_at: z.string().min(10),
 });

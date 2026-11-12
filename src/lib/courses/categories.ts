@@ -53,6 +53,7 @@ const topicCategories: Record<Exclude<Topic, 'altres'>, readonly string[]> = {
     'Tallers artístics',
     'RECURSOS - CREATIVITAT - FET A MÀ',
     'Dibuix, còmic i il·lustració',
+    'Artes plásticas',
   ],
   'fotografia-i-audiovisual': [
     'FOTOGRAFIA',
@@ -64,6 +65,8 @@ const topicCategories: Record<Exclude<Topic, 'altres'>, readonly string[]> = {
     'Audiovisual i fotografia',
     'CINEMA',
     'Ràdio i pòdcast',
+    'Cine',
+    'Imagen y sonido',
   ],
   musica: [
     'MÚSICA',
@@ -92,6 +95,7 @@ const topicCategories: Record<Exclude<Topic, 'altres'>, readonly string[]> = {
     'ENTORN DE LES ARTS ESCÈNIQUES',
     "Escola d'Arts Escèniques Tísner (4 a 17 anys)",
     'CIRC',
+    'Teatro y Artes Escénicas',
   ],
   'activitat-fisica': [
     'ACTIVITAT FÍSICA',
@@ -107,8 +111,13 @@ const topicCategories: Record<Exclude<Topic, 'altres'>, readonly string[]> = {
     'FARINERA COS I MENT',
     'Benestar',
     'Benestar personal',
+    'Deporte',
   ],
-  benestar: ['Creixement personal', 'SALUT I BENESTAR EMOCIONAL'],
+  benestar: [
+    'Creixement personal',
+    'SALUT I BENESTAR EMOCIONAL',
+    'Desarrollo personal',
+  ],
   cuina: [
     'CUINA',
     'GASTRONOMIA',
@@ -120,7 +129,7 @@ const topicCategories: Record<Exclude<Topic, 'altres'>, readonly string[]> = {
     'Puntuals de cuina',
     'A taula! Tallers de cuina',
   ],
-  idiomes: ['IDIOMES', 'LLENGÜES', '4- LLENGÜES'],
+  idiomes: ['IDIOMES', 'LLENGÜES', '4- LLENGÜES', 'Idiomas'],
   'humanitats-i-ciencia': [
     'HUMANITATS',
     'CIÈNCIES I HUMANITATS',
@@ -175,6 +184,8 @@ const topicCategories: Record<Exclude<Topic, 'altres'>, readonly string[]> = {
  * programme instead. Their courses are classified by title.
  */
 const mixedCategories: readonly string[] = [
+  'Formación',
+  'Otros',
   'EXPRESSIÓ',
   'Expressió i creativitat',
   'EXPRESSIÓ CREATIVA',
@@ -320,7 +331,7 @@ const titleTopicRules: readonly (readonly [Topic, RegExp])[] = [
   ],
   [
     'dansa',
-    /dansa|danse|dance|afrobeat|heels|ritmes (llatins|caribenys)|twerk|xarleston|charleston|femme style|groove|jazz|coreograf|baila|\bballs?\b|ballet|sevillan|flamenc|salsa|swing|bollywood|country|claque|tango|bachata|burlesque|zumdance/,
+    /dansa|danse|dance|afrobeat|heels|ritmes (llatins|caribenys)|twerk|xarleston|charleston|femme style|groove|jazz|coreograf|baila|\bballs?\b|\bbailes?\b|danza|balfolk|kpop|konpa|paloteado|ballet|sevillan|flamenc|salsa|swing|bollywood|country|claque|tango|bachata|burlesque|zumdance/,
   ],
   [
     'teatre',
@@ -328,11 +339,11 @@ const titleTopicRules: readonly (readonly [Topic, RegExp])[] = [
   ],
   [
     'idiomes',
-    /angles|frances|alemany|italia|arab\b|castella\b|catala\b|\benglish|speak|deutsch|\bidiom|llengua|conversa (en|catala|castella)|grup de conversa/,
+    /angles|frances|alemany|italia|arab\b|castella\b|catala\b|\benglish|speak|deutsch|\bidiom|llengua|conversa (en|catala|castella)|grup de conversa|\bingles\b|aleman|espanol|alfabetizaci/,
   ],
   [
     'activitat-fisica',
-    /\bioga|\biogu|yoga|pilates|txi.?kung|chi.?kung|tai\W*txi|\bgac\b|stretching|\bbarre\b|feldenkrais|balance flow|moviment conscient|tecniques de moviment|en forma|gimnas(?!tica mental)|estiraments|tonifica|aerobic|marxa nordica|running|hipopressiv|sol pelvia|fitness|zumba|tennis|ping pong|arts marcials|autodefensa|esquena|postural|\bforca\b|manteniment/,
+    /\bioga|\biogu|yoga|pilates|txi.?kung|chi.?kung|tai\W*txi|\bgac\b|stretching|\bbarre\b|feldenkrais|balance flow|moviment conscient|tecniques de moviment|en forma|gimnas(?!tica mental|ia cerebral)|estiraments|tonifica|aerobic|marxa nordica|running|hipopressiv|sol pelvia|fitness|zumba|tennis|ping pong|arts marcials|autodefensa|defensa personal|esquena|postural|\bforca\b|manteniment/,
   ],
   [
     'benestar',
@@ -352,23 +363,26 @@ const titleTopicRules: readonly (readonly [Topic, RegExp])[] = [
   ],
   [
     'humanitats-i-ciencia',
-    /histor|contes|cementiri|cronica|narra|ficcio|editorial|lector|filosof|literar|escriptura|escriu|llibre|lectura|poesia|museu|exposici|\bruta\b|visita|itinerari|antropolog|cienci|neurocien|astronom|univers|cultur/,
+    /histor|contes|cementiri|cronica|narra|ficcio|editorial|lector|filosof|literar|literatur|escriptura|escritura|tertulia|escriu|llibre|lectura|poesia|museu|exposici|\bruta\b|visita|itinerari|antropolog|cienci|neurocien|astronom|univers|cultur/,
   ],
 ];
 
 const titleAudienceRules: readonly (readonly [Audience, RegExp])[] = [
   [
     'families',
-    /en famili|\bfamilies\b|taller familiar|familiar \(|nadons|mares i/,
+    /en famili|\bfamilies\b|taller familiar|educativos? familiar|familiar \(|nadons|mares i/,
   ],
-  ['gent-gran', /gent gran|persones grans|\+ ?6[05]\b/],
+  [
+    'gent-gran',
+    /gent gran|persones grans|personas mayores|tertulia mayores|\bsenior\b|envejecimiento|\+ ?6[05]\b/,
+  ],
   [
     'infants-i-joves',
-    /infant|\bnens\b|\bnenes\b|\bjoves\b|adolescent|\bkids\b|junior|\d+ ?(a|-) ?\d+ anys|a partir de \d+ anys/,
+    /infant|\bnens\b|\bnenes\b|\bjoves\b|\bninos\b|\bninas\b|\bjoven(es)?\b|adolescent|\bkids\b|junior|\d+ ?(a|-) ?\d+ anys|a partir de \d+ anys/,
   ],
   [
     'dones',
-    /per a (la )?(dona|dones)\b|no mixta|autodefensa feminista|empoderament femeni/,
+    /per a (la )?(dona|dones)\b|para mujeres|no mixta|autodefensa feminista|empoderament femeni/,
   ],
 ];
 
@@ -379,6 +393,17 @@ function comparisonKey(value: string): string {
     .replace(/\s+/gu, ' ')
     .toLocaleUpperCase('ca');
 }
+
+/**
+ * Reviewed categories that name a topic but also hold courses of the listed topics
+ * (Zaragoza's "Música" and "Deporte" include dance classes). A title rule for one of
+ * those topics wins; otherwise the category's topic stands. Keys match like the tables.
+ */
+const titleRefinements: Readonly<Record<string, readonly Topic[]>> = {
+  MÚSICA: ['dansa'],
+  Deporte: ['dansa'],
+  'Desarrollo personal': ['activitat-fisica'],
+};
 
 /** Source category key → topic, or null when the title decides. */
 const categoryTopics = new Map<string, Topic | null>([
@@ -391,6 +416,16 @@ const categoryTopics = new Map<string, Topic | null>([
     (category) => [comparisonKey(category), null] as const,
   ),
 ]);
+
+const refinements = new Map(
+  Object.entries(titleRefinements).map(
+    ([category, topics]) =>
+      [
+        comparisonKey(category),
+        titleTopicRules.filter(([topic]) => topics.includes(topic)),
+      ] as const,
+  ),
+);
 
 const categoryAudiences = new Map<string, Audience>(
   Object.entries(audienceCategories).flatMap(([audience, categories]) =>
@@ -421,7 +456,10 @@ function byTitle<T>(
 
 /** The one topic a course is listed under; never guessed beyond the reviewed rules. */
 export function courseTopic({ category, title }: Classifiable): Topic {
-  const mapped = category ? categoryTopics.get(comparisonKey(category)) : null;
+  const key = category ? comparisonKey(category) : null;
+  const mapped = key ? categoryTopics.get(key) : null;
+  const refined = key ? refinements.get(key) : undefined;
+  if (mapped && refined) return byTitle(refined, title) ?? mapped;
   return mapped ?? byTitle(titleTopicRules, title) ?? 'altres';
 }
 

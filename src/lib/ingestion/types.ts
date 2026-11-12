@@ -1,5 +1,8 @@
 export type SourcePlatform =
-  'miram' | 'alicante-aula-abierta' | 'tarragona-centres-civics';
+  | 'miram'
+  | 'alicante-aula-abierta'
+  | 'tarragona-centres-civics'
+  | 'zaragoza-centros-civicos';
 
 export interface SourceConfig {
   id: string;
@@ -9,7 +12,7 @@ export interface SourceConfig {
   listingUrl: string;
   excludedCategoryCodes?: string[];
   excludedExternalIds?: string[];
-  /** Centre number used in the platform's activity codes (Tarragona civic centres). */
+  /** The centre's number on its platform (Tarragona activity codes, Zaragoza `idLugar`). */
   centreCode?: number;
   /** An empty listing is a valid, successful snapshot (seasonal centres). */
   mayBeEmpty?: boolean;
@@ -39,6 +42,8 @@ export interface CourseRecord {
   isCancelled: boolean;
   /** True only when the source explicitly reports no places left. */
   isSoldOut: boolean;
+  /** Entity running the course when the source names one other than the centre. */
+  organizer?: string | null;
   courseLanguage: null;
 }
 

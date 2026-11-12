@@ -661,9 +661,9 @@ test.describe('dynamic filter options', () => {
       await expect(page.locator('#centre')).toHaveValue('');
       await expect(page.locator('#category')).toHaveValue('');
       await page.locator('#city').selectOption('barcelona');
-      // The "all centres" option plus every seeded centre.
+      // The "all centres" option plus every seeded Barcelona centre.
       await expect(page.locator('#centre option')).toHaveCount(
-        sources.length + 1,
+        sources.filter((s) => s.institution.cityId === 'barcelona').length + 1,
       );
       await page.locator('#centre').selectOption('cc-pati-llimona');
       await expect(page.locator('#category option')).toHaveCount(4);

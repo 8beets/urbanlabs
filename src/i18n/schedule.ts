@@ -13,20 +13,51 @@ const weekdayMessages: Record<string, typeof m.weekday_dilluns> = {
   diumenges: m.weekday_diumenges,
 };
 
+// Spanish source weekdays (e.g. Zaragoza) and the Catalan word for each.
+const spanishWeekdays: Record<string, keyof typeof weekdayMessages> = {
+  lunes: 'dilluns',
+  martes: 'dimarts',
+  miércoles: 'dimecres',
+  jueves: 'dijous',
+  viernes: 'divendres',
+  sábado: 'dissabte',
+  sábados: 'dissabtes',
+  domingo: 'diumenge',
+  domingos: 'diumenges',
+};
+
+/** Keeps the source word's capitalisation (all caps or initial capital). */
+function matchCase(word: string, translated: string, locale: Locale) {
+  if (word === word.toUpperCase()) return translated.toLocaleUpperCase(locale);
+  if (word[0] === word[0]!.toUpperCase())
+    return translated[0]!.toUpperCase() + translated.slice(1);
+  return translated;
+}
+
 /** Format known calendar terms without translating source prose or inferring sessions. */
 export function formatSchedule(value: string, locale: Locale): string {
-  if (locale !== 'es') return value;
+  if (locale === 'ca')
+    return value.replace(
+      /(?<!\p{L})(lunes|martes|miércoles|jueves|viernes|sábados?|domingos?)(?!\p{L})/giu,
+      (word) =>
+        matchCase(
+          word,
+          weekdayMessages[spanishWeekdays[word.toLowerCase()]!]!(
+            {},
+            { locale },
+          ),
+          locale,
+        ),
+    );
   return value
     .replace(
       /\b(dilluns|dimarts|dimecres|dijous|divendres|dissabtes?|diumenges?)\b/gi,
-      (word) => {
-        const translated = weekdayMessages[word.toLowerCase()]!({}, { locale });
-        if (word === word.toUpperCase())
-          return translated.toLocaleUpperCase('es');
-        if (word[0] === word[0]!.toUpperCase())
-          return translated[0]!.toUpperCase() + translated.slice(1);
-        return translated;
-      },
+      (word) =>
+        matchCase(
+          word,
+          weekdayMessages[word.toLowerCase()]!({}, { locale }),
+          locale,
+        ),
     )
     .replace(
       /\bi\b(?=\s+(?:lunes|martes|miércoles|jueves|viernes|sábados?|domingos?)\b)/gi,
