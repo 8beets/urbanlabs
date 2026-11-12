@@ -3,6 +3,7 @@ import { centrePath, courseSearchPath } from '../../i18n/paths';
 import { formatLocalDate, categoryLabel, type Locale } from '../../i18n/ui';
 import { formatSchedule } from '../../i18n/schedule';
 import { formatCourseTitle } from './title';
+import { isTopic } from './categories';
 import { escapeHtml } from '../html';
 import type { CourseListing } from '../catalog/types';
 
@@ -57,8 +58,13 @@ export function courseCardHtml(
         ? ` – ${formatLocalDate(course.end_date, locale)}`
         : '')
     : m.unknownDates({}, { locale });
+  // Canonical cards carry a topic id; "altres" and raw categories keep the neutral card.
+  const topic =
+    course.category && isTopic(course.category) && course.category !== 'altres'
+      ? ` data-topic="${course.category}"`
+      : '';
   const parts = [
-    `<article class="course" data-live-until="${escapeHtml(course.end_date ?? '9999-12-31')}">`,
+    `<article class="course"${topic} data-live-until="${escapeHtml(course.end_date ?? '9999-12-31')}">`,
     course.is_cancelled === 1
       ? `<p class="cancelled-label">${escapeHtml(m.cancelled({}, { locale }))}</p>`
       : '',

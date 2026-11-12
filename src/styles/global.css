@@ -15,6 +15,19 @@
   --sky: #eaf3f6;
   --yellow: #f5d568;
   --line: #d3dfe4;
+  /* Decorative card tints per topic (issue #104); every card text colour keeps ≥ 5.3:1. */
+  --topic-arts-i-manualitats: #fcf3ef;
+  --topic-fotografia-i-audiovisual: #f1f3f9;
+  --topic-musica: #f6f1fa;
+  --topic-dansa: #fbf0f5;
+  --topic-teatre: #fbf2ef;
+  --topic-activitat-fisica: #eff8f2;
+  --topic-benestar: #f1f7f7;
+  --topic-cuina: #fdf4ea;
+  --topic-idiomes: #eef5fb;
+  --topic-humanitats-i-ciencia: #f7f5ee;
+  --topic-tecnologia: #f0f4f6;
+  --topic-natura: #f2f7ec;
   --display: 'Bricolage Grotesque', 'Trebuchet MS', sans-serif;
   font-family: system-ui, sans-serif;
   color: var(--ink);
@@ -441,6 +454,42 @@ h3 {
   background: white;
   border-radius: 14px;
   padding: 24px;
+}
+.course[data-topic='arts-i-manualitats'] {
+  background: var(--topic-arts-i-manualitats);
+}
+.course[data-topic='fotografia-i-audiovisual'] {
+  background: var(--topic-fotografia-i-audiovisual);
+}
+.course[data-topic='musica'] {
+  background: var(--topic-musica);
+}
+.course[data-topic='dansa'] {
+  background: var(--topic-dansa);
+}
+.course[data-topic='teatre'] {
+  background: var(--topic-teatre);
+}
+.course[data-topic='activitat-fisica'] {
+  background: var(--topic-activitat-fisica);
+}
+.course[data-topic='benestar'] {
+  background: var(--topic-benestar);
+}
+.course[data-topic='cuina'] {
+  background: var(--topic-cuina);
+}
+.course[data-topic='idiomes'] {
+  background: var(--topic-idiomes);
+}
+.course[data-topic='humanitats-i-ciencia'] {
+  background: var(--topic-humanitats-i-ciencia);
+}
+.course[data-topic='tecnologia'] {
+  background: var(--topic-tecnologia);
+}
+.course[data-topic='natura'] {
+  background: var(--topic-natura);
 }
 .course {
   display: flex;
