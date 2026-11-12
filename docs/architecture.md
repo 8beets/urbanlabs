@@ -18,7 +18,7 @@ Centre and category navigation uses real database values, parameterized equality
 
 ## Discovery categories
 
-Courses are listed under one of 13 fixed topics (ADR 0009) and optionally one audience (families, children and young people, older people, women). `src/lib/courses/categories.ts` holds the reviewed tables and title rules and is the only place that decides either. Classification is a pure function of the stored source category and title, run at build time and in the browser search, so changing the tables needs only a rebuild. D1 keeps original category values unchanged for provenance.
+Courses are listed under one of 13 fixed topics (ADR 0009) and optionally one audience (families, children and young people, older people, women). The reviewed category tables live in `data/categories.json` (validated when loaded: known topics and audiences, no category listed twice); `src/lib/courses/categories.ts` holds the title rules and is the only code that decides either. Classification is a pure function of the stored source category and title, run at build time and in the browser search, so changing the tables needs only a rebuild. D1 keeps original category values unchanged for provenance.
 
 Topic ids are the `?category=` values and the category page slugs. Any other `category` value is rejected as an invalid filter. Topic choices follow the selected location and centre, in a fixed order.
 

@@ -19,7 +19,7 @@ macOS with Apple-silicon GPUs, and production ingestion must not depend on LLMs
 
 - Every course is listed under exactly one of 13 fixed topics with stable ids, which
   are also the URL values and category page slugs.
-- `src/lib/courses/categories.ts` holds a reviewed table from source category to
+- `data/categories.json` (originally in `src/lib/courses/categories.ts`) holds a reviewed table from source category to
   topic. Categories that mix subjects or name an audience, format or programme are
   listed as mixed; their courses are classified by ordered title keyword rules. A
   course no rule matches is listed under "Altres" rather than guessed.
