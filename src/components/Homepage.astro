@@ -2,6 +2,7 @@
 import { m } from '../paraglide/messages.js';
 import { type Locale } from '../i18n/ui';
 import { citiesCoursesPath, homePath } from '../i18n/paths';
+import { coveredCities, sourceCityLabels } from '../i18n/geography';
 import type { CourseListing } from '../lib/catalog/types';
 import SiteLayout from '../layouts/SiteLayout.astro';
 import CourseCard from './CourseCard.astro';
@@ -29,10 +30,15 @@ const themes = [
   <section class="hero" aria-labelledby="title">
     <div class="hero-copy">
       <p class="hero-location">
-        <Icon name="pin" /> {m.heroLocation({}, { locale })}
+        <Icon name="pin" />{' '}
+        {sourceCityLabels(locale)
+          .map((city) => city.label)
+          .join(' · ')}
       </p>
       <h1 id="title">{m.title({}, { locale })}</h1>
-      <p class="intro">{m.description({}, { locale })}</p>
+      <p class="intro">
+        {m.description({ cities: coveredCities(locale) }, { locale })}
+      </p>
       <a class="hero-link" href={citiesCoursesPath(locale)}>
         {m.explore({}, { locale })} <Icon name="arrow" />
       </a>

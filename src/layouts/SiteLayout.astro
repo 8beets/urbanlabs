@@ -7,9 +7,9 @@ import {
   courseSearchPath,
   homePath,
 } from '../i18n/paths';
-import { cityLabel } from '../i18n/geography';
+import { coveredCities, sourceCityLabels } from '../i18n/geography';
+import { geographyCity } from '../lib/locations/registry';
 import { type Locale } from '../i18n/ui';
-import { sourceCities } from '../lib/sources';
 import '../styles/global.css';
 interface Props {
   locale: Locale;
@@ -27,10 +27,14 @@ const {
 } = Astro.props;
 const base = homePath(locale);
 // "Cursos" and "Centros" open a list of cities (docs/adr/0010-city-sections.md).
-const cities = sourceCities().map((city) => ({
-  ...city,
-  label: cityLabel(city, locale),
-}));
+const cities = sourceCityLabels(locale);
+// Attribution some cities' open-data terms require (data/geography.json).
+const credits = cities.flatMap((city) => {
+  const credit = geographyCity(city.id)?.dataCredit;
+  return credit
+    ? [{ city: city.label, url: credit.url, name: credit.names[locale] }]
+    : [];
+});
 const menus = [
   {
     section: 'courses',
@@ -54,7 +58,10 @@ const menus = [
     <meta name="viewport" content="width=device-width" />
     <meta
       name="description"
-      content={description ?? m.description({}, { locale })}
+      content={
+        description ??
+        m.description({ cities: coveredCities(locale) }, { locale })
+      }
     />
     <meta name="robots" content="noindex,follow" />
     <link
@@ -141,13 +148,12 @@ const menus = [
           <a href="https://www.pexels.com/">{m.photoCredits({}, { locale })}</a>
           .
         </p>
-        <p class="photo-credit">
-          {m.zaragozaDataNote({}, { locale })}{' '}
-          <a href="https://www.zaragoza.es/sede/portal/aviso-legal#condiciones">
-            {m.zaragozaDataSource({}, { locale })}
-          </a>
-          .
-        </p>
+        {credits.map((credit) => (
+          <p class="photo-credit">
+            {m.cityDataNote({ city: credit.city }, { locale })}{' '}
+            <a href={credit.url}>{credit.name}</a>.
+          </p>
+        ))}
       </div>
     </footer>
   </body>

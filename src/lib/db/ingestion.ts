@@ -2,6 +2,7 @@ import type { CourseRecord, SourceConfig } from '../ingestion/types';
 import { cleanText, hash } from '../ingestion/normalization/values';
 import type { IngestionDatabase, IngestionStatement } from './ingestion-port';
 import { centreProfile } from '../institutions/profiles';
+import { cityRows } from '../locations/registry';
 
 export async function registerSource(
   db: IngestionDatabase,
@@ -9,7 +10,38 @@ export async function registerSource(
 ): Promise<void> {
   const institution = source.institution;
   const profile = centreProfile(institution.id);
+  // Reviewed geography is upserted from data/geography.json; an unknown city is left to
+  // the foreign keys, which reject the whole registration.
+  const geo = cityRows(institution.cityId);
   await db.batch([
+    ...(geo
+      ? [
+          db
+            .prepare(
+              `INSERT INTO countries(code,name) VALUES (?,?) ON CONFLICT(code)
+            DO UPDATE SET name=excluded.name WHERE name IS NOT excluded.name`,
+            )
+            .bind(geo.country.code, geo.country.name),
+          db
+            .prepare(
+              `INSERT INTO regions(id,country_code,name) VALUES (?,?,?) ON CONFLICT(id)
+            DO UPDATE SET name=excluded.name WHERE name IS NOT excluded.name`,
+            )
+            .bind(geo.region.id, geo.region.country, geo.region.name),
+          db
+            .prepare(
+              `INSERT INTO cities(id,country_code,region_id,name) VALUES (?,?,?,?) ON CONFLICT(id)
+            DO UPDATE SET region_id=excluded.region_id, name=excluded.name
+            WHERE region_id IS NOT excluded.region_id OR name IS NOT excluded.name`,
+            )
+            .bind(
+              geo.city.id,
+              geo.city.country,
+              geo.city.region,
+              geo.city.names.es,
+            ),
+        ]
+      : []),
     db
       .prepare(
         `INSERT INTO institutions (id, name, official_url, city, country, address, timezone)

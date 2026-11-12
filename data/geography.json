@@ -1,0 +1,45 @@
+{
+  "countries": [{ "code": "ES", "name": "España" }],
+  "regions": [
+    { "id": "catalunya", "country": "ES", "name": "Catalunya" },
+    {
+      "id": "comunitat-valenciana",
+      "country": "ES",
+      "name": "Comunitat Valenciana"
+    },
+    { "id": "aragon", "country": "ES", "name": "Aragón" }
+  ],
+  "cities": [
+    {
+      "id": "alicante",
+      "country": "ES",
+      "region": "comunitat-valenciana",
+      "names": { "es": "Alicante", "ca": "Alacant" }
+    },
+    {
+      "id": "barcelona",
+      "country": "ES",
+      "region": "catalunya",
+      "names": { "es": "Barcelona", "ca": "Barcelona" }
+    },
+    {
+      "id": "tarragona",
+      "country": "ES",
+      "region": "catalunya",
+      "names": { "es": "Tarragona", "ca": "Tarragona" }
+    },
+    {
+      "id": "zaragoza",
+      "country": "ES",
+      "region": "aragon",
+      "names": { "es": "Zaragoza", "ca": "Saragossa" },
+      "dataCredit": {
+        "url": "https://www.zaragoza.es/sede/portal/aviso-legal#condiciones",
+        "names": {
+          "es": "Ayuntamiento de Zaragoza",
+          "ca": "Ajuntament de Saragossa"
+        }
+      }
+    }
+  ]
+}
