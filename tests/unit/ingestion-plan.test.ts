@@ -1,6 +1,19 @@
 import { describe, expect, it } from 'vitest';
 import { planIngestion } from '../../src/lib/ingestion/plan';
-import { selectedSources } from '../../src/lib/ingestion/cli';
+import { parseArgs } from 'node:util';
+import {
+  selectedSources as selectFromValues,
+  sourceOptions,
+} from '../../src/lib/ingestion/cli';
+
+// Parses like the ingestion scripts do, so invalid flags are covered too.
+const selectedSources = (args: string[]) =>
+  selectFromValues(
+    parseArgs({
+      args,
+      options: { ...sourceOptions, live: { type: 'boolean' } },
+    }).values,
+  );
 import { sources } from '../../src/lib/sources';
 
 const now = new Date('2026-11-09T04:17:00Z');

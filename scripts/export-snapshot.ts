@@ -1,5 +1,6 @@
 import { mkdir, writeFile } from 'node:fs/promises';
 import { dirname } from 'node:path';
+import { parseArgs } from 'node:util';
 import { getPlatformProxy } from 'wrangler';
 import { exportSnapshot } from '../src/lib/catalog/export';
 import { snapshotPath } from '../src/lib/catalog/snapshot-file';
@@ -11,10 +12,11 @@ import type { IngestionDatabase } from '../src/lib/db/ingestion-port';
 //   --remote             production D1 through Wrangler (needs Cloudflare credentials)
 //   --persist <path>     local D1 state directory (default: Wrangler's .wrangler/state)
 
-const args = process.argv.slice(2);
-const remote = args.includes('--remote');
-const persistIndex = args.indexOf('--persist');
-const persist = persistIndex >= 0 ? args[persistIndex + 1] : undefined;
+const {
+  values: { remote, persist },
+} = parseArgs({
+  options: { remote: { type: 'boolean' }, persist: { type: 'string' } },
+});
 
 async function withDatabase<T>(
   use: (db: IngestionDatabase) => Promise<T>,

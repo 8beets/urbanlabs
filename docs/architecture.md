@@ -8,7 +8,7 @@ The ingestion adapter handles fetching and extraction, returning validated domai
 
 D1 is the only canonical persistent store. Node SQLite validates SQL and transaction behavior in tests and was also used in memory to prepare the initial verified cloud-data seed. Runtime tests use actual local D1 separately.
 
-Local Docker development uses a Linux Node 24 image with separate volumes for dependencies and the app's D1 state. The checks service has its own temporary state and includes Chromium, so runtime and browser checks run in the same Linux environment across supported Docker hosts. See [Docker setup](docker.md).
+Local Docker development uses a Linux Node 26 image with separate volumes for dependencies and the app's D1 state. The checks service has its own temporary state and includes Chromium, so runtime and browser checks run in the same Linux environment across supported Docker hosts. See [Docker setup](docker.md).
 
 The initial UI provides title search, price filtering, and bounded pages of 12 editions. Title search follows the SQLite FTS5 index `courses_fts` (migration `0008`, `unicode61 remove_diacritics 2`): `src/lib/catalog/title-match.ts` reproduces it for the static search, so matching ignores case, accents, and composed/decomposed Unicode (`fotografia` finds `Fotografía`). Each typed word must match the start of a title word; mid-word substrings (`graf`) do not match, and query operators are plain words. Triggers keep the index in sync with `title` and `reviewed_title`, and `courses` keeps the original accented titles for display. Note that D1 cannot export databases containing virtual tables.
 

@@ -1,7 +1,8 @@
+import { parseArgs } from 'node:util';
 import { adapterFor } from '../src/lib/ingestion/adapters';
 import { selectSources } from '../src/lib/sources';
 
-const sourceId = process.argv[2];
+const [sourceId] = parseArgs({ allowPositionals: true }).positionals;
 for (const source of selectSources(sourceId)) {
   const records = await adapterFor(source).fetchRecords(source);
   console.info(

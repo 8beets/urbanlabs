@@ -26,15 +26,37 @@ jobs:
       - run: npm run test:d1
       - run: npm run db:migrate
       # The static build reads a snapshot; CI builds from the seeded fixture database.
-      - run: npm run snapshot:fixture
-      - run: npm run build
-        env:
-          URBANLABS_SNAPSHOT: .cache/e2e-snapshot.json
+      - run: npm run e2e:build
       - run: npm run check:build
-      # Playwright is temporarily run locally or through Docker instead of CI.
+
+  e2e:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    # Chromium and its system libraries come preinstalled, so there is no browser
+    # download or cache. Keep the tag equal to the locked @playwright/test version.
+    container: mcr.microsoft.com/playwright:v1.64.1-resolute
+    env:
+      ASTRO_TELEMETRY_DISABLED: '1'
+      WRANGLER_SEND_METRICS: 'false'
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - run: npm run test:e2e
+      - if: failure()
+        uses: actions/upload-artifact@v7
+        with:
+          name: playwright-report
+          path: |
+            playwright-report/
+            test-results/
+          retention-days: 7
 
   deploy:
-    needs: check
+    needs: [check, e2e]
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     uses: ./.github/workflows/deploy.yml
     secrets: inherit

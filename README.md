@@ -80,7 +80,7 @@ provided; its setup has not been verified separately from Docker Compose.
 
 ### Native Node.js
 
-Use Node.js 24, npm, and an operating system supported by the project's Cloudflare
+Use Node.js 26 (LTS), npm, and an operating system supported by the project's Cloudflare
 runtime. If the runtime cannot start on your host, use the Docker setup above.
 
 ```sh
@@ -116,11 +116,10 @@ npm run lint
 npm run typecheck
 npm test
 npm run test:d1
-npm run snapshot:fixture
-URBANLABS_SNAPSHOT=.cache/e2e-snapshot.json npm run build
+npm run e2e:build
 npm run check:build
-npx playwright install chromium
-npm run test:e2e
+npx --no-install playwright install chromium
+npm run e2e   # reuses the build; npm run test:e2e builds first
 ```
 
 `npm test` uses saved source fixtures and real Node SQLite for SQL contract tests.

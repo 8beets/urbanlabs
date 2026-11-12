@@ -10,20 +10,20 @@ The preview is public and retains `noindex`. It is not a production-readiness cl
 
 ## Explicit deployment commands
 
-Sign in to the intended Cloudflare account with `npx wrangler login`, then inspect `npx wrangler whoami`. Credentials stay in Wrangler's user configuration, outside the repository. Account and database IDs in `wrangler.jsonc` are identifiers, not credentials.
+Sign in to the intended Cloudflare account with `npx --no-install wrangler login`, then inspect `npx --no-install wrangler whoami`. Credentials stay in Wrangler's user configuration, outside the repository. Account and database IDs in `wrangler.jsonc` are identifiers, not credentials.
 
 After approval for any new remote schema/resource changes:
 
 ```sh
 npm run db:migrate:production
 npm run build:production
-npx wrangler deploy --config dist/server/wrangler.json --dry-run
+npx --no-install wrangler deploy --config dist/server/wrangler.json --dry-run
 ```
 
 Review the generated configuration: Worker `learnaprop`, `workers_dev: true`, and `DB` pointing to the cloud database above. Then deploy the same artifact:
 
 ```sh
-npx wrangler deploy --config dist/server/wrangler.json
+npx --no-install wrangler deploy --config dist/server/wrangler.json
 ```
 
 For subsequent explicitly authorized deployments, `npm run deploy:production` builds and deploys. Astro's Cloudflare Vite adapter selects the production environment **at build time** via `CLOUDFLARE_ENV=production`; changing the environment only during deployment does not retarget a build. See [Cloudflare environments](https://developers.cloudflare.com/workers/vite-plugin/reference/cloudflare-environments/).
@@ -121,9 +121,9 @@ migration or data refresh.
 
 The `Checks and deployment` workflow runs formatting, lint, binding generation,
 TypeScript, unit/SQLite tests, actual D1 tests, local migrations and the build for
-pushes and pull requests. Playwright installation and browser tests are temporarily
-skipped in GitHub Actions; run `npm run test:e2e` locally or the complete Docker
-check suite for browser coverage. After the CI checks pass, a push to `main`
+pushes and pull requests. Browser tests run in a parallel
+`e2e` job inside the official Playwright container (no browser download), and a
+failed run uploads the report and traces as an artifact. After both jobs pass, a push to `main`
 deploys the exact tested commit.
 The deployment job rebuilds with `npm run build:production`, verifies the commit is
 still the head of `main`, and runs `npm run db:migrate:production` before deploying
@@ -158,7 +158,7 @@ production reimport or metadata rewrite. The homepage shows up to 20 newly added
 unexpired course editions. Search and filtering move to `/es/buscar` and `/ca/cerca`;
 old homepage filter URLs redirect to preserve shared links. Existing public caching
 also covers search, with complete query strings as keys. GitHub Actions continues
-to deploy only after the configured checks pass, with Playwright run locally/Docker.
+to deploy only after the configured checks and browser tests pass.
 
 ## Email alerts — issue #80
 

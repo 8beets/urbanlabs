@@ -1,21 +1,26 @@
 import { appendFileSync } from 'node:fs';
+import { parseArgs } from 'node:util';
 import { WranglerIngestionDatabase } from '../src/lib/db/wrangler-ingestion';
 import { loadSourceStatuses } from '../src/lib/db/ingestion-status';
 import { planIngestion } from '../src/lib/ingestion/plan';
 import { sources } from '../src/lib/sources';
-import { selectedSources } from '../src/lib/ingestion/cli';
+import { selectedSources, sourceOptions } from '../src/lib/ingestion/cli';
 
 // Reads (never writes) the production run history to choose which sources to refresh.
-const args = process.argv.slice(2);
-function option(name: string, fallback: number): number {
-  const index = args.indexOf(name);
-  return index === -1 ? fallback : Number(args[index + 1]);
-}
-const force = args.includes('--force');
-const explicit = args.includes('--source') || args.includes('--sources');
-const batchSize = option('--batch-size', 8);
+const { values } = parseArgs({
+  options: {
+    ...sourceOptions,
+    force: { type: 'boolean' },
+    'batch-size': { type: 'string', default: '8' },
+    'min-age-hours': { type: 'string', default: '20' },
+    'max-sources': { type: 'string', default: '60' },
+  },
+});
+const force = values.force ?? false;
+const explicit = values.source !== undefined || values.sources !== undefined;
+const batchSize = Number(values['batch-size']);
 
-const wanted = selectedSources(args);
+const wanted = selectedSources(values);
 const plan =
   explicit || force
     ? // Explicit requests and forced refreshes ignore recency and the per-run cap.
@@ -35,8 +40,8 @@ const plan =
         ),
         {
           now: new Date(),
-          minAgeHours: option('--min-age-hours', 20),
-          maxSources: option('--max-sources', 60),
+          minAgeHours: Number(values['min-age-hours']),
+          maxSources: Number(values['max-sources']),
           batchSize,
         },
       );

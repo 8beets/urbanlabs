@@ -1,3 +1,4 @@
+import { parseArgs } from 'node:util';
 import { WranglerIngestionDatabase } from '../src/lib/db/wrangler-ingestion';
 import { liveCutoffDate } from '../src/lib/db/clock';
 import { createEmailSender } from '../src/lib/alerts/sender';
@@ -6,14 +7,12 @@ import { purgeUnconfirmed, sendDueDigests } from '../src/lib/alerts/service';
 
 // Daily job: purge unconfirmed sign-ups, then send the weekly digests that are due.
 // `--dry-run` reads production D1 and reports counts without sending or writing.
-const args = process.argv.slice(2);
-const dryRun = args.includes('--dry-run');
-const limitIndex = args.indexOf('--limit');
-const emailLimit = Number(
-  limitIndex >= 0
-    ? args[limitIndex + 1]
-    : (process.env.ALERT_DAILY_LIMIT ?? 250),
-);
+// Strict parsing: a mistyped `--dry-run` must fail, not send real emails.
+const { values } = parseArgs({
+  options: { 'dry-run': { type: 'boolean' }, limit: { type: 'string' } },
+});
+const dryRun = values['dry-run'] ?? false;
+const emailLimit = Number(values.limit ?? process.env.ALERT_DAILY_LIMIT ?? 250);
 if (!Number.isInteger(emailLimit) || emailLimit < 0)
   throw new Error('--limit must be a non-negative integer');
 const siteUrl = (process.env.SITE_URL ?? '').replace(/\/$/, '');

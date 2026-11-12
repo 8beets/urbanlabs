@@ -21,12 +21,8 @@ export interface MiramProbe {
 
 /** Accepts only https registration origins on approved Miram hosts. */
 export function probeOrigin(input: string): string {
-  let url: URL;
-  try {
-    url = new URL(input);
-  } catch {
-    throw new Error('Not a URL');
-  }
+  const url = URL.parse(input);
+  if (!url) throw new Error('Not a URL');
   if (
     url.protocol !== 'https:' ||
     url.port ||

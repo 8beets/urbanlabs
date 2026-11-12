@@ -19,74 +19,77 @@ test.beforeEach(async ({ page }) => {
 });
 for (const locale of ['es', 'ca'] as const) {
   const base = locale === 'es' ? '/es/centros' : '/ca/centres';
-  test(`${locale}: directory links to all centres and exact verified Leaflet markers`, async ({
-    page,
-  }) => {
-    await page.goto(locale === 'es' ? '/es/' : '/ca/');
-    await page
-      .getByRole('navigation', {
-        name: locale === 'es' ? 'Navegación principal' : 'Navegació principal',
-      })
-      .getByRole('link', {
-        name: locale === 'es' ? 'Centros' : 'Centres',
-        exact: true,
-      })
-      .click();
-    await expect(page).toHaveURL(new RegExp(`${base}$`));
-    // Every registry centre plus the isolated test centre without a verified location.
-    const links = await directoryLinks(page);
-    expect(links).toHaveLength(sources.length + 1);
-    for (const source of sources) {
-      const profile = centreProfile(source.institution.id);
-      expect(links).toContainEqual(
-        expect.objectContaining({
-          href: `${base}/${profile.slug}`,
-          name: source.institution.name,
-        }),
-      );
-    }
-    for (const source of sources) {
-      const profile = centreProfile(source.institution.id);
-      await page.goto(`${base}/${profile.slug}`);
-      await expect(page.getByRole('heading', { level: 1 })).toHaveText(
-        source.institution.name,
-      );
-      const map = page.locator('.centre-map [data-centre-map]');
-      await map.scrollIntoViewIfNeeded();
-      await expect(map).toHaveAttribute('data-map-ready', 'true');
-      await expect(map.locator('.centre-map-marker')).toHaveCount(1);
-      const points = JSON.parse((await map.getAttribute('data-centres'))!);
-      expect(points).toEqual([
-        {
-          id: source.institution.id,
-          slug: profile.slug,
-          name: source.institution.name,
-          latitude: profile.location!.latitude,
-          longitude: profile.location!.longitude,
-        },
-      ]);
-      await expect(map.getByRole('region')).toHaveAttribute(
-        'aria-label',
-        `Mapa de ${source.institution.name}`,
-      );
-      await expect(
-        page.locator('.centre-map > p a').filter({
-          hasText:
-            locale === 'es'
-              ? 'Colaboradores de OpenStreetMap'
-              : 'Col·laboradors d’OpenStreetMap',
-        }),
-      ).toHaveAttribute('href', 'https://www.openstreetmap.org/copyright');
-      await expect(
-        page.locator('.course .institution a').first(),
-      ).toHaveAttribute('href', `${base}/${profile.slug}`);
-      expect(
-        await page.evaluate(
-          () => document.documentElement.scrollWidth <= window.innerWidth,
-        ),
-      ).toBe(true);
-    }
-  });
+  test(
+    `${locale}: directory links to all centres and exact verified Leaflet markers`,
+    { tag: '@mobile' },
+    async ({ page }) => {
+      await page.goto(locale === 'es' ? '/es/' : '/ca/');
+      await page
+        .getByRole('navigation', {
+          name:
+            locale === 'es' ? 'Navegación principal' : 'Navegació principal',
+        })
+        .getByRole('link', {
+          name: locale === 'es' ? 'Centros' : 'Centres',
+          exact: true,
+        })
+        .click();
+      await expect(page).toHaveURL(new RegExp(`${base}$`));
+      // Every registry centre plus the isolated test centre without a verified location.
+      const links = await directoryLinks(page);
+      expect(links).toHaveLength(sources.length + 1);
+      for (const source of sources) {
+        const profile = centreProfile(source.institution.id);
+        expect(links).toContainEqual(
+          expect.objectContaining({
+            href: `${base}/${profile.slug}`,
+            name: source.institution.name,
+          }),
+        );
+      }
+      for (const source of sources) {
+        const profile = centreProfile(source.institution.id);
+        await page.goto(`${base}/${profile.slug}`);
+        await expect(page.getByRole('heading', { level: 1 })).toHaveText(
+          source.institution.name,
+        );
+        const map = page.locator('.centre-map [data-centre-map]');
+        await map.scrollIntoViewIfNeeded();
+        await expect(map).toHaveAttribute('data-map-ready', 'true');
+        await expect(map.locator('.centre-map-marker')).toHaveCount(1);
+        const points = JSON.parse((await map.getAttribute('data-centres'))!);
+        expect(points).toEqual([
+          {
+            id: source.institution.id,
+            slug: profile.slug,
+            name: source.institution.name,
+            latitude: profile.location!.latitude,
+            longitude: profile.location!.longitude,
+          },
+        ]);
+        await expect(map.getByRole('region')).toHaveAttribute(
+          'aria-label',
+          `Mapa de ${source.institution.name}`,
+        );
+        await expect(
+          page.locator('.centre-map > p a').filter({
+            hasText:
+              locale === 'es'
+                ? 'Colaboradores de OpenStreetMap'
+                : 'Col·laboradors d’OpenStreetMap',
+          }),
+        ).toHaveAttribute('href', 'https://www.openstreetmap.org/copyright');
+        await expect(
+          page.locator('.course .institution a').first(),
+        ).toHaveAttribute('href', `${base}/${profile.slug}`);
+        expect(
+          await page.evaluate(
+            () => document.documentElement.scrollWidth <= window.innerWidth,
+          ),
+        ).toBe(true);
+      }
+    },
+  );
   test(`${locale}: locale switching preserves centre, pagination is scoped, and unknown location has no fake marker`, async ({
     page,
   }) => {

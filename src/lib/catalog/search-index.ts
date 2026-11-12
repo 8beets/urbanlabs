@@ -70,7 +70,7 @@ export function buildSearchIndexes(
   sources: OfficialSource[],
   today: string,
 ): { live: SearchIndex; archive: SearchIndex } {
-  const ordered = [...snapshot.editions].sort((a, b) =>
+  const ordered = snapshot.editions.toSorted((a, b) =>
     a.id < b.id ? -1 : a.id > b.id ? 1 : 0,
   );
   const institutions: [string, string, string][] = [];
