@@ -1,10 +1,4 @@
-import {
-  TOPICS,
-  canonicalCategory,
-  courseAudience,
-  courseTopic,
-  matchesCategory,
-} from '../courses/categories';
+import { TOPICS, courseAudience, courseTopic } from '../courses/categories';
 import { monthRange } from '../courses/start-month';
 import { earliestLocalDate } from '../time/dates';
 import { parseTitleQuery, titleMatches } from './title-match';
@@ -114,7 +108,6 @@ export function filterCourses(
   today: string,
 ): CourseListing[] {
   const locations = locationsOf(catalog);
-  const category = canonicalCategory(filters.category);
   const phrases = filters.q ? parseTitleQuery(filters.q) : null;
   // A query without letters or digits matches nothing, as with the FTS index.
   if (filters.q && phrases === null) return [];
@@ -124,7 +117,7 @@ export function filterCourses(
       (edition) =>
         matchesState(edition, today, filters) &&
         inGeography(edition.institution_id, filters, locations) &&
-        (!category || matchesCategory(edition, category)) &&
+        (!filters.category || courseTopic(edition) === filters.category) &&
         (!filters.audience || courseAudience(edition) === filters.audience) &&
         (!filters.centre || edition.institution_id === filters.centre) &&
         (!phrases || titleMatches(edition.title, phrases)) &&

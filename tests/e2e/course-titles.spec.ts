@@ -47,7 +47,7 @@ for (const locale of ['es', 'ca']) {
       }),
     ).toBeVisible();
     await page.goto(
-      `${locale === 'es' ? '/es/buscar' : '/ca/cerca'}?centre=cc-golferichs&category=CUINA`,
+      `${locale === 'es' ? '/es/buscar' : '/ca/cerca'}?centre=cc-golferichs&category=cuina`,
     );
     await expect(
       page.getByRole('heading', {

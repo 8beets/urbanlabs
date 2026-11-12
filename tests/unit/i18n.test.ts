@@ -52,7 +52,7 @@ describe('Paraglide translation catalogs', () => {
         await new Promise((resolve) => setTimeout(resolve, index % 3));
         return [
           m.searchTitle({}, { locale }),
-          categoryLabel('FOTOGRAFIA', locale),
+          categoryLabel('fotografia-i-audiovisual', locale),
           regionLabel({ id: 'catalunya', name: 'Catalunya' }, locale),
           cityLabel({ id: 'alicante', name: 'Alicante' }, locale),
           formatSchedule('Dilluns i dimarts', locale),

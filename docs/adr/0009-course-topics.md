@@ -23,15 +23,14 @@ macOS with Apple-silicon GPUs, and production ingestion must not depend on LLMs
   topic. Categories that mix subjects or name an audience, format or programme are
   listed as mixed; their courses are classified by ordered title keyword rules. A
   course no rule matches is listed under "Altres" rather than guessed.
-- An optional audience (families, children and young people, older people) comes
+- An optional audience (families, children and young people, older people, women) comes
   from a second reviewed table of audience categories, then conservative title rules.
   It is a separate filter.
 - Classification runs at build time and in the browser over the stored source
   category and title. D1 and ingestion are unchanged, so a table change needs only a
   rebuild.
-- Old `?category=` links and alert subscriptions that store a source category keep
-  working: values the table maps to one topic select it; other values match their
-  source category exactly.
+- `?category=` accepts only topic ids. Links and alert subscriptions that use former
+  category values are not kept working; such links show the invalid-filter error.
 - The weekly freshness report lists source categories missing from the tables, so a
   new centre's categories get reviewed.
 
@@ -43,4 +42,5 @@ macOS with Apple-silicon GPUs, and production ingestion must not depend on LLMs
 - Title rules can misclassify; corrections are a reviewed edit to the rules, covered
   by unit tests built from real titles.
 - Former category page URLs whose slug is not a topic id (for example
-  `/categoria/fotografia`) return 404.
+  `/categoria/fotografia`) return 404, and alert subscriptions stored with a former
+  category value no longer match any course.

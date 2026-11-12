@@ -18,11 +18,11 @@ Centre and category navigation uses real database values, parameterized equality
 
 ## Discovery categories
 
-Courses are listed under one of 13 fixed topics (ADR 0009) and optionally one audience (families, children and young people, older people). `src/lib/courses/categories.ts` holds the reviewed tables and title rules and is the only place that decides either. Classification is a pure function of the stored source category and title, run at build time and in the browser search, so changing the tables needs only a rebuild. D1 keeps original category values unchanged for provenance.
+Courses are listed under one of 13 fixed topics (ADR 0009) and optionally one audience (families, children and young people, older people, women). `src/lib/courses/categories.ts` holds the reviewed tables and title rules and is the only place that decides either. Classification is a pure function of the stored source category and title, run at build time and in the browser search, so changing the tables needs only a rebuild. D1 keeps original category values unchanged for provenance.
 
-Topic ids are the `?category=` values and the category page slugs. Older links and alert subscriptions that name a source category or a former group still work: a value the tables map to one topic selects that topic, and any other value matches its source category exactly. Topic choices follow the selected location and centre, in a fixed order.
+Topic ids are the `?category=` values and the category page slugs. Any other `category` value is rejected as an invalid filter. Topic choices follow the selected location and centre, in a fixed order.
 
-Spanish and Catalan Paraglide catalogs provide topic and audience labels. An unknown all-caps source category from an old link receives sentence casing without inventing a translation. Source titles and descriptions are unaffected. Selecting a different centre retains other filters; an incompatible category can yield an empty result and can be removed using the all-categories link or clear-filters action.
+Spanish and Catalan Paraglide catalogs provide topic and audience labels. Source titles and descriptions are unaffected. Selecting a different centre retains other filters; an incompatible category can yield an empty result and can be removed using the all-categories link or clear-filters action.
 
 Search, centre, category, and price controls share one GET form in `CourseFilters.astro`. The form occupies a sidebar beside results from 800px upward and a native `<details>` panel above results on smaller screens. A small client script sets the initial/resized disclosure state; without JavaScript the panel starts open and remains keyboard-collapsible. Applied filters remain visible outside the panel, each with a removal link, alongside a clear-all action. The footer links to the GitHub repository with a locally served Octicons mark and a localized text label.
 

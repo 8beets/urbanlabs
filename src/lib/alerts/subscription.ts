@@ -1,5 +1,5 @@
 import type { Locale } from '../../paraglide/runtime.js';
-import { canonicalCategory, matchesCategory } from '../courses/categories';
+import { courseTopic, isTopic } from '../courses/categories';
 
 /** What a visitor asks to be alerted about. At least one of category or city is set. */
 export interface AlertTarget {
@@ -59,17 +59,10 @@ export function parseAlertRequest(
   const email = text('email').toLowerCase();
   if (email.length > 254 || !EMAIL.test(email))
     throw new InvalidAlertRequest('email');
-  const rawCategory = text('category');
-  if (
-    rawCategory.length > 200 ||
-    [...rawCategory].some(
-      (c) => c.charCodeAt(0) < 32 || c.charCodeAt(0) === 127,
-    )
-  )
-    throw new InvalidAlertRequest('category');
+  const category = text('category');
+  if (category && !isTopic(category)) throw new InvalidAlertRequest('category');
   const cityId = text('city');
   if (cityId && !IDENTIFIER.test(cityId)) throw new InvalidAlertRequest('city');
-  const category = rawCategory ? canonicalCategory(rawCategory) : '';
   if (!category && !cityId) throw new InvalidAlertRequest('target');
   return {
     email,
@@ -117,8 +110,7 @@ export function matchDigest(
       (course) =>
         course.firstSeenAt > since &&
         (subscription.category === null ||
-          // Subscriptions made before topics hold a source category; this maps it.
-          matchesCategory(course, canonicalCategory(subscription.category))) &&
+          courseTopic(course) === subscription.category) &&
         (subscription.cityId === null || course.cityId === subscription.cityId),
     )
     .slice(0, DIGEST_COURSE_LIMIT);

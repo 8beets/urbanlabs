@@ -286,7 +286,7 @@ async function setup() {
       await db
         .prepare(
           `INSERT OR REPLACE INTO alert_subscriptions(id,email,locale,category,country_code,city_id,status,created_at)
-          VALUES (?, ?, 'es', 'IDIOMES', 'ES', 'barcelona', 'pending', '2099-01-01T00:00:00.000Z')`,
+          VALUES (?, ?, 'es', 'idiomes', 'ES', 'barcelona', 'pending', '2099-01-01T00:00:00.000Z')`,
         )
         .bind(id, `test-${id}@example.invalid`)
         .run();

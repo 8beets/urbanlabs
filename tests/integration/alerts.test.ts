@@ -43,7 +43,7 @@ const SITE = 'https://urbanlabs.example';
 const request = (overrides: Partial<AlertRequest> = {}): AlertRequest => ({
   email: 'ana@example.org',
   locale: 'es',
-  category: 'IDIOMES',
+  category: 'idiomes',
   countryCode: 'ES',
   cityId: 'barcelona',
   ...overrides,
@@ -130,7 +130,7 @@ describe('course alerts against the SQLite contract', () => {
   });
 
   it('caps confirmation emails per address and allows a resend the next day', async () => {
-    for (const category of ['IDIOMES', 'CUINA', 'MÚSICA', 'BALL'])
+    for (const category of ['idiomes', 'cuina', 'musica', 'dansa'])
       await requestSubscription(context, request({ category }));
     expect(sent).toHaveLength(3);
     now = new Date('2020-01-02T09:00:01.000Z');
@@ -159,7 +159,7 @@ describe('course alerts against the SQLite contract', () => {
       await confirm(context, tokenFrom(sent[0]!));
     };
     await subscribe({});
-    await subscribe({ email: 'bo@example.org', category: 'CUINA' });
+    await subscribe({ email: 'bo@example.org', category: 'cuina' });
     await subscribe({
       email: 'cy@example.org',
       category: null,
@@ -186,7 +186,7 @@ describe('course alerts against the SQLite contract', () => {
     expect(digest.to).toBe('ana@example.org');
     expect(digest.text).toContain(records[0]!.title);
     expect(digest.text).toContain(
-      `${SITE}/es/buscar?category=IDIOMES&country=ES&city=barcelona`,
+      `${SITE}/es/buscar?category=idiomes&country=ES&city=barcelona`,
     );
     expect(
       count(

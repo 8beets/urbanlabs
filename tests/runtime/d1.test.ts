@@ -113,7 +113,7 @@ it('applies the migration and imports idempotently in the actual local D1 runtim
         q: '',
         page: 1,
         maxPriceCents: null,
-        category: 'ESPAI FOTOGRÀFIC',
+        category: 'fotografia-i-audiovisual',
         centre: santAndreu.institution.id,
       },
       '2026-11-06',

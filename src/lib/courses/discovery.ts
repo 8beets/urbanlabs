@@ -1,6 +1,6 @@
 import { parseGeography } from '../locations/geography';
 import type { DiscoveryFilters } from '../catalog/types';
-import { canonicalCategory, isAudience } from './categories';
+import { isAudience, isTopic } from './categories';
 import { parsePage } from '../pagination';
 import { isStartMonth } from './start-month';
 
@@ -14,14 +14,7 @@ export function parseFilters(params: URLSearchParams): DiscoveryFilters {
     throw new Error('Invalid cancellation filter');
   if (centre && !/^[a-z0-9-]{1,100}$/.test(centre))
     throw new Error('Invalid centre');
-  if (
-    category.length > 200 ||
-    [...category].some(
-      (character) =>
-        character.charCodeAt(0) < 32 || character.charCodeAt(0) === 127,
-    )
-  )
-    throw new Error('Invalid category');
+  if (category && !isTopic(category)) throw new Error('Invalid category');
   // Keeps search terms short and bounded; long input is rejected, not truncated.
   if (new TextEncoder().encode(q).length > 40)
     throw new Error('Search too long');
@@ -43,7 +36,7 @@ export function parseFilters(params: URLSearchParams): DiscoveryFilters {
   return {
     ...parseGeography(params),
     q,
-    category: canonicalCategory(category),
+    category,
     audience: isAudience(audience) ? audience : '',
     centre,
     cancellation,

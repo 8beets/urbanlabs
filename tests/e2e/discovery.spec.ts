@@ -206,7 +206,7 @@ test('categories compose with search, pagination, and locale switching', async (
 test('centre selection composes with categories, keyword, and language switching', async ({
   page,
 }) => {
-  await page.goto('/es/buscar?category=IDIOMES&page=2');
+  await page.goto('/es/buscar?category=idiomes&page=2');
   await page.getByLabel('Centro', { exact: true }).selectOption('cc-can-baste');
   await submit(page);
   expect(query(page).get('centre')).toBe('cc-can-baste');
@@ -244,10 +244,12 @@ test('centre selection composes with categories, keyword, and language switching
   );
 });
 
-test('old category links open their topic and topics follow the selected centre', async ({
+test('photography categories share one topic and topics follow the selected centre', async ({
   page,
 }) => {
-  await page.goto('/es/buscar?category=ESPAI+FOTOGR%C3%80FIC+PATI+LLIMONA');
+  await page.goto('/es/buscar?category=IDIOMES');
+  await expect(page.getByRole('alert')).toContainText('Revisa los filtros');
+  await page.goto('/es/buscar?category=fotografia-i-audiovisual');
   await expect(page.locator('#category')).toHaveValue(
     'fotografia-i-audiovisual',
   );
@@ -417,7 +419,7 @@ test('applied filters can be removed individually or cleared, preserving other U
   page,
 }) => {
   await page.goto(
-    '/es/buscar?q=TEST&centre=cc-can-baste&category=IDIOMES&maxPrice=100&page=2&region=catalunya&city=barcelona',
+    '/es/buscar?q=TEST&centre=cc-can-baste&category=idiomes&maxPrice=100&page=2&region=catalunya&city=barcelona',
   );
   await expect(
     page
@@ -456,7 +458,7 @@ test('applied filters can be removed individually or cleared, preserving other U
 test('incompatible selected categories remain visible and removable', async ({
   page,
 }) => {
-  await page.goto('/es/buscar?centre=cc-pati-llimona&category=IDIOMES');
+  await page.goto('/es/buscar?centre=cc-pati-llimona&category=idiomes');
   await expect(page.locator('#category')).toHaveValue('idiomes');
   await expect(page.locator('#category option:checked')).toHaveText(
     'Idiomas (Selección actual)',

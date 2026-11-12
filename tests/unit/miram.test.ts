@@ -11,6 +11,7 @@ import {
 } from '../../src/lib/ingestion/normalization/values';
 import { createSourceFetcher } from '../../src/lib/ingestion/http';
 import { categoryLabel } from '../../src/i18n/ui';
+import { courseTopic } from '../../src/lib/courses/categories';
 import { parseFilters } from '../../src/lib/courses/discovery';
 
 const santAndreu = getSource('miram-sant-andreu');
@@ -118,7 +119,7 @@ describe('Miram source fixture', () => {
     expect(records[0]?.officialUrl).toBe(
       `${golferichs.listingUrl}&f=XX#accordion7350`,
     );
-    expect(categoryLabel(records[0]!.category!, 'es')).toBe(
+    expect(categoryLabel(courseTopic(records[0]!), 'es')).toBe(
       'Fotografía y audiovisual',
     );
   });
@@ -137,7 +138,7 @@ describe('Miram source fixture', () => {
       priceCents: 8165,
       availability: null,
     });
-    expect(categoryLabel(records[0]!.category!, 'es')).toBe(
+    expect(categoryLabel(courseTopic(records[0]!), 'es')).toBe(
       'Cocina y gastronomía',
     );
   });

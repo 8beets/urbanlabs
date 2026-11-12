@@ -23,7 +23,12 @@ export const TOPICS = [
 ] as const;
 export type Topic = (typeof TOPICS)[number];
 
-export const AUDIENCES = ['families', 'infants-i-joves', 'gent-gran'] as const;
+export const AUDIENCES = [
+  'families',
+  'infants-i-joves',
+  'gent-gran',
+  'dones',
+] as const;
 export type Audience = (typeof AUDIENCES)[number];
 
 /** Reviewed source categories whose courses all belong to one topic. */
@@ -294,6 +299,7 @@ const audienceCategories: Record<Audience, readonly string[]> = {
     'ESPECIAL GENT GRAN',
     "4_Tallers d'informàtica per a gent gran",
   ],
+  dones: ['DONA', 'Espai Dona'],
 };
 
 // Matched in order against the folded title (lowercase, no accents); the first match
@@ -360,6 +366,10 @@ const titleAudienceRules: readonly (readonly [Audience, RegExp])[] = [
     'infants-i-joves',
     /infant|\bnens\b|\bnenes\b|\bjoves\b|adolescent|\bkids\b|junior|\d+ ?(a|-) ?\d+ anys|a partir de \d+ anys/,
   ],
+  [
+    'dones',
+    /per a (la )?(dona|dones)\b|no mixta|autodefensa feminista|empoderament femeni/,
+  ],
 ];
 
 function comparisonKey(value: string): string {
@@ -424,28 +434,6 @@ export function courseAudience({
     (category ? categoryAudiences.get(comparisonKey(category)) : undefined) ??
     byTitle(titleAudienceRules, title)
   );
-}
-
-/**
- * Normalizes a requested category: a topic id, or a source category from an old link
- * or alert subscription that the table maps to one topic. Anything else is kept
- * (trimmed) and matched against source categories exactly, as before topics.
- */
-export function canonicalCategory(value: string): string {
-  const trimmed = value.trim();
-  if (isTopic(trimmed)) return trimmed;
-  return categoryTopics.get(comparisonKey(trimmed)) ?? trimmed;
-}
-
-/** Whether a course belongs to a category normalized by `canonicalCategory`. */
-export function matchesCategory(
-  course: Classifiable,
-  category: string,
-): boolean {
-  return isTopic(category)
-    ? courseTopic(course) === category
-    : course.category !== null &&
-        comparisonKey(course.category) === comparisonKey(category);
 }
 
 /** Source categories not yet reviewed into the tables above, for the freshness report. */

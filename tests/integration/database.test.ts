@@ -71,7 +71,7 @@ describe('SQLite migration and ingestion contract', () => {
     }));
     await runIngestion(db, { fetchRecords: async () => active }, santAndreu);
     const params = new URLSearchParams(
-      'region=catalunya&city=barcelona&category=IDIOMES&centre=cc-sant-andreu&q=ANGLÈS&maxPrice=20',
+      'region=catalunya&city=barcelona&category=idiomes&centre=cc-sant-andreu&q=ANGLÈS&maxPrice=20',
     );
     const data = await loadDiscoveryPage(db, params);
     expect(data.status).toBe(200);
@@ -834,7 +834,7 @@ describe('SQLite migration and ingestion contract', () => {
       q: '',
       page: 1,
       maxPriceCents: null,
-      category: 'IDIOMES',
+      category: 'idiomes',
       centre: santAndreu.institution.id,
     };
     expect((await listCourses(db, filters, '2026-11-05')).courses).toHaveLength(
@@ -853,7 +853,7 @@ describe('SQLite migration and ingestion contract', () => {
       (
         await listCourses(
           db,
-          { ...filters, category: 'DANSA', centre: canBaste.institution.id },
+          { ...filters, category: 'dansa', centre: canBaste.institution.id },
           '2026-11-05',
         )
       ).courses,
@@ -912,7 +912,7 @@ describe('SQLite migration and ingestion contract', () => {
       q: 'TEST photo',
       page: 1,
       maxPriceCents: 6000,
-      category: 'FOTOGRAFIA',
+      category: 'fotografia-i-audiovisual',
       centre: santAndreu.institution.id,
     };
     const firstPage = await listCourses(db, filters, '2026-11-05');
@@ -931,13 +931,6 @@ describe('SQLite migration and ingestion contract', () => {
     expect(secondPage.courses).toHaveLength(3);
     expect(secondPage.hasNext).toBe(false);
     expect(
-      await listCourses(
-        db,
-        { ...filters, category: aliases[2]!, page: 2 },
-        '2026-11-05',
-      ),
-    ).toEqual(secondPage);
-    expect(
       await listCategories(db, '2026-11-05', santAndreu.institution.id),
     ).toEqual(['fotografia-i-audiovisual', 'cuina']);
     // The archive lists only ended editions, with the same filters and facets.
@@ -951,7 +944,7 @@ describe('SQLite migration and ingestion contract', () => {
       (
         await listCourses(
           db,
-          { ...archive, archive: true, category: 'CUINA' },
+          { ...archive, archive: true, category: 'cuina' },
           '2026-11-05',
         )
       ).courses,
@@ -970,7 +963,7 @@ describe('SQLite migration and ingestion contract', () => {
         .map((row) => row.category),
     ).toEqual([...aliases].sort());
   });
-  it('classifies mixed categories by title and keeps old category links working', async () => {
+  it('classifies mixed categories by title', async () => {
     const expression = [
       ['Expressió', 'Ioga suau'],
       ['Expressió i creativitat', 'Improvisació teatral'],
@@ -999,16 +992,6 @@ describe('SQLite migration and ingestion contract', () => {
     expect(theatre.courses.map((course) => course.category)).toEqual([
       'teatre',
     ]);
-    // A mixed source category from an old link matches that category exactly.
-    expect(
-      (
-        await listCourses(
-          db,
-          { ...filters, category: 'EXPRESSIÓ I CREATIVITAT' },
-          '2026-11-06',
-        )
-      ).courses,
-    ).toEqual(theatre.courses);
   });
   it('imports twice without duplicates, preserves provenance and reviewed titles', async () => {
     const adapter = { fetchRecords: async () => records };

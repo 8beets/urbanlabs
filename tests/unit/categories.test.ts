@@ -1,10 +1,8 @@
 import { describe, expect, it } from 'vitest';
 import {
   TOPICS,
-  canonicalCategory,
   courseAudience,
   courseTopic,
-  matchesCategory,
   unmappedCategories,
 } from '../../src/lib/courses/categories';
 import { categoryLabel } from '../../src/i18n/ui';
@@ -60,32 +58,28 @@ describe('course topics', () => {
     );
   });
 
-  it('matches topics, legacy group names and unknown source values', () => {
-    const course = {
-      category: 'Espai de fotografia F. Català-Roca',
-      title: 'x',
-    };
-    expect(canonicalCategory('FOTOGRAFIA')).toBe('fotografia-i-audiovisual');
-    expect(canonicalCategory(' idiomes ')).toBe('idiomes');
-    expect(canonicalCategory('EXPRESSIÓ')).toBe('EXPRESSIÓ');
-    expect(matchesCategory(course, 'fotografia-i-audiovisual')).toBe(true);
-    expect(matchesCategory(course, 'idiomes')).toBe(false);
-    expect(
-      matchesCategory({ category: 'Expressió', title: 'Canta' }, 'EXPRESSIÓ'),
-    ).toBe(true);
-    for (const value of ["' OR 1=1 --", '__proto__', 'constructor'])
-      expect(canonicalCategory(value)).toBe(value);
-    expect(
-      parseFilters(new URLSearchParams('category=ESPAI+FOTOGRÀFIC')).category,
-    ).toBe('fotografia-i-audiovisual');
+  it('accepts only topic ids as the category filter', () => {
+    expect(parseFilters(new URLSearchParams('category=idiomes')).category).toBe(
+      'idiomes',
+    );
+    for (const value of [
+      'IDIOMES',
+      'ESPAI FOTOGRÀFIC',
+      "' OR 1=1 --",
+      '__proto__',
+    ])
+      expect(() =>
+        parseFilters(new URLSearchParams({ category: value })),
+      ).toThrow('Invalid category');
   });
 
-  it('labels every topic in both locales and keeps unknown labels readable', () => {
+  it('labels every topic in both locales', () => {
     for (const topic of TOPICS)
       for (const locale of ['es', 'ca'] as const)
         expect(categoryLabel(topic, locale)).not.toBe(topic);
-    expect(categoryLabel('FOTOGRAFIA', 'es')).toBe('Fotografía y audiovisual');
-    expect(categoryLabel('NOVA CATEGORIA', 'ca')).toBe('Nova categoria');
+    expect(categoryLabel('fotografia-i-audiovisual', 'es')).toBe(
+      'Fotografía y audiovisual',
+    );
   });
 
   it('lists source categories missing from the reviewed tables', () => {
@@ -114,10 +108,15 @@ describe('course audiences', () => {
     [
       'Cos i moviment',
       'Moviment Conscient per a Dones Majors de 40 Anys',
-      null,
+      'dones',
     ],
     ['Habilitats i competències', 'Genealogia i història familiar', null],
     ['COR', 'COR JOVE B', null],
+    ['DONA', 'IOGA RESTAURADOR', 'dones'],
+    ['Espai Dona', "EL VENTRE DE LES DEESES D'EGIPTE", 'dones'],
+    ['COS', 'Ioga per a la Dona - NOU', 'dones'],
+    ['Salut i esport', 'Autodefensa feminista', 'dones'],
+    ['Art i creació', 'Dones que pinten flors (Dimarts 17 h)', null],
   ])('reads %s / %s as %s', (category, title, audience) => {
     expect(courseAudience({ category, title })).toBe(audience);
   });

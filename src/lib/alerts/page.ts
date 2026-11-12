@@ -1,6 +1,5 @@
 import type { Locale } from '../../i18n/ui';
 import type { City } from '../locations/geography';
-import { canonicalCategory } from '../courses/categories';
 import { loadAlertOptions } from './options';
 import { verifyTurnstile } from './adapters/turnstile';
 import { describeTarget } from './emails';
@@ -94,8 +93,7 @@ export async function loadSignupPage(
     cities: [],
     values: {
       email: isPost ? field('email') : '',
-      // Old links name a source category; preselect its topic.
-      category: canonicalCategory(field('category')),
+      category: field('category'),
       city: field('city'),
     },
   };

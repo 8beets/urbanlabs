@@ -12,7 +12,7 @@ test.beforeEach(async ({ page }) => {
 test('search links to an alert form prefilled with category and city', async ({
   page,
 }) => {
-  await page.goto('/es/buscar?category=IDIOMES&city=barcelona');
+  await page.goto('/es/buscar?category=idiomes&city=barcelona');
   await page
     .getByRole('link', {
       name: 'Recibe avisos de cursos nuevos de esta búsqueda',
@@ -35,8 +35,7 @@ test('search links to an alert form prefilled with category and city', async ({
 test('reports invalid input accessibly before any verification', async ({
   page,
 }) => {
-  // An old link with a source category preselects its topic.
-  await page.goto('/ca/alertes?category=IDIOMES');
+  await page.goto('/ca/alertes?category=idiomes');
   await expect(page.getByLabel('Categoria')).toHaveValue('idiomes');
   await page.getByLabel('Correu electrònic').fill('no-és-un-correu');
   await page.getByRole('button', { name: 'Crear l’avís' }).click();

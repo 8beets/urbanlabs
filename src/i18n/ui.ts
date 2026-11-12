@@ -1,11 +1,6 @@
 import { m } from '../paraglide/messages.js';
 import type { Locale } from '../paraglide/runtime.js';
-import {
-  canonicalCategory,
-  isTopic,
-  type Audience,
-  type Topic,
-} from '../lib/courses/categories';
+import { isTopic, type Audience, type Topic } from '../lib/courses/categories';
 import { parseIsoDate } from '../lib/time/dates';
 
 export type { Locale } from '../paraglide/runtime.js';
@@ -26,19 +21,15 @@ const topicMessages: Record<Topic, typeof m.topicOther> = {
   altres: m.topicOther,
 };
 
-/** A topic's label; a legacy source category from an old link keeps its own words. */
 export function categoryLabel(category: string, locale: Locale): string {
-  const canonical = canonicalCategory(category);
-  if (isTopic(canonical)) return topicMessages[canonical]({}, { locale });
-  if (canonical !== canonical.toLocaleUpperCase(locale)) return canonical;
-  const lower = canonical.toLocaleLowerCase(locale);
-  return lower.charAt(0).toLocaleUpperCase(locale) + lower.slice(1);
+  return isTopic(category) ? topicMessages[category]({}, { locale }) : category;
 }
 
 const audienceMessages: Record<Audience, typeof m.audienceFamilies> = {
   families: m.audienceFamilies,
   'infants-i-joves': m.audienceYouth,
   'gent-gran': m.audienceSeniors,
+  dones: m.audienceWomen,
 };
 
 export function audienceLabel(audience: Audience, locale: Locale): string {
