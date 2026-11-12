@@ -13,7 +13,8 @@ const { values } = parseArgs({
     force: { type: 'boolean' },
     'batch-size': { type: 'string', default: '8' },
     'min-age-hours': { type: 'string', default: '20' },
-    'max-sources': { type: 'string', default: '60' },
+    // Defaults to every approved source, so the cap grows with the registry.
+    'max-sources': { type: 'string' },
   },
 });
 const force = values.force ?? false;
@@ -41,7 +42,7 @@ const plan =
         {
           now: new Date(),
           minAgeHours: Number(values['min-age-hours']),
-          maxSources: Number(values['max-sources']),
+          maxSources: Number(values['max-sources'] ?? sources.length),
           batchSize,
         },
       );
