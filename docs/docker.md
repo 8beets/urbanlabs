@@ -1,6 +1,6 @@
 # Local development and testing with Docker
 
-Docker provides a consistent Linux environment for the Cloudflare runtime and browser tests. The image uses Node 24 on Debian Bookworm and installs Chromium and its system libraries using the project's locked Playwright version. It is a development/test image, not a production deployment.
+Docker provides a consistent Linux environment for the Cloudflare runtime and browser tests. The image uses Node 26 on Debian Bookworm and installs Chromium and its system libraries using the project's locked Playwright version. It is a development/test image, not a production deployment.
 
 ## Start
 

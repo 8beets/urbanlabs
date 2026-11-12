@@ -1,11 +1,14 @@
+import { parseArgs } from 'node:util';
 import { getPlatformProxy } from 'wrangler';
 import { adapterFor } from '../src/lib/ingestion/adapters';
-import { selectedSources } from '../src/lib/ingestion/cli';
+import { selectedSources, sourceOptions } from '../src/lib/ingestion/cli';
 import { runIngestion } from '../src/lib/ingestion/run';
 
-const args = process.argv.slice(2);
-const selected = selectedSources(args);
-if (!args.includes('--live')) {
+const { values } = parseArgs({
+  options: { ...sourceOptions, live: { type: 'boolean' } },
+});
+const selected = selectedSources(values);
+if (!values.live) {
   console.info(
     'No network requests made. To fetch the approved public source into LOCAL D1, run npm run ingest:live. Apply npm run db:migrate first.',
   );

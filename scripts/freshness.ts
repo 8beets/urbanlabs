@@ -1,4 +1,5 @@
 import { appendFileSync, writeFileSync } from 'node:fs';
+import { parseArgs } from 'node:util';
 import { WranglerIngestionDatabase } from '../src/lib/db/wrangler-ingestion';
 import { loadSourceStatuses } from '../src/lib/db/ingestion-status';
 import { centres } from '../src/lib/centres/registry';
@@ -9,8 +10,9 @@ import {
 import { sources } from '../src/lib/sources';
 
 // Read-only. `--offline` checks only the reviewed dates in the registry (no D1 access).
-const args = process.argv.slice(2);
-const offline = args.includes('--offline');
+const offline =
+  parseArgs({ options: { offline: { type: 'boolean' } } }).values.offline ??
+  false;
 const options = {
   now: new Date(),
   maxProfileAgeDays: 180,

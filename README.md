@@ -80,7 +80,7 @@ provided; its setup has not been verified separately from Docker Compose.
 
 ### Native Node.js
 
-Use Node.js 24, npm, and an operating system supported by the project's Cloudflare
+Use Node.js 26 (LTS), npm, and an operating system supported by the project's Cloudflare
 runtime. If the runtime cannot start on your host, use the Docker setup above.
 
 ```sh

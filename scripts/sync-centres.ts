@@ -1,14 +1,12 @@
+import { parseArgs } from 'node:util';
 import { getPlatformProxy } from 'wrangler';
 import { registerSource } from '../src/lib/db/ingestion';
 import { WranglerIngestionDatabase } from '../src/lib/db/wrangler-ingestion';
 import { sources } from '../src/lib/sources';
 
-const args = process.argv.slice(2);
-if (args.some((arg) => arg !== '--remote'))
-  throw new Error(
-    'Only --remote is supported; omit it for local D1. Apply migrations first.',
-  );
-if (args.includes('--remote')) {
+// Only --remote is accepted; omit it for local D1. Apply migrations first.
+const { values } = parseArgs({ options: { remote: { type: 'boolean' } } });
+if (values.remote) {
   const db = new WranglerIngestionDatabase();
   for (const source of sources) await registerSource(db, source);
   console.info(

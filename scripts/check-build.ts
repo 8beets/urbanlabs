@@ -13,14 +13,9 @@ const MAX_FILE_BYTES = 25 * 1024 * 1024;
 const LIVE_INDEX = 'search/live.json';
 const MAX_LIVE_INDEX_GZIP = 150 * 1024;
 
-function files(directory: string): string[] {
-  return readdirSync(directory, { withFileTypes: true }).flatMap((entry) => {
-    const path = join(directory, entry.name);
-    return entry.isDirectory() ? files(path) : [path];
-  });
-}
-
-const all = files(CLIENT);
+const all = readdirSync(CLIENT, { recursive: true, withFileTypes: true })
+  .filter((entry) => entry.isFile())
+  .map((entry) => join(entry.parentPath, entry.name));
 const largest = all
   .map((path) => ({ path, bytes: statSync(path).size }))
   .sort((a, b) => b.bytes - a.bytes)[0];

@@ -57,7 +57,7 @@ export function createSourceFetcher(
       }
       const reader = response.body?.getReader();
       if (!reader) throw new Error('Empty response body');
-      const chunks: Uint8Array[] = [];
+      const chunks: Uint8Array<ArrayBuffer>[] = [];
       let size = 0;
       try {
         while (true) {
@@ -71,13 +71,7 @@ export function createSourceFetcher(
       } finally {
         await reader.cancel();
       }
-      const bytes = new Uint8Array(size);
-      let offset = 0;
-      for (const chunk of chunks) {
-        bytes.set(chunk, offset);
-        offset += chunk.byteLength;
-      }
-      return new TextDecoder().decode(bytes);
+      return new Blob(chunks).text();
     }
     throw new Error('Source retries exhausted');
   };

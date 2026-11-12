@@ -1,3 +1,4 @@
+import { parseArgs } from 'node:util';
 import { formatISO } from 'date-fns';
 import { createMiramAdapter } from '../src/lib/ingestion/adapters/miram';
 import { createSourceFetcher } from '../src/lib/ingestion/http';
@@ -14,9 +15,17 @@ const usage =
   'Reads robots.txt and the public navigation of a Miram registration host, then prints a\n' +
   'draft registry entry. --full also crawls the course catalogue (bounded and rate limited,\n' +
   'nothing is persisted). A person must still verify identity, address and coordinates.';
-const args = process.argv.slice(2);
-const target = args.find((arg) => !arg.startsWith('--'));
-if (!target || args.some((a) => a.startsWith('--') && a !== '--full')) {
+let parsed;
+try {
+  parsed = parseArgs({
+    options: { full: { type: 'boolean' } },
+    allowPositionals: true,
+  });
+} catch {
+  parsed = undefined;
+}
+const target = parsed?.positionals[0];
+if (!parsed || !target || parsed.positionals.length > 1) {
   console.error(usage);
   process.exit(2);
 }
@@ -59,7 +68,7 @@ if (probe.centreCodes.length !== 1) {
 const draft = draftEntry(origin, probe, today);
 console.log(JSON.stringify(draft, null, 2));
 
-if (args.includes('--full')) {
+if (parsed.values.full) {
   const registration = draft.registration as Extract<
     Centre['registration'],
     { platform: 'miram' }
