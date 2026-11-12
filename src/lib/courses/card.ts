@@ -3,21 +3,11 @@ import { courseSearchPath, centreDirectoryPath } from '../../i18n/paths';
 import { formatLocalDate, categoryLabel, type Locale } from '../../i18n/ui';
 import { formatSchedule } from '../../i18n/schedule';
 import { formatCourseTitle } from './title';
+import { escapeHtml } from '../html';
 import type { CourseListing } from '../catalog/types';
 
 // One renderer for course cards, used by prerendered pages and by the browser search,
 // so both always produce the same markup. Every interpolated value is escaped.
-
-const ESCAPES: Record<string, string> = {
-  '&': '&amp;',
-  '<': '&lt;',
-  '>': '&gt;',
-  '"': '&quot;',
-  "'": '&#39;',
-};
-export function escapeHtml(value: string): string {
-  return value.replace(/[&<>"']/g, (character) => ESCAPES[character]!);
-}
 
 const iconPaths = {
   pin: 'M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 1 1 16 0ZM15 10a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z',

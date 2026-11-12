@@ -4,7 +4,8 @@ import { courseSearchPath } from '../../i18n/paths';
 import { categoryLabel, pageErrorMessage, type Locale } from '../../i18n/ui';
 import { alertPath } from '../alerts/emails';
 import { startMonthLabel } from '../courses/start-month';
-import { courseCardHtml, escapeHtml } from '../courses/card';
+import { courseCardHtml } from '../courses/card';
+import { escapeHtml } from '../html';
 import type { DiscoveryPageData } from './discovery';
 import type { OfficialSource } from './search-index';
 

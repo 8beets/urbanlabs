@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
-import { courseCardHtml, escapeHtml } from '../../src/lib/courses/card';
+import { courseCardHtml } from '../../src/lib/courses/card';
+import { escapeHtml } from '../../src/lib/html';
 import { discover } from '../../src/lib/catalog/discovery';
 import { discoveryResultsHtml } from '../../src/lib/catalog/discovery-view';
 import { categorySlug, categoryPagesFrom } from '../../src/lib/catalog/pages';

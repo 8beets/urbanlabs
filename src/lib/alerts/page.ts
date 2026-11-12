@@ -1,7 +1,6 @@
 import type { Locale } from '../../i18n/ui';
-import { listCategories } from '../db/courses';
-import { liveCutoffDate } from '../db/clock';
-import { loadGeography, type City } from '../locations/geography';
+import type { City } from '../locations/geography';
+import { loadAlertOptions } from './options';
 import { verifyTurnstile } from './adapters/turnstile';
 import { describeTarget } from './emails';
 import { createEmailSender, type EmailConfig } from './sender';
@@ -16,6 +15,7 @@ import { InvalidAlertRequest, parseAlertRequest } from './subscription';
 
 export interface AlertEnv extends EmailConfig {
   DB: D1Database;
+  ASSETS: Fetcher;
   TURNSTILE_SITE_KEY?: string;
   TURNSTILE_SECRET_KEY?: string;
   ALERT_TOKEN_SECRET?: string;
@@ -100,12 +100,11 @@ export async function loadSignupPage(
   if (!alertsConfigured(env))
     return { ...base, status: 503, state: 'unavailable' };
   try {
-    const [geography, today] = await Promise.all([
-      loadGeography(env.DB),
-      liveCutoffDate(env.DB),
-    ]);
-    const categories = await listCategories(env.DB, today);
-    const data = { ...base, categories, cities: geography.cities };
+    const { categories, cities } = await loadAlertOptions(
+      env.ASSETS,
+      url.origin,
+    );
+    const data = { ...base, categories, cities };
     if (!isPost) return data;
     if (form === null) return { ...data, status: 400, error: 'email' };
     let parsed;
@@ -119,7 +118,7 @@ export async function loadSignupPage(
         error: error.message === 'email' ? 'email' : 'target',
       };
     }
-    const city = geography.cities.find((row) => row.id === parsed.cityId);
+    const city = cities.find((row) => row.id === parsed.cityId);
     if (
       (parsed.category !== null && !categories.includes(parsed.category)) ||
       (parsed.cityId !== null && !city)
@@ -132,10 +131,7 @@ export async function loadSignupPage(
       request.headers.get('CF-Connecting-IP'),
     );
     if (!verified) return { ...data, status: 400, error: 'verification' };
-    await requestSubscription(
-      context(env, url.origin, geography.cities),
-      alert,
-    );
+    await requestSubscription(context(env, url.origin, cities), alert);
     return {
       ...data,
       state: 'sent',
@@ -180,7 +176,7 @@ export async function loadTokenPage(
   if (!env.ALERT_TOKEN_SECRET)
     return { ...empty, status: 503, state: 'unavailable' };
   try {
-    const geography = await loadGeography(env.DB);
+    const { cities } = await loadAlertOptions(env.ASSETS, url.origin);
     const ctx = {
       db: env.DB,
       secret: env.ALERT_TOKEN_SECRET,
@@ -193,7 +189,7 @@ export async function loadTokenPage(
     if (!subscription) return { ...empty, status: 404, state: 'invalid' };
     return {
       token,
-      target: describeTarget(subscription, locale, geography.cities),
+      target: describeTarget(subscription, locale, cities),
       status: 200,
       state: isPost ? 'done' : 'ask',
     };
