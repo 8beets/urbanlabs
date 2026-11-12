@@ -1,5 +1,6 @@
 import { expect, test } from '@playwright/test';
 import { sources } from '../../src/lib/sources';
+import { PAGE_SIZE } from '../../src/lib/catalog/query';
 import { centreProfile } from '../../src/lib/institutions/profiles';
 import { directoryLinks } from './directory';
 
@@ -101,7 +102,7 @@ for (const locale of ['es', 'ca'] as const) {
     page,
   }) => {
     await page.goto(`${base}/sant-andreu`);
-    await expect(page.locator('.course')).toHaveCount(12);
+    await expect(page.locator('.course')).toHaveCount(PAGE_SIZE);
     await page.locator('a[rel="next"]').click();
     await expect(page).toHaveURL(`${base}/sant-andreu/2`);
     expect(await page.locator('.course').count()).toBeGreaterThan(0);

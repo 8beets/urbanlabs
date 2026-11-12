@@ -10,7 +10,7 @@ D1 is the only canonical persistent store. Node SQLite validates SQL and transac
 
 Local Docker development uses a Linux Node 26 image with separate volumes for dependencies and the app's D1 state. The checks service has its own temporary state and includes Chromium, so runtime and browser checks run in the same Linux environment across supported Docker hosts. See [Docker setup](docker.md).
 
-The initial UI provides title search, price filtering, and bounded pages of 12 editions. Title search follows the SQLite FTS5 index `courses_fts` (migration `0008`, `unicode61 remove_diacritics 2`): `src/lib/catalog/title-match.ts` reproduces it for the static search, so matching ignores case, accents, and composed/decomposed Unicode (`fotografia` finds `Fotografía`). Each typed word must match the start of a title word; mid-word substrings (`graf`) do not match, and query operators are plain words. Triggers keep the index in sync with `title` and `reviewed_title`, and `courses` keeps the original accented titles for display. Note that D1 cannot export databases containing virtual tables.
+The initial UI provides title search, price filtering, and bounded pages of 30 editions. Title search follows the SQLite FTS5 index `courses_fts` (migration `0008`, `unicode61 remove_diacritics 2`): `src/lib/catalog/title-match.ts` reproduces it for the static search, so matching ignores case, accents, and composed/decomposed Unicode (`fotografia` finds `Fotografía`). Each typed word must match the start of a title word; mid-word substrings (`graf`) do not match, and query operators are plain words. Triggers keep the index in sync with `title` and `reviewed_title`, and `courses` keeps the original accented titles for display. Note that D1 cannot export databases containing virtual tables.
 
 No account is required for browsing. No analytics, trackers, cookies, sessions, Images binding, KV, R2, Queues, or Durable Objects are configured. Cron Triggers are deferred. The ingestion CLI runs outside a public Worker request; there is no public ingestion endpoint.
 
@@ -36,7 +36,7 @@ Centre navigation uses `/es/<city>/centros` and `/es/<city>/centros/[slug]` in S
 `/ca/<city>/centres` and `/ca/<city>/centres/[slug]` in Catalan; `/es/centros` lists the cities. A shared native Astro layout provides primary
 navigation and switches locale while retaining the centre and pagination. Directory
 queries include institutions without courses, with 24-item pagination. Detail pages
-reuse bounded course queries scoped to the selected institution (12 per page), and
+reuse bounded course queries scoped to the selected institution (30 per page), and
 show verified contact information and an embedded OpenStreetMap map. Unknown slugs
 return 404; invalid pagination returns 400; database outages return 503. Profile
 metadata and provenance are separate from external course parsing.
@@ -105,7 +105,7 @@ do not promote older courses. Unknown end dates remain eligible without inferrin
 availability. Migration `0004_source_records_first_seen.sql` adds the ordering index.
 
 Search and filters live at `/es/<city>/cursos` and `/ca/<city>/cursos`, retaining the existing
-12-item pagination, sidebar, validation and URL state. The homepage has no filters
+30-item pagination, sidebar, validation and URL state. The homepage has no filters
 or pagination. Its primary action, header Courses link and course-category links
 lead to search. Recognized filter parameters on old homepage URLs redirect with
 HTTP 308 to the corresponding search page, preserving the query string. Unrelated

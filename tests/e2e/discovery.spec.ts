@@ -1,5 +1,6 @@
 import { expect, test } from '@playwright/test';
 import { sources } from '../../src/lib/sources';
+import { PAGE_SIZE } from '../../src/lib/catalog/query';
 
 // Search runs in the browser over the static index (docs/adr/0008-static-site.md).
 // Static pages (homepage, centres, category pages) keep working without JavaScript.
@@ -226,7 +227,7 @@ test('centre selection composes with categories, keyword, and language switching
   await submit(page);
   expect(query(page).get('centre')).toBe('');
   expect(query(page).get('category')).toBe('idiomes');
-  await expect(page.locator('article.course')).toHaveCount(12);
+  await expect(page.locator('article.course')).toHaveCount(PAGE_SIZE);
   await page
     .getByRole('link', { name: 'Neteja els filtres', exact: true })
     .click();
@@ -515,7 +516,7 @@ test.describe('without JavaScript', () => {
       await expect(page).toHaveURL('/es/barcelona/');
       await page.getByRole('link', { name: /^Idiomas \(\d+\)$/ }).click();
       await expect(page).toHaveURL('/es/barcelona/cursos/idiomes');
-      await expect(page.locator('article.course')).toHaveCount(12);
+      await expect(page.locator('article.course')).toHaveCount(PAGE_SIZE);
       await page.locator('a[rel="next"]').click();
       await expect(page).toHaveURL('/es/barcelona/cursos/idiomes/2');
       await page.getByRole('link', { name: 'Català' }).click();
@@ -576,7 +577,7 @@ test('the city comes from the path: no location controls, kept across pages and 
   await expect(page.getByRole('heading', { level: 1 })).toHaveText(
     'Cursos y talleres en Barcelona',
   );
-  await expect(page.locator('article.course')).toHaveCount(12);
+  await expect(page.locator('article.course')).toHaveCount(PAGE_SIZE);
   await page.getByRole('link', { name: /^Siguiente/ }).click();
   expect(query(page).get('page')).toBe('2');
   expect(query(page).has('city')).toBe(false);
