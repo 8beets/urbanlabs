@@ -16,73 +16,75 @@ test.beforeEach(async ({ page }, testInfo) => {
 
 test.describe('without JavaScript', () => {
   test.use({ javaScriptEnabled: false });
-  test('Spanish homepage and Catalan language switching work without client JavaScript', async ({
-    page,
-  }) => {
-    await page.goto('/es/');
-    await expect(
-      page.getByRole('heading', { name: 'Aprende cerca de casa' }),
-    ).toBeVisible();
-    await expect(page.locator('.schedule').first()).toHaveText(
-      /^(Lunes|Martes|Miércoles|Jueves|Viernes|Sábado|Domingo)\b/i,
-    );
-    await expect(page.locator('html')).toHaveAttribute('lang', 'es');
-    await expect(page.locator('.hero-photos figure')).toHaveCount(4);
-    await expect(page.locator('.hero-photos figcaption')).toHaveText([
-      'Música',
-      'Cerámica',
-      'Electrónica',
-      'Bricolaje',
-    ]);
-    await expect
-      .poll(() =>
-        page
-          .locator('.hero-photos img')
-          .evaluateAll((images) =>
-            images.every(
-              (image) =>
-                image instanceof HTMLImageElement &&
-                image.complete &&
-                image.naturalWidth > 0,
+  test(
+    'Spanish homepage and Catalan language switching work without client JavaScript',
+    { tag: '@mobile' },
+    async ({ page }) => {
+      await page.goto('/es/');
+      await expect(
+        page.getByRole('heading', { name: 'Aprende cerca de casa' }),
+      ).toBeVisible();
+      await expect(page.locator('.schedule').first()).toHaveText(
+        /^(Lunes|Martes|Miércoles|Jueves|Viernes|Sábado|Domingo)\b/i,
+      );
+      await expect(page.locator('html')).toHaveAttribute('lang', 'es');
+      await expect(page.locator('.hero-photos figure')).toHaveCount(4);
+      await expect(page.locator('.hero-photos figcaption')).toHaveText([
+        'Música',
+        'Cerámica',
+        'Electrónica',
+        'Bricolaje',
+      ]);
+      await expect
+        .poll(() =>
+          page
+            .locator('.hero-photos img')
+            .evaluateAll((images) =>
+              images.every(
+                (image) =>
+                  image instanceof HTMLImageElement &&
+                  image.complete &&
+                  image.naturalWidth > 0,
+              ),
             ),
-          ),
-      )
-      .toBe(true);
-    await expect(page.locator('.brand img')).toHaveAttribute(
-      'src',
-      '/images/brand/learnaprop-logo.png',
-    );
-    const repository = page
-      .getByRole('contentinfo')
-      .getByRole('link', { name: 'Código en GitHub', exact: true });
-    await expect(repository).toHaveAttribute(
-      'href',
-      'https://github.com/8beets/urbanlabs',
-    );
-    await expect(repository.locator('img')).toHaveAttribute(
-      'src',
-      '/icons/github.svg',
-    );
-    await page.getByRole('link', { name: 'Català' }).click();
-    await expect(
-      page.getByRole('heading', { name: 'Aprèn a prop de casa' }),
-    ).toBeVisible();
-    await expect(
-      page
+        )
+        .toBe(true);
+      await expect(page.locator('.brand img')).toHaveAttribute(
+        'src',
+        '/images/brand/learnaprop-logo.png',
+      );
+      const repository = page
         .getByRole('contentinfo')
-        .getByRole('link', { name: 'Codi a GitHub', exact: true }),
-    ).toHaveAttribute('href', 'https://github.com/8beets/urbanlabs');
-    await expect(page.locator('html')).toHaveAttribute('lang', 'ca');
-    await expect(page.locator('.hero-photos figcaption')).toHaveText([
-      'Música',
-      'Ceràmica',
-      'Electrònica',
-      'Bricolatge',
-    ]);
-    await expect(page.locator('.schedule').first()).toHaveText(
-      /^(Dilluns|Dimarts|Dimecres|Dijous|Divendres|Dissabte|Diumenge)\b/i,
-    );
-  });
+        .getByRole('link', { name: 'Código en GitHub', exact: true });
+      await expect(repository).toHaveAttribute(
+        'href',
+        'https://github.com/8beets/urbanlabs',
+      );
+      await expect(repository.locator('img')).toHaveAttribute(
+        'src',
+        '/icons/github.svg',
+      );
+      await page.getByRole('link', { name: 'Català' }).click();
+      await expect(
+        page.getByRole('heading', { name: 'Aprèn a prop de casa' }),
+      ).toBeVisible();
+      await expect(
+        page
+          .getByRole('contentinfo')
+          .getByRole('link', { name: 'Codi a GitHub', exact: true }),
+      ).toHaveAttribute('href', 'https://github.com/8beets/urbanlabs');
+      await expect(page.locator('html')).toHaveAttribute('lang', 'ca');
+      await expect(page.locator('.hero-photos figcaption')).toHaveText([
+        'Música',
+        'Ceràmica',
+        'Electrònica',
+        'Bricolatge',
+      ]);
+      await expect(page.locator('.schedule').first()).toHaveText(
+        /^(Dilluns|Dimarts|Dimecres|Dijous|Divendres|Dissabte|Diumenge)\b/i,
+      );
+    },
+  );
 });
 
 async function submit(page: import('@playwright/test').Page) {
@@ -458,54 +460,60 @@ test('incompatible selected categories remain visible and removable', async ({
 
 test.describe('without JavaScript', () => {
   test.use({ javaScriptEnabled: false });
-  test('native filters are keyboard-collapsible without JavaScript and sit beside desktop results', async ({
-    page,
-  }) => {
-    await page.goto('/es/buscar');
-    const panel = page.locator('#filter-panel');
-    const sidebar = (await page.locator('.filter-sidebar').boundingBox())!;
-    const results = (await page.locator('.discovery-content').boundingBox())!;
-    if (page.viewportSize()!.width >= 800) {
-      expect(sidebar.x + sidebar.width).toBeLessThan(results.x);
-      expect(Math.abs(sidebar.y - results.y)).toBeLessThan(3);
-    } else {
-      expect(sidebar.y + sidebar.height).toBeLessThan(results.y);
-    }
-    const summary = panel.locator('summary');
-    await summary.focus();
-    await page.keyboard.press('Enter');
-    await expect(page.locator('#q')).toBeHidden();
-    await page.keyboard.press('Enter');
-    await expect(page.locator('#q')).toBeVisible();
-    await page.keyboard.press('Tab');
-    await expect(page.locator('#q')).toBeFocused();
-    expect(
-      await page.evaluate(
-        () => document.documentElement.scrollWidth <= innerWidth,
-      ),
-    ).toBe(true);
-  });
-  test('search explains it needs JavaScript and links to static browsing', async ({
-    page,
-  }) => {
-    await page.goto('/es/buscar?q=anything');
-    await expect(page.locator('.search-noscript')).toContainText(
-      'necesita JavaScript',
-    );
-    await page.getByRole('link', { name: 'Explorar por categoría' }).click();
-    await expect(page).toHaveURL('/es/buscar/categoria');
-    await page.getByRole('link', { name: /^Idiomas \(\d+\)$/ }).click();
-    await expect(page).toHaveURL('/es/buscar/categoria/idiomes');
-    await expect(page.locator('article.course')).toHaveCount(12);
-    await page.locator('a[rel="next"]').click();
-    await expect(page).toHaveURL('/es/buscar/categoria/idiomes/2');
-    await page.getByRole('link', { name: 'Català' }).click();
-    await expect(page).toHaveURL('/ca/cerca/categoria/idiomes/2');
-    await expect(page.getByRole('heading', { level: 1 })).toHaveText('Idiomes');
-  });
+  test(
+    'native filters are keyboard-collapsible without JavaScript and sit beside desktop results',
+    { tag: '@mobile' },
+    async ({ page }) => {
+      await page.goto('/es/buscar');
+      const panel = page.locator('#filter-panel');
+      const sidebar = (await page.locator('.filter-sidebar').boundingBox())!;
+      const results = (await page.locator('.discovery-content').boundingBox())!;
+      if (page.viewportSize()!.width >= 800) {
+        expect(sidebar.x + sidebar.width).toBeLessThan(results.x);
+        expect(Math.abs(sidebar.y - results.y)).toBeLessThan(3);
+      } else {
+        expect(sidebar.y + sidebar.height).toBeLessThan(results.y);
+      }
+      const summary = panel.locator('summary');
+      await summary.focus();
+      await page.keyboard.press('Enter');
+      await expect(page.locator('#q')).toBeHidden();
+      await page.keyboard.press('Enter');
+      await expect(page.locator('#q')).toBeVisible();
+      await page.keyboard.press('Tab');
+      await expect(page.locator('#q')).toBeFocused();
+      expect(
+        await page.evaluate(
+          () => document.documentElement.scrollWidth <= innerWidth,
+        ),
+      ).toBe(true);
+    },
+  );
+  test(
+    'search explains it needs JavaScript and links to static browsing',
+    { tag: '@mobile' },
+    async ({ page }) => {
+      await page.goto('/es/buscar?q=anything');
+      await expect(page.locator('.search-noscript')).toContainText(
+        'necesita JavaScript',
+      );
+      await page.getByRole('link', { name: 'Explorar por categoría' }).click();
+      await expect(page).toHaveURL('/es/buscar/categoria');
+      await page.getByRole('link', { name: /^Idiomas \(\d+\)$/ }).click();
+      await expect(page).toHaveURL('/es/buscar/categoria/idiomes');
+      await expect(page.locator('article.course')).toHaveCount(12);
+      await page.locator('a[rel="next"]').click();
+      await expect(page).toHaveURL('/es/buscar/categoria/idiomes/2');
+      await page.getByRole('link', { name: 'Català' }).click();
+      await expect(page).toHaveURL('/ca/cerca/categoria/idiomes/2');
+      await expect(page.getByRole('heading', { level: 1 })).toHaveText(
+        'Idiomes',
+      );
+    },
+  );
 });
 
-test.describe('progressive filter panel', () => {
+test.describe('progressive filter panel', { tag: '@mobile' }, () => {
   test.use({ javaScriptEnabled: true });
   test('mobile starts collapsed, works by keyboard, and reopens on desktop resize', async ({
     page,

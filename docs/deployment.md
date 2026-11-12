@@ -121,9 +121,9 @@ migration or data refresh.
 
 The `Checks and deployment` workflow runs formatting, lint, binding generation,
 TypeScript, unit/SQLite tests, actual D1 tests, local migrations and the build for
-pushes and pull requests. Playwright installation and browser tests are temporarily
-skipped in GitHub Actions; run `npm run test:e2e` locally or the complete Docker
-check suite for browser coverage. After the CI checks pass, a push to `main`
+pushes and pull requests. Browser tests run in a parallel
+`e2e` job inside the official Playwright container (no browser download), and a
+failed run uploads the report and traces as an artifact. After both jobs pass, a push to `main`
 deploys the exact tested commit.
 The deployment job rebuilds with `npm run build:production`, verifies the commit is
 still the head of `main`, and runs `npm run db:migrate:production` before deploying
@@ -158,7 +158,7 @@ production reimport or metadata rewrite. The homepage shows up to 20 newly added
 unexpired course editions. Search and filtering move to `/es/buscar` and `/ca/cerca`;
 old homepage filter URLs redirect to preserve shared links. Existing public caching
 also covers search, with complete query strings as keys. GitHub Actions continues
-to deploy only after the configured checks pass, with Playwright run locally/Docker.
+to deploy only after the configured checks and browser tests pass.
 
 ## Email alerts — issue #80
 

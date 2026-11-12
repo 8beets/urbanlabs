@@ -116,11 +116,10 @@ npm run lint
 npm run typecheck
 npm test
 npm run test:d1
-npm run snapshot:fixture
-URBANLABS_SNAPSHOT=.cache/e2e-snapshot.json npm run build
+npm run e2e:build
 npm run check:build
 npx playwright install chromium
-npm run test:e2e
+npx playwright test   # reuses the build; npm run test:e2e builds first
 ```
 
 `npm test` uses saved source fixtures and real Node SQLite for SQL contract tests.
