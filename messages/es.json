@@ -158,13 +158,12 @@
   "alertsIntro": "Recibe como máximo un correo a la semana con los cursos nuevos de una categoría, una ciudad o ambas. Solo te escribiremos cuando haya cursos nuevos.",
   "alertsEmail": "Correo electrónico",
   "alertsAnyCategory": "Cualquier categoría",
-  "alertsAnyCity": "Cualquier ciudad",
-  "alertsTargetHint": "Elige al menos una categoría o una ciudad.",
+  "alertsTargetHint": "Elige una ciudad y, si quieres, una categoría.",
   "alertsSubmit": "Crear aviso",
   "alertsPrivacy": "Solo guardamos tu correo y el aviso que eliges, para enviarte estos mensajes. Los avisos se envían a través de Brevo. Si no confirmas en 7 días, borramos la dirección. Cada correo incluye un enlace para darte de baja, que borra tus datos.",
   "alertsCheckInbox": "Revisa tu correo. Si la dirección es válida, te hemos enviado un enlace para confirmar el aviso. Si ya tenías este aviso, no hace falta hacer nada.",
   "alertsInvalidEmail": "Escribe una dirección de correo válida.",
-  "alertsInvalidTarget": "Elige una categoría o una ciudad de la lista.",
+  "alertsInvalidTarget": "Elige una ciudad de la lista y, si quieres, una categoría.",
   "alertsVerificationFailed": "No hemos podido comprobar que no eres un robot. Vuelve a intentarlo.",
   "alertsUnavailable": "Los avisos no están disponibles en este momento. Vuelve a intentarlo más tarde.",
   "alertsFromSearch": "Recibe avisos de cursos nuevos de esta búsqueda",
@@ -179,7 +178,6 @@
   "alertsInvalidLink": "Este enlace no es válido o el aviso ya no existe.",
   "alertsBackToSearch": "Volver a la búsqueda",
   "alertsTargetBoth": "{category} en {city}",
-  "alertsTargetCategory": "{category}",
   "alertsTargetCity": "cursos en {city}",
   "alertsEmailConfirmSubject": "Confirma tu aviso de cursos en UrbanLabs",
   "alertsEmailConfirmBody": "Has pedido recibir un correo semanal con los cursos nuevos de: {target}.",
@@ -212,5 +210,6 @@
   "allCitiesNav": "Todas las ciudades",
   "searchCityCourses": "Buscar cursos en {city}",
   "browseCityCentres": "Ver los centros de {city}",
-  "noCities": "Todavía no hay ciudades con cursos."
+  "noCities": "Todavía no hay ciudades con cursos.",
+  "alertsChooseCity": "Elige una ciudad"
 }

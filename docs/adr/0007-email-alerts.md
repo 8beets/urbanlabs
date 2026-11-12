@@ -1,6 +1,7 @@
 # ADR 0007: Weekly email alerts through a swappable sender
 
-Status: accepted
+Status: accepted. Since [ADR 0010](0010-city-sections.md), every alert has a city;
+the category stays optional.
 
 ## Context
 

@@ -158,13 +158,12 @@
   "alertsIntro": "Rep com a màxim un correu a la setmana amb els cursos nous d’una categoria, una ciutat o totes dues. Només t’escriurem quan hi hagi cursos nous.",
   "alertsEmail": "Correu electrònic",
   "alertsAnyCategory": "Qualsevol categoria",
-  "alertsAnyCity": "Qualsevol ciutat",
-  "alertsTargetHint": "Tria almenys una categoria o una ciutat.",
+  "alertsTargetHint": "Tria una ciutat i, si vols, una categoria.",
   "alertsSubmit": "Crear l’avís",
   "alertsPrivacy": "Només desem el teu correu i l’avís que tries, per enviar-te aquests missatges. Els avisos s’envien a través de Brevo. Si no confirmes en 7 dies, esborrem l’adreça. Cada correu inclou un enllaç per donar-te de baixa, que esborra les teves dades.",
   "alertsCheckInbox": "Revisa el correu. Si l’adreça és vàlida, t’hem enviat un enllaç per confirmar l’avís. Si ja tenies aquest avís, no cal fer res.",
   "alertsInvalidEmail": "Escriu una adreça de correu vàlida.",
-  "alertsInvalidTarget": "Tria una categoria o una ciutat de la llista.",
+  "alertsInvalidTarget": "Tria una ciutat de la llista i, si vols, una categoria.",
   "alertsVerificationFailed": "No hem pogut comprovar que no ets un robot. Torna-ho a provar.",
   "alertsUnavailable": "Els avisos no estan disponibles ara mateix. Torna-ho a provar més tard.",
   "alertsFromSearch": "Rep avisos de cursos nous d’aquesta cerca",
@@ -179,7 +178,6 @@
   "alertsInvalidLink": "Aquest enllaç no és vàlid o l’avís ja no existeix.",
   "alertsBackToSearch": "Tornar a la cerca",
   "alertsTargetBoth": "{category} a {city}",
-  "alertsTargetCategory": "{category}",
   "alertsTargetCity": "cursos a {city}",
   "alertsEmailConfirmSubject": "Confirma el teu avís de cursos a UrbanLabs",
   "alertsEmailConfirmBody": "Has demanat rebre un correu setmanal amb els cursos nous de: {target}.",
@@ -212,5 +210,6 @@
   "allCitiesNav": "Totes les ciutats",
   "searchCityCourses": "Cerca cursos a {city}",
   "browseCityCentres": "Veure els centres de {city}",
-  "noCities": "Encara no hi ha ciutats amb cursos."
+  "noCities": "Encara no hi ha ciutats amb cursos.",
+  "alertsChooseCity": "Tria una ciutat"
 }

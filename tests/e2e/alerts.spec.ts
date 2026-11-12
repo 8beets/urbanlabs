@@ -46,14 +46,23 @@ test('reports invalid input accessibly before any verification', async ({
     'aria-invalid',
     'true',
   );
+  // A category alone is not enough: every alert belongs to a city.
   await page.getByLabel('Correu electrònic').fill('ana@example.invalid');
-  await page.getByLabel('Categoria').selectOption('');
   await page.getByRole('button', { name: 'Crear l’avís' }).click();
   await expect(page.getByRole('alert')).toHaveText(
-    'Tria una categoria o una ciutat de la llista.',
+    'Tria una ciutat de la llista i, si vols, una categoria.',
   );
+  await expect(page.getByLabel('Ciutat')).toHaveAttribute(
+    'aria-invalid',
+    'true',
+  );
+  await expect(page.locator('#city option')).toHaveText([
+    'Tria una ciutat',
+    'Barcelona',
+    'Saragossa',
+  ]);
   // Without the (blocked) Turnstile widget there is no token, so nothing is stored or sent.
-  await page.getByLabel('Categoria').selectOption('idiomes');
+  await page.getByLabel('Ciutat').selectOption('barcelona');
   await page.getByRole('button', { name: 'Crear l’avís' }).click();
   await expect(page.getByRole('alert')).toHaveText(
     'No hem pogut comprovar que no ets un robot. Torna-ho a provar.',

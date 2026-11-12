@@ -1,11 +1,14 @@
 import type { Locale } from '../../paraglide/runtime.js';
 import { courseTopic, isTopic } from '../courses/categories';
 
-/** What a visitor asks to be alerted about. At least one of category or city is set. */
+/**
+ * What a visitor asks to be alerted about: always a city (searches belong to one,
+ * docs/adr/0010-city-sections.md), optionally narrowed to a topic.
+ */
 export interface AlertTarget {
   category: string | null;
-  countryCode: string | null;
-  cityId: string | null;
+  countryCode: string;
+  cityId: string;
 }
 export interface AlertRequest extends AlertTarget {
   email: string;
@@ -47,11 +50,14 @@ export class InvalidAlertRequest extends Error {}
 const EMAIL = /^[^\s@<>()",;:\\]+@[^\s@<>()",;:\\]+\.[^\s@<>()",;:\\]+$/;
 const IDENTIFIER = /^[a-z0-9-]{1,100}$/;
 
-/** Validates untrusted form input. Category and city existence are checked by the caller. */
+/**
+ * Validates untrusted form input. Category and city existence are checked by the
+ * caller, which also sets the country from the city catalog.
+ */
 export function parseAlertRequest(
   form: { get(name: string): unknown },
   locale: Locale,
-): AlertRequest {
+): Omit<AlertRequest, 'countryCode'> {
   const text = (name: string) => {
     const value = form.get(name);
     return typeof value === 'string' ? value.trim() : '';
@@ -62,16 +68,8 @@ export function parseAlertRequest(
   const category = text('category');
   if (category && !isTopic(category)) throw new InvalidAlertRequest('category');
   const cityId = text('city');
-  if (cityId && !IDENTIFIER.test(cityId)) throw new InvalidAlertRequest('city');
-  if (!category && !cityId) throw new InvalidAlertRequest('target');
-  return {
-    email,
-    locale,
-    category: category || null,
-    // The caller sets the country from the city catalog after checking the city exists.
-    countryCode: null,
-    cityId: cityId || null,
-  };
+  if (!IDENTIFIER.test(cityId)) throw new InvalidAlertRequest('city');
+  return { email, locale, category: category || null, cityId };
 }
 
 function hoursAgo(now: Date, hours: number): string {
@@ -111,7 +109,7 @@ export function matchDigest(
         course.firstSeenAt > since &&
         (subscription.category === null ||
           courseTopic(course) === subscription.category) &&
-        (subscription.cityId === null || course.cityId === subscription.cityId),
+        course.cityId === subscription.cityId,
     )
     .slice(0, DIGEST_COURSE_LIMIT);
 }

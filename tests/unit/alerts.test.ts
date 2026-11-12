@@ -39,18 +39,26 @@ describe('alert request validation', () => {
       email: 'ana@example.org',
       locale: 'ca',
       category: 'cuina',
-      countryCode: null,
       cityId: 'barcelona',
     });
+    // A city without a category is a complete target.
+    expect(
+      parseAlertRequest(form({ email: 'a@b.cd', city: 'zaragoza' }), 'es'),
+    ).toMatchObject({ category: null, cityId: 'zaragoza' });
   });
 
   it.each([
-    [{ email: 'not-an-email', category: 'cuina' }, 'email'],
-    [{ email: 'a@b.c<script>', category: 'cuina' }, 'email'],
-    [{ email: `${'a'.repeat(250)}@b.cd`, category: 'cuina' }, 'email'],
-    [{ email: 'a@b.cd' }, 'target'],
-    [{ email: 'a@b.cd', category: 'CU\u0000INA' }, 'category'],
-    [{ email: 'a@b.cd', category: 'CUINA' }, 'category'],
+    [{ email: 'not-an-email', city: 'barcelona' }, 'email'],
+    [{ email: 'a@b.c<script>', city: 'barcelona' }, 'email'],
+    [{ email: `${'a'.repeat(250)}@b.cd`, city: 'barcelona' }, 'email'],
+    // Every alert needs a city, with or without a category.
+    [{ email: 'a@b.cd' }, 'city'],
+    [{ email: 'a@b.cd', category: 'cuina' }, 'city'],
+    [
+      { email: 'a@b.cd', category: 'CU\u0000INA', city: 'barcelona' },
+      'category',
+    ],
+    [{ email: 'a@b.cd', category: 'CUINA', city: 'barcelona' }, 'category'],
     [{ email: 'a@b.cd', city: 'Barcelona!' }, 'city'],
   ])('rejects %j', (values, reason) => {
     expect(() => parseAlertRequest(form(values), 'es')).toThrowError(
@@ -139,7 +147,7 @@ describe('digest matching', () => {
     lastDigestAt: '2026-11-01T00:00:00.000Z',
   };
 
-  it('keeps only courses first seen after the last digest that match every set field', () => {
+  it('keeps only courses first seen after the last digest in the city and topic', () => {
     const courses = [
       course({ id: 'match', category: 'Gastronomia' }),
       course({
@@ -157,11 +165,6 @@ describe('digest matching', () => {
     expect(
       matchDigest({ ...target, category: null }, courses).map((row) => row.id),
     ).toEqual(['match', 'other-category', 'no-category']);
-    expect(
-      matchDigest({ ...target, cityId: null, countryCode: null }, courses).map(
-        (row) => row.id,
-      ),
-    ).toEqual(['match', 'other-city']);
   });
 
   it('caps the digest length', () => {
@@ -190,10 +193,13 @@ describe('alert emails', () => {
     expect(searchUrl('https://urbanlabs.example', target, 'ca')).toBe(
       'https://urbanlabs.example/ca/alicante/cursos?category=cuina',
     );
-    // Without a city, the link lists the cities to choose from.
     expect(
-      searchUrl('https://urbanlabs.example', { ...target, cityId: null }, 'es'),
-    ).toBe('https://urbanlabs.example/es/cursos');
+      searchUrl(
+        'https://urbanlabs.example',
+        { ...target, category: null },
+        'es',
+      ),
+    ).toBe('https://urbanlabs.example/es/alicante/cursos');
   });
 
   it('escapes untrusted course data and always includes the unsubscribe link', () => {

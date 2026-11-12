@@ -83,12 +83,15 @@ export function alertsEnabled(): boolean {
   return alertsAdvertised(process.env);
 }
 
-/** Live categories and all cities, as of this build, for the alert form. */
+/**
+ * Live categories and the cities with their own section, as of this build, for the
+ * alert form. Every alert belongs to one of these cities.
+ */
 export function alertOptions(): AlertOptions {
   const { snapshot, today } = context();
   return {
     categories: listCategories(snapshot, today),
-    cities: snapshot.geography.cities,
+    cities: citiesFrom(snapshot, today).map(({ city }) => city),
   };
 }
 

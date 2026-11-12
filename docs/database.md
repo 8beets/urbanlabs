@@ -141,12 +141,19 @@ a zero price is hidden on a cancelled card.
 ### Alert subscriptions (personal data)
 
 `0011_course_alerts.sql` adds `alert_subscriptions`, the only table holding personal
-data (an email address). Each row targets a category, a city, or both; a CHECK
-enforces that at least one is set. The unique expression index on
+data (an email address). Each row targeted a category, a city, or both; a CHECK
+enforced that at least one was set (see `0014` below). The unique expression index on
 `(email, ifnull(category,''), ifnull(city_id,''))` allows one row per address and
 target. The city references `cities(country_code, id)`. Confirmed rows always have
 `confirmed_at` and `last_digest_at`; confirmation sets `last_digest_at`, so finding
 due digests is one indexed range on `(status, last_digest_at)`.
+
+`0014_alerts_require_city.sql` rebuilds `alert_subscriptions` so every row has a city
+(`country_code` and `city_id` NOT NULL), matching the city sections of
+[ADR 0010](adr/0010-city-sections.md); the category stays optional. SQLite cannot add
+NOT NULL to a column, so the table is recreated, rows with a city are copied, and the
+indexes are rebuilt with `(email, ifnull(category,''), city_id)` as the unique target.
+Rows without a city are not copied. Alerts were not enabled in production when it ran.
 
 No token is stored: links are HMAC-signed from the row id. Retention: unsubscribing
 deletes the row, and the alerts job deletes pending rows older than 7 days.

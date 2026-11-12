@@ -73,6 +73,28 @@ const query = Astro.request.method === 'GET' ? Astro.url.search : '';
         >
           <legend id="target-hint">{m.alertsTargetHint({}, { locale })}</legend>
           <div>
+            <label for="city">{m.city({}, { locale })}</label>
+            <select
+              id="city"
+              name="city"
+              required
+              aria-required="true"
+              aria-invalid={data.error === 'target' ? 'true' : undefined}
+              aria-describedby={
+                data.error === 'target' ? 'alert-error' : undefined
+              }
+            >
+              <option value="" disabled selected={!values.city}>
+                {m.alertsChooseCity({}, { locale })}
+              </option>
+              {data.cities.map((city) => (
+                <option value={city.id} selected={values.city === city.id}>
+                  {cityLabel(city, locale)}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div>
             <label for="category">{m.category({}, { locale })}</label>
             <select id="category" name="category">
               <option value="" selected={!values.category}>
@@ -84,19 +106,6 @@ const query = Astro.request.method === 'GET' ? Astro.url.search : '';
                   selected={values.category === category}
                 >
                   {categoryLabel(category, locale)}
-                </option>
-              ))}
-            </select>
-          </div>
-          <div>
-            <label for="city">{m.city({}, { locale })}</label>
-            <select id="city" name="city">
-              <option value="" selected={!values.city}>
-                {m.alertsAnyCity({}, { locale })}
-              </option>
-              {data.cities.map((city) => (
-                <option value={city.id} selected={values.city === city.id}>
-                  {cityLabel(city, locale)}
                 </option>
               ))}
             </select>
