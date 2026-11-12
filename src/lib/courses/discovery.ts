@@ -1,6 +1,6 @@
 import { parseGeography } from '../locations/geography';
 import type { DiscoveryFilters } from '../catalog/types';
-import { canonicalCategory } from './categories';
+import { canonicalCategory, isAudience } from './categories';
 import { parsePage } from '../pagination';
 import { isStartMonth } from './start-month';
 
@@ -34,6 +34,9 @@ export function parseFilters(params: URLSearchParams): DiscoveryFilters {
   const archive = params.get('archive') ?? '';
   if (archive !== '' && archive !== '1')
     throw new Error('Invalid archive flag');
+  const audience = params.get('audience') ?? '';
+  if (audience && !isAudience(audience))
+    throw new Error('Invalid audience filter');
   const startMonth = params.get('start') ?? '';
   if (startMonth && !isStartMonth(startMonth))
     throw new Error('Invalid start month');
@@ -41,6 +44,7 @@ export function parseFilters(params: URLSearchParams): DiscoveryFilters {
     ...parseGeography(params),
     q,
     category: canonicalCategory(category),
+    audience: isAudience(audience) ? audience : '',
     centre,
     cancellation,
     page,

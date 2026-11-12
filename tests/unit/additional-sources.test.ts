@@ -4,6 +4,7 @@ import { describe, expect, it } from 'vitest';
 import { parseMiramPage } from '../../src/lib/ingestion/adapters/miram';
 import { selectSources } from '../../src/lib/sources';
 import { categoryLabel } from '../../src/i18n/ui';
+import { courseTopic } from '../../src/lib/courses/categories';
 
 const baroDeViver = getSource('miram-baro-de-viver');
 
@@ -16,7 +17,7 @@ const cases = [
     'Actualitat i història',
     8748,
     '2026-09-29',
-    'Actualidad e historia',
+    'Humanidades y ciencia',
   ],
   [
     'albareda',
@@ -26,7 +27,7 @@ const cases = [
     'Música',
     3122,
     '2026-10-05',
-    'Música',
+    'Música y canto',
   ],
   [
     'el-sortidor',
@@ -36,7 +37,7 @@ const cases = [
     'ACTIVITATS FAMILIARS',
     0,
     '2026-12-11',
-    'Talleres familiares',
+    'Cocina y gastronomía',
   ],
   [
     'vil-la-urania',
@@ -46,7 +47,7 @@ const cases = [
     'Art i creació',
     4465,
     '2027-01-13',
-    'Arte y creatividad',
+    'Artes plásticas y manualidades',
   ],
   [
     'urgell',
@@ -56,7 +57,7 @@ const cases = [
     'HUMANITATS',
     8748,
     '2026-09-28',
-    'Humanidades',
+    'Humanidades y ciencia',
   ],
   [
     'fab-casa-del-rellotge',
@@ -66,7 +67,7 @@ const cases = [
     '1_Tallers de creació multimèdia i maker',
     0,
     '2026-11-14',
-    'Nuevas tecnologías',
+    'Tecnología e informática',
   ],
   [
     'fab-casa-del-mig',
@@ -76,7 +77,7 @@ const cases = [
     '1_Tallers de creació multimèdia i maker',
     4120,
     '2026-11-05',
-    'Nuevas tecnologías',
+    'Tecnología e informática',
   ],
   [
     'fort-pienc',
@@ -96,7 +97,7 @@ const cases = [
     'CIRC',
     7060,
     '2026-10-09',
-    'Circ',
+    'Teatro y artes escénicas',
   ],
   [
     'can-castello',
@@ -106,7 +107,7 @@ const cases = [
     'DANSA',
     6296,
     '2026-09-29',
-    'Baile y danza',
+    'Danza y baile',
   ],
 ] as const;
 
@@ -140,7 +141,7 @@ describe('additional centres: verified source fixtures', () => {
         courseLanguage: null,
       });
       expect(records[0]?.officialUrl).toBe(`${pageUrl}#accordion${externalId}`);
-      expect(categoryLabel(category, 'es')).toBe(spanishLabel);
+      expect(categoryLabel(courseTopic(records[0]!), 'es')).toBe(spanishLabel);
     },
   );
   it('scopes online workshops, shows, and meetups out of the configured snapshots', () => {

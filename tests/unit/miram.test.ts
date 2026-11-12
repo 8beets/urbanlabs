@@ -118,7 +118,9 @@ describe('Miram source fixture', () => {
     expect(records[0]?.officialUrl).toBe(
       `${golferichs.listingUrl}&f=XX#accordion7350`,
     );
-    expect(categoryLabel(records[0]!.category!, 'es')).toBe('Fotografía');
+    expect(categoryLabel(records[0]!.category!, 'es')).toBe(
+      'Fotografía y audiovisual',
+    );
   });
   it('extracts Golferichs cooking with its base price and localized category label', () => {
     const html = readFileSync(
@@ -135,7 +137,9 @@ describe('Miram source fixture', () => {
       priceCents: 8165,
       availability: null,
     });
-    expect(categoryLabel(records[0]!.category!, 'es')).toBe('Cocina');
+    expect(categoryLabel(records[0]!.category!, 'es')).toBe(
+      'Cocina y gastronomía',
+    );
   });
   it('extracts Pati Llimona course facts with the shared parser', () => {
     const html = readFileSync(
@@ -282,6 +286,7 @@ describe('normalization', () => {
       maxPriceCents: 5648,
       page: 2,
       category: '',
+      audience: '',
       centre: '',
       cancellation: '',
       startMonth: '',

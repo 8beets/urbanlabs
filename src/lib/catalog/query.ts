@@ -1,4 +1,10 @@
-import { canonicalCategory, sourceCategories } from '../courses/categories';
+import {
+  TOPICS,
+  canonicalCategory,
+  courseAudience,
+  courseTopic,
+  matchesCategory,
+} from '../courses/categories';
 import { monthRange } from '../courses/start-month';
 import { earliestLocalDate } from '../time/dates';
 import { parseTitleQuery, titleMatches } from './title-match';
@@ -43,8 +49,7 @@ function binary(a: string, b: string): number {
 export function canonicalListing<T extends CourseListing>(course: T): T {
   return {
     ...course,
-    category:
-      course.category === null ? null : canonicalCategory(course.category),
+    category: courseTopic(course),
   };
 }
 
@@ -109,9 +114,7 @@ export function filterCourses(
   today: string,
 ): CourseListing[] {
   const locations = locationsOf(catalog);
-  const categories = filters.category
-    ? new Set(sourceCategories(filters.category))
-    : null;
+  const category = canonicalCategory(filters.category);
   const phrases = filters.q ? parseTitleQuery(filters.q) : null;
   // A query without letters or digits matches nothing, as with the FTS index.
   if (filters.q && phrases === null) return [];
@@ -121,8 +124,8 @@ export function filterCourses(
       (edition) =>
         matchesState(edition, today, filters) &&
         inGeography(edition.institution_id, filters, locations) &&
-        (!categories ||
-          (edition.category !== null && categories.has(edition.category))) &&
+        (!category || matchesCategory(edition, category)) &&
+        (!filters.audience || courseAudience(edition) === filters.audience) &&
         (!filters.centre || edition.institution_id === filters.centre) &&
         (!phrases || titleMatches(edition.title, phrases)) &&
         (filters.maxPriceCents === null ||
@@ -155,7 +158,7 @@ export function listCourses(
 type FacetFilters = GeographicFilters &
   Pick<DiscoveryFilters, 'cancellation' | 'archive'>;
 
-/** Canonical category groups offered for the current location (and centre). */
+/** Topics offered for the current location (and centre), in their fixed order. */
 export function listCategories(
   catalog: Catalog,
   today: string,
@@ -163,17 +166,15 @@ export function listCategories(
   filters: FacetFilters = {},
 ): string[] {
   const locations = locationsOf(catalog);
-  const raw = new Set<string>();
+  const topics = new Set<string>();
   for (const edition of catalog.editions)
     if (
-      edition.category &&
       matchesState(edition, today, filters) &&
       (!centre || edition.institution_id === centre) &&
       inGeography(edition.institution_id, filters, locations)
     )
-      raw.add(edition.category);
-  const bounded = [...raw].sort(binary).slice(0, OPTIONS_LIMIT);
-  return [...new Set(bounded.map(canonicalCategory))].sort();
+      topics.add(courseTopic(edition));
+  return TOPICS.filter((topic) => topics.has(topic));
 }
 
 export interface CentreOption {

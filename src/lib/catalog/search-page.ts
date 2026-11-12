@@ -89,6 +89,7 @@ function applyToForm(
   set('q', filters.q);
   set('cancellation', filters.cancellation ?? '');
   set('places', filters.places ?? '');
+  set('audience', filters.audience ?? '');
   set(
     'maxPrice',
     filters.maxPriceCents === null ? '' : String(filters.maxPriceCents / 100),

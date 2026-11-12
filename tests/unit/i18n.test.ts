@@ -64,7 +64,7 @@ describe('Paraglide translation catalogs', () => {
       const translations = catalog(index % 2 ? 'ca' : 'es');
       expect(result).toEqual([
         translations.searchTitle,
-        translations.categoryPhotography,
+        translations.topicPhotography,
         translations.regionCatalunya,
         translations.cityAlicante,
         index % 2 ? 'Dilluns i dimarts' : 'Lunes y martes',

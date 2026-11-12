@@ -1,6 +1,7 @@
 import { differenceInCalendarDays, parseISO } from 'date-fns';
 import type { Centre } from './schema';
 import type { SourceStatus } from '../ingestion/plan';
+import { unmappedCategories } from '../courses/categories';
 
 export interface FreshnessOptions {
   now: Date;
@@ -24,6 +25,8 @@ export interface StaleSource {
 export interface FreshnessReport {
   profiles: StaleProfile[];
   sources: StaleSource[];
+  /** Source categories missing from the reviewed topic tables (issue #95). */
+  categories: string[];
 }
 
 /** Pure check: which reviewed data and which sources need a maintainer's attention. */
@@ -31,6 +34,7 @@ export function checkFreshness(
   centres: Centre[],
   statuses: SourceStatus[],
   options: FreshnessOptions,
+  sourceCategories: string[] = [],
 ): FreshnessReport {
   const age = (iso: string) =>
     differenceInCalendarDays(options.now, parseISO(iso));
@@ -54,7 +58,11 @@ export function checkFreshness(
       ? [{ id: status.id, lastSuccessAt: status.lastSuccessAt, ageDays }]
       : [];
   });
-  return { profiles, sources };
+  return {
+    profiles,
+    sources,
+    categories: unmappedCategories(sourceCategories),
+  };
 }
 
 /** Markdown for the tracking issue, or null when everything is fresh. */
@@ -62,7 +70,12 @@ export function renderFreshnessReport(
   report: FreshnessReport,
   options: Pick<FreshnessOptions, 'maxProfileAgeDays' | 'maxSourceAgeDays'>,
 ): string | null {
-  if (!report.profiles.length && !report.sources.length) return null;
+  if (
+    !report.profiles.length &&
+    !report.sources.length &&
+    !report.categories.length
+  )
+    return null;
   const lines: string[] = [];
   if (report.sources.length) {
     lines.push(
@@ -87,6 +100,16 @@ export function renderFreshnessReport(
         (p) =>
           `- \`${p.centreId}\` ${p.field}: verified ${p.verifiedAt} (${p.ageDays} days ago)`,
       ),
+      '',
+    );
+  }
+  if (report.categories.length) {
+    lines.push(
+      '## Source categories without a reviewed topic',
+      '',
+      'Their courses are classified by title rules only. Add each one to `src/lib/courses/categories.ts`.',
+      '',
+      ...report.categories.map((category) => `- \`${category}\``),
       '',
     );
   }

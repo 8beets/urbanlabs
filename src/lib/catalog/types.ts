@@ -1,5 +1,6 @@
 import { z } from 'zod';
 import type { GeographicFilters } from '../locations/geography';
+import type { Audience } from '../courses/categories';
 
 export type { GeographicFilters };
 
@@ -162,6 +163,8 @@ export interface DiscoveryFilters extends GeographicFilters {
   page: number;
   maxPriceCents: number | null;
   startMonth?: string;
+  /** A topic id, or a legacy source category from an old link. */
   category: string;
+  audience?: '' | Audience;
   centre: string;
 }

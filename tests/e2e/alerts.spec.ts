@@ -19,10 +19,10 @@ test('search links to an alert form prefilled with category and city', async ({
     })
     .click();
   await expect(page).toHaveURL(
-    /\/es\/alertas\?category=IDIOMES&city=barcelona$/,
+    /\/es\/alertas\?category=idiomes&city=barcelona$/,
   );
   await expect(page).toHaveTitle('Avisos de cursos nuevos · UrbanLabs');
-  await expect(page.getByLabel('Categoría')).toHaveValue('IDIOMES');
+  await expect(page.getByLabel('Categoría')).toHaveValue('idiomes');
   await expect(page.getByLabel('Ciudad')).toHaveValue('barcelona');
   await expect(page.getByLabel('Correo electrónico')).toBeVisible();
   await expect(
@@ -35,7 +35,9 @@ test('search links to an alert form prefilled with category and city', async ({
 test('reports invalid input accessibly before any verification', async ({
   page,
 }) => {
+  // An old link with a source category preselects its topic.
   await page.goto('/ca/alertes?category=IDIOMES');
+  await expect(page.getByLabel('Categoria')).toHaveValue('idiomes');
   await page.getByLabel('Correu electrònic').fill('no-és-un-correu');
   await page.getByRole('button', { name: 'Crear l’avís' }).click();
   await expect(page.getByRole('alert')).toHaveText(
@@ -52,7 +54,7 @@ test('reports invalid input accessibly before any verification', async ({
     'Tria una categoria o una ciutat de la llista.',
   );
   // Without the (blocked) Turnstile widget there is no token, so nothing is stored or sent.
-  await page.getByLabel('Categoria').selectOption('IDIOMES');
+  await page.getByLabel('Categoria').selectOption('idiomes');
   await page.getByRole('button', { name: 'Crear l’avís' }).click();
   await expect(page.getByRole('alert')).toHaveText(
     'No hem pogut comprovar que no ets un robot. Torna-ho a provar.',

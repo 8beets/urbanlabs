@@ -1,5 +1,5 @@
 import type { Locale } from '../../paraglide/runtime.js';
-import { canonicalCategory } from '../courses/categories';
+import { canonicalCategory, matchesCategory } from '../courses/categories';
 
 /** What a visitor asks to be alerted about. At least one of category or city is set. */
 export interface AlertTarget {
@@ -117,8 +117,8 @@ export function matchDigest(
       (course) =>
         course.firstSeenAt > since &&
         (subscription.category === null ||
-          (course.category !== null &&
-            canonicalCategory(course.category) === subscription.category)) &&
+          // Subscriptions made before topics hold a source category; this maps it.
+          matchesCategory(course, canonicalCategory(subscription.category))) &&
         (subscription.cityId === null || course.cityId === subscription.cityId),
     )
     .slice(0, DIGEST_COURSE_LIMIT);

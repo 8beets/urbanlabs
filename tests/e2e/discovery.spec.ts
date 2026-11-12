@@ -174,17 +174,17 @@ test('categories compose with search, pagination, and locale switching', async (
 }) => {
   await page.goto('/es/buscar?page=2');
   const width = (await page.locator('#q').boundingBox())!.width;
-  await page.getByLabel('Categoría', { exact: true }).selectOption('IDIOMES');
+  await page.getByLabel('Categoría', { exact: true }).selectOption('idiomes');
   await submit(page);
-  expect(query(page).get('category')).toBe('IDIOMES');
+  expect(query(page).get('category')).toBe('idiomes');
   expect(query(page).has('page')).toBe(false);
   expect((await page.locator('#q').boundingBox())!.width).toBeCloseTo(width, 1);
   await page.getByRole('link', { name: /^Siguiente/ }).click();
   expect(query(page).get('page')).toBe('2');
-  expect(query(page).get('category')).toBe('IDIOMES');
+  expect(query(page).get('category')).toBe('idiomes');
   await page.getByRole('link', { name: 'Català', exact: true }).click();
   await expect(page.getByLabel('Categoria', { exact: true })).toHaveValue(
-    'IDIOMES',
+    'idiomes',
   );
   expect(query(page).get('page')).toBe('2');
   await page.getByLabel('Cerca per títol').fill('ANGLÈS');
@@ -194,7 +194,7 @@ test('categories compose with search, pagination, and locale switching', async (
   await expect(page.locator('article.course h3')).toHaveText(
     'Tertúlia literària en anglès',
   );
-  await page.getByLabel('Categoria', { exact: true }).selectOption('BALL');
+  await page.getByLabel('Categoria', { exact: true }).selectOption('dansa');
   await submit(page);
   await expect(
     page.getByRole('heading', {
@@ -210,7 +210,7 @@ test('centre selection composes with categories, keyword, and language switching
   await page.getByLabel('Centro', { exact: true }).selectOption('cc-can-baste');
   await submit(page);
   expect(query(page).get('centre')).toBe('cc-can-baste');
-  expect(query(page).get('category')).toBe('IDIOMES');
+  expect(query(page).get('category')).toBe('idiomes');
   expect(query(page).has('page')).toBe(false);
   await expect(page.locator('article.course')).toHaveCount(1);
   await expect(page.locator('article.course .institution')).toHaveText(
@@ -225,7 +225,7 @@ test('centre selection composes with categories, keyword, and language switching
   await page.getByLabel('Centre', { exact: true }).selectOption('');
   await submit(page);
   expect(query(page).get('centre')).toBe('');
-  expect(query(page).get('category')).toBe('IDIOMES');
+  expect(query(page).get('category')).toBe('idiomes');
   await expect(page.locator('article.course')).toHaveCount(12);
   await page
     .getByRole('link', { name: 'Neteja els filtres', exact: true })
@@ -234,25 +234,28 @@ test('centre selection composes with categories, keyword, and language switching
     .getByLabel('Centre', { exact: true })
     .selectOption('cc-pati-llimona');
   await submit(page);
-  await page.getByLabel('Categoria', { exact: true }).selectOption('CINEMA');
+  await page
+    .getByLabel('Categoria', { exact: true })
+    .selectOption('fotografia-i-audiovisual');
   await submit(page);
-  await expect(page.locator('article.course')).toHaveCount(1);
+  // Cinema and both photography categories share one topic.
   await expect(page.locator('article.course .institution')).toHaveText(
-    'Centre Cívic Pati Llimona',
+    Array(3).fill('Centre Cívic Pati Llimona'),
   );
 });
 
-test('photography aliases share one option and categories follow the selected centre', async ({
+test('old category links open their topic and topics follow the selected centre', async ({
   page,
 }) => {
   await page.goto('/es/buscar?category=ESPAI+FOTOGR%C3%80FIC+PATI+LLIMONA');
-  await expect(page.locator('#category')).toHaveValue('FOTOGRAFIA');
+  await expect(page.locator('#category')).toHaveValue(
+    'fotografia-i-audiovisual',
+  );
   await expect(
-    page.locator('#category option[value="FOTOGRAFIA"]'),
+    page.locator('#category option[value="fotografia-i-audiovisual"]'),
   ).toHaveCount(1);
-  await expect(page.locator('article.course')).toHaveCount(4);
   await expect(page.locator('article.course .course-category')).toHaveText(
-    Array(4).fill('Fotografía'),
+    Array(5).fill('Fotografía y audiovisual'),
   );
   await page
     .getByLabel('Centro', { exact: true })
@@ -260,32 +263,32 @@ test('photography aliases share one option and categories follow the selected ce
   await submit(page);
   await expect(page.locator('#category option')).toHaveText([
     'Todas las categorías',
-    'Cine',
-    'Fotografía',
-    'ReGENERA’T',
+    'Fotografía y audiovisual',
+    'Danza y baile',
+    'Otros',
   ]);
-  await expect(page.locator('article.course')).toHaveCount(2);
+  await expect(page.locator('article.course')).toHaveCount(3);
   await page.getByRole('link', { name: 'Català', exact: true }).click();
   await expect(page.locator('#category option')).toHaveText([
     'Totes les categories',
-    'Cinema',
-    'Fotografia',
-    'ReGENERA’T',
+    'Fotografia i audiovisual',
+    'Dansa i ball',
+    'Altres',
   ]);
   await page.getByLabel('Centre', { exact: true }).selectOption('cc-can-baste');
   await submit(page);
   await expect(page.locator('#category option')).toHaveText([
     'Totes les categories',
-    'Fotografia',
+    'Fotografia i audiovisual',
     'Idiomes',
   ]);
   await expect(page.locator('article.course')).toHaveCount(1);
   await page.getByLabel('Centre', { exact: true }).selectOption('');
   await submit(page);
-  await expect(page.locator('#category option[value="BALL"]')).toHaveText(
-    'Ball i dansa',
+  await expect(page.locator('#category option[value="dansa"]')).toHaveText(
+    'Dansa i ball',
   );
-  await expect(page.locator('article.course')).toHaveCount(4);
+  await expect(page.locator('article.course')).toHaveCount(5);
 });
 
 test('Golferichs filters its own normalized categories and retains official source links', async ({
@@ -298,13 +301,13 @@ test('Golferichs filters its own normalized categories and retains official sour
   await submit(page);
   await expect(page.locator('#category option')).toHaveText([
     'Todas las categorías',
-    'Cocina',
-    'Fotografía',
+    'Fotografía y audiovisual',
+    'Cocina y gastronomía',
   ]);
   await expect(page.locator('article.course')).toHaveCount(2);
   await page
     .getByLabel('Categoría', { exact: true })
-    .selectOption('FOTOGRAFIA');
+    .selectOption('fotografia-i-audiovisual');
   await submit(page);
   await expect(page.locator('article.course')).toHaveCount(1);
   await expect(
@@ -318,8 +321,8 @@ test('Golferichs filters its own normalized categories and retains official sour
   await page.getByRole('link', { name: 'Català', exact: true }).click();
   await expect(page.locator('#category option')).toHaveText([
     'Totes les categories',
-    'Cuina',
-    'Fotografia',
+    'Fotografia i audiovisual',
+    'Cuina i gastronomia',
   ]);
   await expect(page.locator('article.course h3')).toHaveText(
     'Tècniques bàsiques (1r nivell): coneixement de la càmera',
@@ -333,34 +336,44 @@ test('every added centre offers its own categories in both locales', async ({
     [
       'cc-casa-elizalde',
       'Centre Cultural La Casa Elizalde',
-      'Actualidad e historia',
-      'Actualitat i història',
+      'Humanidades y ciencia',
+      'Humanitats i ciència',
     ],
-    ['cc-albareda', 'Centre Cultural Albareda', 'Música', 'Música'],
+    [
+      'cc-albareda',
+      'Centre Cultural Albareda',
+      'Música y canto',
+      'Música i cant',
+    ],
     [
       'cc-el-sortidor',
       'Centre Cívic El Sortidor',
-      'Talleres familiares',
-      'Tallers familiars',
+      'Cocina y gastronomía',
+      'Cuina i gastronomia',
     ],
     [
       'cc-vil-la-urania',
       'Centre Cívic Vil·la Urània',
-      'Arte y creatividad',
-      'Art i creativitat',
+      'Artes plásticas y manualidades',
+      'Arts plàstiques i manualitats',
     ],
-    ['cc-urgell', 'Centre Cívic Urgell', 'Humanidades', 'Humanitats'],
+    [
+      'cc-urgell',
+      'Centre Cívic Urgell',
+      'Humanidades y ciencia',
+      'Humanitats i ciència',
+    ],
     [
       'fab-casa-del-rellotge',
       'FAB Casa del Rellotge',
-      'Nuevas tecnologías',
-      'Noves tecnologies',
+      'Tecnología e informática',
+      'Tecnologia i informàtica',
     ],
     [
       'fab-casa-del-mig',
       'FAB Casa del Mig',
-      'Nuevas tecnologías',
-      'Noves tecnologies',
+      'Tecnología e informática',
+      'Tecnologia i informàtica',
     ],
   ]) {
     await page.goto('/es/buscar');
@@ -444,7 +457,7 @@ test('incompatible selected categories remain visible and removable', async ({
   page,
 }) => {
   await page.goto('/es/buscar?centre=cc-pati-llimona&category=IDIOMES');
-  await expect(page.locator('#category')).toHaveValue('IDIOMES');
+  await expect(page.locator('#category')).toHaveValue('idiomes');
   await expect(page.locator('#category option:checked')).toHaveText(
     'Idiomas (Selección actual)',
   );
@@ -621,8 +634,8 @@ test.describe('dynamic filter options', () => {
     page,
   }) => {
     for (const [path, all, photography] of [
-      ['/es/buscar', 'Todas las categorías', 'Fotografía'],
-      ['/ca/cerca', 'Totes les categories', 'Fotografia'],
+      ['/es/buscar', 'Todas las categorías', 'Fotografía y audiovisual'],
+      ['/ca/cerca', 'Totes les categories', 'Fotografia i audiovisual'],
     ]) {
       await page.goto(path!);
       let navigations = 0;
@@ -633,12 +646,13 @@ test.describe('dynamic filter options', () => {
       await page.locator('#centre').selectOption('cc-pati-llimona');
       await expect(page.locator('#category option')).toHaveText([
         all!,
-        path!.startsWith('/es') ? 'Cine' : 'Cinema',
         photography!,
-        'ReGENERA’T',
+        ...(path!.startsWith('/es')
+          ? ['Danza y baile', 'Otros']
+          : ['Dansa i ball', 'Altres']),
       ]);
       await expect(page.locator('#centre')).toBeFocused();
-      await page.locator('#category').selectOption('FOTOGRAFIA');
+      await page.locator('#category').selectOption('fotografia-i-audiovisual');
       await page.locator('#city').selectOption('tarragona');
       await expect(page.locator('#centre option')).toHaveCount(1);
       await expect(page.locator('#category option')).toHaveCount(1);
@@ -697,6 +711,24 @@ test('places filter keeps its value in the URL and shows an applied chip', async
     page.getByRole('link', { name: 'Quitar filtro: Ocultar sin plazas' }),
   ).toBeVisible();
   await page.goto('/es/buscar?places=nope');
+  await expect(page.getByRole('alert')).toContainText('Revisa los filtros');
+});
+
+test('audience filter narrows to courses for that audience', async ({
+  page,
+}) => {
+  await page.goto('/es/buscar');
+  await page.getByLabel('Público', { exact: true }).selectOption('families');
+  await submit(page);
+  expect(query(page).get('audience')).toBe('families');
+  await expect(page.locator('article.course h3')).toHaveText([
+    'Fem galetes de gingebre per Nadal!',
+  ]);
+  await page.getByRole('link', { name: 'Català', exact: true }).click();
+  await expect(
+    page.getByRole('link', { name: 'Treu el filtre: Públic: Famílies' }),
+  ).toBeVisible();
+  await page.goto('/es/buscar?audience=adults');
   await expect(page.getByRole('alert')).toContainText('Revisa los filtros');
 });
 

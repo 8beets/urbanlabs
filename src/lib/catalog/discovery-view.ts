@@ -1,7 +1,12 @@
 import { m } from '../../paraglide/messages.js';
 import { cityLabel, regionLabel } from '../../i18n/geography';
 import { courseSearchPath } from '../../i18n/paths';
-import { categoryLabel, pageErrorMessage, type Locale } from '../../i18n/ui';
+import {
+  audienceLabel,
+  categoryLabel,
+  pageErrorMessage,
+  type Locale,
+} from '../../i18n/ui';
 import { alertPath } from '../alerts/emails';
 import { startMonthLabel } from '../courses/start-month';
 import { courseCardHtml } from '../courses/card';
@@ -72,6 +77,11 @@ export function appliedFilters({
     applied.push({
       key: 'category',
       label: `${m.category({}, { locale })}: ${categoryLabel(filters.category, locale)}`,
+    });
+  if (filters.audience)
+    applied.push({
+      key: 'audience',
+      label: `${m.audience({}, { locale })}: ${audienceLabel(filters.audience, locale)}`,
     });
   if (filters.startMonth)
     applied.push({

@@ -38,7 +38,7 @@ describe('alert request validation', () => {
     ).toEqual({
       email: 'ana@example.org',
       locale: 'ca',
-      category: 'CUINA',
+      category: 'cuina',
       countryCode: null,
       cityId: 'barcelona',
     });
@@ -180,7 +180,9 @@ describe('alert emails', () => {
     expect(alertPath('ca', 'unsubscribe')).toBe('/ca/alertes/baixa');
     expect(alertPath('es', 'unsubscribe')).toBe('/es/alertas/baja');
     const target = { category: 'CUINA', countryCode: 'ES', cityId: 'alicante' };
-    expect(describeTarget(target, 'es', cities)).toBe('Cocina en Alicante');
+    expect(describeTarget(target, 'es', cities)).toBe(
+      'Cocina y gastronomía en Alicante',
+    );
     expect(describeTarget({ ...target, category: null }, 'ca', cities)).toBe(
       'cursos a Alacant',
     );

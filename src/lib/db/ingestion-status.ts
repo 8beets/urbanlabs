@@ -25,3 +25,15 @@ export async function loadSourceStatuses(
   );
   return sourceIds.map((id) => ({ id, lastSuccessAt: known.get(id) ?? null }));
 }
+
+/** Distinct source categories of stored courses, for the unmapped-category check. */
+export async function loadSourceCategories(
+  db: IngestionDatabase,
+): Promise<string[]> {
+  const result = await db
+    .prepare(
+      'SELECT DISTINCT category FROM courses WHERE category IS NOT NULL LIMIT 5000',
+    )
+    .all<{ category: string }>();
+  return result.results.map((row) => row.category);
+}

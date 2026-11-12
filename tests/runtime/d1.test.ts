@@ -103,7 +103,7 @@ it('applies the migration and imports idempotently in the actual local D1 runtim
     );
     expect(
       await listCategories(db, '2026-11-06', santAndreu.institution.id),
-    ).toEqual(['FOTOGRAFIA']);
+    ).toEqual(['fotografia-i-audiovisual']);
     expect(await listCategories(db, '2026-11-06', 'unknown-centre')).toEqual(
       [],
     );
@@ -142,7 +142,9 @@ it('applies the migration and imports idempotently in the actual local D1 runtim
     ).toEqual([]);
     expect(await listLatestCourses(db, '2026-11-06')).toHaveLength(4);
     expect(
-      grouped.courses.every((course) => course.category === 'FOTOGRAFIA'),
+      grouped.courses.every(
+        (course) => course.category === 'fotografia-i-audiovisual',
+      ),
     ).toBe(true);
     await expect(
       runIngestion(

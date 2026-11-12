@@ -117,7 +117,7 @@ describe('SQLite migration and ingestion contract', () => {
     expect(asturias.centres.map((row) => row.id)).toEqual([
       canBaste.institution.id,
     ]);
-    expect(asturias.categories).toEqual(['IDIOMES']);
+    expect(asturias.categories).toEqual(['idiomes']);
     const before = sqlite
       .prepare('SELECT * FROM institutions WHERE id=?')
       .get(canBaste.institution.id);
@@ -233,7 +233,7 @@ describe('SQLite migration and ingestion contract', () => {
       db,
       new URLSearchParams('cancellation=only'),
     );
-    expect(options.categories).toEqual(['CUINA']);
+    expect(options.categories).toEqual(['cuina']);
     expect(options.centres.map((centre) => centre.id)).toEqual([
       santAndreu.institution.id,
     ]);
@@ -335,13 +335,13 @@ describe('SQLite migration and ingestion contract', () => {
       new URLSearchParams('city=barcelona'),
     );
     expect(all.centres).toHaveLength(2);
-    expect(all.categories).toEqual(['CUINA', 'IDIOMES']);
+    expect(all.categories).toEqual(['cuina', 'idiomes']);
     const scoped = await loadFilterOptions(
       db,
       new URLSearchParams('city=barcelona&centre=cc-can-baste'),
     );
     expect(scoped.centre).toBe('cc-can-baste');
-    expect(scoped.categories).toEqual(['CUINA']);
+    expect(scoped.categories).toEqual(['cuina']);
     const empty = await loadFilterOptions(
       db,
       new URLSearchParams('city=tarragona&centre=cc-can-baste'),
@@ -813,13 +813,16 @@ describe('SQLite migration and ingestion contract', () => {
       { fetchRecords: async () => [{ ...records[0]!, category: 'DANSA' }] },
       canBaste,
     );
-    expect(await listCategories(db, '2026-11-05')).toEqual(['BALL', 'IDIOMES']);
+    expect(await listCategories(db, '2026-11-05')).toEqual([
+      'dansa',
+      'idiomes',
+    ]);
     expect(
       await listCategories(db, '2026-11-05', santAndreu.institution.id),
-    ).toEqual(['IDIOMES']);
+    ).toEqual(['idiomes']);
     expect(
       await listCategories(db, '2026-11-05', canBaste.institution.id),
-    ).toEqual(['BALL']);
+    ).toEqual(['dansa']);
     expect(await listCategories(db, '2026-11-05', 'unknown-centre')).toEqual(
       [],
     );
@@ -870,7 +873,7 @@ describe('SQLite migration and ingestion contract', () => {
       sqlite.prepare('SELECT count(*) AS n FROM course_editions').get()?.n,
     ).toBe(5);
   });
-  it('groups photography aliases before pagination while preserving source labels', async () => {
+  it('groups photography categories into one topic before pagination while preserving source labels', async () => {
     const aliases = [
       'FOTOGRAFIA',
       'ESPAI FOTOGRÀFIC',
@@ -916,7 +919,9 @@ describe('SQLite migration and ingestion contract', () => {
     expect(firstPage.courses).toHaveLength(12);
     expect(firstPage.hasNext).toBe(true);
     expect(
-      firstPage.courses.every((course) => course.category === 'FOTOGRAFIA'),
+      firstPage.courses.every(
+        (course) => course.category === 'fotografia-i-audiovisual',
+      ),
     ).toBe(true);
     const secondPage = await listCourses(
       db,
@@ -934,7 +939,7 @@ describe('SQLite migration and ingestion contract', () => {
     ).toEqual(secondPage);
     expect(
       await listCategories(db, '2026-11-05', santAndreu.institution.id),
-    ).toEqual(['CUINA', 'FOTOGRAFIA']);
+    ).toEqual(['fotografia-i-audiovisual', 'cuina']);
     // The archive lists only ended editions, with the same filters and facets.
     const archive = { ...filters, q: '', category: '', maxPriceCents: null };
     expect(
@@ -955,7 +960,7 @@ describe('SQLite migration and ingestion contract', () => {
       await listCategories(db, '2026-11-05', santAndreu.institution.id, {
         archive: true,
       }),
-    ).toEqual(['EXPIRED']);
+    ).toEqual(['altres']);
     expect(
       sqlite
         .prepare(
@@ -965,15 +970,16 @@ describe('SQLite migration and ingestion contract', () => {
         .map((row) => row.category),
     ).toEqual([...aliases].sort());
   });
-  it('merges expression and expression/creativity into one centre-scoped filter', async () => {
-    const expression = ['Expressió', 'Expressió i creativitat'].map(
-      (category, index) => ({
-        ...records[0]!,
-        externalId: String(8500 + index),
-        title: `TEST expression ${index}`,
-        category,
-      }),
-    );
+  it('classifies mixed categories by title and keeps old category links working', async () => {
+    const expression = [
+      ['Expressió', 'Ioga suau'],
+      ['Expressió i creativitat', 'Improvisació teatral'],
+    ].map(([category, title], index) => ({
+      ...records[0]!,
+      externalId: String(8500 + index),
+      title: title!,
+      category: category!,
+    }));
     await runIngestion(
       db,
       { fetchRecords: async () => expression },
@@ -981,26 +987,28 @@ describe('SQLite migration and ingestion contract', () => {
     );
     expect(
       await listCategories(db, '2026-11-06', santAndreu.institution.id),
-    ).toEqual(['EXPRESSIÓ']);
+    ).toEqual(['teatre', 'activitat-fisica']);
     const filters = {
       q: '',
       page: 1,
       maxPriceCents: null,
       centre: santAndreu.institution.id,
-      category: 'EXPRESSIÓ',
+      category: 'teatre',
     };
-    const grouped = await listCourses(db, filters, '2026-11-06');
-    expect(grouped.courses).toHaveLength(2);
+    const theatre = await listCourses(db, filters, '2026-11-06');
+    expect(theatre.courses.map((course) => course.category)).toEqual([
+      'teatre',
+    ]);
+    // A mixed source category from an old link matches that category exactly.
     expect(
-      grouped.courses.every((course) => course.category === 'EXPRESSIÓ'),
-    ).toBe(true);
-    expect(
-      await listCourses(
-        db,
-        { ...filters, category: 'Expressió i creativitat' },
-        '2026-11-06',
-      ),
-    ).toEqual(grouped);
+      (
+        await listCourses(
+          db,
+          { ...filters, category: 'EXPRESSIÓ I CREATIVITAT' },
+          '2026-11-06',
+        )
+      ).courses,
+    ).toEqual(theatre.courses);
   });
   it('imports twice without duplicates, preserves provenance and reviewed titles', async () => {
     const adapter = { fetchRecords: async () => records };
