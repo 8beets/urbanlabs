@@ -204,7 +204,11 @@ describe('course alerts against the SQLite contract', () => {
     expect(sent).toHaveLength(1);
 
     // The unsubscribe link in the digest deletes the row.
-    const token = tokenFrom({ ...digest, text: digest.text.split('--')[1]! });
+    // Split on the footer separator line: random tokens can themselves contain "--".
+    const token = tokenFrom({
+      ...digest,
+      text: digest.text.split('\n--\n')[1]!,
+    });
     expect((await unsubscribe(context, token))?.email).toBe('ana@example.org');
     expect(await unsubscribe(context, token)).toBeNull();
     expect(

@@ -14,7 +14,7 @@ import type {
 // Pure equivalents of the former D1 discovery queries. They run at build time over
 // the snapshot and in the browser over the search index, so both always agree.
 
-export const PAGE_SIZE = 12;
+export const PAGE_SIZE = 30;
 export const LATEST_COURSES_LIMIT = 20;
 const OPTIONS_LIMIT = 100;
 

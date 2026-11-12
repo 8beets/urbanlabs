@@ -8,6 +8,7 @@ import { universidadRecords } from '../helpers/zaragoza';
 import { E2E_ALERT_IDS } from './alert-fixtures';
 import { mkdirSync, readFileSync, readdirSync, writeFileSync } from 'node:fs';
 import { exportSnapshot } from '../../src/lib/catalog/export';
+import { PAGE_SIZE } from '../../src/lib/catalog/query';
 
 // The static build reads this snapshot of the seeded E2E database.
 export const E2E_SNAPSHOT = '.cache/e2e-snapshot.json';
@@ -78,12 +79,16 @@ async function setup() {
       endDate: '2099-12-31',
     }));
     const first = records[0]!;
-    const paginationRecords = Array.from({ length: 13 }, (_, index) => ({
-      ...first,
-      externalId: String(90000 + index),
-      title: `TEST pagination workshop ${index}`,
-      priceCents: 1000,
-    }));
+    // One more than a page, so Sant Andreu and its topic always have a second page.
+    const paginationRecords = Array.from(
+      { length: PAGE_SIZE + 1 },
+      (_, index) => ({
+        ...first,
+        externalId: String(90000 + index),
+        title: `TEST pagination workshop ${index}`,
+        priceCents: 1000,
+      }),
+    );
     const dance = {
       ...first,
       externalId: '99999',

@@ -163,7 +163,7 @@ describe('SQLite migration and ingestion contract', () => {
     expect(stale.canonicalQuery).toBe('region=catalunya');
   });
   it('persists cancellation idempotently, filters and deprioritizes it, and excludes it from the homepage', async () => {
-    const active = Array.from({ length: 13 }, (_, index) => ({
+    const active = Array.from({ length: PAGE_SIZE + 1 }, (_, index) => ({
       ...records[0]!,
       externalId: String(70000 + index),
       title: `TEST running ${index}`,
@@ -185,7 +185,7 @@ describe('SQLite migration and ingestion contract', () => {
     await runIngestion(db, adapter, santAndreu);
     expect(
       sqlite.prepare('SELECT count(*) AS count FROM course_editions').get(),
-    ).toEqual({ count: 14 });
+    ).toEqual({ count: PAGE_SIZE + 2 });
     const filters = {
       q: '',
       centre: '',
@@ -220,7 +220,7 @@ describe('SQLite migration and ingestion contract', () => {
     expect(hidden.courses[0]?.is_cancelled).toBe(0);
     const inMonth = (startMonth: string) =>
       listCourses(db, { ...filters, startMonth }, '2026-11-07');
-    expect((await inMonth('2099-01')).courses).toHaveLength(12);
+    expect((await inMonth('2099-01')).courses).toHaveLength(PAGE_SIZE);
     expect((await inMonth('2098-01')).courses.map((c) => c.title)).toEqual([
       cancelled.title,
     ]);
@@ -885,7 +885,7 @@ describe('SQLite migration and ingestion contract', () => {
       'ESPAI FOTOGRÀFIC',
       'ESPAI FOTOGRÀFIC PATI LLIMONA',
     ];
-    const photos = Array.from({ length: 15 }, (_, index) => ({
+    const photos = Array.from({ length: PAGE_SIZE + 3 }, (_, index) => ({
       ...records[0]!,
       externalId: String(8000 + index),
       title: `TEST photo ${index}`,
@@ -922,7 +922,7 @@ describe('SQLite migration and ingestion contract', () => {
       centre: santAndreu.institution.id,
     };
     const firstPage = await listCourses(db, filters, '2026-11-05');
-    expect(firstPage.courses).toHaveLength(12);
+    expect(firstPage.courses).toHaveLength(PAGE_SIZE);
     expect(firstPage.hasNext).toBe(true);
     expect(
       firstPage.courses.every(
