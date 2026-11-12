@@ -1,5 +1,6 @@
 import { sources } from '../sources';
 import { alertsAdvertised } from '../alerts/page';
+import type { AlertOptions } from '../alerts/options';
 import { foldText } from './title-match';
 import { defaultFilters, discover, type DiscoveryPageData } from './discovery';
 import { buildDate, loadSnapshot } from './snapshot-file';
@@ -7,6 +8,7 @@ import {
   canonicalListing,
   catalogToday,
   filterCourses,
+  listCategories,
   listLatestCourses,
 } from './query';
 import {
@@ -42,6 +44,15 @@ export function loadSearchShell(): DiscoveryPageData {
 
 export function alertsEnabled(): boolean {
   return alertsAdvertised(process.env);
+}
+
+/** Live categories and all cities, as of this build, for the alert form. */
+export function alertOptions(): AlertOptions {
+  const { snapshot, today } = context();
+  return {
+    categories: listCategories(snapshot, today),
+    cities: snapshot.geography.cities,
+  };
 }
 
 export function officialSources(): OfficialSource[] {

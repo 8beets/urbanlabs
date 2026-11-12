@@ -1,6 +1,7 @@
 import { m } from '../../paraglide/messages.js';
 import { categoryLabel, formatLocalDate, type Locale } from '../../i18n/ui';
 import { cityLabel } from '../../i18n/geography';
+import { escapeHtml } from '../html';
 import type { EmailMessage } from './email-sender';
 import type { AlertTarget, NewCourse } from './subscription';
 
@@ -55,15 +56,6 @@ export function searchUrl(
   if (target.countryCode) params.set('country', target.countryCode);
   if (target.cityId) params.set('city', target.cityId);
   return `${siteUrl}/${locale}/${m.pathSearch({}, { locale })}?${params}`;
-}
-
-export function escapeHtml(value: string): string {
-  return value
-    .replaceAll('&', '&amp;')
-    .replaceAll('<', '&lt;')
-    .replaceAll('>', '&gt;')
-    .replaceAll('"', '&quot;')
-    .replaceAll("'", '&#39;');
 }
 
 function layout(locale: Locale, body: string): string {

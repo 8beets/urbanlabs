@@ -28,9 +28,9 @@ build assets.
 ## On-demand pages
 
 Only the alert pages and the 404 page run on the Worker. Alert pages send
-`Cache-Control: no-store` and keep tokens out of `Referer` headers. Inside the Worker,
-reference lookups used by the alert form (geography, the live-cutoff time zones) are
-memoized per isolate for five minutes (`src/lib/cache/ttl-memo.ts`).
+`Cache-Control: no-store` and keep tokens out of `Referer` headers. The alert
+form's categories and cities come from the prerendered `/alerts/options.json` asset,
+so the Worker only reads D1 for subscriptions.
 
 References: [Workers static assets](https://developers.cloudflare.com/workers/static-assets/),
 [static asset headers](https://developers.cloudflare.com/workers/static-assets/headers/)

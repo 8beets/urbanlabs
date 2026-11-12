@@ -1,46 +1,5 @@
-import {
-  geographicCondition,
-  type GeographicFilters,
-} from '../locations/geography';
-import { canonicalCategory } from '../courses/categories';
-import type { DiscoveryFilters } from '../catalog/types';
 import type { IngestionDatabase } from './ingestion-port';
 import type { NewCourse } from '../alerts/subscription';
-
-export async function listCategories(
-  db: D1Database,
-  today: string,
-  centre = '',
-  geography: GeographicFilters &
-    Pick<DiscoveryFilters, 'cancellation' | 'archive'> = {},
-): Promise<string[]> {
-  const geographic = geographicCondition(geography, 'c.institution_id');
-  // Driven by the live-edition range, so the cost follows live editions, not history.
-  const result = await db
-    .prepare(
-      `SELECT DISTINCT c.category FROM course_editions e
-    JOIN courses c ON c.id=e.course_id
-    WHERE e.live_until ${geography.archive ? '<' : '>='} ? ${cancellationCondition(geography.cancellation)}
-    AND c.category IS NOT NULL AND c.category <> ''
-    ${centre ? 'AND c.institution_id = ?' : ''} ${geographic.sql ? `AND ${geographic.sql}` : ''}
-    ORDER BY c.category LIMIT 100`,
-    )
-    .bind(today, ...(centre ? [centre] : []), ...geographic.values)
-    .all<{ category: string }>();
-  return [
-    ...new Set(result.results.map((row) => canonicalCategory(row.category))),
-  ].sort();
-}
-
-function cancellationCondition(
-  value: DiscoveryFilters['cancellation'],
-): string {
-  return value === 'hide'
-    ? 'AND e.is_cancelled=0'
-    : value === 'only'
-      ? 'AND e.is_cancelled=1'
-      : '';
-}
 
 export const NEW_COURSES_LIMIT = 2000;
 /**

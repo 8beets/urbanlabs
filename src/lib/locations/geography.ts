@@ -1,5 +1,3 @@
-import { TtlMemo } from '../cache/ttl-memo';
-
 export interface GeographicFilters {
   country?: string;
   region?: string;
@@ -30,51 +28,6 @@ export const emptyGeography: Geography = {
   regions: [],
   cities: [],
 };
-const CATALOG_LIMIT = 1000;
-
-// The catalog changes only with migrations, yet every page and filter request read
-// all three tables. A short per-isolate memo avoids those repeated D1 row reads.
-const geographyMemo = new TtlMemo<Geography>(5 * 60 * 1000, 1);
-
-export function clearGeographyCache(db: D1Database): void {
-  geographyMemo.clear(db);
-}
-
-export function loadGeography(db: D1Database): Promise<Geography> {
-  return geographyMemo.get(db, 'catalog', () => queryGeography(db));
-}
-
-async function queryGeography(db: D1Database): Promise<Geography> {
-  const [countries, regions, cities] = await Promise.all([
-    db
-      .prepare('SELECT code,name FROM countries ORDER BY name,code LIMIT ?')
-      .bind(CATALOG_LIMIT + 1)
-      .all<Country>(),
-    db
-      .prepare(
-        'SELECT id,country_code,name FROM regions ORDER BY name,id LIMIT ?',
-      )
-      .bind(CATALOG_LIMIT + 1)
-      .all<Region>(),
-    db
-      .prepare(
-        'SELECT id,country_code,region_id,name FROM cities ORDER BY name,id LIMIT ?',
-      )
-      .bind(CATALOG_LIMIT + 1)
-      .all<City>(),
-  ]);
-  if (
-    [countries.results, regions.results, cities.results].some(
-      (rows) => rows.length > CATALOG_LIMIT,
-    )
-  )
-    throw new Error('Geography catalog exceeds bounded lookup size');
-  return {
-    countries: countries.results,
-    regions: regions.results,
-    cities: cities.results,
-  };
-}
 
 export function parseGeography(
   params: URLSearchParams,
@@ -116,30 +69,4 @@ export function reconcileGeography(
   )
     city = '';
   return { country, region, city };
-}
-
-export function geographicCondition(
-  filters: GeographicFilters,
-  institutionId = 'i.id',
-) {
-  const clauses: string[] = [];
-  const values: string[] = [];
-  if (filters.country) {
-    clauses.push('il.country_code=?');
-    values.push(filters.country);
-  }
-  if (filters.region) {
-    clauses.push('lc.region_id=?');
-    values.push(filters.region);
-  }
-  if (filters.city) {
-    clauses.push('il.city_id=?');
-    values.push(filters.city);
-  }
-  return {
-    sql: clauses.length
-      ? `EXISTS (SELECT 1 FROM institution_locations il JOIN cities lc ON lc.id=il.city_id WHERE il.institution_id=${institutionId} AND ${clauses.join(' AND ')})`
-      : '',
-    values,
-  };
 }

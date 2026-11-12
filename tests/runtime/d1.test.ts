@@ -5,8 +5,13 @@ import { expect, it } from 'vitest';
 import { splitStatements } from '../helpers/split-sql';
 import { runIngestion } from '../../src/lib/ingestion/run';
 import { parseMiramPage } from '../../src/lib/ingestion/adapters/miram';
-import { listCategories, listNewCourses } from '../../src/lib/db/courses';
-import { listCourses, listLatestCourses, snapshotOf } from '../helpers/catalog';
+import { listNewCourses } from '../../src/lib/db/courses';
+import {
+  listCategories,
+  listCourses,
+  listLatestCourses,
+  snapshotOf,
+} from '../helpers/catalog';
 import {
   confirmSubscription,
   findSubscription,

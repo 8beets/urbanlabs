@@ -1,8 +1,7 @@
 import { getSource } from '../../src/lib/sources';
 import { parseFilters } from '../../src/lib/courses/discovery';
-import { clearGeographyCache } from '../../src/lib/locations/geography';
 import { loadSourceStatuses } from '../../src/lib/db/ingestion-status';
-import { clearClockCache, liveCutoffDate } from '../../src/lib/db/clock';
+import { liveCutoffDate } from '../../src/lib/db/clock';
 import { formatCourseTitle } from '../../src/lib/courses/title';
 import { registerSource } from '../../src/lib/db/ingestion';
 import { MAP_CENTRES_LIMIT } from '../../src/lib/catalog/export';
@@ -92,7 +91,6 @@ describe('SQLite migration and ingestion contract', () => {
     sqlite.exec(
       "INSERT INTO regions VALUES ('asturias','ES','Asturias'); INSERT INTO cities VALUES ('oviedo','ES','asturias','Oviedo');",
     );
-    clearGeographyCache(db);
     const stale = await loadDiscoveryPage(
       db,
       new URLSearchParams('region=asturias&city=barcelona&page=2&q=ANGLÈS'),
@@ -578,18 +576,15 @@ describe('SQLite migration and ingestion contract', () => {
     await runIngestion(db, { fetchRecords: async () => records }, santAndreu);
     const snapshot = await snapshotOf(db, instant);
     expect(snapshot.timeZones).toEqual(['Europe/Madrid']);
-    clearClockCache(db);
     expect(catalogToday(snapshot, instant)).toBe(
       await liveCutoffDate(db, instant),
     );
   });
   it('derives the live cutoff from the time zones of the institutions in the database', async () => {
     const instant = new Date('2026-11-08T23:30:00Z');
-    clearClockCache(db);
     // No institution yet: fall back to UTC rather than a hard-coded place.
     expect(await liveCutoffDate(db, instant)).toBe('2026-11-08');
     await runIngestion(db, { fetchRecords: async () => records }, santAndreu);
-    clearClockCache(db);
     // Europe/Madrid is already on the 9th, so the cutoff follows the data.
     expect(await liveCutoffDate(db, instant)).toBe('2026-11-09');
     sqlite
@@ -597,7 +592,6 @@ describe('SQLite migration and ingestion contract', () => {
         "INSERT INTO institutions (id,name,official_url,city,country,address,timezone) VALUES ('x-bogota','Bogotá','https://example.org','Bogotá','CO','a','America/Bogota')",
       )
       .run();
-    clearClockCache(db);
     // An edition ending on the 8th stays listed until the 8th ends in Bogotá.
     expect(await liveCutoffDate(db, instant)).toBe('2026-11-08');
   });

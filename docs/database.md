@@ -119,10 +119,9 @@ The discovery orderings and filters of the former SQL queries are reproduced in
 unknown end dates, category groups expanded before pagination). The integration tests
 run the same assertions as before through export + pure code.
 
-Only the alert pages read D1 at request time. Their reference lookups (geography,
-the live-cutoff time zones) are memoized per Worker isolate for five minutes
-(`src/lib/cache/ttl-memo.ts`); tests that change data in place clear them with
-`clearGeographyCache(db)` and `clearClockCache(db)`.
+Only the alert pages use D1 at request time, and only for subscriptions. The categories
+and cities their form offers come from `/alerts/options.json`, prerendered from the
+snapshot and read through the Worker's `ASSETS` binding (`src/lib/alerts/options.ts`).
 
 Discovery sorts unexpired cancelled editions last before pagination; the homepage
 excludes them. Search accepts `cancellation=hide` or `cancellation=only` (omitting it
