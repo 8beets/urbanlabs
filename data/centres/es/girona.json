@@ -1,0 +1,249 @@
+[
+  {
+    "id": "cc-gir-barri-vell-mercadal",
+    "slug": "barri-vell-mercadal",
+    "name": "Centre Cívic Barri Vell-Mercadal",
+    "officialUrl": "https://web.girona.cat/ccivics/barrivell",
+    "address": "C. Cort Reial, 7, 17004 Girona",
+    "country": "ES",
+    "city": "Girona",
+    "cityId": "girona",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "phone": "972 010 005",
+      "email": "ccbarrivell@ajgirona.cat",
+      "detailsSourceUrl": "https://web.girona.cat/ccivics/localitzacio",
+      "detailsVerifiedAt": "2026-11-12",
+      "location": {
+        "latitude": 41.984557,
+        "longitude": 2.824954,
+        "sourceUrl": "https://web.girona.cat/ccivics/barrivell",
+        "verifiedAt": "2026-11-12"
+      }
+    },
+    "registration": {
+      "platform": "girona-centres-civics",
+      "origin": "https://seu.girona.cat",
+      "venue": "C. C. Barri Vell - Mercadal",
+      "codePrefix": "BV",
+      "verifiedAt": "2026-11-12",
+      "robotsTxt": "absent"
+    }
+  },
+  {
+    "id": "cc-gir-onyar",
+    "slug": "onyar",
+    "name": "Centre Cívic Onyar",
+    "officialUrl": "https://web.girona.cat/ccivics/onyar",
+    "address": "C. Camp de la Plana, 13, 17004 Girona",
+    "country": "ES",
+    "city": "Girona",
+    "cityId": "girona",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "phone": "972 010 298",
+      "email": "cconyar@ajgirona.cat",
+      "detailsSourceUrl": "https://web.girona.cat/ccivics/localitzacio",
+      "detailsVerifiedAt": "2026-11-12",
+      "location": {
+        "latitude": 41.973004,
+        "longitude": 2.842108,
+        "sourceUrl": "https://web.girona.cat/ccivics/onyar",
+        "verifiedAt": "2026-11-12"
+      }
+    },
+    "registration": {
+      "platform": "girona-centres-civics",
+      "origin": "https://seu.girona.cat",
+      "venue": "C. C. Onyar",
+      "codePrefix": "ON",
+      "verifiedAt": "2026-11-12",
+      "robotsTxt": "absent"
+    }
+  },
+  {
+    "id": "cc-gir-pedret",
+    "slug": "pedret",
+    "name": "Centre Cívic Pedret",
+    "officialUrl": "https://web.girona.cat/ccivics/pedret",
+    "address": "C. Pedret, 152-156, 17007 Girona",
+    "country": "ES",
+    "city": "Girona",
+    "cityId": "girona",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "phone": "972 212 568",
+      "email": "ccpedret@ajgirona.cat",
+      "detailsSourceUrl": "https://web.girona.cat/ccivics/localitzacio",
+      "detailsVerifiedAt": "2026-11-12",
+      "location": {
+        "latitude": 41.997339,
+        "longitude": 2.824637,
+        "sourceUrl": "https://web.girona.cat/ccivics/pedret",
+        "verifiedAt": "2026-11-12"
+      }
+    },
+    "registration": {
+      "platform": "girona-centres-civics",
+      "origin": "https://seu.girona.cat",
+      "venue": "C. C. Pedret",
+      "verifiedAt": "2026-11-12",
+      "robotsTxt": "absent"
+    }
+  },
+  {
+    "id": "cc-gir-pla-de-palau",
+    "slug": "pla-de-palau",
+    "name": "Centre Cívic Pla de Palau",
+    "officialUrl": "https://web.girona.cat/ccivics/plapalau",
+    "address": "C. Saragossa, 27, 17002 Girona",
+    "country": "ES",
+    "city": "Girona",
+    "cityId": "girona",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "phone": "972 426 390",
+      "email": "ccpalau@ajgirona.cat",
+      "detailsSourceUrl": "https://web.girona.cat/ccivics/localitzacio",
+      "detailsVerifiedAt": "2026-11-12",
+      "location": {
+        "latitude": 41.970904,
+        "longitude": 2.8189,
+        "sourceUrl": "https://web.girona.cat/ccivics/plapalau",
+        "verifiedAt": "2026-11-12"
+      }
+    },
+    "registration": {
+      "platform": "girona-centres-civics",
+      "origin": "https://seu.girona.cat",
+      "venue": "C. C. Pla de Palau",
+      "codePrefix": "PA",
+      "verifiedAt": "2026-11-12",
+      "robotsTxt": "absent"
+    }
+  },
+  {
+    "id": "cc-gir-pont-major",
+    "slug": "pont-major",
+    "name": "Centre Cívic Pont Major",
+    "officialUrl": "https://web.girona.cat/ccivics/pontmajor",
+    "address": "C. Pont Major, 67-73, 17007 Girona",
+    "country": "ES",
+    "city": "Girona",
+    "cityId": "girona",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "phone": "972 205 244",
+      "email": "ccpontmajor@ajgirona.cat",
+      "detailsSourceUrl": "https://web.girona.cat/ccivics/localitzacio",
+      "detailsVerifiedAt": "2026-11-12",
+      "location": {
+        "latitude": 42.012231,
+        "longitude": 2.825389,
+        "sourceUrl": "https://web.girona.cat/ccivics/pontmajor",
+        "verifiedAt": "2026-11-12"
+      }
+    },
+    "registration": {
+      "platform": "girona-centres-civics",
+      "origin": "https://seu.girona.cat",
+      "venue": "C. C. Pont Major",
+      "codePrefix": "PM",
+      "verifiedAt": "2026-11-12",
+      "robotsTxt": "absent"
+    }
+  },
+  {
+    "id": "cc-gir-sant-narcis",
+    "slug": "sant-narcis",
+    "name": "Centre Cívic Sant Narcís",
+    "officialUrl": "https://web.girona.cat/ccivics/stnarcis",
+    "address": "Plaça Assumpció, 26-27, 17005 Girona",
+    "country": "ES",
+    "city": "Girona",
+    "cityId": "girona",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "phone": "972 237 063",
+      "email": "ccsantnarcis@ajgirona.cat",
+      "detailsSourceUrl": "https://web.girona.cat/ccivics/localitzacio",
+      "detailsVerifiedAt": "2026-11-12",
+      "location": {
+        "latitude": 41.97502,
+        "longitude": 2.811502,
+        "sourceUrl": "https://web.girona.cat/ccivics/stnarcis",
+        "verifiedAt": "2026-11-12"
+      }
+    },
+    "registration": {
+      "platform": "girona-centres-civics",
+      "origin": "https://seu.girona.cat",
+      "venue": "C. C. Sant Narcís",
+      "codePrefix": "SN",
+      "verifiedAt": "2026-11-12",
+      "robotsTxt": "absent"
+    }
+  },
+  {
+    "id": "cc-gir-santa-eugenia",
+    "slug": "santa-eugenia",
+    "name": "Centre Cívic Santa Eugènia",
+    "officialUrl": "https://web.girona.cat/ccivics/staeugenia",
+    "address": "C. Santa Eugènia, 146, 17006 Girona",
+    "country": "ES",
+    "city": "Girona",
+    "cityId": "girona",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "phone": "972 245 111",
+      "email": "ccsantaeugenia@ajgirona.cat",
+      "detailsSourceUrl": "https://web.girona.cat/ccivics/localitzacio",
+      "detailsVerifiedAt": "2026-11-12",
+      "location": {
+        "latitude": 41.977642,
+        "longitude": 2.807047,
+        "sourceUrl": "https://web.girona.cat/ccivics/staeugenia",
+        "verifiedAt": "2026-11-12"
+      }
+    },
+    "registration": {
+      "platform": "girona-centres-civics",
+      "origin": "https://seu.girona.cat",
+      "venue": "C. C. Santa Eugènia",
+      "codePrefix": "SE",
+      "verifiedAt": "2026-11-12",
+      "robotsTxt": "absent"
+    }
+  },
+  {
+    "id": "cc-gir-ter",
+    "slug": "ter",
+    "name": "Centre Cívic Ter",
+    "officialUrl": "https://web.girona.cat/ccivics/ter",
+    "address": "C. Can Sunyer, 46, 17007 Girona",
+    "country": "ES",
+    "city": "Girona",
+    "cityId": "girona",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "phone": "972 414 952",
+      "email": "ccter@ajgirona.cat",
+      "detailsSourceUrl": "https://web.girona.cat/ccivics/localitzacio",
+      "detailsVerifiedAt": "2026-11-12",
+      "location": {
+        "latitude": 41.993712,
+        "longitude": 2.808835,
+        "sourceUrl": "https://web.girona.cat/ccivics/ter",
+        "verifiedAt": "2026-11-12"
+      }
+    },
+    "registration": {
+      "platform": "girona-centres-civics",
+      "origin": "https://seu.girona.cat",
+      "venue": "C. C. Ter",
+      "codePrefix": "TE",
+      "verifiedAt": "2026-11-12",
+      "robotsTxt": "absent"
+    }
+  }
+]
