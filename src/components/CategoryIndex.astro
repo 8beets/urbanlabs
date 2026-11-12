@@ -1,0 +1,38 @@
+---
+import { m } from '../paraglide/messages.js';
+import { courseSearchPath } from '../i18n/paths';
+import { categoryLabel, type Locale } from '../i18n/ui';
+import type { CategoryPage } from '../lib/catalog/pages';
+import SiteLayout from '../layouts/SiteLayout.astro';
+interface Props {
+  locale: Locale;
+  categories: CategoryPage[];
+}
+const { locale, categories } = Astro.props;
+const path = (target: Locale) => `${courseSearchPath(target)}/categoria`;
+const sorted = categories
+  .map((page) => ({ ...page, label: categoryLabel(page.category, locale) }))
+  .sort((a, b) => a.label.localeCompare(b.label, locale));
+---
+
+<SiteLayout
+  locale={locale}
+  title={`${m.categoriesTitle({}, { locale })} · UrbanLabs`}
+  description={m.categoriesIntro({}, { locale })}
+  section="courses"
+  languagePaths={{ es: path('es'), ca: path('ca') }}
+>
+  <section class="centre-heading">
+    <h1>{m.categoriesTitle({}, { locale })}</h1>
+    <p class="intro">{m.categoriesIntro({}, { locale })}</p>
+  </section>
+  <ul class="category-list">
+    {sorted.map((page) => (
+      <li>
+        <a class="course-category" href={`${path(locale)}/${page.slug}`}>
+          {page.label} ({page.courses.length})
+        </a>
+      </li>
+    ))}
+  </ul>
+</SiteLayout>

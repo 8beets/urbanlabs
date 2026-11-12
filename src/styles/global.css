@@ -805,3 +805,48 @@ h3 {
 .alert-link {
   margin-top: 16px;
 }
+
+/* Static search: a filtered URL hides the prerendered unfiltered results until the
+   browser has rendered the requested search (src/lib/catalog/search-page.ts). */
+.search-loading {
+  display: none;
+}
+[data-search-pending] .search-loading {
+  display: block;
+}
+[data-search-pending] [data-discovery-results] {
+  display: none;
+}
+.search-failed,
+[data-search-failed] .search-loading {
+  display: none;
+}
+[data-search-failed] .search-failed {
+  display: block;
+}
+
+.search-noscript {
+  display: block;
+}
+
+.category-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 0;
+  list-style: none;
+}
+.category-list a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}

@@ -2,7 +2,7 @@
 import { m } from '../paraglide/messages.js';
 import { courseSearchPath } from '../i18n/paths';
 import { categoryLabel, type Locale } from '../i18n/ui';
-import type { DiscoveryPageData } from '../lib/courses/page';
+import type { DiscoveryPageData } from '../lib/catalog/discovery';
 import { startMonthLabel } from '../lib/courses/start-month';
 import Icon from './Icon.astro';
 import LocationFilters from './LocationFilters.astro';
@@ -31,9 +31,8 @@ const formFields = new Set([
   'cancellation',
   'places',
 ]);
-const preservedParams = [...Astro.url.searchParams].filter(
-  ([key]) => !formFields.has(key),
-);
+// The page is static: the browser search adds hidden inputs for other parameters
+// (such as `archive`) so a submission keeps them.
 ---
 
 <aside class="filter-sidebar" aria-label={m.filters({}, { locale })}>
@@ -50,15 +49,11 @@ const preservedParams = [...Astro.url.searchParams].filter(
       class="filter-form"
       aria-label={m.submit({}, { locale })}
       data-dynamic-filters
+      data-form-fields={[...formFields].join(' ')}
       data-locale={locale}
       data-all-centres={m.allCentres({}, { locale })}
       data-all-categories={m.allCategories({}, { locale })}
-      data-loading={m.filtersLoading({}, { locale })}
-      data-failed={m.filtersFailed({}, { locale })}
     >
-      {preservedParams.map(([key, value]) => (
-        <input type="hidden" name={key} value={value} />
-      ))}
       <div>
         <label for="q">{m.search({}, { locale })}</label>
         <input
@@ -189,11 +184,6 @@ const preservedParams = [...Astro.url.searchParams].filter(
 </aside>
 
 <script>
-  import { enhanceFilters } from '../lib/courses/filter-controls';
-  for (const form of document.querySelectorAll<HTMLFormElement>(
-    '[data-dynamic-filters]',
-  ))
-    enhanceFilters(form);
   const panel = document.querySelector<HTMLDetailsElement>('#filter-panel');
   if (panel) {
     const desktop = window.matchMedia('(min-width: 800px)');

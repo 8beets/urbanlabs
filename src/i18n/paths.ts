@@ -1,36 +1,18 @@
-import { getRelativeLocaleUrl } from 'astro:i18n';
 import { m } from '../paraglide/messages.js';
 import type { Locale } from './ui';
 
+// Every locale is prefixed (`prefixDefaultLocale: true` in astro.config.mjs). These
+// helpers build the same URLs as `astro:i18n` without depending on that virtual
+// module, so browser scripts such as the static search can use them too.
+
 export function courseSearchPath(locale: Locale): string {
-  return getRelativeLocaleUrl(locale, m.pathSearch({}, { locale })).replace(
-    /\/$/,
-    '',
-  );
+  return `/${locale}/${m.pathSearch({}, { locale })}`;
 }
 
 export function homePath(locale: Locale): string {
-  return `${getRelativeLocaleUrl(locale).replace(/\/$/, '')}/`;
+  return `/${locale}/`;
 }
 
 export function centreDirectoryPath(locale: Locale): string {
-  return getRelativeLocaleUrl(locale, m.pathCentres({}, { locale })).replace(
-    /\/$/,
-    '',
-  );
-}
-
-// Keep existing bookmarked filter URLs working after discovery moves off the homepage.
-export function hasDiscoveryParams(params: URLSearchParams): boolean {
-  return [
-    'q',
-    'centre',
-    'category',
-    'maxPrice',
-    'page',
-    'country',
-    'region',
-    'city',
-    'cancellation',
-  ].some((key) => params.has(key));
+  return `/${locale}/${m.pathCentres({}, { locale })}`;
 }

@@ -30,19 +30,14 @@ for (const locale of ['es', 'ca']) {
     await page.locator('.brand').click();
     await expect(page).toHaveURL(`/${locale}/`);
   });
-  test(`${locale}: bookmarked homepage filters redirect with pagination intact`, async ({
-    request,
+  test(`${locale}: old homepage filter parameters just show the homepage`, async ({
     page,
   }) => {
-    const query = '?centre=cc-sant-andreu&category=IDIOMES&page=2';
-    const response = await request.get(`/${locale}/${query}`, {
-      maxRedirects: 0,
-    });
-    expect(response.status()).toBe(308);
-    expect(response.headers().location).toBe(search + query);
-    await page.goto(`/${locale}/${query}`);
-    await expect(page).toHaveURL(search + query);
-    await expect(page.locator('#centre')).toHaveValue('cc-sant-andreu');
-    await expect(page.locator('#category')).toHaveValue('IDIOMES');
+    // Legacy query strings are not carried over (ADR 0008): the static homepage answers.
+    const response = await page.goto(
+      `/${locale}/?centre=cc-sant-andreu&category=IDIOMES&page=2`,
+    );
+    expect(response?.status()).toBe(200);
+    await expect(page.locator('.latest-courses .course')).toHaveCount(20);
   });
 }

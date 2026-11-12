@@ -1,23 +1,37 @@
 # Cache policy
 
-Public course discovery, centre pages and `/api/filters` use Astro route caching with the Cloudflare provider (`cacheCloudflare()` from `@astrojs/cloudflare/cache`, experimental). `src/middleware.ts` calls `context.cache.set({ maxAge: 300, swr: 60 })` for eligible responses; Astro turns that into `Cloudflare-CDN-Cache-Control` and `Cache-Tag` headers, and Cloudflare's Workers Cache serves hits in front of the Worker, so a hit runs no code and no D1 queries. Responses may be served stale for up to 60 seconds while they revalidate. The complete URL is the cache key, including the language, filters, pagination, and extra parameters preserved in links.
+Public pages are static files built from a catalogue snapshot
+([ADR 0008](adr/0008-static-site.md)). Cloudflare serves them as Workers static
+assets, without invoking the Worker or reading D1, so there is no request-time page
+cache to manage. The former Astro route cache (`cacheCloudflare()`), its middleware
+and the `/api/filters` endpoint were removed.
 
-The browser receives `Cache-Control: public, max-age=0, must-revalidate`, so it always revalidates against the edge cache. The adapter marks every response without cache intent `Cloudflare-CDN-Cache-Control: no-store`.
+## Freshness
 
-Only successful HTML responses on `/es`, `/ca`, their localized search routes (`/es/buscar`, `/ca/cerca`), and centre routes, plus the JSON from `/api/filters`, are eligible (`src/lib/http/page-cache.ts`). Requests with cookies or authorization or `no-store`, non-GET requests, error responses, responses that set cookies (including through Astro), responses with `Vary`, and responses marked private or uncacheable opt out and receive `no-store`. Other routes and legacy redirects are outside this policy.
+Pages and the search index change only when a new build is deployed: after every
+ingestion run, daily just after midnight in Madrid, and on pushes to `main`
+(`.github/workflows/deploy.yml`). Between builds, prerendered course cards that have
+since ended are hidden in the browser (`src/components/ExpiredCards.astro`) and the
+browser search recomputes liveness with the current date.
 
-The Workers Cache works on custom domains (production is `urbanlabs.fyi`), not on `workers.dev`. Development uses a no-op cache so local changes appear immediately; test caching with a build and preview.
+## Browser caching
 
-Data imports and centre updates do not purge this cache, so changes can take up to five minutes (plus the stale window) to appear. Responses are tagged with their path and Worker version, so `context.cache.invalidate({ path | tags })` can purge them later. A future account, booking, or personalized page must remain outside the public route allowlist.
+`public/_headers` gives prerendered pages (`/es/*`, `/ca/*`) and the search index
+(`/search/*`) `Cache-Control: public, max-age=0, must-revalidate`: browsers keep a copy
+but revalidate it with the asset ETag, so a new deployment is visible immediately.
 
-## Database read memoization
+Images, fonts and icons have a one-hour browser TTL with `must-revalidate`; their
+filenames are stable, so they deliberately do not use `immutable`. The Astro
+Cloudflare adapter adds a one-year immutable policy for content-hashed `/_astro/*`
+build assets.
 
-Inside the Worker, reference lookups (geography, category and centre filter options, centre directory and map data) are also memoized per isolate for five minutes, so different search URLs that miss the page cache do not repeat identical D1 queries. See `docs/database.md`.
+## On-demand pages
 
-## Static assets
+Only the alert pages and the 404 page run on the Worker. Alert pages send
+`Cache-Control: no-store` and keep tokens out of `Referer` headers. Inside the Worker,
+reference lookups used by the alert form (geography, the live-cutoff time zones) are
+memoized per isolate for five minutes (`src/lib/cache/ttl-memo.ts`).
 
-`public/_headers` gives images, fonts, and icons a one-hour browser TTL with `must-revalidate`. These paths have stable filenames, so they deliberately do not use `immutable`. Asset changes can take up to one hour to appear in a browser that already loaded them. Cloudflare's asset ETags remain available for conditional requests after expiry.
-
-The Astro Cloudflare adapter adds the separate one-year immutable policy for content-hashed `/_astro/*` build assets. The custom rules leave that policy intact. `_headers` applies to Workers static assets, while middleware sets headers for server-rendered HTML. Astro's development asset server does not apply the production `_headers` rules.
-
-References: [Astro route caching](https://docs.astro.build/en/guides/caching/), [Cloudflare Workers Cache](https://developers.cloudflare.com/workers/cache/), [Workers static asset headers](https://developers.cloudflare.com/workers/static-assets/headers/), and [Astro middleware](https://docs.astro.build/en/guides/middleware/).
+References: [Workers static assets](https://developers.cloudflare.com/workers/static-assets/),
+[static asset headers](https://developers.cloudflare.com/workers/static-assets/headers/)
+and [redirects](https://developers.cloudflare.com/workers/static-assets/redirects/).

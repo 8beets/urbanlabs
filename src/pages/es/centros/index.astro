@@ -1,9 +1,0 @@
----
-import { env } from 'cloudflare:workers';
-import CentreDirectory from '../../../components/CentreDirectory.astro';
-import { loadDirectoryPage } from '../../../lib/institutions/pages';
-const data = await loadDirectoryPage(env.DB, Astro.url.searchParams);
-Astro.response.status = data.status;
----
-
-<CentreDirectory locale="es" data={data} />

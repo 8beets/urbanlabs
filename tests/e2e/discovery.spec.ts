@@ -1,73 +1,88 @@
 import { expect, test } from '@playwright/test';
 import { sources } from '../../src/lib/sources';
-test.use({ javaScriptEnabled: false });
 
-test('Spanish homepage and Catalan language switching work without client JavaScript', async ({
-  page,
-}) => {
-  await page.goto('/es/');
-  await expect(
-    page.getByRole('heading', { name: 'Aprende cerca de casa' }),
-  ).toBeVisible();
-  await expect(page.locator('.schedule').first()).toHaveText(
-    /^(Lunes|Martes|Miércoles|Jueves|Viernes|Sábado|Domingo)\b/i,
-  );
-  await expect(page.locator('html')).toHaveAttribute('lang', 'es');
-  await expect(page.locator('.hero-photos figure')).toHaveCount(4);
-  await expect(page.locator('.hero-photos figcaption')).toHaveText([
-    'Música',
-    'Cerámica',
-    'Electrónica',
-    'Bricolaje',
-  ]);
-  await expect
-    .poll(() =>
-      page
-        .locator('.hero-photos img')
-        .evaluateAll((images) =>
-          images.every(
-            (image) =>
-              image instanceof HTMLImageElement &&
-              image.complete &&
-              image.naturalWidth > 0,
+// Search runs in the browser over the static index (docs/adr/0008-static-site.md).
+// Static pages (homepage, centres, category pages) keep working without JavaScript.
+
+// Filter logic is the same at every width. On phones the panel starts collapsed (the
+// 'progressive filter panel' tests cover that), so the logic tests use a wide window.
+test.beforeEach(async ({ page }, testInfo) => {
+  if (
+    !testInfo.titlePath.includes('without JavaScript') &&
+    page.viewportSize()!.width < 800
+  )
+    await page.setViewportSize({ width: 1280, height: 900 });
+});
+
+test.describe('without JavaScript', () => {
+  test.use({ javaScriptEnabled: false });
+  test('Spanish homepage and Catalan language switching work without client JavaScript', async ({
+    page,
+  }) => {
+    await page.goto('/es/');
+    await expect(
+      page.getByRole('heading', { name: 'Aprende cerca de casa' }),
+    ).toBeVisible();
+    await expect(page.locator('.schedule').first()).toHaveText(
+      /^(Lunes|Martes|Miércoles|Jueves|Viernes|Sábado|Domingo)\b/i,
+    );
+    await expect(page.locator('html')).toHaveAttribute('lang', 'es');
+    await expect(page.locator('.hero-photos figure')).toHaveCount(4);
+    await expect(page.locator('.hero-photos figcaption')).toHaveText([
+      'Música',
+      'Cerámica',
+      'Electrónica',
+      'Bricolaje',
+    ]);
+    await expect
+      .poll(() =>
+        page
+          .locator('.hero-photos img')
+          .evaluateAll((images) =>
+            images.every(
+              (image) =>
+                image instanceof HTMLImageElement &&
+                image.complete &&
+                image.naturalWidth > 0,
+            ),
           ),
-        ),
-    )
-    .toBe(true);
-  await expect(page.locator('.brand img')).toHaveAttribute(
-    'src',
-    '/images/brand/learnaprop-logo.png',
-  );
-  const repository = page
-    .getByRole('contentinfo')
-    .getByRole('link', { name: 'Código en GitHub', exact: true });
-  await expect(repository).toHaveAttribute(
-    'href',
-    'https://github.com/8beets/urbanlabs',
-  );
-  await expect(repository.locator('img')).toHaveAttribute(
-    'src',
-    '/icons/github.svg',
-  );
-  await page.getByRole('link', { name: 'Català' }).click();
-  await expect(
-    page.getByRole('heading', { name: 'Aprèn a prop de casa' }),
-  ).toBeVisible();
-  await expect(
-    page
+      )
+      .toBe(true);
+    await expect(page.locator('.brand img')).toHaveAttribute(
+      'src',
+      '/images/brand/learnaprop-logo.png',
+    );
+    const repository = page
       .getByRole('contentinfo')
-      .getByRole('link', { name: 'Codi a GitHub', exact: true }),
-  ).toHaveAttribute('href', 'https://github.com/8beets/urbanlabs');
-  await expect(page.locator('html')).toHaveAttribute('lang', 'ca');
-  await expect(page.locator('.hero-photos figcaption')).toHaveText([
-    'Música',
-    'Ceràmica',
-    'Electrònica',
-    'Bricolatge',
-  ]);
-  await expect(page.locator('.schedule').first()).toHaveText(
-    /^(Dilluns|Dimarts|Dimecres|Dijous|Divendres|Dissabte|Diumenge)\b/i,
-  );
+      .getByRole('link', { name: 'Código en GitHub', exact: true });
+    await expect(repository).toHaveAttribute(
+      'href',
+      'https://github.com/8beets/urbanlabs',
+    );
+    await expect(repository.locator('img')).toHaveAttribute(
+      'src',
+      '/icons/github.svg',
+    );
+    await page.getByRole('link', { name: 'Català' }).click();
+    await expect(
+      page.getByRole('heading', { name: 'Aprèn a prop de casa' }),
+    ).toBeVisible();
+    await expect(
+      page
+        .getByRole('contentinfo')
+        .getByRole('link', { name: 'Codi a GitHub', exact: true }),
+    ).toHaveAttribute('href', 'https://github.com/8beets/urbanlabs');
+    await expect(page.locator('html')).toHaveAttribute('lang', 'ca');
+    await expect(page.locator('.hero-photos figcaption')).toHaveText([
+      'Música',
+      'Ceràmica',
+      'Electrònica',
+      'Bricolatge',
+    ]);
+    await expect(page.locator('.schedule').first()).toHaveText(
+      /^(Dilluns|Dimarts|Dimecres|Dijous|Divendres|Dissabte|Diumenge)\b/i,
+    );
+  });
 });
 
 async function submit(page: import('@playwright/test').Page) {
@@ -141,18 +156,18 @@ test('start month filter offers the next 12 months and composes through the URL'
   expect(query(page).has('start')).toBe(false);
 });
 
-test('invalid URL filters return an accessible error and HTTP 400', async ({
-  page,
-}) => {
-  expect((await page.goto('/es/buscar?page=-1'))?.status()).toBe(400);
+test('invalid URL filters show an accessible error', async ({ page }) => {
+  // A static page always answers 200; the browser search reports the error.
+  await page.goto('/es/buscar?page=-1');
   await expect(page.getByRole('alert')).toContainText('Revisa los filtros');
+  await expect(page.locator('article.course')).toHaveCount(0);
   await expect(page.locator('#q')).toHaveAttribute(
     'aria-describedby',
     'filter-error',
   );
 });
 
-test('categories compose with search, pagination, and locale switching without JavaScript', async ({
+test('categories compose with search, pagination, and locale switching', async ({
   page,
 }) => {
   await page.goto('/es/buscar?page=2');
@@ -441,32 +456,53 @@ test('incompatible selected categories remain visible and removable', async ({
   await expect(page.locator('article.course')).toHaveCount(5);
 });
 
-test('native filters are keyboard-collapsible without JavaScript and sit beside desktop results', async ({
-  page,
-}) => {
-  await page.goto('/es/buscar');
-  const panel = page.locator('#filter-panel');
-  const sidebar = (await page.locator('.filter-sidebar').boundingBox())!;
-  const results = (await page.locator('.discovery-content').boundingBox())!;
-  if (page.viewportSize()!.width >= 800) {
-    expect(sidebar.x + sidebar.width).toBeLessThan(results.x);
-    expect(Math.abs(sidebar.y - results.y)).toBeLessThan(3);
-  } else {
-    expect(sidebar.y + sidebar.height).toBeLessThan(results.y);
-  }
-  const summary = panel.locator('summary');
-  await summary.focus();
-  await page.keyboard.press('Enter');
-  await expect(page.locator('#q')).toBeHidden();
-  await page.keyboard.press('Enter');
-  await expect(page.locator('#q')).toBeVisible();
-  await page.keyboard.press('Tab');
-  await expect(page.locator('#q')).toBeFocused();
-  expect(
-    await page.evaluate(
-      () => document.documentElement.scrollWidth <= innerWidth,
-    ),
-  ).toBe(true);
+test.describe('without JavaScript', () => {
+  test.use({ javaScriptEnabled: false });
+  test('native filters are keyboard-collapsible without JavaScript and sit beside desktop results', async ({
+    page,
+  }) => {
+    await page.goto('/es/buscar');
+    const panel = page.locator('#filter-panel');
+    const sidebar = (await page.locator('.filter-sidebar').boundingBox())!;
+    const results = (await page.locator('.discovery-content').boundingBox())!;
+    if (page.viewportSize()!.width >= 800) {
+      expect(sidebar.x + sidebar.width).toBeLessThan(results.x);
+      expect(Math.abs(sidebar.y - results.y)).toBeLessThan(3);
+    } else {
+      expect(sidebar.y + sidebar.height).toBeLessThan(results.y);
+    }
+    const summary = panel.locator('summary');
+    await summary.focus();
+    await page.keyboard.press('Enter');
+    await expect(page.locator('#q')).toBeHidden();
+    await page.keyboard.press('Enter');
+    await expect(page.locator('#q')).toBeVisible();
+    await page.keyboard.press('Tab');
+    await expect(page.locator('#q')).toBeFocused();
+    expect(
+      await page.evaluate(
+        () => document.documentElement.scrollWidth <= innerWidth,
+      ),
+    ).toBe(true);
+  });
+  test('search explains it needs JavaScript and links to static browsing', async ({
+    page,
+  }) => {
+    await page.goto('/es/buscar?q=anything');
+    await expect(page.locator('.search-noscript')).toContainText(
+      'necesita JavaScript',
+    );
+    await page.getByRole('link', { name: 'Explorar por categoría' }).click();
+    await expect(page).toHaveURL('/es/buscar/categoria');
+    await page.getByRole('link', { name: /^Idiomas \(\d+\)$/ }).click();
+    await expect(page).toHaveURL('/es/buscar/categoria/idiomes');
+    await expect(page.locator('article.course')).toHaveCount(12);
+    await page.locator('a[rel="next"]').click();
+    await expect(page).toHaveURL('/es/buscar/categoria/idiomes/2');
+    await page.getByRole('link', { name: 'Català' }).click();
+    await expect(page).toHaveURL('/ca/cerca/categoria/idiomes/2');
+    await expect(page.getByRole('heading', { level: 1 })).toHaveText('Idiomes');
+  });
 });
 
 test.describe('progressive filter panel', () => {
@@ -503,9 +539,7 @@ test.describe('progressive filter panel', () => {
     page,
   }) => {
     await page.setViewportSize({ width: 390, height: 844 });
-    expect((await page.goto('/es/buscar?maxPrice=invalid'))?.status()).toBe(
-      400,
-    );
+    await page.goto('/es/buscar?maxPrice=invalid');
     await expect(page.locator('#filter-panel')).toHaveAttribute('open', '');
     await expect(page.getByRole('alert')).toBeVisible();
     await expect(page.locator('#q')).toBeVisible();
@@ -619,76 +653,34 @@ test.describe('dynamic filter options', () => {
       page.off('framenavigated', countNavigation);
     }
   });
-  test('newer city selections win over slow responses', async ({ page }) => {
-    await page.route('**/api/filters?**', async (route) => {
-      const city = new URL(route.request().url()).searchParams.get('city');
-      const response = await route.fetch();
-      if (city === 'tarragona')
-        await new Promise((resolve) => setTimeout(resolve, 500));
-      await route.fulfill({ response });
-    });
-    await page.goto('/es/buscar');
-    await page.locator('#city').selectOption('tarragona');
-    await page.locator('#city').selectOption('barcelona');
-    await expect(page.locator('.filter-form')).not.toHaveAttribute('aria-busy');
-    // The "all centres" option plus every seeded centre.
-    await expect(page.locator('#centre option')).toHaveCount(
-      sources.length + 1,
-    );
-    await page.waitForTimeout(700);
-    // The "all centres" option plus every seeded centre.
-    await expect(page.locator('#centre option')).toHaveCount(
-      sources.length + 1,
-    );
-    await expect(page.locator('#city')).toHaveValue('barcelona');
-  });
-  test('a failed update re-enables the form and allows normal search', async ({
+  test('an unavailable search index is reported instead of stale results', async ({
     page,
   }) => {
-    await page.route('**/api/filters?**', (route) =>
+    await page.route('**/search/live.json', (route) =>
       route.fulfill({ status: 503, body: '' }),
     );
-    await page.goto('/es/buscar');
-    await page.locator('#city').selectOption('tarragona');
-    await expect(page.locator('[data-filter-status]')).toContainText(
-      'No se han podido actualizar',
-    );
-    await expect(page.locator('#centre')).toBeEnabled();
-    await expect(page.locator('#category')).toBeEnabled();
-    await submit(page);
-    expect(query(page).get('city')).toBe('tarragona');
-    await expect(page.locator('.course')).toHaveCount(0);
+    await page.goto('/es/buscar?q=TEST');
+    await expect(page.getByRole('alert')).toBeVisible();
+    await expect(page.locator('article.course')).toHaveCount(0);
   });
-  test('options endpoint validates input and localizes labels', async ({
-    request,
+  test('a search script that never loads stops showing the loading message', async ({
+    page,
   }) => {
-    expect(
-      (await request.get('/api/filters?locale=es&city=missing')).status(),
-    ).toBe(400);
-    expect((await request.get('/api/filters?locale=fr')).status()).toBe(400);
-    expect(
-      (await request.get('/api/filters?locale=es&centre=%27')).status(),
-    ).toBe(400);
-    const response = await request.get(
-      '/api/filters?locale=es&centre=cc-pati-llimona',
-    );
-    expect(response.status()).toBe(200);
-    expect((await response.json()).categories).toEqual([
-      { value: 'CINEMA', label: 'Cine' },
-      { value: 'FOTOGRAFIA', label: 'Fotografía' },
-      { value: "ReGENERA'T", label: 'ReGENERA’T' },
-    ]);
-    expect(
-      (
-        await request.get(
-          '/api/filters?locale=es&city=tarragona&centre=cc-pati-llimona',
-        )
-      ).status(),
-    ).toBe(200);
+    await page.route('**/_astro/*.js', (route) => route.abort());
+    await page.goto('/es/buscar?q=TEST');
+    await expect(page.locator('.search-loading')).toBeVisible();
+    await expect(page.getByRole('alert')).toContainText('no está disponible', {
+      timeout: 15_000,
+    });
+    await expect(page.locator('.search-loading')).toBeHidden();
+    await expect(page.locator('[data-discovery-results]')).toBeHidden();
+    await expect(
+      page.getByRole('link', { name: 'Explorar por categoría' }),
+    ).toBeVisible();
   });
 });
 
-test('places filter keeps its value in the URL and shows an applied chip without JavaScript', async ({
+test('places filter keeps its value in the URL and shows an applied chip', async ({
   page,
 }) => {
   await page.goto('/es/buscar?places=available');
@@ -696,7 +688,8 @@ test('places filter keeps its value in the URL and shows an applied chip without
   await expect(
     page.getByRole('link', { name: 'Quitar filtro: Ocultar sin plazas' }),
   ).toBeVisible();
-  expect((await page.request.get('/es/buscar?places=nope')).status()).toBe(400);
+  await page.goto('/es/buscar?places=nope');
+  await expect(page.getByRole('alert')).toContainText('Revisa los filtros');
 });
 
 test('finished courses only appear in the archive, which keeps the filters and has a footer link', async ({
@@ -726,5 +719,6 @@ test('finished courses only appear in the archive, which keeps the filters and h
   ]);
   await page.goto('/ca/cerca?archive=1&q=TEST+dance');
   await expect(page.locator('article.course')).toHaveCount(0);
-  expect((await page.request.get('/es/buscar?archive=2')).status()).toBe(400);
+  await page.goto('/es/buscar?archive=2');
+  await expect(page.getByRole('alert')).toContainText('Revisa los filtros');
 });

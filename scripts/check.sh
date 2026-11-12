@@ -8,5 +8,7 @@ npm run typecheck
 npm test
 npm run test:d1
 npm run db:migrate
-npm run build
+npm run snapshot:fixture
+URBANLABS_SNAPSHOT=.cache/e2e-snapshot.json npm run build
+npm run check:build
 npm run test:e2e

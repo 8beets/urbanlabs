@@ -1,5 +1,5 @@
 import type { Map as LeafletMap } from 'leaflet';
-import type { CentreMapPoint } from '../db/institutions';
+import type { CentreMapPoint } from '../catalog/types';
 export interface CentreMapLabels {
   mapContributors: string;
   loading: string;

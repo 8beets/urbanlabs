@@ -5,17 +5,8 @@ import { expect, it } from 'vitest';
 import { splitStatements } from '../helpers/split-sql';
 import { runIngestion } from '../../src/lib/ingestion/run';
 import { parseMiramPage } from '../../src/lib/ingestion/adapters/miram';
-import {
-  findInstitution,
-  listMapCentres,
-  listInstitutions,
-} from '../../src/lib/db/institutions';
-import {
-  listCategories,
-  listCourses,
-  listLatestCourses,
-  listNewCourses,
-} from '../../src/lib/db/courses';
+import { listCategories, listNewCourses } from '../../src/lib/db/courses';
+import { listCourses, listLatestCourses, snapshotOf } from '../helpers/catalog';
 import {
   confirmSubscription,
   findSubscription,
@@ -50,11 +41,15 @@ it('applies the migration and imports idempotently in the actual local D1 runtim
     ).records;
     const adapter = { fetchRecords: async () => records };
     await runIngestion(db, adapter, santAndreu);
-    expect((await findInstitution(db, 'sant-andreu'))?.latitude).toBe(
-      41.43088018380354,
-    );
-    expect(await listInstitutions(db)).toHaveLength(1);
-    expect((await listMapCentres(db)).mapCentres).toMatchObject([
+    // The static build's snapshot export runs its queries on the actual D1 runtime.
+    const snapshot = await snapshotOf(db);
+    expect(
+      snapshot.centres.find((centre) => centre.slug === 'sant-andreu')
+        ?.latitude,
+    ).toBe(41.43088018380354);
+    expect(snapshot.centres).toHaveLength(1);
+    expect(snapshot.editions).toHaveLength(records.length);
+    expect(snapshot.map.mapCentres).toMatchObject([
       {
         slug: 'sant-andreu',
         latitude: 41.43088018380354,

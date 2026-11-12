@@ -1,6 +1,6 @@
 import { expect, test } from '@playwright/test';
 
-test.use({ javaScriptEnabled: false });
+// Search cards are rendered by the browser; centre cards are prerendered.
 for (const locale of ['es', 'ca']) {
   test(`${locale}: all-caps source titles are readable on search and centre cards`, async ({
     page,

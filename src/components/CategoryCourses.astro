@@ -1,0 +1,73 @@
+---
+import type { Page } from 'astro';
+import { m } from '../paraglide/messages.js';
+import { courseSearchPath } from '../i18n/paths';
+import { categoryLabel, type Locale } from '../i18n/ui';
+import type { CourseListing } from '../lib/catalog/types';
+import SiteLayout from '../layouts/SiteLayout.astro';
+import CourseCard from './CourseCard.astro';
+import ExpiredCards from './ExpiredCards.astro';
+interface Props {
+  locale: Locale;
+  category: string;
+  slug: string;
+  page: Page<CourseListing>;
+}
+const { locale, category, slug, page } = Astro.props;
+const label = categoryLabel(category, locale);
+const suffix = page.currentPage > 1 ? `/${page.currentPage}` : '';
+const path = (target: Locale) =>
+  `${courseSearchPath(target)}/categoria/${slug}${suffix}`;
+const filterParams = new URLSearchParams({ category });
+---
+
+<SiteLayout
+  locale={locale}
+  title={`${label} · UrbanLabs`}
+  description={m.categoryPageIntro({}, { locale })}
+  section="courses"
+  languagePaths={{ es: path('es'), ca: path('ca') }}
+>
+  <p class="breadcrumb">
+    <a href={`${courseSearchPath(locale)}/categoria`}>
+      ← {m.categoriesTitle({}, { locale })}
+    </a>
+  </p>
+  <section class="centre-heading">
+    <h1>{label}</h1>
+    <p class="intro">{m.categoryPageIntro({}, { locale })}</p>
+    <p>
+      <a href={`${courseSearchPath(locale)}?${filterParams}`}>
+        {m.searchThisCategory({}, { locale })}
+      </a>
+    </p>
+  </section>
+  <section class="results" aria-labelledby="category-courses">
+    <h2 id="category-courses" class="visually-hidden">
+      {m.results({}, { locale })}
+    </h2>
+    <div class="grid">
+      {page.data.map((course) => (
+        <CourseCard
+          locale={locale}
+          course={course}
+          filterParams={filterParams}
+        />
+      ))}
+    </div>
+    <nav class="pagination" aria-label={m.pagination({}, { locale })}>
+      {page.url.prev && (
+        <a href={page.url.prev} rel="prev">
+          ← {m.previous({}, { locale })}
+        </a>
+      )}
+      {page.url.next && (
+        <a href={page.url.next} rel="next">
+          {m.next({}, { locale })} →
+        </a>
+      )}
+    </nav>
+  </section>
+  <aside class="notice">{m.notice({}, { locale })}</aside>
+  <ExpiredCards />
+</SiteLayout>

@@ -1,29 +1,31 @@
 import { defineConfig } from 'astro/config';
 import cloudflare from '@astrojs/cloudflare';
-import { cacheCloudflare } from '@astrojs/cloudflare/cache';
 import tailwindcss from '@tailwindcss/vite';
-import process from 'node:process';
 import { paraglideVitePlugin } from '@inlang/paraglide-js';
 import paraglideConfig from './paraglide.config.mjs';
 
+// Pages are prerendered from the catalogue snapshot (docs/adr/0008-static-site.md).
+// Only the alert pages and the 404 opt out with `prerender = false` and run on the
+// Worker; everything else is served as static assets without invoking it.
 export default defineConfig({
-  output: 'server',
+  output: 'static',
+  // `buscar.astro` → `buscar.html`, served at `/es/buscar` (no trailing-slash
+  // redirect); `index.astro` stays `index.html`, served at `/es/`.
+  build: { format: 'preserve' },
   i18n: {
     locales: ['es', 'ca'],
     defaultLocale: 'es',
     routing: {
       prefixDefaultLocale: true,
-      // The root route preserves query strings with a permanent redirect.
+      // `/` is a static redirect in public/_redirects.
       redirectToDefaultLocale: false,
     },
   },
   adapter: cloudflare({
     imageService: 'passthrough',
-    ...(process.env.LEARNAPROP_E2E === '1'
-      ? { persistState: { path: '.wrangler/e2e-state' } }
-      : {}),
+    // Prerendering reads the snapshot file from disk, so it runs in Node.
+    prerenderEnvironment: 'node',
   }),
-  cache: { provider: cacheCloudflare() },
   session: false,
   vite: { plugins: [tailwindcss(), paraglideVitePlugin(paraglideConfig)] },
 });

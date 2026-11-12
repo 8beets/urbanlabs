@@ -1,0 +1,22 @@
+---
+import { catalogTimeZones } from '../lib/catalog/pages';
+const timeZones = catalogTimeZones();
+---
+
+<script
+  is:inline
+  type="application/json"
+  id="catalog-time-zones"
+  set:html={JSON.stringify(timeZones).replaceAll('<', '\\u003c')}
+/>
+<script>
+  // Prerendered cards are as fresh as the last build. Editions that ended since then
+  // are hidden here until the next daily rebuild removes them for good.
+  import { earliestLocalDate } from '../lib/time/dates';
+  const zones = document.getElementById('catalog-time-zones')?.textContent;
+  const today = earliestLocalDate(zones ? JSON.parse(zones) : []);
+  for (const card of document.querySelectorAll<HTMLElement>(
+    '[data-live-until]',
+  ))
+    if ((card.dataset.liveUntil ?? '') < today) card.hidden = true;
+</script>

@@ -1,0 +1,25 @@
+---
+import type { GetStaticPaths, Page } from 'astro';
+import CategoryCourses from '../../../../../components/CategoryCourses.astro';
+import { loadCategoryPages } from '../../../../../lib/catalog/pages';
+import { PAGE_SIZE } from '../../../../../lib/catalog/query';
+import type { CourseListing } from '../../../../../lib/catalog/types';
+
+export const getStaticPaths = (({ paginate }) =>
+  loadCategoryPages().flatMap(({ slug, category, courses }) =>
+    paginate(courses, {
+      pageSize: PAGE_SIZE,
+      params: { category: slug },
+      props: { category, slug },
+    }),
+  )) satisfies GetStaticPaths;
+
+interface Props {
+  category: string;
+  slug: string;
+  page: Page<CourseListing>;
+}
+const { category, slug, page } = Astro.props;
+---
+
+<CategoryCourses locale="ca" category={category} slug={slug} page={page} />

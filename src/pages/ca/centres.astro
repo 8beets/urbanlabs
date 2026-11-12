@@ -1,0 +1,6 @@
+---
+import CentreDirectory from '../../components/CentreDirectory.astro';
+import { loadDirectory } from '../../lib/catalog/pages';
+---
+
+<CentreDirectory locale="ca" data={loadDirectory()} />

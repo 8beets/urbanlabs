@@ -1,0 +1,2 @@
+# The bare domain opens the Spanish site. Old unprefixed URLs are not redirected.
+/ /es/ 308

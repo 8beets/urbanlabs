@@ -2,6 +2,8 @@
 import { m } from '../paraglide/messages.js';
 import { courseSearchPath, centreDirectoryPath, homePath } from '../i18n/paths';
 import SiteLayout from '../layouts/SiteLayout.astro';
+// Rendered on the Worker for unknown paths, so the language follows the requested URL.
+export const prerender = false;
 
 const locale = Astro.url.pathname.split('/')[1] === 'ca' ? 'ca' : 'es';
 Astro.response.status = 404;
