@@ -23,6 +23,9 @@ macOS with Apple-silicon GPUs, and production ingestion must not depend on LLMs
   topic. Categories that mix subjects or name an audience, format or programme are
   listed as mixed; their courses are classified by ordered title keyword rules. A
   course no rule matches is listed under "Altres" rather than guessed.
+- A few reviewed categories name a topic but also hold courses of another (Zaragoza's
+  "Música" and "Deporte" include dance classes). For those, a title rule for one of the
+  listed other topics wins; otherwise the category's topic stands.
 - An optional audience (families, children and young people, older people, women) comes
   from a second reviewed table of audience categories, then conservative title rules.
   It is a separate filter.

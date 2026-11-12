@@ -1,5 +1,8 @@
 export type SourcePlatform =
-  'miram' | 'alicante-aula-abierta' | 'tarragona-centres-civics';
+  | 'miram'
+  | 'alicante-aula-abierta'
+  | 'tarragona-centres-civics'
+  | 'zaragoza-centros-civicos';
 
 export interface SourceConfig {
   id: string;

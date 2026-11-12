@@ -1,0 +1,426 @@
+{
+  "totalCount": 11,
+  "start": 0,
+  "rows": 500,
+  "result": [
+    {
+      "id": 313150,
+      "title": "Risoterapia",
+      "description": "<p>2&ordm; s&aacute;bado de mes</p>\n",
+      "category": [
+        {
+          "id": 26,
+          "title": "Otros"
+        }
+      ],
+      "subEvent": [
+        {
+          "id": 312291,
+          "location": {
+            "id": 2119,
+            "title": "Centro Cívico Universidad",
+            "streetAddress": "C/ Violante de Hungría, 4",
+            "postalCode": "50009"
+          },
+          "startDate": "2026-09-07T00:00:00",
+          "endDate": "2027-06-20T00:00:00",
+          "openingHours": [
+            {
+              "dayOfWeek": "Sábado",
+              "startTime": "11:30",
+              "endTime": "13:00"
+            }
+          ]
+        }
+      ],
+      "program": {
+        "id": 2425,
+        "title": "Cursos y talleres Centros Cívicos 2026-2027"
+      },
+      "startDate": "2026-09-07T00:00:00",
+      "endDate": "2027-06-20T00:00:00"
+    },
+    {
+      "id": 313153,
+      "title": "Inglés I y conversación",
+      "category": [
+        {
+          "id": 89,
+          "title": "Idiomas"
+        }
+      ],
+      "subEvent": [
+        {
+          "id": 312294,
+          "location": {
+            "id": 2119,
+            "title": "Centro Cívico Universidad",
+            "streetAddress": "C/ Violante de Hungría, 4",
+            "postalCode": "50009"
+          },
+          "startDate": "2026-09-07T00:00:00",
+          "endDate": "2027-06-20T00:00:00",
+          "openingHours": [
+            {
+              "dayOfWeek": "Lunes",
+              "startTime": "16:30",
+              "endTime": "18:00"
+            }
+          ]
+        }
+      ],
+      "program": {
+        "id": 2425,
+        "title": "Cursos y talleres Centros Cívicos 2026-2027"
+      },
+      "startDate": "2026-09-07T00:00:00",
+      "endDate": "2027-06-20T00:00:00"
+    },
+    {
+      "id": 313154,
+      "title": "Pilates y fuerza (Barre)",
+      "category": [
+        {
+          "id": 25,
+          "title": "Deporte"
+        }
+      ],
+      "subEvent": [
+        {
+          "id": 312295,
+          "location": {
+            "id": 2119,
+            "title": "Centro Cívico Universidad",
+            "streetAddress": "C/ Violante de Hungría, 4",
+            "postalCode": "50009"
+          },
+          "startDate": "2026-09-07T00:00:00",
+          "endDate": "2027-06-20T00:00:00",
+          "openingHours": [
+            {
+              "dayOfWeek": "Lunes",
+              "startTime": "09:30",
+              "endTime": "10:30"
+            },
+            {
+              "dayOfWeek": "Miércoles",
+              "startTime": "09:30",
+              "endTime": "10:30"
+            },
+            {
+              "dayOfWeek": "Miércoles",
+              "startTime": "15:30",
+              "endTime": "16:30"
+            },
+            {
+              "dayOfWeek": "Lunes",
+              "startTime": "15:30",
+              "endTime": "16:30"
+            }
+          ]
+        }
+      ],
+      "program": {
+        "id": 2425,
+        "title": "Cursos y talleres Centros Cívicos 2026-2027"
+      },
+      "startDate": "2026-09-07T00:00:00",
+      "endDate": "2027-06-20T00:00:00"
+    },
+    {
+      "id": 313158,
+      "title": "Bailes y coreografías",
+      "category": [
+        {
+          "id": 16,
+          "title": "Música"
+        }
+      ],
+      "subEvent": [
+        {
+          "id": 312299,
+          "location": {
+            "id": 2119,
+            "title": "Centro Cívico Universidad",
+            "streetAddress": "C/ Violante de Hungría, 4",
+            "postalCode": "50009"
+          },
+          "startDate": "2026-09-07T00:00:00",
+          "endDate": "2027-06-20T00:00:00",
+          "openingHours": [
+            {
+              "dayOfWeek": "Miércoles",
+              "startTime": "20:30",
+              "endTime": "21:30"
+            }
+          ]
+        }
+      ],
+      "program": {
+        "id": 2425,
+        "title": "Cursos y talleres Centros Cívicos 2026-2027"
+      },
+      "startDate": "2026-09-07T00:00:00",
+      "endDate": "2027-06-20T00:00:00"
+    },
+    {
+      "id": 313162,
+      "title": "Ensayo Banda del Canal",
+      "category": [
+        {
+          "id": 16,
+          "title": "Música"
+        }
+      ],
+      "subEvent": [
+        {
+          "id": 312303,
+          "location": {
+            "id": 2119,
+            "title": "Centro Cívico Universidad",
+            "streetAddress": "C/ Violante de Hungría, 4",
+            "postalCode": "50009"
+          },
+          "startDate": "2026-09-07T00:00:00",
+          "endDate": "2027-06-20T00:00:00",
+          "openingHours": [
+            {
+              "dayOfWeek": "Miércoles",
+              "startTime": "20:00",
+              "endTime": "21:30"
+            }
+          ]
+        }
+      ],
+      "program": {
+        "id": 2425,
+        "title": "Cursos y talleres Centros Cívicos 2026-2027"
+      },
+      "startDate": "2026-09-07T00:00:00",
+      "endDate": "2027-06-20T00:00:00"
+    },
+    {
+      "id": 313166,
+      "title": "Clases de español A2 aprendizaje lento",
+      "category": [
+        {
+          "id": 24,
+          "title": "Formación"
+        }
+      ],
+      "subEvent": [
+        {
+          "id": 312307,
+          "location": {
+            "id": 2119,
+            "title": "Centro Cívico Universidad",
+            "streetAddress": "C/ Violante de Hungría, 4",
+            "postalCode": "50009"
+          },
+          "startDate": "2026-09-07T00:00:00",
+          "endDate": "2027-06-20T00:00:00",
+          "openingHours": [
+            {
+              "dayOfWeek": "Lunes",
+              "startTime": "11:00",
+              "endTime": "13:00"
+            }
+          ]
+        }
+      ],
+      "program": {
+        "id": 2425,
+        "title": "Cursos y talleres Centros Cívicos 2026-2027"
+      },
+      "startDate": "2026-09-07T00:00:00",
+      "endDate": "2027-06-20T00:00:00"
+    },
+    {
+      "id": 313167,
+      "title": "Escritura creativa",
+      "description": "<p>Los tres primeros mi&eacute;rcoles de cada mes</p>\n",
+      "category": [
+        {
+          "id": 24,
+          "title": "Formación"
+        }
+      ],
+      "subEvent": [
+        {
+          "id": 312308,
+          "location": {
+            "id": 2119,
+            "title": "Centro Cívico Universidad",
+            "streetAddress": "C/ Violante de Hungría, 4",
+            "postalCode": "50009"
+          },
+          "startDate": "2026-09-07T00:00:00",
+          "endDate": "2027-06-20T00:00:00",
+          "openingHours": [
+            {
+              "dayOfWeek": "Miércoles",
+              "startTime": "19:00",
+              "endTime": "21:00"
+            }
+          ]
+        }
+      ],
+      "program": {
+        "id": 2425,
+        "title": "Cursos y talleres Centros Cívicos 2026-2027"
+      },
+      "startDate": "2026-09-07T00:00:00",
+      "endDate": "2027-06-20T00:00:00"
+    },
+    {
+      "id": 313180,
+      "title": "Reuniones filatelia",
+      "category": [
+        {
+          "id": 26,
+          "title": "Otros"
+        }
+      ],
+      "subEvent": [
+        {
+          "id": 312321,
+          "location": {
+            "id": 2119,
+            "title": "Centro Cívico Universidad",
+            "streetAddress": "C/ Violante de Hungría, 4",
+            "postalCode": "50009"
+          },
+          "startDate": "2026-09-07T00:00:00",
+          "endDate": "2027-06-20T00:00:00",
+          "openingHours": [
+            {
+              "dayOfWeek": "Domingo",
+              "startTime": "11:00",
+              "endTime": "13:00"
+            },
+            {
+              "dayOfWeek": "Jueves",
+              "startTime": "18:00",
+              "endTime": "20:00"
+            }
+          ]
+        }
+      ],
+      "program": {
+        "id": 2425,
+        "title": "Cursos y talleres Centros Cívicos 2026-2027"
+      },
+      "startDate": "2026-09-07T00:00:00",
+      "endDate": "2027-06-20T00:00:00"
+    },
+    {
+      "id": 313188,
+      "title": "Coro Gospel Aragón",
+      "category": [
+        {
+          "id": 16,
+          "title": "Música"
+        }
+      ],
+      "subEvent": [
+        {
+          "id": 312329,
+          "location": {
+            "id": 2119,
+            "title": "Centro Cívico Universidad",
+            "streetAddress": "C/ Violante de Hungría, 4",
+            "postalCode": "50009"
+          },
+          "startDate": "2026-09-07T00:00:00",
+          "endDate": "2027-06-20T00:00:00",
+          "openingHours": [
+            {
+              "dayOfWeek": "Jueves",
+              "startTime": "17:30",
+              "endTime": "19:00"
+            }
+          ]
+        }
+      ],
+      "program": {
+        "id": 2425,
+        "title": "Cursos y talleres Centros Cívicos 2026-2027"
+      },
+      "startDate": "2026-09-07T00:00:00",
+      "endDate": "2027-06-20T00:00:00"
+    },
+    {
+      "id": 313191,
+      "title": "Día del socio",
+      "description": "<p>Primer domingo de mes</p>\n",
+      "category": [
+        {
+          "id": 26,
+          "title": "Otros"
+        }
+      ],
+      "subEvent": [
+        {
+          "id": 312332,
+          "location": {
+            "id": 2119,
+            "title": "Centro Cívico Universidad",
+            "streetAddress": "C/ Violante de Hungría, 4",
+            "postalCode": "50009"
+          },
+          "startDate": "2026-09-07T00:00:00",
+          "endDate": "2027-06-20T00:00:00",
+          "openingHours": [
+            {
+              "dayOfWeek": "Domingo",
+              "startTime": "11:00",
+              "endTime": "13:00"
+            }
+          ]
+        }
+      ],
+      "program": {
+        "id": 2425,
+        "title": "Cursos y talleres Centros Cívicos 2026-2027"
+      },
+      "startDate": "2026-09-07T00:00:00",
+      "endDate": "2027-06-20T00:00:00"
+    },
+    {
+      "id": 313802,
+      "title": "Bailes Latinos",
+      "category": [
+        {
+          "id": 25,
+          "title": "Deporte"
+        }
+      ],
+      "subEvent": [
+        {
+          "id": 312979,
+          "location": {
+            "id": 2119,
+            "title": "Centro Cívico Universidad",
+            "streetAddress": "C/ Violante de Hungría, 4",
+            "postalCode": "50009"
+          },
+          "startDate": "2026-09-12T00:00:00",
+          "endDate": "2027-06-20T00:00:00",
+          "openingHours": [
+            {
+              "dayOfWeek": "Sábado",
+              "startTime": "19:00",
+              "endTime": "20:00"
+            }
+          ]
+        }
+      ],
+      "program": {
+        "id": 2425,
+        "title": "Cursos y talleres Centros Cívicos 2026-2027"
+      },
+      "startDate": "2026-09-12T00:00:00",
+      "endDate": "2027-06-20T00:00:00"
+    }
+  ]
+}

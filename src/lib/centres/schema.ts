@@ -81,12 +81,28 @@ const tarragonaRegistrationSchema = z.strictObject({
   mayBeEmpty: z.boolean().optional(),
 });
 
+// Zaragoza's municipal civic centres: the city's public events API (fixed paths in the
+// adapter), one listing per centre.
+export const ZARAGOZA_ORIGIN = 'https://www.zaragoza.es';
+const zaragozaRegistrationSchema = z.strictObject({
+  platform: z.literal('zaragoza-centros-civicos'),
+  origin: z.literal(ZARAGOZA_ORIGIN),
+  // The centre's facility id, which the events API uses as `idLugar`.
+  placeId: z.number().int().positive(),
+  verifiedAt: z.iso.date(),
+  // Reviewed policy: the `User-agent: *` group disallows other paths (e.g. /api/,
+  // *.csv) but not the JSON paths the adapter requests; it re-checks them every run.
+  robotsTxt: z.literal('allows-requested-paths'),
+  mayBeEmpty: z.boolean().optional(),
+});
+
 // Add new platforms as further members of this union, each with its own adapter
 // (src/lib/ingestion/adapters) and a case in toSourceConfig.
 export const registrationSchema = z.discriminatedUnion('platform', [
   miramRegistrationSchema,
   aulaAbiertaRegistrationSchema,
   tarragonaRegistrationSchema,
+  zaragozaRegistrationSchema,
 ]);
 
 export const centreSchema = z.strictObject({
@@ -143,6 +159,12 @@ function platformSource(
         name: `${centre.name} · Centres Cívics de Tarragona`,
         listingUrl: `${registration.origin}${registration.centrePage}`,
         centreCode: registration.centreCode,
+      };
+    case 'zaragoza-centros-civicos':
+      return {
+        name: `${centre.name} · Centros Cívicos de Zaragoza`,
+        // The centre's public activity listing; the adapter reads its `idLugar`.
+        listingUrl: `${registration.origin}/sede/servicio/cultura/evento/list?idLugar=${registration.placeId}`,
       };
   }
 }

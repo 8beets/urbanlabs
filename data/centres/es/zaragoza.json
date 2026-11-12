@@ -1,0 +1,692 @@
+[
+  {
+    "id": "cc-zgz-antonio-beltran-martinez-garrapinillos",
+    "slug": "antonio-beltran-martinez-garrapinillos",
+    "name": "Centro Cívico Antonio Beltrán Martínez (Garrapinillos)",
+    "officialUrl": "https://www.zaragoza.es/sede/servicio/equipamiento/3031",
+    "address": "Plaza José Ramón Arana, 1, 50190 Zaragoza",
+    "country": "ES",
+    "city": "Zaragoza",
+    "cityId": "zaragoza",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "phone": "976 726138",
+      "email": "civicogarrapinillos@zaragoza.es",
+      "detailsSourceUrl": "https://www.zaragoza.es/sede/servicio/equipamiento/3031",
+      "detailsVerifiedAt": "2026-11-12",
+      "location": {
+        "latitude": 41.6846242454,
+        "longitude": -1.0270775244,
+        "sourceUrl": "https://www.zaragoza.es/sede/servicio/equipamiento/3031",
+        "verifiedAt": "2026-11-12"
+      }
+    },
+    "registration": {
+      "platform": "zaragoza-centros-civicos",
+      "origin": "https://www.zaragoza.es",
+      "placeId": 3031,
+      "verifiedAt": "2026-11-12",
+      "robotsTxt": "allows-requested-paths"
+    }
+  },
+  {
+    "id": "cc-zgz-delicias",
+    "slug": "delicias",
+    "name": "Centro Cívico Delicias",
+    "officialUrl": "https://www.zaragoza.es/sede/servicio/equipamiento/753",
+    "address": "Avda. Navarra, 54, 50010 Zaragoza",
+    "country": "ES",
+    "city": "Zaragoza",
+    "cityId": "zaragoza",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "phone": "976 726 169",
+      "email": "civicodelicias1@zaragoza.es",
+      "detailsSourceUrl": "https://www.zaragoza.es/sede/servicio/equipamiento/753",
+      "detailsVerifiedAt": "2026-11-12",
+      "location": {
+        "latitude": 41.6555560115,
+        "longitude": -0.906433887,
+        "sourceUrl": "https://www.zaragoza.es/sede/servicio/equipamiento/753",
+        "verifiedAt": "2026-11-12"
+      }
+    },
+    "registration": {
+      "platform": "zaragoza-centros-civicos",
+      "origin": "https://www.zaragoza.es",
+      "placeId": 753,
+      "verifiedAt": "2026-11-12",
+      "robotsTxt": "allows-requested-paths"
+    }
+  },
+  {
+    "id": "cc-zgz-distrito-14-la-jota",
+    "slug": "distrito-14-la-jota",
+    "name": "Centro Cívico Distrito 14 (La Jota)",
+    "officialUrl": "https://www.zaragoza.es/sede/servicio/equipamiento/4006",
+    "address": "Pza. La Albada, 3, 50014 Zaragoza",
+    "country": "ES",
+    "city": "Zaragoza",
+    "cityId": "zaragoza",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "phone": "976 726126",
+      "email": "civicolajota@zaragoza.es",
+      "detailsSourceUrl": "https://www.zaragoza.es/sede/servicio/equipamiento/4006",
+      "detailsVerifiedAt": "2026-11-12",
+      "location": {
+        "latitude": 41.6598528335,
+        "longitude": -0.8623359508,
+        "sourceUrl": "https://www.zaragoza.es/sede/servicio/equipamiento/4006",
+        "verifiedAt": "2026-11-12"
+      }
+    },
+    "registration": {
+      "platform": "zaragoza-centros-civicos",
+      "origin": "https://www.zaragoza.es",
+      "placeId": 4006,
+      "verifiedAt": "2026-11-12",
+      "robotsTxt": "allows-requested-paths"
+    }
+  },
+  {
+    "id": "cc-zgz-distrito-sur",
+    "slug": "distrito-sur",
+    "name": "Centro Cívico Distrito Sur",
+    "officialUrl": "https://www.zaragoza.es/sede/servicio/equipamiento/29439",
+    "address": "Calle Richard Wagner, 2, 50012 Zaragoza",
+    "country": "ES",
+    "city": "Zaragoza",
+    "cityId": "zaragoza",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "phone": "976 726 242",
+      "email": "civicodistritosur@zaragoza.es",
+      "detailsSourceUrl": "https://www.zaragoza.es/sede/servicio/equipamiento/29439",
+      "detailsVerifiedAt": "2026-11-12",
+      "location": {
+        "latitude": 41.6347733409,
+        "longitude": -0.9440884433,
+        "sourceUrl": "https://www.zaragoza.es/sede/servicio/equipamiento/29439",
+        "verifiedAt": "2026-11-12"
+      }
+    },
+    "registration": {
+      "platform": "zaragoza-centros-civicos",
+      "origin": "https://www.zaragoza.es",
+      "placeId": 29439,
+      "verifiedAt": "2026-11-12",
+      "robotsTxt": "allows-requested-paths"
+    }
+  },
+  {
+    "id": "cc-zgz-esquinas-del-psiquiatrico",
+    "slug": "esquinas-del-psiquiatrico",
+    "name": "Centro Cívico Esquinas del Psiquiátrico",
+    "officialUrl": "https://www.zaragoza.es/sede/servicio/equipamiento/4925",
+    "address": "Vía Universitas 30-32, 50017 Zaragoza",
+    "country": "ES",
+    "city": "Zaragoza",
+    "cityId": "zaragoza",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "phone": "976 723 977",
+      "email": "civicoesquinas@zaragoza.es",
+      "detailsSourceUrl": "https://www.zaragoza.es/sede/servicio/equipamiento/4925",
+      "detailsVerifiedAt": "2026-11-12",
+      "location": {
+        "latitude": 41.6468436264,
+        "longitude": -0.9074237119,
+        "sourceUrl": "https://www.zaragoza.es/sede/servicio/equipamiento/4925",
+        "verifiedAt": "2026-11-12"
+      }
+    },
+    "registration": {
+      "platform": "zaragoza-centros-civicos",
+      "origin": "https://www.zaragoza.es",
+      "placeId": 4925,
+      "verifiedAt": "2026-11-12",
+      "robotsTxt": "allows-requested-paths"
+    }
+  },
+  {
+    "id": "cc-zgz-estacion-del-norte",
+    "slug": "estacion-del-norte",
+    "name": "Centro Cívico Estación del Norte",
+    "officialUrl": "https://www.zaragoza.es/sede/servicio/equipamiento/2743",
+    "address": "C/ Perdiguera, 7, 50014 Zaragoza",
+    "country": "ES",
+    "city": "Zaragoza",
+    "cityId": "zaragoza",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "phone": "976 726114",
+      "email": "civicoestacion1@zaragoza.es",
+      "detailsSourceUrl": "https://www.zaragoza.es/sede/servicio/equipamiento/2743",
+      "detailsVerifiedAt": "2026-11-12",
+      "location": {
+        "latitude": 41.6600057117,
+        "longitude": -0.8717774867,
+        "sourceUrl": "https://www.zaragoza.es/sede/servicio/equipamiento/2743",
+        "verifiedAt": "2026-11-12"
+      }
+    },
+    "registration": {
+      "platform": "zaragoza-centros-civicos",
+      "origin": "https://www.zaragoza.es",
+      "placeId": 2743,
+      "verifiedAt": "2026-11-12",
+      "robotsTxt": "allows-requested-paths"
+    }
+  },
+  {
+    "id": "cc-zgz-isaac-valero-casablanca",
+    "slug": "isaac-valero-casablanca",
+    "name": "Centro Cívico Isaac Valero (Casablanca)",
+    "officialUrl": "https://www.zaragoza.es/sede/servicio/equipamiento/2112",
+    "address": "C/ Viñedo Viejo, 1, 50009 Zaragoza",
+    "country": "ES",
+    "city": "Zaragoza",
+    "cityId": "zaragoza",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "phone": "976 726006",
+      "email": "civicocasablanca@zaragoza.es",
+      "detailsSourceUrl": "https://www.zaragoza.es/sede/servicio/equipamiento/2112",
+      "detailsVerifiedAt": "2026-11-12",
+      "location": {
+        "latitude": 41.631984059,
+        "longitude": -0.9113605211,
+        "sourceUrl": "https://www.zaragoza.es/sede/servicio/equipamiento/2112",
+        "verifiedAt": "2026-11-12"
+      }
+    },
+    "registration": {
+      "platform": "zaragoza-centros-civicos",
+      "origin": "https://www.zaragoza.es",
+      "placeId": 2112,
+      "verifiedAt": "2026-11-12",
+      "robotsTxt": "allows-requested-paths"
+    }
+  },
+  {
+    "id": "cc-zgz-joaquin-carbonell-casetas",
+    "slug": "joaquin-carbonell-casetas",
+    "name": "Centro Cívico Joaquín Carbonell (Casetas)",
+    "officialUrl": "https://www.zaragoza.es/sede/servicio/equipamiento/3036",
+    "address": "Pza. España, 1, 50620 Zaragoza",
+    "country": "ES",
+    "city": "Zaragoza",
+    "cityId": "zaragoza",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "phone": "976 726152",
+      "email": "civicocasetas@zaragoza.es",
+      "detailsSourceUrl": "https://www.zaragoza.es/sede/servicio/equipamiento/3036",
+      "detailsVerifiedAt": "2026-11-12",
+      "location": {
+        "latitude": 41.7194495265,
+        "longitude": -1.027144871,
+        "sourceUrl": "https://www.zaragoza.es/sede/servicio/equipamiento/3036",
+        "verifiedAt": "2026-11-12"
+      }
+    },
+    "registration": {
+      "platform": "zaragoza-centros-civicos",
+      "origin": "https://www.zaragoza.es",
+      "placeId": 3036,
+      "verifiedAt": "2026-11-12",
+      "robotsTxt": "allows-requested-paths"
+    }
+  },
+  {
+    "id": "cc-zgz-juslibol",
+    "slug": "juslibol",
+    "name": "Centro Cívico Juslibol",
+    "officialUrl": "https://www.zaragoza.es/sede/servicio/equipamiento/5425",
+    "address": "Pza. Mayor, 8, 50191 Zaragoza",
+    "country": "ES",
+    "city": "Zaragoza",
+    "cityId": "zaragoza",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "phone": "976726000",
+      "email": "civicojuslibol@zaragoza.es",
+      "detailsSourceUrl": "https://www.zaragoza.es/sede/servicio/equipamiento/5425",
+      "detailsVerifiedAt": "2026-11-12",
+      "location": {
+        "latitude": 41.6942185099,
+        "longitude": -0.9009414081,
+        "sourceUrl": "https://www.zaragoza.es/sede/servicio/equipamiento/5425",
+        "verifiedAt": "2026-11-12"
+      }
+    },
+    "registration": {
+      "platform": "zaragoza-centros-civicos",
+      "origin": "https://www.zaragoza.es",
+      "placeId": 5425,
+      "verifiedAt": "2026-11-12",
+      "robotsTxt": "allows-requested-paths"
+    }
+  },
+  {
+    "id": "cc-zgz-la-almozara",
+    "slug": "la-almozara",
+    "name": "Centro Cívico La Almozara",
+    "officialUrl": "https://www.zaragoza.es/sede/servicio/equipamiento/33",
+    "address": "Avda. Puerta Sancho, 30, 50003 Zaragoza",
+    "country": "ES",
+    "city": "Zaragoza",
+    "cityId": "zaragoza",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "phone": "976 726098",
+      "email": "civicoalmozara1@zaragoza.es",
+      "detailsSourceUrl": "https://www.zaragoza.es/sede/servicio/equipamiento/33",
+      "detailsVerifiedAt": "2026-11-12",
+      "location": {
+        "latitude": 41.6618627678,
+        "longitude": -0.9011286402,
+        "sourceUrl": "https://www.zaragoza.es/sede/servicio/equipamiento/33",
+        "verifiedAt": "2026-11-12"
+      }
+    },
+    "registration": {
+      "platform": "zaragoza-centros-civicos",
+      "origin": "https://www.zaragoza.es",
+      "placeId": 33,
+      "verifiedAt": "2026-11-12",
+      "robotsTxt": "allows-requested-paths"
+    }
+  },
+  {
+    "id": "cc-zgz-la-cartuja-baja",
+    "slug": "la-cartuja-baja",
+    "name": "Centro Cívico La Cartuja Baja",
+    "officialUrl": "https://www.zaragoza.es/sede/servicio/equipamiento/810",
+    "address": "C/ Autonomía de Aragón, 21, 50720 Zaragoza",
+    "country": "ES",
+    "city": "Zaragoza",
+    "cityId": "zaragoza",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "phone": "976 72 61 77",
+      "email": "civicocartuja@zaragoza.es",
+      "detailsSourceUrl": "https://www.zaragoza.es/sede/servicio/equipamiento/810",
+      "detailsVerifiedAt": "2026-11-12",
+      "location": {
+        "latitude": 41.6056250957,
+        "longitude": -0.8245534066,
+        "sourceUrl": "https://www.zaragoza.es/sede/servicio/equipamiento/810",
+        "verifiedAt": "2026-11-12"
+      }
+    },
+    "registration": {
+      "platform": "zaragoza-centros-civicos",
+      "origin": "https://www.zaragoza.es",
+      "placeId": 810,
+      "verifiedAt": "2026-11-12",
+      "robotsTxt": "allows-requested-paths"
+    }
+  },
+  {
+    "id": "cc-zgz-manuel-vazquez-guardiola-oliver",
+    "slug": "manuel-vazquez-guardiola-oliver",
+    "name": "Centro Cívico Manuel Vázquez Guardiola (Oliver)",
+    "officialUrl": "https://www.zaragoza.es/sede/servicio/equipamiento/3946",
+    "address": "C/ Antonio de Leyva, 87, 50011 Zaragoza",
+    "country": "ES",
+    "city": "Zaragoza",
+    "cityId": "zaragoza",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "phone": "976 726124",
+      "email": "civicooliver@zaragoza.es",
+      "detailsSourceUrl": "https://www.zaragoza.es/sede/servicio/equipamiento/3946",
+      "detailsVerifiedAt": "2026-11-12",
+      "location": {
+        "latitude": 41.6514100767,
+        "longitude": -0.9291935005,
+        "sourceUrl": "https://www.zaragoza.es/sede/servicio/equipamiento/3946",
+        "verifiedAt": "2026-11-12"
+      }
+    },
+    "registration": {
+      "platform": "zaragoza-centros-civicos",
+      "origin": "https://www.zaragoza.es",
+      "placeId": 3946,
+      "verifiedAt": "2026-11-12",
+      "robotsTxt": "allows-requested-paths"
+    }
+  },
+  {
+    "id": "cc-zgz-miralbueno",
+    "slug": "miralbueno",
+    "name": "Centro Cívico Miralbueno",
+    "officialUrl": "https://www.zaragoza.es/sede/servicio/equipamiento/2944",
+    "address": "Pza. La Rosa, 1, 50011 Zaragoza",
+    "country": "ES",
+    "city": "Zaragoza",
+    "cityId": "zaragoza",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "phone": "976 726091",
+      "email": "civicomiralbueno@zaragoza.es",
+      "detailsSourceUrl": "https://www.zaragoza.es/sede/servicio/equipamiento/2944",
+      "detailsVerifiedAt": "2026-11-12",
+      "location": {
+        "latitude": 41.659418044,
+        "longitude": -0.9433679338,
+        "sourceUrl": "https://www.zaragoza.es/sede/servicio/equipamiento/2944",
+        "verifiedAt": "2026-11-12"
+      }
+    },
+    "registration": {
+      "platform": "zaragoza-centros-civicos",
+      "origin": "https://www.zaragoza.es",
+      "placeId": 2944,
+      "verifiedAt": "2026-11-12",
+      "robotsTxt": "allows-requested-paths"
+    }
+  },
+  {
+    "id": "cc-zgz-penaflor",
+    "slug": "penaflor",
+    "name": "Centro Cívico Peñaflor",
+    "officialUrl": "https://www.zaragoza.es/sede/servicio/equipamiento/2960",
+    "address": "C/ La Tajada, 11, 50193 Zaragoza",
+    "country": "ES",
+    "city": "Zaragoza",
+    "cityId": "zaragoza",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "phone": "976 726160",
+      "email": "civicopenaflor1@zaragoza.es",
+      "detailsSourceUrl": "https://www.zaragoza.es/sede/servicio/equipamiento/2960",
+      "detailsVerifiedAt": "2026-11-12",
+      "location": {
+        "latitude": 41.7621890704,
+        "longitude": -0.7971802788,
+        "sourceUrl": "https://www.zaragoza.es/sede/servicio/equipamiento/2960",
+        "verifiedAt": "2026-11-12"
+      }
+    },
+    "registration": {
+      "platform": "zaragoza-centros-civicos",
+      "origin": "https://www.zaragoza.es",
+      "placeId": 2960,
+      "verifiedAt": "2026-11-12",
+      "robotsTxt": "allows-requested-paths"
+    }
+  },
+  {
+    "id": "cc-zgz-rio-ebro-edificio-fernandez-ordonez",
+    "slug": "rio-ebro-edificio-fernandez-ordonez",
+    "name": "Centro Cívico Rio Ebro. Edificio Fernández Ordoñez",
+    "officialUrl": "https://www.zaragoza.es/sede/servicio/equipamiento/785",
+    "address": "C/ María Zambrano, 56, 50018 Zaragoza",
+    "country": "ES",
+    "city": "Zaragoza",
+    "cityId": "zaragoza",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "phone": "976 726084",
+      "email": "civicorioebro1@zaragoza.es",
+      "detailsSourceUrl": "https://www.zaragoza.es/sede/servicio/equipamiento/785",
+      "detailsVerifiedAt": "2026-11-12",
+      "location": {
+        "latitude": 41.6768304921,
+        "longitude": -0.8890940197,
+        "sourceUrl": "https://www.zaragoza.es/sede/servicio/equipamiento/785",
+        "verifiedAt": "2026-11-12"
+      }
+    },
+    "registration": {
+      "platform": "zaragoza-centros-civicos",
+      "origin": "https://www.zaragoza.es",
+      "placeId": 785,
+      "verifiedAt": "2026-11-12",
+      "robotsTxt": "allows-requested-paths"
+    }
+  },
+  {
+    "id": "cc-zgz-rio-ebro-edificio-jose-marti",
+    "slug": "rio-ebro-edificio-jose-marti",
+    "name": "Centro Cívico Rio Ebro. Edificio José Martí",
+    "officialUrl": "https://www.zaragoza.es/sede/servicio/equipamiento/534",
+    "address": "C/ Alberto Duce, 2, 50018 Zaragoza",
+    "country": "ES",
+    "city": "Zaragoza",
+    "cityId": "zaragoza",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "phone": "976 726049",
+      "email": "civicorioebro1@zaragoza.es",
+      "detailsSourceUrl": "https://www.zaragoza.es/sede/servicio/equipamiento/534",
+      "detailsVerifiedAt": "2026-11-12",
+      "location": {
+        "latitude": 41.6721880769,
+        "longitude": -0.888180355,
+        "sourceUrl": "https://www.zaragoza.es/sede/servicio/equipamiento/534",
+        "verifiedAt": "2026-11-12"
+      }
+    },
+    "registration": {
+      "platform": "zaragoza-centros-civicos",
+      "origin": "https://www.zaragoza.es",
+      "placeId": 534,
+      "verifiedAt": "2026-11-12",
+      "robotsTxt": "allows-requested-paths"
+    }
+  },
+  {
+    "id": "cc-zgz-salvador-allende-las-fuentes",
+    "slug": "salvador-allende-las-fuentes",
+    "name": "Centro Cívico Salvador Allende (Las Fuentes)",
+    "officialUrl": "https://www.zaragoza.es/sede/servicio/equipamiento/754",
+    "address": "C/ Florentino Ballesteros, 8, 50002 Zaragoza",
+    "country": "ES",
+    "city": "Zaragoza",
+    "cityId": "zaragoza",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "phone": "976 724060",
+      "email": "civicosalvadorallende1@zaragoza.es",
+      "detailsSourceUrl": "https://www.zaragoza.es/sede/servicio/equipamiento/754",
+      "detailsVerifiedAt": "2026-11-12",
+      "location": {
+        "latitude": 41.6449817249,
+        "longitude": -0.8688433356,
+        "sourceUrl": "https://www.zaragoza.es/sede/servicio/equipamiento/754",
+        "verifiedAt": "2026-11-12"
+      }
+    },
+    "registration": {
+      "platform": "zaragoza-centros-civicos",
+      "origin": "https://www.zaragoza.es",
+      "placeId": 754,
+      "verifiedAt": "2026-11-12",
+      "robotsTxt": "allows-requested-paths"
+    }
+  },
+  {
+    "id": "cc-zgz-santa-isabel",
+    "slug": "santa-isabel",
+    "name": "Centro Cívico Santa Isabel",
+    "officialUrl": "https://www.zaragoza.es/sede/servicio/equipamiento/3134",
+    "address": "Calle del Baile, 6, 50016 Zaragoza",
+    "country": "ES",
+    "city": "Zaragoza",
+    "cityId": "zaragoza",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "phone": "976 726020",
+      "email": "civicosantaisabel@zaragoza.es",
+      "detailsSourceUrl": "https://www.zaragoza.es/sede/servicio/equipamiento/3134",
+      "detailsVerifiedAt": "2026-11-12",
+      "location": {
+        "latitude": 41.6662698747,
+        "longitude": -0.8306884194,
+        "sourceUrl": "https://www.zaragoza.es/sede/servicio/equipamiento/3134",
+        "verifiedAt": "2026-11-12"
+      }
+    },
+    "registration": {
+      "platform": "zaragoza-centros-civicos",
+      "origin": "https://www.zaragoza.es",
+      "placeId": 3134,
+      "verifiedAt": "2026-11-12",
+      "robotsTxt": "allows-requested-paths"
+    }
+  },
+  {
+    "id": "cc-zgz-teodoro-sanchez-punter-san-jose",
+    "slug": "teodoro-sanchez-punter-san-jose",
+    "name": "Centro Cívico Teodoro Sánchez Punter (San José)",
+    "officialUrl": "https://www.zaragoza.es/sede/servicio/equipamiento/846",
+    "address": "Pza. Mayor, 2, 50008 Zaragoza",
+    "country": "ES",
+    "city": "Zaragoza",
+    "cityId": "zaragoza",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "phone": "976 726060",
+      "email": "civicopunter1@zaragoza.es",
+      "detailsSourceUrl": "https://www.zaragoza.es/sede/servicio/equipamiento/846",
+      "detailsVerifiedAt": "2026-11-12",
+      "location": {
+        "latitude": 41.6378146573,
+        "longitude": -0.8727857247,
+        "sourceUrl": "https://www.zaragoza.es/sede/servicio/equipamiento/846",
+        "verifiedAt": "2026-11-12"
+      }
+    },
+    "registration": {
+      "platform": "zaragoza-centros-civicos",
+      "origin": "https://www.zaragoza.es",
+      "placeId": 846,
+      "verifiedAt": "2026-11-12",
+      "robotsTxt": "allows-requested-paths"
+    }
+  },
+  {
+    "id": "cc-zgz-tio-jorge",
+    "slug": "tio-jorge",
+    "name": "Centro Cívico Tío Jorge",
+    "officialUrl": "https://www.zaragoza.es/sede/servicio/equipamiento/710",
+    "address": "Pza. San Gregorio, s/n, 50015 Zaragoza",
+    "country": "ES",
+    "city": "Zaragoza",
+    "cityId": "zaragoza",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "phone": "976 724007",
+      "email": "civicotiojorge1@zaragoza.es",
+      "detailsSourceUrl": "https://www.zaragoza.es/sede/servicio/equipamiento/710",
+      "detailsVerifiedAt": "2026-11-12",
+      "location": {
+        "latitude": 41.6618537713,
+        "longitude": -0.8759764163,
+        "sourceUrl": "https://www.zaragoza.es/sede/servicio/equipamiento/710",
+        "verifiedAt": "2026-11-12"
+      }
+    },
+    "registration": {
+      "platform": "zaragoza-centros-civicos",
+      "origin": "https://www.zaragoza.es",
+      "placeId": 710,
+      "verifiedAt": "2026-11-12",
+      "robotsTxt": "allows-requested-paths"
+    }
+  },
+  {
+    "id": "cc-zgz-torrero",
+    "slug": "torrero",
+    "name": "Centro Cívico Torrero",
+    "officialUrl": "https://www.zaragoza.es/sede/servicio/equipamiento/784",
+    "address": "C/ Monzón, 3, 50007 Zaragoza",
+    "country": "ES",
+    "city": "Zaragoza",
+    "cityId": "zaragoza",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "phone": "976 726033",
+      "email": "civicotorrero@zaragoza.es",
+      "detailsSourceUrl": "https://www.zaragoza.es/sede/servicio/equipamiento/784",
+      "detailsVerifiedAt": "2026-11-12",
+      "location": {
+        "latitude": 41.6300042705,
+        "longitude": -0.8833819348,
+        "sourceUrl": "https://www.zaragoza.es/sede/servicio/equipamiento/784",
+        "verifiedAt": "2026-11-12"
+      }
+    },
+    "registration": {
+      "platform": "zaragoza-centros-civicos",
+      "origin": "https://www.zaragoza.es",
+      "placeId": 784,
+      "verifiedAt": "2026-11-12",
+      "robotsTxt": "allows-requested-paths"
+    }
+  },
+  {
+    "id": "cc-zgz-universidad",
+    "slug": "universidad",
+    "name": "Centro Cívico Universidad",
+    "officialUrl": "https://www.zaragoza.es/sede/servicio/equipamiento/2119",
+    "address": "C/ Violante de Hungría, 4, 50009 Zaragoza",
+    "country": "ES",
+    "city": "Zaragoza",
+    "cityId": "zaragoza",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "phone": "976 721750",
+      "email": "civicouniversidad@zaragoza.es",
+      "detailsSourceUrl": "https://www.zaragoza.es/sede/servicio/equipamiento/2119",
+      "detailsVerifiedAt": "2026-11-12",
+      "location": {
+        "latitude": 41.6393713417,
+        "longitude": -0.9004535132,
+        "sourceUrl": "https://www.zaragoza.es/sede/servicio/equipamiento/2119",
+        "verifiedAt": "2026-11-12"
+      }
+    },
+    "registration": {
+      "platform": "zaragoza-centros-civicos",
+      "origin": "https://www.zaragoza.es",
+      "placeId": 2119,
+      "verifiedAt": "2026-11-12",
+      "robotsTxt": "allows-requested-paths"
+    }
+  },
+  {
+    "id": "cc-zgz-valdefierro-pilar-adiego",
+    "slug": "valdefierro-pilar-adiego",
+    "name": "Centro Cívico Valdefierro Pilar Adiego",
+    "officialUrl": "https://www.zaragoza.es/sede/servicio/equipamiento/535",
+    "address": "Pza. de la Inmaculada, 3, 50012 Zaragoza",
+    "country": "ES",
+    "city": "Zaragoza",
+    "cityId": "zaragoza",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "phone": "976 726028",
+      "email": "civicovaldefierro1@zaragoza.es",
+      "detailsSourceUrl": "https://www.zaragoza.es/sede/servicio/equipamiento/535",
+      "detailsVerifiedAt": "2026-11-12",
+      "location": {
+        "latitude": 41.6394216085,
+        "longitude": -0.9307181159,
+        "sourceUrl": "https://www.zaragoza.es/sede/servicio/equipamiento/535",
+        "verifiedAt": "2026-11-12"
+      }
+    },
+    "registration": {
+      "platform": "zaragoza-centros-civicos",
+      "origin": "https://www.zaragoza.es",
+      "placeId": 535,
+      "verifiedAt": "2026-11-12",
+      "robotsTxt": "allows-requested-paths"
+    }
+  }
+]

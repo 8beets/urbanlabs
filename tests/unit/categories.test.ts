@@ -46,6 +46,24 @@ describe('course topics', () => {
     },
   );
 
+  // Zaragoza (Spanish categories and titles, 2026-27 civic-centre programme).
+  it.each([
+    ['Música', 'Sevillanas', 'dansa'],
+    ['Música', 'Canto de jota', 'musica'],
+    ['Deporte', 'Bailes Latinos', 'dansa'],
+    ['Deporte', 'Zumba', 'activitat-fisica'],
+    ['Desarrollo personal', 'Defensa personal', 'activitat-fisica'],
+    ['Desarrollo personal', 'Gimnasia cerebral', 'benestar'],
+    ['Formación', 'Clases español alfabetización', 'idiomes'],
+    ['Formación', 'Escritura creativa', 'humanitats-i-ciencia'],
+    ['Otros', 'Brecha digital I y II', 'tecnologia'],
+    ['Otros', 'Ajedrez iniciación', 'altres'],
+    ['Imagen y sonido', 'Fotografía creativa', 'fotografia-i-audiovisual'],
+    ['Teatro y Artes Escénicas', 'Teatro para adultos', 'teatre'],
+  ])('classifies Zaragoza %s / %s as %s', (category, title, topic) => {
+    expect(courseTopic({ category, title })).toBe(topic);
+  });
+
   it('falls back to Altres instead of guessing', () => {
     expect(courseTopic({ category: 'Recursos', title: 'Escacs' })).toBe(
       'altres',
@@ -117,6 +135,11 @@ describe('course audiences', () => {
     ['COS', 'Ioga per a la Dona - NOU', 'dones'],
     ['Salut i esport', 'Autodefensa feminista', 'dones'],
     ['Art i creació', 'Dones que pinten flors (Dimarts 17 h)', null],
+    ['Deporte', 'Zumba senior', 'gent-gran'],
+    ['Música', 'Baile para mujeres', 'dones'],
+    ['Idiomas', 'Inglés para niños', 'infants-i-joves'],
+    ['Otros', 'Talleres educativos familiares', 'families'],
+    ['Deporte', 'Defensa personal joven', 'infants-i-joves'],
   ])('reads %s / %s as %s', (category, title, audience) => {
     expect(courseAudience({ category, title })).toBe(audience);
   });

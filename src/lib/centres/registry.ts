@@ -3,6 +3,7 @@ import { z } from 'zod';
 import esAlicante from '../../../data/centres/es/alicante.json' with { type: 'json' };
 import esTarragona from '../../../data/centres/es/tarragona.json' with { type: 'json' };
 import esBarcelona from '../../../data/centres/es/barcelona.json' with { type: 'json' };
+import esZaragoza from '../../../data/centres/es/zaragoza.json' with { type: 'json' };
 import { centreSchema, toSourceConfig, type Centre } from './schema';
 import type { CentreProfile } from './profile-schema';
 
@@ -13,6 +14,7 @@ export const centreFiles: Record<string, unknown[]> = {
   'es/alicante': esAlicante,
   'es/barcelona': esBarcelona,
   'es/tarragona': esTarragona,
+  'es/zaragoza': esZaragoza,
 };
 const records = Object.values(centreFiles).flat();
 

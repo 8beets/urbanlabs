@@ -1,0 +1,31 @@
+{
+  "totalCount": 6,
+  "start": 0,
+  "rows": 50,
+  "result": [
+    {
+      "id": 2433,
+      "title": "Circo en Centros Cívicos. 15 años D'Click"
+    },
+    {
+      "id": 2425,
+      "title": "Cursos y talleres Centros Cívicos 2026-2027"
+    },
+    {
+      "id": 2293,
+      "title": "Cursos y Talleres Centros Cívicos 2025-2026"
+    },
+    {
+      "id": 2284,
+      "title": "Salas de estudio en los Centros Civicos"
+    },
+    {
+      "id": 2158,
+      "title": "Cursos y talleres Centros Cívicos 2024-25"
+    },
+    {
+      "id": 2071,
+      "title": "Cursos y talleres Centros Cívicos 2023-24"
+    }
+  ]
+}
