@@ -34,7 +34,7 @@ function bounded<T>(list: T[], limit: number, what: string): T[] {
 
 const editionColumns = `e.id, coalesce(c.reviewed_title, c.title) AS title,
   CASE WHEN c.reviewed_title IS NOT NULL THEN 1 ELSE 0 END AS title_reviewed, c.category,
-  i.name AS institution, i.id AS institution_id, coalesce(p.slug, i.id) AS institution_slug,
+  i.name AS institution, i.id AS institution_id, coalesce(p.slug, i.id) AS institution_slug, il.city_id,
   e.start_date, e.end_date, e.schedule_text, e.price_cents, e.currency, e.is_cancelled, e.is_sold_out, e.organizer,
   sr.official_url, sr.last_successfully_verified_at,
   sr.first_seen_at, sr.source_id, sr.external_id`;
@@ -52,6 +52,7 @@ async function exportEditions(
       JOIN course_editions e ON e.id=sr.edition_id
       JOIN courses c ON c.id=e.course_id JOIN institutions i ON i.id=c.institution_id
       LEFT JOIN institution_profiles p ON p.institution_id=i.id
+      LEFT JOIN institution_locations il ON il.institution_id=i.id
       WHERE sr.source_id > ? OR (sr.source_id = ? AND sr.external_id > ?)
       ORDER BY sr.source_id, sr.external_id LIMIT ?`,
       after[0],

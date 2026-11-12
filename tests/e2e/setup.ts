@@ -58,6 +58,12 @@ async function setup() {
         "INSERT OR IGNORE INTO institution_profiles (institution_id,slug) VALUES ('test-no-location','test-no-location')",
       )
       .run();
+    // Its city (pages live under it) is known; only the map coordinates are missing.
+    await db
+      .prepare(
+        "INSERT OR IGNORE INTO institution_locations (institution_id,country_code,city_id) VALUES ('test-no-location','ES','barcelona')",
+      )
+      .run();
     const fixture = readFileSync(
       new URL('../fixtures/miram-sant-andreu-languages.html', import.meta.url),
       'utf8',

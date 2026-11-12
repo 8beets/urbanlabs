@@ -1,0 +1,56 @@
+---
+import { m } from '../paraglide/messages.js';
+import {
+  centreDirectoryPath,
+  citiesCentresPath,
+  citiesCoursesPath,
+  courseSearchPath,
+} from '../i18n/paths';
+import { cityLabel } from '../i18n/geography';
+import { type Locale } from '../i18n/ui';
+import type { CityPage } from '../lib/catalog/pages';
+import SiteLayout from '../layouts/SiteLayout.astro';
+interface Props {
+  locale: Locale;
+  cities: CityPage[];
+  /** Which section of each city the list links to. */
+  kind: 'courses' | 'centres';
+}
+const { locale, cities, kind } = Astro.props;
+const courses = kind === 'courses';
+const title = courses
+  ? m.citiesCoursesTitle({}, { locale })
+  : m.citiesCentresTitle({}, { locale });
+const intro = courses
+  ? m.citiesCoursesIntro({}, { locale })
+  : m.citiesCentresIntro({}, { locale });
+const listPath = courses ? citiesCoursesPath : citiesCentresPath;
+const cityPath = courses ? courseSearchPath : centreDirectoryPath;
+const sorted = cities
+  .map((page) => ({ ...page, label: cityLabel(page.city, locale) }))
+  .sort((a, b) => a.label.localeCompare(b.label, locale));
+---
+
+<SiteLayout
+  locale={locale}
+  title={`${title} · UrbanLabs`}
+  description={intro}
+  section={kind}
+  languagePaths={{ es: listPath('es'), ca: listPath('ca') }}
+>
+  <section class="centre-heading">
+    <h1>{title}</h1>
+    <p class="intro">{intro}</p>
+  </section>
+  {!sorted.length && <p>{m.noCities({}, { locale })}</p>}
+  <ul class="category-list city-list">
+    {sorted.map((page) => (
+      <li>
+        <a class="course-category" href={cityPath(locale, page.city.id)}>
+          {page.label} ·{' '}
+          {m.cityCourseCount({ count: page.courses }, { locale })}
+        </a>
+      </li>
+    ))}
+  </ul>
+</SiteLayout>

@@ -10,8 +10,10 @@ import {
 interface Props {
   locale: Locale;
   centre: Centre;
+  /** The city's centre directory path; markers link below it. */
+  base: string;
 }
-const { locale, centre } = Astro.props;
+const { locale, centre, base } = Astro.props;
 const map =
   centre.coordinates_source_url && centre.coordinates_verified_at
     ? openStreetMapLocation(centre.latitude, centre.longitude)
@@ -24,6 +26,7 @@ const map =
     <>
       <InteractiveCentreMap
         locale={locale}
+        base={base}
         centres={[
           {
             id: centre.id,

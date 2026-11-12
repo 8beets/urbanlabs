@@ -23,8 +23,8 @@ export function replaceOptions(
 }
 
 /**
- * Keeps the centre and category choices consistent with the chosen location while
- * the user edits the form. Results change only when the form is submitted.
+ * Keeps the category choices consistent with the chosen centre while the user edits
+ * the form. Results change only when the form is submitted.
  */
 export function enhanceFilters(
   form: HTMLFormElement,
@@ -41,19 +41,12 @@ export function enhanceFilters(
     const target = event.target;
     if (
       !(target instanceof HTMLSelectElement) ||
-      !['region', 'city', 'centre', 'cancellation'].includes(target.name)
+      !['centre', 'cancellation'].includes(target.name)
     )
       return;
     const values = new FormData(form);
     const params = new URLSearchParams();
-    for (const key of [
-      'country',
-      'region',
-      'city',
-      'centre',
-      'cancellation',
-      'archive',
-    ])
+    for (const key of ['centre', 'cancellation', 'archive'])
       params.set(key, String(values.get(key) ?? ''));
     let choices: FilterChoices;
     try {

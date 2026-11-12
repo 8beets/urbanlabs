@@ -8,17 +8,19 @@ import {
   type Snapshot,
 } from './types';
 
-// The browser search downloads these files instead of querying D1. The live file is
-// what almost every search needs; past editions only load for the archive view.
+// The browser search downloads these files instead of querying D1, one pair per city
+// (docs/adr/0010-city-sections.md). The live file is what almost every search needs;
+// past editions only load for the archive view.
 //
 // Editions are compact tuples. Their 64-character ids were half of the compressed
 // size but only break ties when sorting, so each edition gets its position in id
 // order instead (the same order across both files), and centre names and slugs are
 // listed once. `decodeIndexes` turns the files back into ordinary course listings.
 
-export const SEARCH_INDEX_VERSION = 3;
-export const LIVE_INDEX_PATH = '/search/live.json';
-export const ARCHIVE_INDEX_PATH = '/search/archive.json';
+export const SEARCH_INDEX_VERSION = 4;
+export const liveIndexPath = (city: string) => `/search/${city}/live.json`;
+export const archiveIndexPath = (city: string) =>
+  `/search/${city}/archive.json`;
 
 export const officialSourceSchema = z.object({
   institutionId: z.string(),
@@ -57,7 +59,10 @@ export const searchIndexSchema = z.object({
   geography: geographySchema,
   locations: z.array(locationSchema),
   sources: z.array(officialSourceSchema),
-  institutions: z.array(z.tuple([z.string(), z.string(), z.string()])),
+  // id, name, slug, city id
+  institutions: z.array(
+    z.tuple([z.string(), z.string(), z.string(), z.string()]),
+  ),
   editions: z.array(encodedEdition),
 });
 export type SearchIndex = z.infer<typeof searchIndexSchema>;
@@ -65,16 +70,20 @@ export type SearchIndex = z.infer<typeof searchIndexSchema>;
 // Fixed width keeps string order equal to numeric order for the tie-break.
 const ID_WIDTH = 7;
 
-/** Splits the snapshot into the live and archive search files at the build date. */
+/**
+ * One city's live and archive search files at the build date. Positions follow the id
+ * order of the city's editions, so they are consistent across its two files.
+ */
 export function buildSearchIndexes(
   snapshot: Snapshot,
   sources: OfficialSource[],
   today: string,
+  city: string,
 ): { live: SearchIndex; archive: SearchIndex } {
-  const ordered = snapshot.editions.toSorted((a, b) =>
-    a.id < b.id ? -1 : a.id > b.id ? 1 : 0,
-  );
-  const institutions: [string, string, string][] = [];
+  const ordered = snapshot.editions
+    .filter((edition) => edition.city_id === city)
+    .toSorted((a, b) => (a.id < b.id ? -1 : a.id > b.id ? 1 : 0));
+  const institutions: [string, string, string, string][] = [];
   const institutionIndex = new Map<string, number>();
   const encode = (edition: CourseListing, position: number): EncodedEdition => {
     let institution = institutionIndex.get(edition.institution_id);
@@ -85,6 +94,7 @@ export function buildSearchIndexes(
         edition.institution_id,
         edition.institution,
         edition.institution_slug,
+        edition.city_id,
       ]);
     }
     return [
@@ -116,7 +126,7 @@ export function buildSearchIndexes(
     timeZones: snapshot.timeZones,
     geography: snapshot.geography,
     locations: snapshot.locations,
-    sources,
+    sources: sources.filter((source) => source.cityId === city),
     institutions,
   } as const;
   return {
@@ -145,7 +155,7 @@ function decode(
   ]: EncodedEdition,
   institutions: SearchIndex['institutions'],
 ): CourseListing {
-  const [id, name, slug] = institutions[institution] ?? ['', '', ''];
+  const [id, name, slug, city] = institutions[institution] ?? ['', '', '', ''];
   return {
     id: String(position).padStart(ID_WIDTH, '0'),
     title,
@@ -154,6 +164,7 @@ function decode(
     institution: name,
     institution_id: id,
     institution_slug: slug,
+    city_id: city,
     start_date: startDate,
     end_date: endDate,
     schedule_text: schedule,

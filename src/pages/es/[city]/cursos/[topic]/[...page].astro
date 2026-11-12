@@ -1,0 +1,38 @@
+---
+import type { GetStaticPaths, Page } from 'astro';
+import CategoryCourses from '../../../../../components/CategoryCourses.astro';
+import {
+  loadCategoryPages,
+  loadCities,
+} from '../../../../../lib/catalog/pages';
+import { PAGE_SIZE } from '../../../../../lib/catalog/query';
+import type { CourseListing } from '../../../../../lib/catalog/types';
+import type { City } from '../../../../../lib/locations/geography';
+
+export const getStaticPaths = (({ paginate }) => {
+  const cities = new Map(loadCities().map(({ city }) => [city.id, city]));
+  return loadCategoryPages().flatMap(({ city, slug, category, courses }) =>
+    paginate(courses, {
+      pageSize: PAGE_SIZE,
+      params: { city, topic: slug },
+      props: { city: cities.get(city)!, category, slug },
+    }),
+  );
+}) satisfies GetStaticPaths;
+
+interface Props {
+  city: City;
+  category: string;
+  slug: string;
+  page: Page<CourseListing>;
+}
+const { city, category, slug, page } = Astro.props;
+---
+
+<CategoryCourses
+  locale="es"
+  city={city}
+  category={category}
+  slug={slug}
+  page={page}
+/>

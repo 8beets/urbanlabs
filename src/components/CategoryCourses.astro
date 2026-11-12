@@ -1,7 +1,9 @@
 ---
 import type { Page } from 'astro';
 import { m } from '../paraglide/messages.js';
-import { courseSearchPath } from '../i18n/paths';
+import { cityPath, courseSearchPath, topicPath } from '../i18n/paths';
+import { cityLabel } from '../i18n/geography';
+import type { City } from '../lib/locations/geography';
 import { categoryLabel, type Locale } from '../i18n/ui';
 import type { CourseListing } from '../lib/catalog/types';
 import SiteLayout from '../layouts/SiteLayout.astro';
@@ -9,35 +11,36 @@ import CourseCard from './CourseCard.astro';
 import ExpiredCards from './ExpiredCards.astro';
 interface Props {
   locale: Locale;
+  city: City;
   category: string;
   slug: string;
   page: Page<CourseListing>;
 }
-const { locale, category, slug, page } = Astro.props;
+const { locale, city, category, slug, page } = Astro.props;
 const label = categoryLabel(category, locale);
+const name = cityLabel(city, locale);
 const suffix = page.currentPage > 1 ? `/${page.currentPage}` : '';
-const path = (target: Locale) =>
-  `${courseSearchPath(target)}/categoria/${slug}${suffix}`;
+const path = (target: Locale) => `${topicPath(target, city.id, slug)}${suffix}`;
 const filterParams = new URLSearchParams({ category });
 ---
 
 <SiteLayout
   locale={locale}
-  title={`${label} · UrbanLabs`}
+  title={`${label} · ${name} · UrbanLabs`}
   description={m.categoryPageIntro({}, { locale })}
   section="courses"
   languagePaths={{ es: path('es'), ca: path('ca') }}
 >
   <p class="breadcrumb">
-    <a href={`${courseSearchPath(locale)}/categoria`}>
-      ← {m.categoriesTitle({}, { locale })}
-    </a>
+    <a href={cityPath(locale, city.id)}>← {name}</a>
   </p>
   <section class="centre-heading">
-    <h1>{label}</h1>
+    <h1>
+      {label} · {name}
+    </h1>
     <p class="intro">{m.categoryPageIntro({}, { locale })}</p>
     <p>
-      <a href={`${courseSearchPath(locale)}?${filterParams}`}>
+      <a href={`${courseSearchPath(locale, city.id)}?${filterParams}`}>
         {m.searchThisCategory({}, { locale })}
       </a>
     </p>

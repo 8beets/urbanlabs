@@ -6,9 +6,11 @@ import InteractiveCentreMap from './InteractiveCentreMap.astro';
 interface Props {
   locale: Locale;
   centres: CentreMapPoint[];
+  /** The city's centre directory path; markers link below it. */
+  base: string;
   limited: boolean;
 }
-const { locale, centres, limited } = Astro.props;
+const { locale, centres, base, limited } = Astro.props;
 ---
 
 <section class="directory-map" aria-labelledby="directory-map-title">
@@ -18,6 +20,7 @@ const { locale, centres, limited } = Astro.props;
       <p>{m.directoryMapIntro({}, { locale })}</p>
       <InteractiveCentreMap
         locale={locale}
+        base={base}
         centres={centres}
         id="directory-map"
         title={m.directoryMapTitle({}, { locale })}

@@ -6,8 +6,8 @@ for (const locale of ['es', 'ca']) {
     page,
   }) => {
     for (const path of [
-      `${locale === 'es' ? '/es/buscar' : '/ca/cerca'}?centre=cc-sant-andreu&q=TERTÚLIA`,
-      `${locale === 'es' ? '/es/centros' : '/ca/centres'}/sant-andreu`,
+      `${locale === 'es' ? '/es/barcelona/cursos' : '/ca/barcelona/cursos'}?centre=cc-sant-andreu&q=TERTÚLIA`,
+      `${locale === 'es' ? '/es/barcelona/centros' : '/ca/barcelona/centres'}/sant-andreu`,
     ]) {
       await page.goto(path);
       const title = page.getByRole('heading', {
@@ -29,7 +29,7 @@ for (const locale of ['es', 'ca']) {
       ).toBe('none');
     }
     await page.goto(
-      `${locale === 'es' ? '/es/buscar' : '/ca/cerca'}?q=TEST+REVIEWED`,
+      `${locale === 'es' ? '/es/barcelona/cursos' : '/ca/barcelona/cursos'}?q=TEST+REVIEWED`,
     );
     await expect(
       page.getByRole('heading', {
@@ -38,7 +38,7 @@ for (const locale of ['es', 'ca']) {
       }),
     ).toBeVisible();
     await page.goto(
-      `${locale === 'es' ? '/es/buscar' : '/ca/cerca'}?centre=fab-casa-del-mig`,
+      `${locale === 'es' ? '/es/barcelona/cursos' : '/ca/barcelona/cursos'}?centre=fab-casa-del-mig`,
     );
     await expect(
       page.getByRole('heading', {
@@ -47,7 +47,7 @@ for (const locale of ['es', 'ca']) {
       }),
     ).toBeVisible();
     await page.goto(
-      `${locale === 'es' ? '/es/buscar' : '/ca/cerca'}?centre=cc-golferichs&category=cuina`,
+      `${locale === 'es' ? '/es/barcelona/cursos' : '/ca/barcelona/cursos'}?centre=cc-golferichs&category=cuina`,
     );
     await expect(
       page.getByRole('heading', {

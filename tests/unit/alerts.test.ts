@@ -188,8 +188,12 @@ describe('alert emails', () => {
       'cursos a Alacant',
     );
     expect(searchUrl('https://urbanlabs.example', target, 'ca')).toBe(
-      'https://urbanlabs.example/ca/cerca?category=cuina&country=ES&city=alicante',
+      'https://urbanlabs.example/ca/alicante/cursos?category=cuina',
     );
+    // Without a city, the link lists the cities to choose from.
+    expect(
+      searchUrl('https://urbanlabs.example', { ...target, cityId: null }, 'es'),
+    ).toBe('https://urbanlabs.example/es/cursos');
   });
 
   it('escapes untrusted course data and always includes the unsubscribe link', () => {

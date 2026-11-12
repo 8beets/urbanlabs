@@ -12,7 +12,7 @@ test.beforeEach(async ({ page }) => {
 test('search links to an alert form prefilled with category and city', async ({
   page,
 }) => {
-  await page.goto('/es/buscar?category=idiomes&city=barcelona');
+  await page.goto('/es/barcelona/cursos?category=idiomes');
   await page
     .getByRole('link', {
       name: 'Recibe avisos de cursos nuevos de esta búsqueda',

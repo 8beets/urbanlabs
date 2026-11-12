@@ -1,5 +1,4 @@
 import { m } from '../../paraglide/messages.js';
-import { cityLabel } from '../../i18n/geography';
 import { courseSearchPath } from '../../i18n/paths';
 import { categoryLabel, type Locale } from '../../i18n/ui';
 import { startMonthLabel } from '../courses/start-month';
@@ -19,16 +18,17 @@ import {
 import { discoveryResultsHtml } from './discovery-view';
 import { catalogToday } from './query';
 import {
-  ARCHIVE_INDEX_PATH,
-  LIVE_INDEX_PATH,
   SEARCH_INDEX_VERSION,
+  archiveIndexPath,
+  liveIndexPath,
   decodeIndexes,
   type SearchIndex,
 } from './search-index';
 
 // The browser half of the static search: it reads the filters from the URL, runs the
-// shared discovery service over the downloaded index and renders the same markup the
-// build prerenders. Submitting the GET form reloads the page with the new query.
+// shared discovery service over the city's downloaded index and renders the same markup
+// the build prerenders. Submitting the GET form reloads the page with the new query.
+// The city comes from the page path, never from the query (docs/adr/0010-city-sections.md).
 
 async function fetchIndex(path: string): Promise<SearchIndex> {
   const response = await fetch(path, {
@@ -94,22 +94,6 @@ function applyToForm(
     'maxPrice',
     filters.maxPriceCents === null ? '' : String(filters.maxPriceCents / 100),
   );
-  set('country', filters.country || 'ES');
-  set('region', filters.region ?? '');
-  const city = select(form, 'city');
-  if (city) {
-    const cities = data.geography.cities.filter(
-      (row) =>
-        row.country_code === (filters.country || 'ES') &&
-        (!filters.region || row.region_id === filters.region),
-    );
-    replaceOptions(
-      city,
-      cities.map((row) => ({ value: row.id, label: cityLabel(row, locale) })),
-      m.allCities({}, { locale }),
-      filters.city ?? '',
-    );
-  }
   setOptions(
     select(form, 'centre'),
     data.centres.map((row) => ({ value: row.id, label: row.name })),
@@ -163,7 +147,12 @@ function applyToForm(
   }
 }
 
-function updatePage(locale: Locale, params: URLSearchParams, archive: boolean) {
+function updatePage(
+  locale: Locale,
+  city: string,
+  params: URLSearchParams,
+  archive: boolean,
+) {
   if (archive) {
     document.title = m.archivePageTitle({}, { locale });
     const title = document.querySelector('[data-search-title]');
@@ -176,7 +165,7 @@ function updatePage(locale: Locale, params: URLSearchParams, archive: boolean) {
     '.language-nav a[lang]',
   )) {
     const target = link.lang === 'ca' ? 'ca' : 'es';
-    link.href = `${courseSearchPath(target)}${params.size ? `?${params}` : ''}`;
+    link.href = `${courseSearchPath(target, city)}${params.size ? `?${params}` : ''}`;
   }
 }
 
@@ -185,8 +174,16 @@ export async function startSearchPage(root: HTMLElement): Promise<void> {
   const alerts = root.dataset.alerts === 'true';
   const results = root.querySelector<HTMLElement>('[data-discovery-results]');
   const form = root.querySelector<HTMLFormElement>('[data-dynamic-filters]');
-  if (!results) return;
-  let params = new URLSearchParams(location.search);
+  const city = root.dataset.city ?? '';
+  if (!results || !city) return;
+  const params = new URLSearchParams(location.search);
+  const withCity = (query: URLSearchParams) => {
+    const scoped = new URLSearchParams(query);
+    scoped.delete('country');
+    scoped.delete('region');
+    scoped.set('city', city);
+    return scoped;
+  };
   const archive = params.get('archive') === '1';
   const done = () => {
     document.documentElement.removeAttribute('data-search-pending');
@@ -195,22 +192,13 @@ export async function startSearchPage(root: HTMLElement): Promise<void> {
   results.setAttribute('aria-busy', 'true');
   try {
     const indexes = await Promise.all(
-      [LIVE_INDEX_PATH, ...(archive ? [ARCHIVE_INDEX_PATH] : [])].map(
+      [liveIndexPath(city), ...(archive ? [archiveIndexPath(city)] : [])].map(
         fetchIndex,
       ),
     );
     const catalog = decodeIndexes(indexes);
     const today = catalogToday(catalog);
-    const data = discover(catalog, params, today);
-    if (data.canonicalQuery !== undefined) {
-      // Stale child selections were dropped; the URL follows, as a redirect did before.
-      params = new URLSearchParams(data.canonicalQuery);
-      history.replaceState(
-        history.state,
-        '',
-        `${location.pathname}${params.size ? `?${params}` : ''}${location.hash}`,
-      );
-    }
+    const data = discover(catalog, withCity(params), today);
     results.innerHTML = discoveryResultsHtml({
       locale,
       data,
@@ -218,11 +206,11 @@ export async function startSearchPage(root: HTMLElement): Promise<void> {
       sources: catalog.sources,
       alerts,
     });
-    updatePage(locale, params, data.filters.archive === true);
+    updatePage(locale, city, params, data.filters.archive === true);
     if (form) {
       applyToForm(form, locale, data, params);
       enhanceFilters(form, (choiceParams) => {
-        const choices = filterOptions(catalog, choiceParams, today);
+        const choices = filterOptions(catalog, withCity(choiceParams), today);
         return {
           centre: choices.centre,
           centres: choices.centres.map((row) => ({
@@ -245,7 +233,7 @@ export async function startSearchPage(root: HTMLElement): Promise<void> {
     );
     results.innerHTML = discoveryResultsHtml({
       locale,
-      data: emptyDiscovery(defaultFilters, emptyGeography, null),
+      data: emptyDiscovery({ ...defaultFilters, city }, emptyGeography, null),
       params,
       sources: [],
       alerts: false,

@@ -1,0 +1,19 @@
+---
+import type { GetStaticPaths } from 'astro';
+import CentreDirectory from '../../../components/CentreDirectory.astro';
+import { loadCities, loadDirectory } from '../../../lib/catalog/pages';
+import type { City } from '../../../lib/locations/geography';
+
+export const getStaticPaths = (() =>
+  loadCities().map(({ city }) => ({
+    params: { city: city.id },
+    props: { city },
+  }))) satisfies GetStaticPaths;
+
+interface Props {
+  city: City;
+}
+const { city } = Astro.props;
+---
+
+<CentreDirectory locale="ca" city={city} data={loadDirectory(city.id)} />

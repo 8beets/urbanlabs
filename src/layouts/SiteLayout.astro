@@ -1,7 +1,15 @@
 ---
 import { m } from '../paraglide/messages.js';
-import { courseSearchPath, centreDirectoryPath, homePath } from '../i18n/paths';
+import {
+  centreDirectoryPath,
+  citiesCentresPath,
+  citiesCoursesPath,
+  courseSearchPath,
+  homePath,
+} from '../i18n/paths';
+import { cityLabel } from '../i18n/geography';
 import { type Locale } from '../i18n/ui';
+import { sourceCities } from '../lib/sources';
 import '../styles/global.css';
 interface Props {
   locale: Locale;
@@ -18,7 +26,25 @@ const {
   section = 'home',
 } = Astro.props;
 const base = homePath(locale);
-const centreBase = centreDirectoryPath(locale);
+// "Cursos" and "Centros" open a list of cities (docs/adr/0010-city-sections.md).
+const cities = sourceCities().map((city) => ({
+  ...city,
+  label: cityLabel(city, locale),
+}));
+const menus = [
+  {
+    section: 'courses',
+    label: m.coursesNav({}, { locale }),
+    all: citiesCoursesPath(locale),
+    path: (city: string) => courseSearchPath(locale, city),
+  },
+  {
+    section: 'centres',
+    label: m.centresNav({}, { locale }),
+    all: citiesCentresPath(locale),
+    path: (city: string) => centreDirectoryPath(locale, city),
+  },
+] as const;
 ---
 
 <!doctype html>
@@ -60,18 +86,24 @@ const centreBase = centreDirectoryPath(locale);
           <a href={base} aria-current={section === 'home' ? 'page' : undefined}>
             {m.homeNav({}, { locale })}
           </a>
-          <a
-            href={courseSearchPath(locale)}
-            aria-current={section === 'courses' ? 'page' : undefined}
-          >
-            {m.coursesNav({}, { locale })}
-          </a>
-          <a
-            href={centreBase}
-            aria-current={section === 'centres' ? 'page' : undefined}
-          >
-            {m.centresNav({}, { locale })}
-          </a>
+          {menus.map((menu) => (
+            <details
+              class="nav-menu"
+              data-current={section === menu.section ? 'true' : undefined}
+            >
+              <summary>{menu.label}</summary>
+              <ul>
+                {cities.map((city) => (
+                  <li>
+                    <a href={menu.path(city.id)}>{city.label}</a>
+                  </li>
+                ))}
+                <li>
+                  <a href={menu.all}>{m.allCitiesNav({}, { locale })}</a>
+                </li>
+              </ul>
+            </details>
+          ))}
         </nav>
         <nav class="language-nav" aria-label={m.language({}, { locale })}>
           <a
@@ -100,9 +132,6 @@ const centreBase = centreDirectoryPath(locale);
         <p>{m.footer({}, { locale })}</p>
       </div>
       <div class="footer-links">
-        <a href={`${courseSearchPath(locale)}?archive=1`}>
-          {m.archiveLink({}, { locale })}
-        </a>
         <a class="github-link" href="https://github.com/8beets/urbanlabs">
           <img src="/icons/github.svg" alt="" width="20" height="20" />
           {m.githubRepo({}, { locale })}

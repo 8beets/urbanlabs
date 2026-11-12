@@ -2,7 +2,8 @@ import { expect, test } from '@playwright/test';
 
 test.use({ javaScriptEnabled: false });
 for (const locale of ['es', 'ca']) {
-  const search = locale === 'es' ? '/es/buscar' : '/ca/cerca';
+  const cities = `/${locale}/cursos`;
+  const citySearch = /^\/(es|ca)\/(barcelona|zaragoza)\/cursos$/;
   test(
     `${locale}: homepage shows only the latest 20 courses and links to separate search`,
     { tag: '@mobile' },
@@ -12,7 +13,7 @@ for (const locale of ['es', 'ca']) {
       await expect(
         page.locator('form[method=get],.filter-sidebar,.pagination'),
       ).toHaveCount(0);
-      await expect(page.locator('.hero-link')).toHaveAttribute('href', search);
+      await expect(page.locator('.hero-link')).toHaveAttribute('href', cities);
       await expect(
         page.locator('.primary-nav a[aria-current]'),
       ).toHaveAttribute('href', `/${locale}/`);
@@ -21,10 +22,11 @@ for (const locale of ['es', 'ca']) {
         (await category.getAttribute('href'))!,
         'http://localhost',
       );
-      expect(categoryUrl.pathname).toBe(search);
+      expect(categoryUrl.pathname).toMatch(citySearch);
       expect(categoryUrl.searchParams.get('category')).toBeTruthy();
       await page.locator('.hero-link').click();
-      await expect(page).toHaveURL(search);
+      await expect(page).toHaveURL(cities);
+      await page.locator('.city-list a').first().click();
       await expect(page.locator('.filter-sidebar')).toBeVisible();
       await expect(page.locator('.hero-photos,.latest-courses')).toHaveCount(0);
       await page.locator('.brand').click();

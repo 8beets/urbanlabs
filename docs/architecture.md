@@ -28,12 +28,12 @@ Search, centre, category, and price controls share one GET form in `CourseFilter
 
 ## Responsive filtering (issue #3)
 
-Centre/category selects retain combined filter values, including a visible current-selection fallback when a category is unavailable at the selected centre. Submitting the GET form omits `page`, resetting pagination. Removing one applied filter also resets the page and retains other parameters. Language links and result pagination retain the query string. Extra query parameters survive form submissions. Region and city controls share this same form; location filtering composes with all existing filters. Spain is the default country, carried in a hidden input rather than a visible selector.
+Centre/category selects retain combined filter values, including a visible current-selection fallback when a category is unavailable at the selected centre. Submitting the GET form omits `page`, resetting pagination. Removing one applied filter also resets the page and retains other parameters. Language links and result pagination retain the query string. Extra query parameters survive form submissions. The form has no location controls: every search page belongs to a city, which comes from the path ([ADR 0010](adr/0010-city-sections.md)).
 
 Future location/date/time fields belong in the existing sidebar form and must be added to its `formFields` set, validated by the service, and reflected in the applied-filter summary. Do not add placeholder controls for unimplemented filters. Mobile validation errors leave the panel open, labels use native associations, and keyboard disclosure/focus works with and without JavaScript. Browser coverage exercises both layouts, combined filters, centre-specific options, legacy category URLs, incompatible selections, pagination, clear/remove actions, locale switching, and responsive disclosure.
 
-Centre navigation uses `/es/centros` and `/es/centros/[slug]` in Spanish, and `/ca/centres`
-and `/ca/centres/[slug]` in Catalan. A shared native Astro layout provides primary
+Centre navigation uses `/es/<city>/centros` and `/es/<city>/centros/[slug]` in Spanish, and
+`/ca/<city>/centres` and `/ca/<city>/centres/[slug]` in Catalan; `/es/centros` lists the cities. A shared native Astro layout provides primary
 navigation and switches locale while retaining the centre and pagination. Directory
 queries include institutions without courses, with 24-item pagination. Detail pages
 reuse bounded course queries scoped to the selected institution (12 per page), and
@@ -104,7 +104,7 @@ source/external identifiers for ties. Reimports preserve `first_seen_at`, so ref
 do not promote older courses. Unknown end dates remain eligible without inferring
 availability. Migration `0004_source_records_first_seen.sql` adds the ordering index.
 
-Search and filters live at `/es/buscar` and `/ca/cerca`, retaining the existing
+Search and filters live at `/es/<city>/cursos` and `/ca/<city>/cursos`, retaining the existing
 12-item pagination, sidebar, validation and URL state. The homepage has no filters
 or pagination. Its primary action, header Courses link and course-category links
 lead to search. Recognized filter parameters on old homepage URLs redirect with
@@ -205,10 +205,11 @@ Decided in [ADR 0008](adr/0008-static-site.md) (issue #89).
   (`.cache/snapshot.json`, or `URBANLABS_SNAPSHOT`). It never writes to D1.
 - `astro build` prerenders every public page from that snapshot in Node
   (`prerenderEnvironment: 'node'`, `build.format: 'preserve'`): homepages, the search
-  shell, the centre directory, centre pages (`/es/centros/[slug]`, `/[slug]/2`, …),
-  and category pages (`/es/buscar/categoria`, `/es/buscar/categoria/[slug]`, …) that
-  keep the catalogue browsable without JavaScript.
-- The build also writes `/search/live.json` and `/search/archive.json`
+  shell, the city lists, and per city ([ADR 0010](adr/0010-city-sections.md)) the city
+  page with its topics, the search shell, the centre directory, centre pages
+  (`/es/<city>/centros/[slug]`, `/[slug]/2`, …) and topic pages
+  (`/es/<city>/cursos/[topic]`, …) that keep the catalogue browsable without JavaScript.
+- The build also writes `/search/<city>/live.json` and `/search/<city>/archive.json`
   (`src/lib/catalog/search-index.ts`). `src/lib/catalog/search-page.ts` loads them,
   runs `discover()` for the URL query and renders results with
   `discoveryResultsHtml()` and `courseCardHtml()`, the same functions the build uses.

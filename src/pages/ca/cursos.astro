@@ -1,0 +1,6 @@
+---
+import CityList from '../../components/CityList.astro';
+import { loadCities } from '../../lib/catalog/pages';
+---
+
+<CityList locale="ca" cities={loadCities()} kind="courses" />

@@ -1,6 +1,5 @@
 import { m } from '../../paraglide/messages.js';
-import { cityLabel, regionLabel } from '../../i18n/geography';
-import { courseSearchPath } from '../../i18n/paths';
+import { citiesCoursesPath, courseSearchPath } from '../../i18n/paths';
 import {
   audienceLabel,
   categoryLabel,
@@ -37,22 +36,9 @@ export function appliedFilters({
   locale,
   data,
 }: DiscoveryView): AppliedFilter[] {
-  const { filters, centres, geography } = data;
+  const { filters, centres } = data;
+  // The city is the page itself (docs/adr/0010-city-sections.md), not a removable filter.
   const applied: AppliedFilter[] = [];
-  if (filters.region) {
-    const region = geography.regions.find((row) => row.id === filters.region);
-    applied.push({
-      key: 'region',
-      label: `${m.region({}, { locale })}: ${region ? regionLabel(region, locale) : filters.region}`,
-    });
-  }
-  if (filters.city) {
-    const city = geography.cities.find((row) => row.id === filters.city);
-    applied.push({
-      key: 'city',
-      label: `${m.city({}, { locale })}: ${city ? cityLabel(city, locale) : filters.city}`,
-    });
-  }
   if (filters.q)
     applied.push({
       key: 'q',
@@ -113,7 +99,9 @@ export function discoveryResultsHtml(view: DiscoveryView): string {
   const { locale, data, params, alerts } = view;
   const { courses, filters, hasNext } = data;
   const error = view.unavailable ? 'unavailable' : data.error;
-  const base = courseSearchPath(locale);
+  const base = filters.city
+    ? courseSearchPath(locale, filters.city)
+    : citiesCoursesPath(locale);
   const archive = filters.archive === true;
   const root = archive ? `${base}?archive=1` : base;
   const applied = error === 'invalid' ? [] : appliedFilters(view);

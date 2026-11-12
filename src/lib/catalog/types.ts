@@ -13,6 +13,8 @@ export interface CourseListing {
   institution: string;
   institution_id: string;
   institution_slug: string;
+  /** City of the centre; course and centre links point into it. */
+  city_id: string;
   start_date: string | null;
   end_date: string | null;
   schedule_text: string | null;
@@ -53,6 +55,7 @@ export const courseListingSchema = z.object({
   institution: z.string(),
   institution_id: z.string().min(1),
   institution_slug: z.string().min(1),
+  city_id: z.string().min(1),
   start_date: isoDate.nullable(),
   end_date: isoDate.nullable(),
   schedule_text: nullableText,

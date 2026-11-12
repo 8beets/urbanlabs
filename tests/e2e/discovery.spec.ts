@@ -100,7 +100,7 @@ function query(page: import('@playwright/test').Page) {
 test('search uses shareable URL filters and an honest empty state', async ({
   page,
 }) => {
-  await page.goto('/es/buscar');
+  await page.goto('/es/barcelona/cursos');
   await page.getByLabel('Buscar por título').fill('no-such-course-abc123');
   await page.getByLabel('Precio máximo (€)').fill('20');
   await submit(page);
@@ -126,7 +126,7 @@ test('search uses shareable URL filters and an honest empty state', async ({
 test('start month filter offers the next 12 months and composes through the URL', async ({
   page,
 }) => {
-  await page.goto('/es/buscar');
+  await page.goto('/es/barcelona/cursos');
   const options = page.locator('#start option');
   await expect(options).toHaveCount(13);
   await expect(options.first()).toHaveText('Cualquier mes');
@@ -137,7 +137,7 @@ test('start month filter offers the next 12 months and composes through the URL'
   expect(query(page).get('start')).toBe(month);
   await expect(page.locator('#start')).toHaveValue(month!);
   // Seeded editions start on 2099-01-01; unknown or other months do not match.
-  await page.goto('/es/buscar?start=2099-01');
+  await page.goto('/es/barcelona/cursos?start=2099-01');
   expect(await page.locator('article.course').count()).toBeGreaterThan(0);
   await expect(
     page
@@ -147,9 +147,9 @@ test('start month filter offers the next 12 months and composes through the URL'
   await expect(page.locator('#start option[selected]')).toHaveText(
     /Enero de 2099/,
   );
-  await page.goto('/es/buscar?start=2099-02');
+  await page.goto('/es/barcelona/cursos?start=2099-02');
   await expect(page.locator('article.course')).toHaveCount(0);
-  await page.goto('/ca/cerca?start=2099-01');
+  await page.goto('/ca/barcelona/cursos?start=2099-01');
   await expect(page.locator('#start')).toHaveValue('2099-01');
   await page
     .getByRole('link', { name: /^Treu el filtre/ })
@@ -160,7 +160,7 @@ test('start month filter offers the next 12 months and composes through the URL'
 
 test('invalid URL filters show an accessible error', async ({ page }) => {
   // A static page always answers 200; the browser search reports the error.
-  await page.goto('/es/buscar?page=-1');
+  await page.goto('/es/barcelona/cursos?page=-1');
   await expect(page.getByRole('alert')).toContainText('Revisa los filtros');
   await expect(page.locator('article.course')).toHaveCount(0);
   await expect(page.locator('#q')).toHaveAttribute(
@@ -172,7 +172,7 @@ test('invalid URL filters show an accessible error', async ({ page }) => {
 test('categories compose with search, pagination, and locale switching', async ({
   page,
 }) => {
-  await page.goto('/es/buscar?page=2');
+  await page.goto('/es/barcelona/cursos?page=2');
   const width = (await page.locator('#q').boundingBox())!.width;
   await page.getByLabel('Categoría', { exact: true }).selectOption('idiomes');
   await submit(page);
@@ -206,7 +206,7 @@ test('categories compose with search, pagination, and locale switching', async (
 test('centre selection composes with categories, keyword, and language switching', async ({
   page,
 }) => {
-  await page.goto('/es/buscar?category=idiomes&page=2');
+  await page.goto('/es/barcelona/cursos?category=idiomes&page=2');
   await page.getByLabel('Centro', { exact: true }).selectOption('cc-can-baste');
   await submit(page);
   expect(query(page).get('centre')).toBe('cc-can-baste');
@@ -247,9 +247,9 @@ test('centre selection composes with categories, keyword, and language switching
 test('photography categories share one topic and topics follow the selected centre', async ({
   page,
 }) => {
-  await page.goto('/es/buscar?category=IDIOMES');
+  await page.goto('/es/barcelona/cursos?category=IDIOMES');
   await expect(page.getByRole('alert')).toContainText('Revisa los filtros');
-  await page.goto('/es/buscar?category=fotografia-i-audiovisual');
+  await page.goto('/es/barcelona/cursos?category=fotografia-i-audiovisual');
   await expect(page.locator('#category')).toHaveValue(
     'fotografia-i-audiovisual',
   );
@@ -296,7 +296,7 @@ test('photography categories share one topic and topics follow the selected cent
 test('Golferichs filters its own normalized categories and retains official source links', async ({
   page,
 }) => {
-  await page.goto('/es/buscar');
+  await page.goto('/es/barcelona/cursos');
   await page
     .getByLabel('Centro', { exact: true })
     .selectOption('cc-golferichs');
@@ -378,7 +378,7 @@ test('every added centre offers its own categories in both locales', async ({
       'Tecnologia i informàtica',
     ],
   ]) {
-    await page.goto('/es/buscar');
+    await page.goto('/es/barcelona/cursos');
     await page.getByLabel('Centro', { exact: true }).selectOption(id!);
     await submit(page);
     await expect(page.locator('article.course')).toHaveCount(1);
@@ -402,7 +402,7 @@ test('FAB centres retain separate filters and Miram activity types', async ({
     ['fab-casa-del-rellotge', 'CR', '675'],
     ['fab-casa-del-mig', 'CM', '674'],
   ]) {
-    await page.goto('/es/buscar');
+    await page.goto('/es/barcelona/cursos');
     await page.getByLabel('Centro', { exact: true }).selectOption(centre!);
     await submit(page);
     const link = page
@@ -419,33 +419,30 @@ test('applied filters can be removed individually or cleared, preserving other U
   page,
 }) => {
   await page.goto(
-    '/es/buscar?q=TEST&centre=cc-can-baste&category=idiomes&maxPrice=100&page=2&region=catalunya&city=barcelona',
+    '/es/barcelona/cursos?q=TEST&centre=cc-can-baste&category=idiomes&maxPrice=100&page=2',
   );
   await expect(
     page
       .getByRole('group', { name: 'Filtros aplicados', exact: true })
       .getByRole('link'),
-  ).toHaveCount(6);
+  ).toHaveCount(4);
   await page
     .getByRole('link', { name: /^Quitar filtro: Precio máximo/ })
     .click();
   expect(query(page).has('maxPrice')).toBe(false);
   expect(query(page).has('page')).toBe(false);
   expect(query(page).get('centre')).toBe('cc-can-baste');
-  expect(query(page).get('region')).toBe('catalunya');
-  expect(query(page).get('city')).toBe('barcelona');
   await expect(page.locator('article.course')).toHaveCount(1);
   await page
     .getByRole('link', { name: /^Quitar filtro: Buscar por título/ })
     .click();
   expect(query(page).has('q')).toBe(false);
   await submit(page);
-  expect(query(page).get('region')).toBe('catalunya');
-  expect(query(page).get('city')).toBe('barcelona');
+  expect(query(page).get('centre')).toBe('cc-can-baste');
   await page
     .getByRole('link', { name: 'Limpiar filtros', exact: true })
     .click();
-  await expect(page).toHaveURL('http://127.0.0.1:4322/es/buscar');
+  await expect(page).toHaveURL('http://127.0.0.1:4322/es/barcelona/cursos');
   await expect(
     page.getByRole('group', { name: 'Filtros aplicados', exact: true }),
   ).toHaveCount(0);
@@ -458,7 +455,9 @@ test('applied filters can be removed individually or cleared, preserving other U
 test('incompatible selected categories remain visible and removable', async ({
   page,
 }) => {
-  await page.goto('/es/buscar?centre=cc-pati-llimona&category=idiomes');
+  await page.goto(
+    '/es/barcelona/cursos?centre=cc-pati-llimona&category=idiomes',
+  );
   await expect(page.locator('#category')).toHaveValue('idiomes');
   await expect(page.locator('#category option:checked')).toHaveText(
     'Idiomas (Selección actual)',
@@ -479,7 +478,7 @@ test.describe('without JavaScript', () => {
     'native filters are keyboard-collapsible without JavaScript and sit beside desktop results',
     { tag: '@mobile' },
     async ({ page }) => {
-      await page.goto('/es/buscar');
+      await page.goto('/es/barcelona/cursos');
       const panel = page.locator('#filter-panel');
       const sidebar = (await page.locator('.filter-sidebar').boundingBox())!;
       const results = (await page.locator('.discovery-content').boundingBox())!;
@@ -508,21 +507,21 @@ test.describe('without JavaScript', () => {
     'search explains it needs JavaScript and links to static browsing',
     { tag: '@mobile' },
     async ({ page }) => {
-      await page.goto('/es/buscar?q=anything');
+      await page.goto('/es/barcelona/cursos?q=anything');
       await expect(page.locator('.search-noscript')).toContainText(
         'necesita JavaScript',
       );
       await page.getByRole('link', { name: 'Explorar por categoría' }).click();
-      await expect(page).toHaveURL('/es/buscar/categoria');
+      await expect(page).toHaveURL('/es/barcelona/');
       await page.getByRole('link', { name: /^Idiomas \(\d+\)$/ }).click();
-      await expect(page).toHaveURL('/es/buscar/categoria/idiomes');
+      await expect(page).toHaveURL('/es/barcelona/cursos/idiomes');
       await expect(page.locator('article.course')).toHaveCount(12);
       await page.locator('a[rel="next"]').click();
-      await expect(page).toHaveURL('/es/buscar/categoria/idiomes/2');
+      await expect(page).toHaveURL('/es/barcelona/cursos/idiomes/2');
       await page.getByRole('link', { name: 'Català' }).click();
-      await expect(page).toHaveURL('/ca/cerca/categoria/idiomes/2');
+      await expect(page).toHaveURL('/ca/barcelona/cursos/idiomes/2');
       await expect(page.getByRole('heading', { level: 1 })).toHaveText(
-        'Idiomes',
+        'Idiomes · Barcelona',
       );
     },
   );
@@ -534,7 +533,7 @@ test.describe('progressive filter panel', { tag: '@mobile' }, () => {
     page,
   }) => {
     await page.setViewportSize({ width: 390, height: 844 });
-    await page.goto('/es/buscar');
+    await page.goto('/es/barcelona/cursos');
     const panel = page.locator('#filter-panel');
     await expect(panel).not.toHaveAttribute('open');
     await panel.locator('summary').focus();
@@ -562,69 +561,37 @@ test.describe('progressive filter panel', { tag: '@mobile' }, () => {
     page,
   }) => {
     await page.setViewportSize({ width: 390, height: 844 });
-    await page.goto('/es/buscar?maxPrice=invalid');
+    await page.goto('/es/barcelona/cursos?maxPrice=invalid');
     await expect(page.locator('#filter-panel')).toHaveAttribute('open', '');
     await expect(page.getByRole('alert')).toBeVisible();
     await expect(page.locator('#q')).toBeVisible();
   });
 });
 
-test('location controls default to Spain and preserve geography across languages', async ({
+test('the city comes from the path: no location controls, kept across pages and languages', async ({
   page,
 }) => {
-  await page.goto('/es/buscar');
-  await expect(page.locator('select[name="country"]')).toHaveCount(0);
-  await expect(page.locator('input[name="country"]')).toHaveValue('ES');
-  await page
-    .getByLabel('Comunidad autónoma', { exact: true })
-    .selectOption('catalunya');
-  await page.getByLabel('Ciudad', { exact: true }).selectOption('barcelona');
-  await submit(page);
-  expect(query(page).get('country')).toBe('ES');
+  await page.goto('/es/barcelona/cursos');
+  await expect(page.locator('#region, #city, [name="country"]')).toHaveCount(0);
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText(
+    'Cursos y talleres en Barcelona',
+  );
   await expect(page.locator('article.course')).toHaveCount(12);
   await page.getByRole('link', { name: /^Siguiente/ }).click();
-  expect(query(page).get('region')).toBe('catalunya');
-  expect(query(page).get('city')).toBe('barcelona');
   expect(query(page).get('page')).toBe('2');
+  expect(query(page).has('city')).toBe(false);
   await page.getByRole('link', { name: 'Català', exact: true }).click();
-  await expect(
-    page.getByLabel('Comunitat autònoma', { exact: true }),
-  ).toHaveValue('catalunya');
-  await expect(page.getByLabel('Ciutat', { exact: true })).toHaveValue(
-    'barcelona',
+  await expect(page).toHaveURL(/\/ca\/barcelona\/cursos\?page=2$/);
+  // Zaragoza's search lists only Zaragoza courses, even with a stale city query.
+  await page.goto('/es/zaragoza/cursos?city=barcelona&q=TEST');
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText(
+    'Cursos y talleres en Zaragoza',
   );
-  await page.getByLabel('Ciutat', { exact: true }).selectOption('tarragona');
-  await submit(page);
-  await expect(page.locator('article.course')).toHaveCount(0);
-  await expect(page.locator('.empty')).toContainText(
-    'Encara no hi ha cursos publicats en aquesta ubicació.',
-  );
-  await expect(page.locator('.empty a')).toHaveCount(0);
-  await expect(page.locator('#centre option')).toHaveCount(1);
-  await expect(page.locator('#category option')).toHaveCount(1);
-});
-
-test.describe('dependent city controls', () => {
-  test.use({ javaScriptEnabled: true });
-  test('changing region clears the city and waits for explicit submission', async ({
-    page,
-  }) => {
-    await page.setViewportSize({ width: 1280, height: 900 });
-    await page.goto('/es/buscar?region=catalunya&city=barcelona');
-    await page.locator('#region').selectOption('');
-    await expect(page.locator('#city')).toHaveValue('');
-    expect(query(page).get('city')).toBe('barcelona');
-    await page.locator('#region').selectOption('catalunya');
-    await expect(page.locator('#city option')).toHaveText([
-      'Todas las ciudades',
-      'Barcelona',
-      'Tarragona',
-    ]);
-    await page.locator('#city').selectOption('tarragona');
-    await submit(page);
-    expect(query(page).get('city')).toBe('tarragona');
-    await expect(page.locator('article.course')).toHaveCount(0);
-  });
+  await expect(page.locator('article.course .institution')).not.toHaveCount(0);
+  for (const name of await page
+    .locator('article.course .institution')
+    .allTextContents())
+    expect(name).toMatch(/^Centro Cívico /);
 });
 
 test.describe('dynamic filter options', () => {
@@ -632,12 +599,20 @@ test.describe('dynamic filter options', () => {
   test.beforeEach(async ({ page }) => {
     await page.setViewportSize({ width: 1280, height: 900 });
   });
-  test('city, region and centre changes update options without navigation in both languages', async ({
+  test('centre changes update category options without navigation in both languages', async ({
     page,
   }) => {
     for (const [path, all, photography] of [
-      ['/es/buscar', 'Todas las categorías', 'Fotografía y audiovisual'],
-      ['/ca/cerca', 'Totes les categories', 'Fotografia i audiovisual'],
+      [
+        '/es/barcelona/cursos',
+        'Todas las categorías',
+        'Fotografía y audiovisual',
+      ],
+      [
+        '/ca/barcelona/cursos',
+        'Totes les categories',
+        'Fotografia i audiovisual',
+      ],
     ]) {
       await page.goto(path!);
       let navigations = 0;
@@ -655,20 +630,12 @@ test.describe('dynamic filter options', () => {
       ]);
       await expect(page.locator('#centre')).toBeFocused();
       await page.locator('#category').selectOption('fotografia-i-audiovisual');
-      await page.locator('#city').selectOption('tarragona');
-      await expect(page.locator('#centre option')).toHaveCount(1);
-      await expect(page.locator('#category option')).toHaveCount(1);
-      await expect(page.locator('#centre')).toHaveValue('');
-      await expect(page.locator('#category')).toHaveValue('');
-      await page.locator('#city').selectOption('barcelona');
-      // The "all centres" option plus every seeded Barcelona centre.
+      // The "all centres" option plus every seeded Barcelona centre, and no other city's.
       await expect(page.locator('#centre option')).toHaveCount(
         sources.filter((s) => s.institution.cityId === 'barcelona').length + 1,
       );
-      await page.locator('#centre').selectOption('cc-pati-llimona');
-      await expect(page.locator('#category option')).toHaveCount(4);
-      await page.locator('#region').selectOption('catalunya');
-      await expect(page.locator('#city')).toHaveValue('');
+      await page.locator('#centre').selectOption('');
+      await expect(page.locator('#category option')).not.toHaveCount(4);
       await expect(page.locator('.filter-form')).not.toHaveAttribute(
         'aria-busy',
       );
@@ -680,10 +647,10 @@ test.describe('dynamic filter options', () => {
   test('an unavailable search index is reported instead of stale results', async ({
     page,
   }) => {
-    await page.route('**/search/live.json', (route) =>
+    await page.route('**/search/barcelona/live.json', (route) =>
       route.fulfill({ status: 503, body: '' }),
     );
-    await page.goto('/es/buscar?q=TEST');
+    await page.goto('/es/barcelona/cursos?q=TEST');
     await expect(page.getByRole('alert')).toBeVisible();
     await expect(page.locator('article.course')).toHaveCount(0);
   });
@@ -691,7 +658,7 @@ test.describe('dynamic filter options', () => {
     page,
   }) => {
     await page.route('**/_astro/*.js', (route) => route.abort());
-    await page.goto('/es/buscar?q=TEST');
+    await page.goto('/es/barcelona/cursos?q=TEST');
     await expect(page.locator('.search-loading')).toBeVisible();
     await expect(page.getByRole('alert')).toContainText('no está disponible', {
       timeout: 15_000,
@@ -707,19 +674,19 @@ test.describe('dynamic filter options', () => {
 test('places filter keeps its value in the URL and shows an applied chip', async ({
   page,
 }) => {
-  await page.goto('/es/buscar?places=available');
+  await page.goto('/es/barcelona/cursos?places=available');
   await expect(page.locator('#places')).toHaveValue('available');
   await expect(
     page.getByRole('link', { name: 'Quitar filtro: Ocultar sin plazas' }),
   ).toBeVisible();
-  await page.goto('/es/buscar?places=nope');
+  await page.goto('/es/barcelona/cursos?places=nope');
   await expect(page.getByRole('alert')).toContainText('Revisa los filtros');
 });
 
 test('audience filter narrows to courses for that audience', async ({
   page,
 }) => {
-  await page.goto('/es/buscar');
+  await page.goto('/es/barcelona/cursos');
   await page.getByLabel('Público', { exact: true }).selectOption('families');
   await submit(page);
   expect(query(page).get('audience')).toBe('families');
@@ -730,19 +697,19 @@ test('audience filter narrows to courses for that audience', async ({
   await expect(
     page.getByRole('link', { name: 'Treu el filtre: Públic: Famílies' }),
   ).toBeVisible();
-  await page.goto('/es/buscar?audience=adults');
+  await page.goto('/es/barcelona/cursos?audience=adults');
   await expect(page.getByRole('alert')).toContainText('Revisa los filtros');
 });
 
-test('finished courses only appear in the archive, which keeps the filters and has a footer link', async ({
+test('finished courses only appear in the archive, which keeps the filters and has a link from the search', async ({
   page,
 }) => {
-  await page.goto('/es/buscar?q=TEST+finished');
+  await page.goto('/es/barcelona/cursos?q=TEST+finished');
   await expect(page.locator('article.course')).toHaveCount(0);
   await page
     .getByRole('link', { name: 'Archivo de cursos terminados' })
     .click();
-  await expect(page).toHaveURL(/\/es\/buscar\?archive=1$/);
+  await expect(page).toHaveURL(/\/es\/barcelona\/cursos\?archive=1$/);
   await expect(page.getByRole('heading', { level: 1 })).toHaveText(
     'Archivo de cursos',
   );
@@ -755,12 +722,12 @@ test('finished courses only appear in the archive, which keeps the filters and h
     );
   expect(months.length).toBeGreaterThan(1);
   expect(months).toEqual([...months].sort().reverse());
-  await page.goto('/es/buscar?archive=1&q=TEST+finished');
+  await page.goto('/es/barcelona/cursos?archive=1&q=TEST+finished');
   await expect(page.locator('article.course h3')).toHaveText([
     'TEST finished workshop',
   ]);
-  await page.goto('/ca/cerca?archive=1&q=TEST+dance');
+  await page.goto('/ca/barcelona/cursos?archive=1&q=TEST+dance');
   await expect(page.locator('article.course')).toHaveCount(0);
-  await page.goto('/es/buscar?archive=2');
+  await page.goto('/es/barcelona/cursos?archive=2');
   await expect(page.getByRole('alert')).toContainText('Revisa los filtros');
 });

@@ -1,6 +1,6 @@
 ---
-import CentreDirectory from '../../components/CentreDirectory.astro';
-import { loadDirectory } from '../../lib/catalog/pages';
+import CityList from '../../components/CityList.astro';
+import { loadCities } from '../../lib/catalog/pages';
 ---
 
-<CentreDirectory locale="es" data={loadDirectory()} />
+<CityList locale="es" cities={loadCities()} kind="centres" />

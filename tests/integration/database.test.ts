@@ -417,7 +417,7 @@ describe('SQLite migration and ingestion contract', () => {
         },
       });
     }
-    const directory = directoryFrom(await snapshotOf(db));
+    const directory = directoryFrom(await snapshotOf(db), 'barcelona');
     expect(directory.centres).toHaveLength(25);
     expect(new Set(directory.centres.map((c) => c.id)).size).toBe(25);
     expect(directory.centres.map((c) => c.name)).toEqual(
@@ -455,8 +455,13 @@ describe('SQLite migration and ingestion contract', () => {
           'INSERT INTO institution_profiles (institution_id,slug,latitude,longitude,coordinates_source_url,coordinates_verified_at) VALUES (?,?,?,?,?,?)',
         )
         .run(id, id, 41.4, 2.1, 'https://example.org/source', '2026-11-06');
+      sqlite
+        .prepare(
+          "INSERT INTO institution_locations (institution_id,country_code,city_id) VALUES (?,'ES','barcelona')",
+        )
+        .run(id);
     }
-    const page = directoryFrom(await snapshotOf(db));
+    const page = directoryFrom(await snapshotOf(db), 'barcelona');
     expect(page.centres).toHaveLength(26);
     expect(page.mapCentres).toHaveLength(26);
     expect(page.mapHasMore).toBe(false);

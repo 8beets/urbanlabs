@@ -1,0 +1,63 @@
+---
+import { m } from '../paraglide/messages.js';
+import {
+  centreDirectoryPath,
+  cityPath,
+  courseSearchPath,
+  topicPath,
+} from '../i18n/paths';
+import { cityLabel } from '../i18n/geography';
+import { categoryLabel, type Locale } from '../i18n/ui';
+import type { CategoryPage } from '../lib/catalog/pages';
+import type { City } from '../lib/locations/geography';
+import SiteLayout from '../layouts/SiteLayout.astro';
+import Icon from './Icon.astro';
+interface Props {
+  locale: Locale;
+  city: City;
+  /** The city's topics with live editions; the no-JavaScript route to its courses. */
+  topics: CategoryPage[];
+}
+const { locale, city, topics } = Astro.props;
+const name = cityLabel(city, locale);
+const sorted = topics
+  .map((page) => ({ ...page, label: categoryLabel(page.category, locale) }))
+  .sort((a, b) => a.label.localeCompare(b.label, locale));
+---
+
+<SiteLayout
+  locale={locale}
+  title={`${m.cityCoursesTitle({ city: name }, { locale })} · UrbanLabs`}
+  description={m.cityIntro({ city: name }, { locale })}
+  section="courses"
+  languagePaths={{ es: cityPath('es', city.id), ca: cityPath('ca', city.id) }}
+>
+  <section class="centre-heading">
+    <h1>{name}</h1>
+    <p class="intro">{m.cityIntro({ city: name }, { locale })}</p>
+    <p class="city-actions">
+      <a class="hero-link" href={courseSearchPath(locale, city.id)}>
+        {m.searchCityCourses({ city: name }, { locale })} <Icon name="arrow" />
+      </a>
+      <a href={centreDirectoryPath(locale, city.id)}>
+        {m.browseCityCentres({ city: name }, { locale })}
+      </a>
+    </p>
+  </section>
+  <section aria-labelledby="topics">
+    <h2 id="topics">{m.categoriesTitle({}, { locale })}</h2>
+    <p>{m.categoriesIntro({}, { locale })}</p>
+    <ul class="category-list">
+      {sorted.map((page) => (
+        <li>
+          <a
+            class="course-category"
+            href={topicPath(locale, city.id, page.slug)}
+          >
+            {page.label} ({page.courses.length})
+          </a>
+        </li>
+      ))}
+    </ul>
+  </section>
+</SiteLayout>
