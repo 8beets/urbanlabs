@@ -1,4 +1,4 @@
-FROM node:26-bookworm
+FROM node:26-trixie
 
 ENV ASTRO_TELEMETRY_DISABLED=1 \
     WRANGLER_SEND_METRICS=false \
