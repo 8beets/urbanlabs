@@ -1,0 +1,223 @@
+<!-- Trimmed from sedeelectronica.vitoria-gasteiz.org on 2026-11-13; descriptions removed. -->
+<html><body>
+<div class="contenido migas">
+		<a href="/m01-10s/actividadAction.do?accion=inicio&amp;anio=2026">Consulta e inscripción en actividades&nbsp;&gt;&nbsp;</a><a href="/m01-10s/actividadAction.do?accion=verCentros&amp;anio=2026">Selección de centro&nbsp;&gt;&nbsp;</a><a class="textoNegrita colorCampo">Actividades</a>
+	</div>
+	<h3>Consulta e inscripción en actividades</h3>
+<!-- Comprobamos si es necesario pintar algún campo para no poner un dl vacío -->
+<div class="clearfloats"></div>
+<dl class="fondoGris">
+	<dt>Centro:</dt>
+	<dd>
+		C.C. IPARRALDE
+	</dd>
+</dl>
+	<div class="clearfloats"></div>
+<script type="text/javascript" src="/http/m01-10s/js/actividad.js"></script>
+<form id="formularioBusqueda" action="/m01-10s/actividadAction.do" method="post" class="form">
+	<input type="hidden" name="accion" value="actPorCenFiltro" />	
+	<input type="hidden" name="anio" value="2026" />
+	<input type="hidden" name="sorteo" value="" />
+	<input type="hidden" name="bloq" value="" />
+	<input type="hidden" name="prog" value="" />
+	<input type="hidden" name="etiq" value="" />
+	<input type="hidden" name="cen" value="4" />
+	<input type="hidden" name="activ" value="" />
+	<input type="hidden" name="urlEstatica" value="verCentros&amp;cen=4" />
+	<input type="hidden" name="jspResultadoVisualizar" value="" />	
+	<input type="hidden" name="filtro.desde" value="" >
+	<input type="hidden" name="filtro.hasta" value="" >	
+		<p>Se pueden buscar las actividades por edad, por idioma y con plazas libres:</p>
+	<fieldset class="fieldset fieldset--inline">
+		<div class="field field--number">
+			<label class="field__label" for="EDAD">Edad:</label>
+			<input class="field__input" id="EDAD" type="text" name="filtro.edad" value='' size="3" maxlength="3" />
+		</div>
+		<div class="field field--select">
+			<label class="field__label" for="IDIOMA">Idioma:</label>
+			 <select name="filtro.idiomaActividad" class="field__select"><option value="" selected="selected">Todos</option>
+						<option value="E">Euskera</option>
+<option value="C">Castellano</option>
+<option value="I">Inglés</option>
+<option value="F">Francés</option>
+<option value="A">Alemán</option>
+<option value="L">Italiano</option>
+<option value="N">Sin idioma</option></select>
+		</div>
+	</fieldset>
+		<div class="fieldset fieldset--inline">
+							<div class="field field--checkboxset">
+								<input type="checkbox" name="filtro.libresSN" value="S" id="libresSN" class="field__checkbox" />
+	  							<label class="field__label" for="libresSN">Actividades con plazas libres</label>
+							</div>												
+		</div>
+	<div class="fieldset fieldset--inline">	
+		<input class="btn" type="submit" value="Buscar" />
+		<input class="btn" type="reset" value="Limpiar" onclick="return limpiarBusqueda();" />
+	</div>
+</form>
+	<p>Seleccionar una actividad:</p>
+			<a href="#A">A</a>&nbsp;&nbsp;
+			<a href="#B">B</a>&nbsp;&nbsp;
+			<a href="#C">C</a>&nbsp;&nbsp;
+			<a href="#D">D</a>&nbsp;&nbsp;
+			<a href="#E">E</a>&nbsp;&nbsp;
+			<a href="#F">F</a>&nbsp;&nbsp;
+			<a href="#G">G</a>&nbsp;&nbsp;
+			<a href="#H">H</a>&nbsp;&nbsp;
+			<a href="#L">L</a>&nbsp;&nbsp;
+			<a href="#M">M</a>&nbsp;&nbsp;
+			<a href="#N">N</a>&nbsp;&nbsp;
+			<a href="#P">P</a>&nbsp;&nbsp;
+			<a href="#R">R</a>&nbsp;&nbsp;
+			<a href="#S">S</a>&nbsp;&nbsp;
+			<a href="#T">T</a>&nbsp;&nbsp;
+			<a href="#Y">Y</a>&nbsp;&nbsp;
+			<a href="#2">2</a>&nbsp;&nbsp;
+			<h4 class="separadorLista" id="A">A</h4>
+			<ul class="listaDosColumnas">
+				<li class="listaColumnaIzda"><a href="/m01-10s/actividadAction.do?accion=verCentros&amp;cen=4&amp;activ=ABEA&amp;anio=2026">Abdominales-estiramientos (adultos)</a></li>
+				<li class="listaColumnaDcha"><a href="/m01-10s/actividadAction.do?accion=verCentros&amp;cen=4&amp;activ=AMTA&amp;anio=2026">Actividad musical de tonificación (adultos)</a></li>
+				<li class="listaColumnaIzda"><a href="/m01-10s/actividadAction.do?accion=verCentros&amp;cen=4&amp;activ=AMRA&amp;anio=2026">Actividad musical rítmica (adultos)</a></li>
+				<li class="listaColumnaDcha"><a href="/m01-10s/actividadAction.do?accion=verCentros&amp;cen=4&amp;activ=AQCA&amp;anio=2026">Aquacircuitos (adultos)</a></li>
+				<li class="listaColumnaIzda"><a href="/m01-10s/actividadAction.do?accion=verCentros&amp;cen=4&amp;activ=AGIA&amp;anio=2026">Aquagim (adultos)</a></li>
+				<li class="listaColumnaDcha"><a href="/m01-10s/actividadAction.do?accion=verCentros&amp;cen=4&amp;activ=AGI3&amp;anio=2026">Aquagim (mayores)</a></li>
+				<li class="listaColumnaIzda"><a href="/m01-10s/actividadAction.do?accion=verCentros&amp;cen=4&amp;activ=AQPT&amp;anio=2026">Aquaplús (abierto)</a></li>
+			</ul>
+<h4 class="separadorLista" id="B">B</h4>
+<ul class="listaDosColumnas">
+				<li class="listaColumnaIzda"><a href="/m01-10s/actividadAction.do?accion=verCentros&amp;cen=4&amp;activ=BACA&amp;anio=2026">Bailes caribeños</a></li>
+				<li class="listaColumnaDcha"><a href="/m01-10s/actividadAction.do?accion=verCentros&amp;cen=4&amp;activ=ESFT&amp;anio=2026">Balones gigantes (abierto)</a></li>
+				<li class="listaColumnaIzda"><a href="/m01-10s/actividadAction.do?accion=verCentros&amp;cen=4&amp;activ=BATC&amp;anio=2026">Batch cooking</a></li>
+				<li class="listaColumnaDcha"><a href="/m01-10s/actividadAction.do?accion=verCentros&amp;cen=4&amp;activ=BICR&amp;anio=2026">Bisutería creativa</a></li>
+				<li class="listaColumnaIzda"><a href="/m01-10s/actividadAction.do?accion=verCentros&amp;cen=4&amp;activ=BOLI&amp;anio=2026">Bolillos</a></li>
+			</ul>
+<h4 class="separadorLista" id="C">C</h4>
+<ul class="listaDosColumnas">
+				<li class="listaColumnaIzda"><a href="/m01-10s/actividadAction.do?accion=verCentros&amp;cen=4&amp;activ=CERA&amp;anio=2026">Cerámica</a></li>
+				<li class="listaColumnaDcha"><a href="/m01-10s/actividadAction.do?accion=verCentros&amp;cen=4&amp;activ=CER9&amp;anio=2026">Cerámica (infantil)</a></li>
+				<li class="listaColumnaIzda"><a href="/m01-10s/actividadAction.do?accion=verCentros&amp;cen=4&amp;activ=CLNN&amp;anio=2026">Club de lectura: novela negra y policíaca</a></li>
+				<li class="listaColumnaDcha"><a href="/m01-10s/actividadAction.do?accion=verCentros&amp;cen=4&amp;activ=COAP&amp;anio=2026">Cocina de aprovechamiento. Aprende a aprovechar las sobras con recetas</a></li>
+				<li class="listaColumnaIzda"><a href="/m01-10s/actividadAction.do?accion=verCentros&amp;cen=4&amp;activ=CRTA&amp;anio=2026">Comer de táper</a></li>
+				<li class="listaColumnaDcha"><a href="/m01-10s/actividadAction.do?accion=verCentros&amp;cen=4&amp;activ=CFIA&amp;anio=2026">Condición Física (adultos)</a></li>
+				<li class="listaColumnaIzda"><a href="/m01-10s/actividadAction.do?accion=verCentros&amp;cen=4&amp;activ=CBEM&amp;anio=2026">Conquista tu bienestar. Estrategias emocionales para retos diarios</a></li>
+				<li class="listaColumnaDcha"><a href="/m01-10s/actividadAction.do?accion=verCentros&amp;cen=4&amp;activ=COSE&amp;anio=2026">Coser es fácil</a></li>
+				<li class="listaColumnaIzda"><a href="/m01-10s/actividadAction.do?accion=verCentros&amp;cen=4&amp;activ=MIDO&amp;anio=2026">Cuaderno de viaje Midori</a></li>
+				<li class="listaColumnaDcha"><a href="/m01-10s/actividadAction.do?accion=verCentros&amp;cen=4&amp;activ=TEMO&amp;anio=2026">Cómo manejar mis emociones</a></li>
+				<li class="listaColumnaIzda"><a href="/m01-10s/actividadAction.do?accion=verCentros&amp;cen=4&amp;activ=TG02&amp;anio=2026">Cómo mejorar la memoria</a></li>
+			</ul>
+<h4 class="separadorLista" id="D">D</h4>
+<ul class="listaDosColumnas">
+				<li class="listaColumnaIzda"><a href="/m01-10s/actividadAction.do?accion=verCentros&amp;cen=4&amp;activ=DAVA&amp;anio=2026">Danzas vascas</a></li>
+				<li class="listaColumnaDcha"><a href="/m01-10s/actividadAction.do?accion=verCentros&amp;cen=4&amp;activ=DVF9&amp;anio=2026">Danzas vascas en familia</a></li>
+				<li class="listaColumnaIzda"><a href="/m01-10s/actividadAction.do?accion=verCentros&amp;cen=4&amp;activ=DIOL&amp;anio=2026">Dibujo-óleo</a></li>
+			</ul>
+<h4 class="separadorLista" id="E">E</h4>
+<ul class="listaDosColumnas">
+				<li class="listaColumnaIzda"><a href="/m01-10s/actividadAction.do?accion=verCentros&amp;cen=4&amp;activ=IMOH&amp;anio=2026">Escritura e interpretación de monólogos de humor</a></li>
+				<li class="listaColumnaDcha"><a href="/m01-10s/actividadAction.do?accion=verCentros&amp;cen=4&amp;activ=ESCO&amp;anio=2026">Estimulación cognitiva</a></li>
+				<li class="listaColumnaIzda"><a href="/m01-10s/actividadAction.do?accion=verCentros&amp;cen=4&amp;activ=ESIT&amp;anio=2026">Estiramientos (abierto)</a></li>
+				<li class="listaColumnaDcha"><a href="/m01-10s/actividadAction.do?accion=verCentros&amp;cen=4&amp;activ=AE02&amp;anio=2026">Euskara para mayores de 55 años, 2º año</a></li>
+				<li class="listaColumnaIzda"><a href="/m01-10s/actividadAction.do?accion=verCentros&amp;cen=4&amp;activ=AE03&amp;anio=2026">Euskara para mayores de 55 años, 3ºaño</a></li>
+				<li class="listaColumnaDcha"><a href="/m01-10s/actividadAction.do?accion=verCentros&amp;cen=4&amp;activ=AE04&amp;anio=2026">Euskara para mayores de 55 años, 4ºaño</a></li>
+				<li class="listaColumnaIzda"><a href="/m01-10s/actividadAction.do?accion=verCentros&amp;cen=4&amp;activ=GE05&amp;anio=2026">Euskara para padres y madres con hijos e hijas en edad escolar. B1.2</a></li>
+			</ul>
+<h4 class="separadorLista" id="F">F</h4>
+<ul class="listaDosColumnas">
+				<li class="listaColumnaIzda"><a href="/m01-10s/actividadAction.do?accion=verCentros&amp;cen=4&amp;activ=FAMN&amp;anio=2026">Familiarización con el medio acuático (con acompañante)</a></li>
+				<li class="listaColumnaDcha"><a href="/m01-10s/actividadAction.do?accion=verCentros&amp;cen=4&amp;activ=FOLA&amp;anio=2026">Fotografía analógica y laboratorio fotográfico</a></li>
+				<li class="listaColumnaIzda"><a href="/m01-10s/actividadAction.do?accion=verCentros&amp;cen=4&amp;activ=FOCA&amp;anio=2026">Fotografía de calle</a></li>
+				<li class="listaColumnaDcha"><a href="/m01-10s/actividadAction.do?accion=verCentros&amp;cen=4&amp;activ=FOVI&amp;anio=2026">Fotografía de viaje</a></li>
+				<li class="listaColumnaIzda"><a href="/m01-10s/actividadAction.do?accion=verCentros&amp;cen=4&amp;activ=FORD&amp;anio=2026">Fotografía réflex digital</a></li>
+			</ul>
+<h4 class="separadorLista" id="G">G</h4>
+<ul class="listaDosColumnas">
+				<li class="listaColumnaIzda"><a href="/m01-10s/actividadAction.do?accion=verCentros&amp;cen=4&amp;activ=GAPA&amp;anio=2026">G.A.P. (Glúteos-Abdominales-Piernas) (adultos)</a></li>
+				<li class="listaColumnaDcha"><a href="/m01-10s/actividadAction.do?accion=verCentros&amp;cen=4&amp;activ=BCOA&amp;anio=2026">G-Combat (adultos)</a></li>
+				<li class="listaColumnaIzda"><a href="/m01-10s/actividadAction.do?accion=verCentros&amp;cen=4&amp;activ=BPUA&amp;anio=2026">G-Pump (adultos)</a></li>
+				<li class="listaColumnaDcha"><a href="/m01-10s/actividadAction.do?accion=verCentros&amp;cen=4&amp;activ=GMAA&amp;anio=2026">Gimnasia mantenimiento (adultos)</a></li>
+				<li class="listaColumnaIzda"><a href="/m01-10s/actividadAction.do?accion=verCentros&amp;cen=4&amp;activ=GMA3&amp;anio=2026">Gimnasia mantenimiento (mayores)</a></li>
+				<li class="listaColumnaDcha"><a href="/m01-10s/actividadAction.do?accion=verCentros&amp;cen=4&amp;activ=GMST&amp;anio=2026">Gimnasia mantenimiento suave (abierto)</a></li>
+				<li class="listaColumnaIzda"><a href="/m01-10s/actividadAction.do?accion=verCentros&amp;cen=4&amp;activ=GPOT&amp;anio=2026">Gimnasia postural (abierto)</a></li>
+				<li class="listaColumnaDcha"><a href="/m01-10s/actividadAction.do?accion=verCentros&amp;cen=4&amp;activ=GPET&amp;anio=2026">Gimnasia postural y estiramientos (abierto)</a></li>
+				<li class="listaColumnaIzda"><a href="/m01-10s/actividadAction.do?accion=verCentros&amp;cen=4&amp;activ=MIFI&amp;anio=2026">Grandes conceptos de la cultura contemporánea: una mirada filosófica</a></li>
+				<li class="listaColumnaDcha"><a href="/m01-10s/actividadAction.do?accion=verCentros&amp;cen=4&amp;activ=GUME&amp;anio=2026">GUARDIANES DE LA MEMORIA DE ZARAMAGA</a></li>
+			</ul>
+<h4 class="separadorLista" id="H">H</h4>
+<ul class="listaDosColumnas">
+				<li class="listaColumnaIzda"><a href="/m01-10s/actividadAction.do?accion=verCentros&amp;cen=4&amp;activ=HELU&amp;anio=2026">Hezur eta lur: 1936ko Gerra Zibilaren aztarnak</a></li>
+				<li class="listaColumnaDcha"><a href="/m01-10s/actividadAction.do?accion=verCentros&amp;cen=4&amp;activ=HIIA&amp;anio=2026">Hiit (adultos)</a></li>
+			</ul>
+<h4 class="separadorLista" id="L">L</h4>
+<ul class="listaDosColumnas">
+				<li class="listaColumnaIzda"><a href="/m01-10s/actividadAction.do?accion=verCentros&amp;cen=4&amp;activ=MEMO&amp;anio=2026">La memoria de los sentidos</a></li>
+				<li class="listaColumnaDcha"><a href="/m01-10s/actividadAction.do?accion=verCentros&amp;cen=4&amp;activ=COVI&amp;anio=2026">La vida en color</a></li>
+				<li class="listaColumnaIzda"><a href="/m01-10s/actividadAction.do?accion=verCentros&amp;cen=4&amp;activ=LUDK&amp;anio=2026">LudoCLUB: 9-12 años</a></li>
+				<li class="listaColumnaDcha"><a href="/m01-10s/actividadAction.do?accion=verCentros&amp;cen=4&amp;activ=LUDH&amp;anio=2026">LudoHANDI: ludoteca 4-8 años</a></li>
+				<li class="listaColumnaIzda"><a href="/m01-10s/actividadAction.do?accion=verCentros&amp;cen=4&amp;activ=LUDR&amp;anio=2026">LudoKREA: ludoteca-varias franjas de edad</a></li>
+				<li class="listaColumnaDcha"><a href="/m01-10s/actividadAction.do?accion=verCentros&amp;cen=4&amp;activ=LUDM&amp;anio=2026">LudoMIX: ludoteca 0-8 años</a></li>
+				<li class="listaColumnaIzda"><a href="/m01-10s/actividadAction.do?accion=verCentros&amp;cen=4&amp;activ=LUDT&amp;anio=2026">LudoTXIKI: ludoteca 0-3 años</a></li>
+			</ul>
+<h4 class="separadorLista" id="M">M</h4>
+<ul class="listaDosColumnas">
+				<li class="listaColumnaIzda"><a href="/m01-10s/actividadAction.do?accion=verCentros&amp;cen=4&amp;activ=MAG9&amp;anio=2026">Magia (infantil)</a></li>
+				<li class="listaColumnaDcha"><a href="/m01-10s/actividadAction.do?accion=verCentros&amp;cen=4&amp;activ=MALV&amp;anio=2026">Malestares de la vida contemporánea y herramientas para el bienestar</a></li>
+				<li class="listaColumnaIzda"><a href="/m01-10s/actividadAction.do?accion=verCentros&amp;cen=4&amp;activ=MTA3&amp;anio=2026">Mejora tus articulaciones (mayores)</a></li>
+				<li class="listaColumnaDcha"><a href="/m01-10s/actividadAction.do?accion=verCentros&amp;cen=4&amp;activ=MIEM&amp;anio=2026">Mindfulness: aprender a respirar y gestionar emociones</a></li>
+			</ul>
+<h4 class="separadorLista" id="N">N</h4>
+<ul class="listaDosColumnas">
+				<li class="listaColumnaIzda"><a href="/m01-10s/actividadAction.do?accion=verCentros&amp;cen=4&amp;activ=NA1A&amp;anio=2026">Natación (nivel-I) (adultos)</a></li>
+				<li class="listaColumnaDcha"><a href="/m01-10s/actividadAction.do?accion=verCentros&amp;cen=4&amp;activ=NA1N&amp;anio=2026">Natación (nivel-I) (infantil)</a></li>
+				<li class="listaColumnaIzda"><a href="/m01-10s/actividadAction.do?accion=verCentros&amp;cen=4&amp;activ=NMAT&amp;anio=2026">Natación de mantenimiento (abierto)</a></li>
+				<li class="listaColumnaDcha"><a href="/m01-10s/actividadAction.do?accion=verCentros&amp;cen=4&amp;activ=NMAA&amp;anio=2026">Natación de mantenimiento (adultos)</a></li>
+				<li class="listaColumnaIzda"><a href="/m01-10s/actividadAction.do?accion=verCentros&amp;cen=4&amp;activ=NMA3&amp;anio=2026">Natación de mantenimiento (mayores)</a></li>
+				<li class="listaColumnaDcha"><a href="/m01-10s/actividadAction.do?accion=verCentros&amp;cen=4&amp;activ=NESA&amp;anio=2026">Natación estilos (adultos)</a></li>
+				<li class="listaColumnaIzda"><a href="/m01-10s/actividadAction.do?accion=verCentros&amp;cen=4&amp;activ=NESN&amp;anio=2026">Natación estilos (infantil)</a></li>
+			</ul>
+<h4 class="separadorLista" id="P">P</h4>
+<ul class="listaDosColumnas">
+				<li class="listaColumnaIzda"><a href="/m01-10s/actividadAction.do?accion=verCentros&amp;cen=4&amp;activ=PATC&amp;anio=2026">Patchwork</a></li>
+				<li class="listaColumnaDcha"><a href="/m01-10s/actividadAction.do?accion=verCentros&amp;cen=4&amp;activ=PIIT&amp;anio=2026">Pilates iniciación (abierto)</a></li>
+				<li class="listaColumnaIzda"><a href="/m01-10s/actividadAction.do?accion=verCentros&amp;cen=4&amp;activ=PIL9&amp;anio=2026">Pintura lúdica (infantil)</a></li>
+				<li class="listaColumnaDcha"><a href="/m01-10s/actividadAction.do?accion=verCentros&amp;cen=4&amp;activ=PDRN&amp;anio=2026">Por el derecho a reparar, no lo tires</a></li>
+			</ul>
+<h4 class="separadorLista" id="R">R</h4>
+<ul class="listaDosColumnas">
+				<li class="listaColumnaIzda"><a href="/m01-10s/actividadAction.do?accion=verCentros&amp;cen=4&amp;activ=RODM&amp;anio=2026">Restauración de objetos decorativos y de muebles</a></li>
+			</ul>
+<h4 class="separadorLista" id="S">S</h4>
+<ul class="listaDosColumnas">
+				<li class="listaColumnaIzda"><a href="/m01-10s/actividadAction.do?accion=verCentros&amp;cen=4&amp;activ=SCRP&amp;anio=2026">Scrapbooking</a></li>
+			</ul>
+<h4 class="separadorLista" id="T">T</h4>
+<ul class="listaDosColumnas">
+				<li class="listaColumnaIzda"><a href="/m01-10s/actividadAction.do?accion=verCentros&amp;cen=4&amp;activ=TAIT&amp;anio=2026">Tai-chi (abierto)</a></li>
+				<li class="listaColumnaDcha"><a href="/m01-10s/actividadAction.do?accion=verCentros&amp;cen=4&amp;activ=TAIA&amp;anio=2026">Tai-chi (adultos)</a></li>
+				<li class="listaColumnaIzda"><a href="/m01-10s/actividadAction.do?accion=verCentros&amp;cen=4&amp;activ=TAI3&amp;anio=2026">Tai-chi (mayores)</a></li>
+				<li class="listaColumnaDcha"><a href="/m01-10s/actividadAction.do?accion=verCentros&amp;cen=4&amp;activ=TARE&amp;anio=2026">Talla de madera realista</a></li>
+				<li class="listaColumnaIzda"><a href="/m01-10s/actividadAction.do?accion=verCentros&amp;cen=4&amp;activ=BPTA&amp;anio=2026">Taller de fomento del apego seguro</a></li>
+				<li class="listaColumnaDcha"><a href="/m01-10s/actividadAction.do?accion=verCentros&amp;cen=4&amp;activ=AUXI&amp;anio=2026">Taller teórico práctico sobre primeros auxilios pediátricos</a></li>
+				<li class="listaColumnaIzda"><a href="/m01-10s/actividadAction.do?accion=verCentros&amp;cen=4&amp;activ=TEAT&amp;anio=2026">Teatro</a></li>
+				<li class="listaColumnaDcha"><a href="/m01-10s/actividadAction.do?accion=verCentros&amp;cen=4&amp;activ=TEA9&amp;anio=2026">Teatro (infantil)</a></li>
+				<li class="listaColumnaIzda"><a href="/m01-10s/actividadAction.do?accion=verCentros&amp;cen=4&amp;activ=TMUA&amp;anio=2026">Tonificación muscular (adultos)</a></li>
+			</ul>
+<h4 class="separadorLista" id="Y">Y</h4>
+<ul class="listaDosColumnas">
+				<li class="listaColumnaIzda"><a href="/m01-10s/actividadAction.do?accion=verCentros&amp;cen=4&amp;activ=YOGT&amp;anio=2026">Yoga (abierto)</a></li>
+				<li class="listaColumnaDcha"><a href="/m01-10s/actividadAction.do?accion=verCentros&amp;cen=4&amp;activ=YOGA&amp;anio=2026">Yoga (adultos)</a></li>
+				<li class="listaColumnaIzda"><a href="/m01-10s/actividadAction.do?accion=verCentros&amp;cen=4&amp;activ=YOG3&amp;anio=2026">Yoga (mayores)</a></li>
+			</ul>
+<h4 class="separadorLista" id="2">2</h4>
+<ul class="listaDosColumnas">
+				<li class="listaColumnaIzda"><a href="/m01-10s/actividadAction.do?accion=verCentros&amp;cen=4&amp;activ=CRYS&amp;anio=2026">2x1 Come rico y sano</a></li>
+			</ul>
+	</div>
+                            </div>
+                         </div>
+					   </div>
+					</section>
+				</div>
+			</div>
+						
+</body></html>

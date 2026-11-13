@@ -20,6 +20,11 @@
       "id": "aragon",
       "country": "ES",
       "name": "Aragón"
+    },
+    {
+      "id": "euskadi",
+      "country": "ES",
+      "name": "Euskadi"
     }
   ],
   "cities": [
@@ -80,6 +85,15 @@
           "es": "Ayuntamiento de Zaragoza",
           "ca": "Ajuntament de Saragossa"
         }
+      }
+    },
+    {
+      "id": "vitoria-gasteiz",
+      "country": "ES",
+      "region": "euskadi",
+      "names": {
+        "es": "Vitoria-Gasteiz",
+        "ca": "Vitòria"
       }
     }
   ]

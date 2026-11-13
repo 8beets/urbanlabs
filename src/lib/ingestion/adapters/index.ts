@@ -3,6 +3,7 @@ import { createMiramAdapter } from './miram';
 import { createTarragonaAdapter } from './tarragona-centres-civics';
 import { createZaragozaAdapter } from './zaragoza-centros-civicos';
 import { createGironaAdapter } from './girona-centres-civics';
+import { createVitoriaAdapter } from './vitoria-gasteiz-actividades';
 import type { FetchOptions } from '../http';
 import type { SourceAdapter, SourceConfig } from '../types';
 
@@ -22,5 +23,7 @@ export function adapterFor(
       return createZaragozaAdapter(options);
     case 'girona-centres-civics':
       return createGironaAdapter(options);
+    case 'vitoria-gasteiz-actividades':
+      return createVitoriaAdapter(options);
   }
 }

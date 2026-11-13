@@ -5,6 +5,7 @@ import esTarragona from '../../../data/centres/es/tarragona.json' with { type: '
 import esBarcelona from '../../../data/centres/es/barcelona.json' with { type: 'json' };
 import esZaragoza from '../../../data/centres/es/zaragoza.json' with { type: 'json' };
 import esGirona from '../../../data/centres/es/girona.json' with { type: 'json' };
+import esVitoriaGasteiz from '../../../data/centres/es/vitoria-gasteiz.json' with { type: 'json' };
 import { centreSchema, toSourceConfig, type Centre } from './schema';
 import type { CentreProfile } from './profile-schema';
 import { geographyCity } from '../locations/registry';
@@ -17,6 +18,7 @@ export const centreFiles: Record<string, unknown[]> = {
   'es/barcelona': esBarcelona,
   'es/girona': esGirona,
   'es/tarragona': esTarragona,
+  'es/vitoria-gasteiz': esVitoriaGasteiz,
   'es/zaragoza': esZaragoza,
 };
 const records = Object.values(centreFiles).flat();

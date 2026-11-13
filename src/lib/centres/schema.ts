@@ -115,6 +115,23 @@ const gironaRegistrationSchema = z.strictObject({
   mayBeEmpty: z.boolean().optional(),
 });
 
+// Vitoria-Gasteiz's civic centres: the sede electrónica's activity search (fixed paths
+// in the adapter), one listing per centre.
+export const VITORIA_ORIGIN = 'https://sedeelectronica.vitoria-gasteiz.org';
+const vitoriaRegistrationSchema = z.strictObject({
+  platform: z.literal('vitoria-gasteiz-actividades'),
+  origin: z.literal(VITORIA_ORIGIN),
+  // The centre's number in the activity search (`cen`), e.g. 4 is C.C. Iparralde.
+  centreCode: z.number().int().positive(),
+  // The centre's name on each group's detail page, e.g. "C.C. IPARRALDE".
+  venue: z.string().min(3).max(100),
+  verifiedAt: z.iso.date(),
+  // Reviewed policy: the `User-agent: *` group disallows other paths (login, file
+  // servlet) but not the activity search; the adapter re-checks it every run.
+  robotsTxt: z.literal('allows-requested-paths'),
+  mayBeEmpty: z.boolean().optional(),
+});
+
 // Add new platforms as further members of this union, each with its own adapter
 // (src/lib/ingestion/adapters) and a case in toSourceConfig.
 export const registrationSchema = z.discriminatedUnion('platform', [
@@ -123,6 +140,7 @@ export const registrationSchema = z.discriminatedUnion('platform', [
   tarragonaRegistrationSchema,
   zaragozaRegistrationSchema,
   gironaRegistrationSchema,
+  vitoriaRegistrationSchema,
 ]);
 
 export const centreSchema = z.strictObject({
@@ -199,6 +217,14 @@ function platformSource(
         ...(registration.codePrefix
           ? { codePrefix: registration.codePrefix }
           : {}),
+      };
+    case 'vitoria-gasteiz-actividades':
+      return {
+        name: `${centre.name} · Centros Cívicos de Vitoria-Gasteiz`,
+        // The centre's activity list; the adapter adds the current season.
+        listingUrl: `${registration.origin}/m01-10s/actividadAction.do?accion=verCentros&cen=${registration.centreCode}`,
+        centreCode: registration.centreCode,
+        venue: registration.venue,
       };
   }
 }
