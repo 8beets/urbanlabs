@@ -132,6 +132,22 @@ const vitoriaRegistrationSchema = z.strictObject({
   mayBeEmpty: z.boolean().optional(),
 });
 
+// El Prat de Llobregat's course guide on www.elprat.cat (fixed paths in the adapter):
+// one guide for the whole city; each course names its centre by the centre's page.
+export const EL_PRAT_ORIGIN = 'https://www.elprat.cat';
+const elPratRegistrationSchema = z.strictObject({
+  platform: z.literal('el-prat-cursos'),
+  origin: z.literal(EL_PRAT_ORIGIN),
+  // The centre's page, as the guide links it from each course, e.g.
+  // "/cultura/centre-civic-jardins-de-la-pau".
+  centrePage: z.string().regex(/^\/[a-z0-9-]+(?:\/[a-z0-9-]+)*$/),
+  verifiedAt: z.iso.date(),
+  // Reviewed policy: the `User-agent: *` group disallows Drupal system paths, not the
+  // guide, and asks for a 10-second crawl delay, which the adapter applies.
+  robotsTxt: z.literal('allows-requested-paths'),
+  mayBeEmpty: z.boolean().optional(),
+});
+
 // Add new platforms as further members of this union, each with its own adapter
 // (src/lib/ingestion/adapters) and a case in toSourceConfig.
 export const registrationSchema = z.discriminatedUnion('platform', [
@@ -141,6 +157,7 @@ export const registrationSchema = z.discriminatedUnion('platform', [
   zaragozaRegistrationSchema,
   gironaRegistrationSchema,
   vitoriaRegistrationSchema,
+  elPratRegistrationSchema,
 ]);
 
 export const centreSchema = z.strictObject({
@@ -225,6 +242,13 @@ function platformSource(
         listingUrl: `${registration.origin}/m01-10s/actividadAction.do?accion=verCentros&cen=${registration.centreCode}`,
         centreCode: registration.centreCode,
         venue: registration.venue,
+      };
+    case 'el-prat-cursos':
+      return {
+        name: `${centre.name} · Guia de cursos i tallers del Prat`,
+        // The centre's page; the adapter reads the city's course guide.
+        listingUrl: `${registration.origin}${registration.centrePage}`,
+        venue: registration.centrePage,
       };
   }
 }

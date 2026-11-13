@@ -3,7 +3,8 @@ import { expect, test } from '@playwright/test';
 test.use({ javaScriptEnabled: false });
 for (const locale of ['es', 'ca']) {
   const cities = `/${locale}/cursos`;
-  const citySearch = /^\/(es|ca)\/(barcelona|girona|zaragoza)\/cursos$/;
+  const citySearch =
+    /^\/(es|ca)\/(barcelona|el-prat-de-llobregat|girona|zaragoza)\/cursos$/;
   test(
     `${locale}: homepage shows only the latest 20 courses and links to separate search`,
     { tag: '@mobile' },

@@ -1,0 +1,92 @@
+[
+  {
+    "id": "cc-prat-jardins-de-la-pau",
+    "slug": "jardins-de-la-pau",
+    "name": "Centre Cívic Jardins de la Pau",
+    "officialUrl": "https://www.elprat.cat/cultura/centre-civic-jardins-de-la-pau",
+    "address": "Jardins de la Pau, 1, El Prat de Llobregat",
+    "country": "ES",
+    "city": "El Prat de Llobregat",
+    "cityId": "el-prat-de-llobregat",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "phone": "934782141",
+      "email": "ccjardinspau@elprat.cat",
+      "detailsSourceUrl": "https://www.elprat.cat/cultura/centre-civic-jardins-de-la-pau",
+      "detailsVerifiedAt": "2026-11-13",
+      "location": {
+        "latitude": 41.3224,
+        "longitude": 2.09883,
+        "sourceUrl": "https://www.elprat.cat/cultura/centre-civic-jardins-de-la-pau",
+        "verifiedAt": "2026-11-13"
+      }
+    },
+    "registration": {
+      "platform": "el-prat-cursos",
+      "origin": "https://www.elprat.cat",
+      "centrePage": "/cultura/centre-civic-jardins-de-la-pau",
+      "verifiedAt": "2026-11-13",
+      "robotsTxt": "allows-requested-paths"
+    }
+  },
+  {
+    "id": "cc-prat-sant-jordi-ribera-baixa",
+    "slug": "sant-jordi-ribera-baixa",
+    "name": "Centre Cívic Sant Jordi - Ribera Baixa",
+    "officialUrl": "https://www.elprat.cat/cultura/centre-civic-sant-jordi-ribera-baixa",
+    "address": "Carrer de Dolores Ibárruri, 45, El Prat de Llobregat",
+    "country": "ES",
+    "city": "El Prat de Llobregat",
+    "cityId": "el-prat-de-llobregat",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "phone": "933741580",
+      "email": "ccriberabaixa@elprat.cat",
+      "detailsSourceUrl": "https://www.elprat.cat/cultura/centre-civic-sant-jordi-ribera-baixa",
+      "detailsVerifiedAt": "2026-11-13",
+      "location": {
+        "latitude": 41.3198,
+        "longitude": 2.08614,
+        "sourceUrl": "https://www.elprat.cat/cultura/centre-civic-sant-jordi-ribera-baixa",
+        "verifiedAt": "2026-11-13"
+      }
+    },
+    "registration": {
+      "platform": "el-prat-cursos",
+      "origin": "https://www.elprat.cat",
+      "centrePage": "/cultura/centre-civic-sant-jordi-ribera-baixa",
+      "verifiedAt": "2026-11-13",
+      "robotsTxt": "allows-requested-paths"
+    }
+  },
+  {
+    "id": "cc-prat-palmira-domenech",
+    "slug": "palmira-domenech",
+    "name": "Centre Cívic Palmira Domènech",
+    "officialUrl": "https://www.elprat.cat/cultura/centre-civic-palmira-domenech/centre-civic-palmira-domenech",
+    "address": "Carrer de Lo Gaiter del Llobregat, 112, El Prat de Llobregat",
+    "country": "ES",
+    "city": "El Prat de Llobregat",
+    "cityId": "el-prat-de-llobregat",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "phone": "934794535",
+      "email": "ccpalmiradomenech@elprat.cat",
+      "detailsSourceUrl": "https://www.elprat.cat/cultura/centre-civic-palmira-domenech/centre-civic-palmira-domenech",
+      "detailsVerifiedAt": "2026-11-13",
+      "location": {
+        "latitude": 41.3303,
+        "longitude": 2.10042,
+        "sourceUrl": "https://www.elprat.cat/cultura/centre-civic-palmira-domenech/centre-civic-palmira-domenech",
+        "verifiedAt": "2026-11-13"
+      }
+    },
+    "registration": {
+      "platform": "el-prat-cursos",
+      "origin": "https://www.elprat.cat",
+      "centrePage": "/cultura/centre-civic-palmira-domenech/centre-civic-palmira-domenech",
+      "verifiedAt": "2026-11-13",
+      "robotsTxt": "allows-requested-paths"
+    }
+  }
+]

@@ -95,6 +95,22 @@
         "es": "Vitoria-Gasteiz",
         "ca": "Vitòria"
       }
+    },
+    {
+      "id": "el-prat-de-llobregat",
+      "country": "ES",
+      "region": "catalunya",
+      "names": {
+        "es": "El Prat de Llobregat",
+        "ca": "El Prat de Llobregat"
+      },
+      "dataCredit": {
+        "url": "https://www.elprat.cat/avis-legal-i-politica-de-privacitat",
+        "names": {
+          "es": "Ayuntamiento de El Prat de Llobregat",
+          "ca": "Ajuntament del Prat de Llobregat"
+        }
+      }
     }
   ]
 }

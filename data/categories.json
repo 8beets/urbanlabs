@@ -25,7 +25,10 @@
       "Artesania tèxtil - anuals",
       "Artesania tèxtil - monogràfics",
       "Manualitats - anuals",
-      "Manualitats - monogràfics"
+      "Manualitats - monogràfics",
+      "Manualitats",
+      "Dibuix, pintura i escultura",
+      "Disseny"
     ],
     "fotografia-i-audiovisual": [
       "FOTOGRAFIA",
@@ -39,7 +42,8 @@
       "Ràdio i pòdcast",
       "Cine",
       "Imagen y sonido",
-      "Fotografia i audiovisual"
+      "Fotografia i audiovisual",
+      "Fotografia i audiovisuals"
     ],
     "musica": [
       "MÚSICA",
@@ -88,7 +92,9 @@
       "Benestar",
       "Benestar personal",
       "Deporte",
-      "Activitats físiques - anuals"
+      "Activitats físiques - anuals",
+      "Esports activitats aquàtiques",
+      "Esports activitats físiques"
     ],
     "benestar": [
       "Creixement personal",
@@ -129,7 +135,8 @@
       "SORTIDES",
       "VISITES CULTURALS,VISITES GUIADES, SORTIDES i EXCURSIONS",
       "Espai Dona",
-      "Ciència, literatura i pensament"
+      "Ciència, literatura i pensament",
+      "Lectura i escriptura"
     ],
     "tecnologia": [
       "NOVES TECNOLOGIES",
@@ -144,7 +151,8 @@
       "1_Tallers de creació multimèdia i maker",
       "4_Tallers d'informàtica per a gent gran",
       "3_Tallers de fabricació digital i robòtica per infants, adolescents i joves",
-      "Comunicació, noves tecnologies i robòtica"
+      "Comunicació, noves tecnologies i robòtica",
+      "Informàtica, internet i noves tecnologies"
     ],
     "natura": [
       "Medi ambient",
@@ -156,7 +164,9 @@
       "Aula Ambiental",
       "Itineraris d'Aula Ambiental",
       "MÉS ECO",
-      "Natura, ecologia i sostenibilitat"
+      "Natura, ecologia i sostenibilitat",
+      "Jardineria",
+      "Sostenibilitat"
     ]
   },
   "mixed": [
