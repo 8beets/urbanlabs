@@ -48,6 +48,9 @@ const miramRegistrationSchema = z.strictObject({
   // normal successful run with zero editions instead of a failure needing review.
   mayBeEmpty: z.boolean().optional(),
   exclusions: z.array(exclusionSchema).optional(),
+  // A host shared by several centres (Cotxeres-Casinet): keep only cards whose "Espai"
+  // line contains one of these texts (case and accents ignored), e.g. a street address.
+  venues: z.array(z.string().min(3).max(100)).min(1).optional(),
 });
 
 // Alicante's municipal "Aula Abierta" culture classes: one page per classroom.
@@ -244,14 +247,21 @@ function platformSource(
   registration: Centre['registration'],
 ): Pick<
   SourceConfig,
-  'name' | 'listingUrl' | 'centreCode' | 'venue' | 'codePrefix'
+  'name' | 'listingUrl' | 'centreCode' | 'venue' | 'venues' | 'codePrefix'
 > {
   switch (registration.platform) {
     case 'miram':
-      return {
-        name: `${centre.name} · Miram`,
-        listingUrl: miramListingUrl(registration),
-      };
+      return registration.venues
+        ? {
+            name: `${centre.name} · Miram`,
+            // Listing URLs are unique; the adapter ignores the fragment.
+            listingUrl: `${miramListingUrl(registration)}#${centre.slug}`,
+            venues: registration.venues,
+          }
+        : {
+            name: `${centre.name} · Miram`,
+            listingUrl: miramListingUrl(registration),
+          };
     case 'alicante-aula-abierta':
       return {
         name: `${centre.name} · Aula Abierta`,

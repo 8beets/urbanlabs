@@ -1528,5 +1528,142 @@
       "verifiedAt": "2026-11-11",
       "robotsTxt": "absent"
     }
+  },
+  {
+    "id": "cc-cotxeres-de-sants",
+    "slug": "cotxeres-de-sants",
+    "name": "Centre Cívic Cotxeres de Sants",
+    "officialUrl": "https://ajuntament.barcelona.cat/centrescivics/es/centre-civic/centre-civic-cotxeres-de-sants",
+    "address": "Carrer de Sants, 79, 08014 Barcelona",
+    "country": "ES",
+    "city": "Barcelona",
+    "cityId": "barcelona",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "phone": "932918701",
+      "detailsSourceUrl": "https://guia.barcelona.cat/ca/detall/centre-civic-cotxeres-de-sants_92086002380.html",
+      "detailsVerifiedAt": "2026-11-13",
+      "location": {
+        "latitude": 41.37529848802473,
+        "longitude": 2.136897693555585,
+        "sourceUrl": "https://guia.barcelona.cat/ca/detall/centre-civic-cotxeres-de-sants_92086002380.html",
+        "verifiedAt": "2026-11-13"
+      },
+      "email": "cotxeres-casinet@secretariat.cat"
+    },
+    "registration": {
+      "platform": "miram",
+      "origin": "https://cotxerescasinet.inscripcionscc.com",
+      "centreCode": 34,
+      "activityType": "AC",
+      "verifiedAt": "2026-11-13",
+      "robotsTxt": "absent",
+      "exclusions": [
+        {
+          "categoryCode": "20",
+          "reason": "Online-only workshops (\"Aula virtual\") are outside the in-person directory."
+        }
+      ],
+      "venues": ["Sants, 79", "Bonet i Muixí"]
+    }
+  },
+  {
+    "id": "cc-casinet-d-hostafrancs",
+    "slug": "casinet-d-hostafrancs",
+    "name": "Centre Cívic Casinet d'Hostafrancs",
+    "officialUrl": "https://ajuntament.barcelona.cat/centrescivics/es/centre-civic/centre-civic-casinet-dhostafrancs",
+    "address": "Carrer del Rector Triadó, 53, Barcelona",
+    "country": "ES",
+    "city": "Barcelona",
+    "cityId": "barcelona",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "phone": "934230440",
+      "detailsSourceUrl": "https://guia.barcelona.cat/ca/detall/centre-civic-casinet-d-hostafrancs_92086002472.html",
+      "detailsVerifiedAt": "2026-11-13",
+      "location": {
+        "latitude": 41.37785807405671,
+        "longitude": 2.1432215181756806,
+        "sourceUrl": "https://guia.barcelona.cat/ca/detall/centre-civic-casinet-d-hostafrancs_92086002472.html",
+        "verifiedAt": "2026-11-13"
+      },
+      "email": "cotxeres-casinet@secretariat.cat"
+    },
+    "registration": {
+      "platform": "miram",
+      "origin": "https://cotxerescasinet.inscripcionscc.com",
+      "centreCode": 34,
+      "activityType": "AC",
+      "verifiedAt": "2026-11-13",
+      "robotsTxt": "absent",
+      "exclusions": [
+        {
+          "categoryCode": "20",
+          "reason": "Online-only workshops (\"Aula virtual\") are outside the in-person directory."
+        }
+      ],
+      "venues": ["Rector Triadó, 53"]
+    }
+  },
+  {
+    "id": "cc-josep-maria-trias-i-peitx",
+    "slug": "josep-maria-trias-i-peitx",
+    "name": "Centre Cívic Josep Maria Trias i Peitx",
+    "officialUrl": "https://ajuntament.barcelona.cat/ccivics/josepmtriasipeitx",
+    "address": "Riera Blanca, 1-3, 08028 Barcelona",
+    "country": "ES",
+    "city": "Barcelona",
+    "cityId": "barcelona",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "phone": "934480499",
+      "detailsSourceUrl": "https://guia.barcelona.cat/ca/detall/centre-civic-josep-maria-trias-i-peitx_90120343.html",
+      "detailsVerifiedAt": "2026-11-13",
+      "location": {
+        "latitude": 41.377779238441946,
+        "longitude": 2.1217600571556323,
+        "sourceUrl": "https://guia.barcelona.cat/ca/detall/centre-civic-josep-maria-trias-i-peitx_90120343.html",
+        "verifiedAt": "2026-11-13"
+      }
+    },
+    "registration": {
+      "platform": "miram",
+      "origin": "https://ccjmtriasipeitx.inscripcionscc.com",
+      "centreCode": 45,
+      "activityType": "AC",
+      "verifiedAt": "2026-11-13",
+      "robotsTxt": "absent"
+    }
+  },
+  {
+    "id": "cc-la-cadena",
+    "slug": "la-cadena",
+    "name": "Centre Cívic La Cadena",
+    "officialUrl": "https://ajuntament.barcelona.cat/ccivics/lacadena",
+    "address": "Carrer de la Mare de Déu de Port, 397, 08038 Barcelona",
+    "country": "ES",
+    "city": "Barcelona",
+    "cityId": "barcelona",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "phone": "933313498",
+      "detailsSourceUrl": "https://guia.barcelona.cat/ca/detall/centre-civic-la-cadena_92086020976.html",
+      "detailsVerifiedAt": "2026-11-13",
+      "location": {
+        "latitude": 41.36419051493964,
+        "longitude": 2.139088742010841,
+        "sourceUrl": "https://guia.barcelona.cat/ca/detall/centre-civic-la-cadena_92086020976.html",
+        "verifiedAt": "2026-11-13"
+      }
+    },
+    "registration": {
+      "platform": "miram",
+      "origin": "https://lacadena.inscripcionscc.com",
+      "centreCode": 33,
+      "activityType": "AC",
+      "verifiedAt": "2026-11-13",
+      "robotsTxt": "absent",
+      "mayBeEmpty": true
+    }
   }
 ]
