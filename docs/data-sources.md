@@ -278,6 +278,17 @@ Researched 2026-11-13 (issue #118); 13 civic centres registered in `data/centres
 - **Profiles.** Address and phone from each centre's page (`/centres-civics-relacio/<centre>`); no coordinates are published there.
 - **Permission pending.** The [Condicions d'ús](https://web.sabadell.cat/condicions-d-us) say "queden prohibides la reproducció —excepte per a l'ús privat—, transformació, distribució, comunicació pública … de tot o part dels continguts". All 13 centres carry `pausedReason`: validated but **not ingested, scheduled or published** until written permission is granted. A draft request is in `docs/sabadell-permission-request.md`.
 
+## Madrid — Centros culturales de distrito (open dataset), paused
+
+Researched 2026-11-12 (issue #98); 83 district cultural centres registered in `data/centres/es/madrid.json`. Adapter `madrid-datos-cursos`.
+
+- **Where the data is.** The open dataset [Cursos y talleres en los centros culturales de los distritos](https://datos.madrid.es/dataset/50064-0-talleres-culturales-cursos) (CC BY 4.0). CKAN `package_show` lists dated CSV/JSON/XML snapshots; the adapter takes the CSV with the newest `last_modified` (semicolon-separated, UTF-8 with BOM). One row per course group: centre (`ORGANISMO_DESC`), activity, group, audience, places and a duration and start time per weekday. The snapshot is read once per process (cached for an hour) and each centre's source keeps the rows whose trimmed `ORGANISMO_DESC` is its `organism`.
+- **Records.** Title is `ACTIVIDAD_DESC`; the schedule is built from the weekday columns ("Lunes y miércoles, 19:00 (1 hora)"). The dataset has no course dates, prices, pages or ids: dates and price stay unknown and the official URL is the centre's madrid.es page. Identity is the activity, group and audience (the same group name exists for children and adults), as a slug plus a hash of the exact source values; a renamed activity or group becomes a new edition. `NUM_PLAZAS_LIBRES` = 0 is stored as sold out (an explicit count on the snapshot date). No source category is kept yet, so topics come from titles only.
+- **Snapshot check.** The 2026-11-11 snapshot (6,345 rows, 84 centres) maps to 6,305 valid records with unique ids per centre; 3 groups list no weekday and get no schedule.
+- **Centres.** Matched by hand-reviewed name and district to the [Centros culturales municipales](https://datos.madrid.es/dataset/200304-0-centros-culturales) directory (CC BY 4.0), which gives the name, address, coordinates and madrid.es page. "C.C. USERA" (40 rows) is left out: the directory has both "Centro Cultural Usera 1" and "Usera 2" and the dataset does not say which.
+- **Access blocked.** On 2026-11-13 `datos.madrid.es/robots.txt` started disallowing `/api/`, `/dataset/*/resource/*` and any query string for `User-agent: *`, with `Crawl-delay: 10`; the legacy `/egob/catalogo/…` URLs redirect to the blocked downloads, and datos.gob.es links to the same files. The district registration catalogue on sede.madrid.es answers "Access Denied" (Akamai) to automated clients. All 83 centres carry `pausedReason`: validated but **not ingested, scheduled or published** until automated access is allowed. The adapter checks robots.txt for both the API and the CSV path, so it stops on its own while the rules stand. A draft request is in `docs/madrid-permission-request.md`.
+- **Attribution.** `data/geography.json` gives Madrid a `dataCredit` for the CC BY 4.0 notice.
+
 ## Investigated and deferred
 
 ### FAB Casa del Rellotge — official programme link

@@ -1,0 +1,33 @@
+{
+  "success": true,
+  "result": {
+    "name": "50064-0-talleres-culturales-cursos",
+    "license_id": "cc-by",
+    "resources": [
+      {
+        "format": "CSV",
+        "url": "https://datos.madrid.es/dataset/50064-0-talleres-culturales-cursos/resource/50064-42-talleres-culturales-cursos/download/50064-0-talleres-culturales-cursos_134_20261031_195131.csv",
+        "last_modified": "2026-10-31T19:51:34.248997",
+        "name": "50064-42-talleres-culturales-cursos"
+      },
+      {
+        "format": "JSON",
+        "url": "https://datos.madrid.es/dataset/50064-0-talleres-culturales-cursos/resource/50064-43-talleres-culturales-cursos/download/50064-0-talleres-culturales-cursos_134_20261031_195131.json",
+        "last_modified": "2026-10-31T19:51:41.402817",
+        "name": "50064-43-talleres-culturales-cursos"
+      },
+      {
+        "format": "CSV",
+        "url": "https://datos.madrid.es/dataset/50064-0-talleres-culturales-cursos/resource/50064-45-talleres-culturales-cursos/download/50064-0-talleres-culturales-cursos_134_20261111_195807.csv",
+        "last_modified": "2026-11-11T19:58:10.963783",
+        "name": "50064-45-talleres-culturales-cursos"
+      },
+      {
+        "format": "JSON",
+        "url": "https://datos.madrid.es/dataset/50064-0-talleres-culturales-cursos/resource/50064-46-talleres-culturales-cursos/download/50064-0-talleres-culturales-cursos_134_20261111_195807.json",
+        "last_modified": "2026-11-11T19:58:19.648772",
+        "name": "50064-46-talleres-culturales-cursos"
+      }
+    ]
+  }
+}

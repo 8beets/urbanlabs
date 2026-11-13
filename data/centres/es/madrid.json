@@ -1,0 +1,2160 @@
+[
+  {
+    "id": "cc-mad-centro-cultural-agustin-diaz",
+    "slug": "centro-cultural-agustin-diaz",
+    "name": "Centro Cultural Agustín Díaz (Moncloa - Aravaca)",
+    "officialUrl": "https://www.madrid.es/sites/v/index.jsp?vgnextchannel=bfa48ab43d6bb410VgnVCM100000171f5a0aRCRD&vgnextoid=2d07cbf06c81c010VgnVCM1000000b205a0aRCRD",
+    "address": "PASEO COMANDANTE FORTEA 42, 28008 Madrid",
+    "country": "ES",
+    "city": "Madrid",
+    "cityId": "madrid",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "location": {
+        "latitude": 40.427542,
+        "longitude": -3.732411,
+        "sourceUrl": "https://datos.madrid.es/dataset/200304-0-centros-culturales",
+        "verifiedAt": "2026-11-12"
+      }
+    },
+    "pausedReason": "Awaiting permission from the Ayuntamiento de Madrid: datos.madrid.es publishes the course dataset under CC BY 4.0, but its robots.txt (as found on 2026-11-13) disallows the CKAN API and resource downloads for automated clients, so ingestion is held until automated access is allowed.",
+    "registration": {
+      "platform": "madrid-datos-cursos",
+      "origin": "https://datos.madrid.es",
+      "organism": "C.C. AGUSTIN DIAZ",
+      "verifiedAt": "2026-11-12"
+    }
+  },
+  {
+    "id": "cc-mad-centro-cultural-alfonso-ussia-valdebebas",
+    "slug": "centro-cultural-alfonso-ussia-valdebebas",
+    "name": "Centro Cultural Alfonso Ussía - Valdebebas (Hortaleza)",
+    "officialUrl": "https://www.madrid.es/sites/v/index.jsp?vgnextchannel=bfa48ab43d6bb410VgnVCM100000171f5a0aRCRD&vgnextoid=7f25783ccfb60a10VgnVCM200000f921e388RCRD",
+    "address": "CALLE JORDI SOLE TURA 34 Acceso por C/ Gustavo Pérez Puig, 87, 28055 Madrid",
+    "country": "ES",
+    "city": "Madrid",
+    "cityId": "madrid",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "location": {
+        "latitude": 40.49323,
+        "longitude": -3.607806,
+        "sourceUrl": "https://datos.madrid.es/dataset/200304-0-centros-culturales",
+        "verifiedAt": "2026-11-12"
+      }
+    },
+    "pausedReason": "Awaiting permission from the Ayuntamiento de Madrid: datos.madrid.es publishes the course dataset under CC BY 4.0, but its robots.txt (as found on 2026-11-13) disallows the CKAN API and resource downloads for automated clients, so ingestion is held until automated access is allowed.",
+    "registration": {
+      "platform": "madrid-datos-cursos",
+      "origin": "https://datos.madrid.es",
+      "organism": "CENTRO CULTURAL VALDEBEBAS",
+      "verifiedAt": "2026-11-12"
+    }
+  },
+  {
+    "id": "cc-mad-centro-cultural-alfredo-kraus",
+    "slug": "centro-cultural-alfredo-kraus",
+    "name": "Centro Cultural Alfredo Kraus (Fuencarral - El Pardo)",
+    "officialUrl": "https://www.madrid.es/sites/v/index.jsp?vgnextchannel=bfa48ab43d6bb410VgnVCM100000171f5a0aRCRD&vgnextoid=7337cbf06c81c010VgnVCM1000000b205a0aRCRD",
+    "address": "GLORIETA PRADERA DE VAQUERIZAS 9, 28035 Madrid",
+    "country": "ES",
+    "city": "Madrid",
+    "cityId": "madrid",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "location": {
+        "latitude": 40.490823,
+        "longitude": -3.721605,
+        "sourceUrl": "https://datos.madrid.es/dataset/200304-0-centros-culturales",
+        "verifiedAt": "2026-11-12"
+      }
+    },
+    "pausedReason": "Awaiting permission from the Ayuntamiento de Madrid: datos.madrid.es publishes the course dataset under CC BY 4.0, but its robots.txt (as found on 2026-11-13) disallows the CKAN API and resource downloads for automated clients, so ingestion is held until automated access is allowed.",
+    "registration": {
+      "platform": "madrid-datos-cursos",
+      "origin": "https://datos.madrid.es",
+      "organism": "C.C. ALFREDO KRAUS",
+      "verifiedAt": "2026-11-12"
+    }
+  },
+  {
+    "id": "cc-mad-centro-cultural-antonio-machado",
+    "slug": "centro-cultural-antonio-machado",
+    "name": "Centro Cultural Antonio Machado (San Blas - Canillejas)",
+    "officialUrl": "https://www.madrid.es/sites/v/index.jsp?vgnextchannel=bfa48ab43d6bb410VgnVCM100000171f5a0aRCRD&vgnextoid=cce43d0b5e71c010VgnVCM1000000b205a0aRCRD",
+    "address": "CALLE SAN ROMAN DEL VALLE 8, 28037 Madrid",
+    "country": "ES",
+    "city": "Madrid",
+    "cityId": "madrid",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "location": {
+        "latitude": 40.42028,
+        "longitude": -3.621731,
+        "sourceUrl": "https://datos.madrid.es/dataset/200304-0-centros-culturales",
+        "verifiedAt": "2026-11-12"
+      }
+    },
+    "pausedReason": "Awaiting permission from the Ayuntamiento de Madrid: datos.madrid.es publishes the course dataset under CC BY 4.0, but its robots.txt (as found on 2026-11-13) disallows the CKAN API and resource downloads for automated clients, so ingestion is held until automated access is allowed.",
+    "registration": {
+      "platform": "madrid-datos-cursos",
+      "origin": "https://datos.madrid.es",
+      "organism": "C.C. ANTONIO MACHADO",
+      "verifiedAt": "2026-11-12"
+    }
+  },
+  {
+    "id": "cc-mad-centro-cultural-benjamin-palencia",
+    "slug": "centro-cultural-benjamin-palencia",
+    "name": "Centro Cultural Benjamín Palencia (Villa de Vallecas)",
+    "officialUrl": "https://www.madrid.es/sites/v/index.jsp?vgnextchannel=bfa48ab43d6bb410VgnVCM100000171f5a0aRCRD&vgnextoid=5763948ed2cdc910VgnVCM100000891ecb1aRCRD",
+    "address": "AVENIDA LA GAVIA 55, 28051 Madrid",
+    "country": "ES",
+    "city": "Madrid",
+    "cityId": "madrid",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "location": {
+        "latitude": 40.366911,
+        "longitude": -3.616442,
+        "sourceUrl": "https://datos.madrid.es/dataset/200304-0-centros-culturales",
+        "verifiedAt": "2026-11-12"
+      }
+    },
+    "pausedReason": "Awaiting permission from the Ayuntamiento de Madrid: datos.madrid.es publishes the course dataset under CC BY 4.0, but its robots.txt (as found on 2026-11-13) disallows the CKAN API and resource downloads for automated clients, so ingestion is held until automated access is allowed.",
+    "registration": {
+      "platform": "madrid-datos-cursos",
+      "origin": "https://datos.madrid.es",
+      "organism": "CENTRO CULTURAL Y BIBLIOTECA BENJAMÍN PALENCIA",
+      "verifiedAt": "2026-11-12"
+    }
+  },
+  {
+    "id": "cc-mad-centro-cultural-buenavista",
+    "slug": "centro-cultural-buenavista",
+    "name": "Centro Cultural Buenavista (Salamanca)",
+    "officialUrl": "https://www.madrid.es/sites/v/index.jsp?vgnextchannel=bfa48ab43d6bb410VgnVCM100000171f5a0aRCRD&vgnextoid=068e598d1351c010VgnVCM1000000b205a0aRCRD",
+    "address": "AVENIDA TOREROS 5, 28028 Madrid",
+    "country": "ES",
+    "city": "Madrid",
+    "cityId": "madrid",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "location": {
+        "latitude": 40.432,
+        "longitude": -3.670905,
+        "sourceUrl": "https://datos.madrid.es/dataset/200304-0-centros-culturales",
+        "verifiedAt": "2026-11-12"
+      }
+    },
+    "pausedReason": "Awaiting permission from the Ayuntamiento de Madrid: datos.madrid.es publishes the course dataset under CC BY 4.0, but its robots.txt (as found on 2026-11-13) disallows the CKAN API and resource downloads for automated clients, so ingestion is held until automated access is allowed.",
+    "registration": {
+      "platform": "madrid-datos-cursos",
+      "origin": "https://datos.madrid.es",
+      "organism": "C.C. BUENAVISTA",
+      "verifiedAt": "2026-11-12"
+    }
+  },
+  {
+    "id": "cc-mad-centro-cultural-buero-vallejo",
+    "slug": "centro-cultural-buero-vallejo",
+    "name": "Centro Cultural Buero Vallejo (San Blas - Canillejas)",
+    "officialUrl": "https://www.madrid.es/sites/v/index.jsp?vgnextchannel=bfa48ab43d6bb410VgnVCM100000171f5a0aRCRD&vgnextoid=98953d0b5e71c010VgnVCM1000000b205a0aRCRD",
+    "address": "CALLE BOLTAÑA 27, 28022 Madrid",
+    "country": "ES",
+    "city": "Madrid",
+    "cityId": "madrid",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "location": {
+        "latitude": 40.444775,
+        "longitude": -3.612911,
+        "sourceUrl": "https://datos.madrid.es/dataset/200304-0-centros-culturales",
+        "verifiedAt": "2026-11-12"
+      }
+    },
+    "pausedReason": "Awaiting permission from the Ayuntamiento de Madrid: datos.madrid.es publishes the course dataset under CC BY 4.0, but its robots.txt (as found on 2026-11-13) disallows the CKAN API and resource downloads for automated clients, so ingestion is held until automated access is allowed.",
+    "registration": {
+      "platform": "madrid-datos-cursos",
+      "origin": "https://datos.madrid.es",
+      "organism": "C.C. BUERO VALLEJO",
+      "verifiedAt": "2026-11-12"
+    }
+  },
+  {
+    "id": "cc-mad-centro-cultural-carril-del-conde",
+    "slug": "centro-cultural-carril-del-conde",
+    "name": "Centro Cultural Carril del Conde (Hortaleza)",
+    "officialUrl": "https://www.madrid.es/sites/v/index.jsp?vgnextchannel=bfa48ab43d6bb410VgnVCM100000171f5a0aRCRD&vgnextoid=66a7cbf06c81c010VgnVCM1000000b205a0aRCRD",
+    "address": "CALLE CARRIL DEL CONDE 57, 28043 Madrid",
+    "country": "ES",
+    "city": "Madrid",
+    "cityId": "madrid",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "location": {
+        "latitude": 40.460895,
+        "longitude": -3.654367,
+        "sourceUrl": "https://datos.madrid.es/dataset/200304-0-centros-culturales",
+        "verifiedAt": "2026-11-12"
+      }
+    },
+    "pausedReason": "Awaiting permission from the Ayuntamiento de Madrid: datos.madrid.es publishes the course dataset under CC BY 4.0, but its robots.txt (as found on 2026-11-13) disallows the CKAN API and resource downloads for automated clients, so ingestion is held until automated access is allowed.",
+    "registration": {
+      "platform": "madrid-datos-cursos",
+      "origin": "https://datos.madrid.es",
+      "organism": "C.C. CARRIL DEL CONDE",
+      "verifiedAt": "2026-11-12"
+    }
+  },
+  {
+    "id": "cc-mad-centro-cultural-casa-del-reloj",
+    "slug": "centro-cultural-casa-del-reloj",
+    "name": "Centro Cultural Casa del Reloj (Arganzuela)",
+    "officialUrl": "https://www.madrid.es/sites/v/index.jsp?vgnextchannel=bfa48ab43d6bb410VgnVCM100000171f5a0aRCRD&vgnextoid=8b063d0b5e71c010VgnVCM1000000b205a0aRCRD",
+    "address": "PASEO CHOPERA 6, 28045 Madrid",
+    "country": "ES",
+    "city": "Madrid",
+    "cityId": "madrid",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "location": {
+        "latitude": 40.394668,
+        "longitude": -3.700397,
+        "sourceUrl": "https://datos.madrid.es/dataset/200304-0-centros-culturales",
+        "verifiedAt": "2026-11-12"
+      }
+    },
+    "pausedReason": "Awaiting permission from the Ayuntamiento de Madrid: datos.madrid.es publishes the course dataset under CC BY 4.0, but its robots.txt (as found on 2026-11-13) disallows the CKAN API and resource downloads for automated clients, so ingestion is held until automated access is allowed.",
+    "registration": {
+      "platform": "madrid-datos-cursos",
+      "origin": "https://datos.madrid.es",
+      "organism": "C.C. \"CASA DEL RELOJ\"",
+      "verifiedAt": "2026-11-12"
+    }
+  },
+  {
+    "id": "cc-mad-centro-cultural-centro-socio-cultural-villa-de-barajas",
+    "slug": "centro-cultural-centro-socio-cultural-villa-de-barajas",
+    "name": "Centro Cultural - Centro Socio Cultural Villa de Barajas",
+    "officialUrl": "https://www.madrid.es/sites/v/index.jsp?vgnextchannel=bfa48ab43d6bb410VgnVCM100000171f5a0aRCRD&vgnextoid=476c1e79ee71c010VgnVCM1000000b205a0aRCRD",
+    "address": "CALLE BOTICA 7 Y 10, 28042 Madrid",
+    "country": "ES",
+    "city": "Madrid",
+    "cityId": "madrid",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "location": {
+        "latitude": 40.473249,
+        "longitude": -3.578491,
+        "sourceUrl": "https://datos.madrid.es/dataset/200304-0-centros-culturales",
+        "verifiedAt": "2026-11-12"
+      }
+    },
+    "pausedReason": "Awaiting permission from the Ayuntamiento de Madrid: datos.madrid.es publishes the course dataset under CC BY 4.0, but its robots.txt (as found on 2026-11-13) disallows the CKAN API and resource downloads for automated clients, so ingestion is held until automated access is allowed.",
+    "registration": {
+      "platform": "madrid-datos-cursos",
+      "origin": "https://datos.madrid.es",
+      "organism": "C.C. VILLA DE BARAJAS",
+      "verifiedAt": "2026-11-12"
+    }
+  },
+  {
+    "id": "cc-mad-centro-cultural-ciudad-pegaso",
+    "slug": "centro-cultural-ciudad-pegaso",
+    "name": "Centro Cultural Ciudad Pegaso (San Blas - Canillejas)",
+    "officialUrl": "https://www.madrid.es/sites/v/index.jsp?vgnextchannel=bfa48ab43d6bb410VgnVCM100000171f5a0aRCRD&vgnextoid=07f63190712b1110VgnVCM1000000b205a0aRCRD",
+    "address": "AVENIDA SEPTIMA 11, 28022 Madrid",
+    "country": "ES",
+    "city": "Madrid",
+    "cityId": "madrid",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "location": {
+        "latitude": 40.448448,
+        "longitude": -3.5981,
+        "sourceUrl": "https://datos.madrid.es/dataset/200304-0-centros-culturales",
+        "verifiedAt": "2026-11-12"
+      }
+    },
+    "pausedReason": "Awaiting permission from the Ayuntamiento de Madrid: datos.madrid.es publishes the course dataset under CC BY 4.0, but its robots.txt (as found on 2026-11-13) disallows the CKAN API and resource downloads for automated clients, so ingestion is held until automated access is allowed.",
+    "registration": {
+      "platform": "madrid-datos-cursos",
+      "origin": "https://datos.madrid.es",
+      "organism": "C.C. CIUDAD PEGASO",
+      "verifiedAt": "2026-11-12"
+    }
+  },
+  {
+    "id": "cc-mad-centro-cultural-clara-del-rey-museo-abc",
+    "slug": "centro-cultural-clara-del-rey-museo-abc",
+    "name": "Centro Cultural Clara del Rey - Museo ABC (Centro)",
+    "officialUrl": "https://www.madrid.es/sites/v/index.jsp?vgnextchannel=bfa48ab43d6bb410VgnVCM100000171f5a0aRCRD&vgnextoid=b8afb908d1825810VgnVCM1000001d4a900aRCRD",
+    "address": "CALLE AMANIEL 29, 28015 Madrid",
+    "country": "ES",
+    "city": "Madrid",
+    "cityId": "madrid",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "location": {
+        "latitude": 40.427413,
+        "longitude": -3.709538,
+        "sourceUrl": "https://datos.madrid.es/dataset/200304-0-centros-culturales",
+        "verifiedAt": "2026-11-12"
+      }
+    },
+    "pausedReason": "Awaiting permission from the Ayuntamiento de Madrid: datos.madrid.es publishes the course dataset under CC BY 4.0, but its robots.txt (as found on 2026-11-13) disallows the CKAN API and resource downloads for automated clients, so ingestion is held until automated access is allowed.",
+    "registration": {
+      "platform": "madrid-datos-cursos",
+      "origin": "https://datos.madrid.es",
+      "organism": "C.C. \"CLARA DEL REY\"",
+      "verifiedAt": "2026-11-12"
+    }
+  },
+  {
+    "id": "cc-mad-centro-cultural-eduardo-urculo",
+    "slug": "centro-cultural-eduardo-urculo",
+    "name": "Centro Cultural Eduardo Úrculo (Tetuán)",
+    "officialUrl": "https://www.madrid.es/sites/v/index.jsp?vgnextchannel=bfa48ab43d6bb410VgnVCM100000171f5a0aRCRD&vgnextoid=f8f9338588355210VgnVCM1000000b205a0aRCRD",
+    "address": "PLAZA DONOSO 5, 28029 Madrid",
+    "country": "ES",
+    "city": "Madrid",
+    "cityId": "madrid",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "location": {
+        "latitude": 40.469008,
+        "longitude": -3.697596,
+        "sourceUrl": "https://datos.madrid.es/dataset/200304-0-centros-culturales",
+        "verifiedAt": "2026-11-12"
+      }
+    },
+    "pausedReason": "Awaiting permission from the Ayuntamiento de Madrid: datos.madrid.es publishes the course dataset under CC BY 4.0, but its robots.txt (as found on 2026-11-13) disallows the CKAN API and resource downloads for automated clients, so ingestion is held until automated access is allowed.",
+    "registration": {
+      "platform": "madrid-datos-cursos",
+      "origin": "https://datos.madrid.es",
+      "organism": "C.C. EDUARDO URCULO",
+      "verifiedAt": "2026-11-12"
+    }
+  },
+  {
+    "id": "cc-mad-centro-cultural-el-madrono",
+    "slug": "centro-cultural-el-madrono",
+    "name": "Centro Cultural el Madroño (Vicálvaro)",
+    "officialUrl": "https://www.madrid.es/sites/v/index.jsp?vgnextchannel=bfa48ab43d6bb410VgnVCM100000171f5a0aRCRD&vgnextoid=57b63d0b5e71c010VgnVCM1000000b205a0aRCRD",
+    "address": "CALLE VILLARDONDIEGO 36, 28032 Madrid",
+    "country": "ES",
+    "city": "Madrid",
+    "cityId": "madrid",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "location": {
+        "latitude": 40.405292,
+        "longitude": -3.608615,
+        "sourceUrl": "https://datos.madrid.es/dataset/200304-0-centros-culturales",
+        "verifiedAt": "2026-11-12"
+      }
+    },
+    "pausedReason": "Awaiting permission from the Ayuntamiento de Madrid: datos.madrid.es publishes the course dataset under CC BY 4.0, but its robots.txt (as found on 2026-11-13) disallows the CKAN API and resource downloads for automated clients, so ingestion is held until automated access is allowed.",
+    "registration": {
+      "platform": "madrid-datos-cursos",
+      "origin": "https://datos.madrid.es",
+      "organism": "C.C. EL MADROÑO",
+      "verifiedAt": "2026-11-12"
+    }
+  },
+  {
+    "id": "cc-mad-centro-cultural-el-plantio",
+    "slug": "centro-cultural-el-plantio",
+    "name": "Centro Cultural El Plantío (Moncloa - Aravaca)",
+    "officialUrl": "https://www.madrid.es/sites/v/index.jsp?vgnextchannel=bfa48ab43d6bb410VgnVCM100000171f5a0aRCRD&vgnextoid=45ef9eebdd647810VgnVCM2000001f4a900aRCRD",
+    "address": "CALLE JOSE LOMBANA IGLESIAS 4, 28023 Madrid",
+    "country": "ES",
+    "city": "Madrid",
+    "cityId": "madrid",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "location": {
+        "latitude": 40.470967,
+        "longitude": -3.824516,
+        "sourceUrl": "https://datos.madrid.es/dataset/200304-0-centros-culturales",
+        "verifiedAt": "2026-11-12"
+      }
+    },
+    "pausedReason": "Awaiting permission from the Ayuntamiento de Madrid: datos.madrid.es publishes the course dataset under CC BY 4.0, but its robots.txt (as found on 2026-11-13) disallows the CKAN API and resource downloads for automated clients, so ingestion is held until automated access is allowed.",
+    "registration": {
+      "platform": "madrid-datos-cursos",
+      "origin": "https://datos.madrid.es",
+      "organism": "CENTRO CULTURAL EL PLANTÍO",
+      "verifiedAt": "2026-11-12"
+    }
+  },
+  {
+    "id": "cc-mad-centro-cultural-el-torito",
+    "slug": "centro-cultural-el-torito",
+    "name": "Centro Cultural el Torito (Moratalaz)",
+    "officialUrl": "https://www.madrid.es/sites/v/index.jsp?vgnextchannel=bfa48ab43d6bb410VgnVCM100000171f5a0aRCRD&vgnextoid=f3073d0b5e71c010VgnVCM1000000b205a0aRCRD",
+    "address": "AVENIDA MORATALAZ 130, 28030 Madrid",
+    "country": "ES",
+    "city": "Madrid",
+    "cityId": "madrid",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "location": {
+        "latitude": 40.406107,
+        "longitude": -3.646521,
+        "sourceUrl": "https://datos.madrid.es/dataset/200304-0-centros-culturales",
+        "verifiedAt": "2026-11-12"
+      }
+    },
+    "pausedReason": "Awaiting permission from the Ayuntamiento de Madrid: datos.madrid.es publishes the course dataset under CC BY 4.0, but its robots.txt (as found on 2026-11-13) disallows the CKAN API and resource downloads for automated clients, so ingestion is held until automated access is allowed.",
+    "registration": {
+      "platform": "madrid-datos-cursos",
+      "origin": "https://datos.madrid.es",
+      "organism": "C.C. EL TORITO",
+      "verifiedAt": "2026-11-12"
+    }
+  },
+  {
+    "id": "cc-mad-centro-cultural-emilia-pardo-bazan",
+    "slug": "centro-cultural-emilia-pardo-bazan",
+    "name": "Centro Cultural Emilia Pardo Bazán (Salamanca)",
+    "officialUrl": "https://www.madrid.es/sites/v/index.jsp?vgnextchannel=bfa48ab43d6bb410VgnVCM100000171f5a0aRCRD&vgnextoid=dc8d531521b74810VgnVCM1000001d4a900aRCRD",
+    "address": "CALLE GOYA 1, 28001 Madrid",
+    "country": "ES",
+    "city": "Madrid",
+    "cityId": "madrid",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "location": {
+        "latitude": 40.425858,
+        "longitude": -3.689602,
+        "sourceUrl": "https://datos.madrid.es/dataset/200304-0-centros-culturales",
+        "verifiedAt": "2026-11-12"
+      }
+    },
+    "pausedReason": "Awaiting permission from the Ayuntamiento de Madrid: datos.madrid.es publishes the course dataset under CC BY 4.0, but its robots.txt (as found on 2026-11-13) disallows the CKAN API and resource downloads for automated clients, so ingestion is held until automated access is allowed.",
+    "registration": {
+      "platform": "madrid-datos-cursos",
+      "origin": "https://datos.madrid.es",
+      "organism": "CENTRO CULTURAL EMILIA PARDO BAZÁN",
+      "verifiedAt": "2026-11-12"
+    }
+  },
+  {
+    "id": "cc-mad-centro-cultural-federico-chueca",
+    "slug": "centro-cultural-federico-chueca",
+    "name": "Centro Cultural Federico Chueca (Hortaleza)",
+    "officialUrl": "https://www.madrid.es/sites/v/index.jsp?vgnextchannel=bfa48ab43d6bb410VgnVCM100000171f5a0aRCRD&vgnextoid=90573d0b5e71c010VgnVCM1000000b205a0aRCRD",
+    "address": "CALLE BENITA AVILA 23, 28043 Madrid",
+    "country": "ES",
+    "city": "Madrid",
+    "cityId": "madrid",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "location": {
+        "latitude": 40.465513,
+        "longitude": -3.650586,
+        "sourceUrl": "https://datos.madrid.es/dataset/200304-0-centros-culturales",
+        "verifiedAt": "2026-11-12"
+      }
+    },
+    "pausedReason": "Awaiting permission from the Ayuntamiento de Madrid: datos.madrid.es publishes the course dataset under CC BY 4.0, but its robots.txt (as found on 2026-11-13) disallows the CKAN API and resource downloads for automated clients, so ingestion is held until automated access is allowed.",
+    "registration": {
+      "platform": "madrid-datos-cursos",
+      "origin": "https://datos.madrid.es",
+      "organism": "C.C. FEDERICO CHUECA",
+      "verifiedAt": "2026-11-12"
+    }
+  },
+  {
+    "id": "cc-mad-centro-cultural-fernando-de-los-rios",
+    "slug": "centro-cultural-fernando-de-los-rios",
+    "name": "Centro Cultural Fernando de los Ríos (Latina)",
+    "officialUrl": "https://www.madrid.es/sites/v/index.jsp?vgnextchannel=bfa48ab43d6bb410VgnVCM100000171f5a0aRCRD&vgnextoid=3d973d0b5e71c010VgnVCM1000000b205a0aRCRD",
+    "address": "CALLE CAMARENA 10, 28047 Madrid",
+    "country": "ES",
+    "city": "Madrid",
+    "cityId": "madrid",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "location": {
+        "latitude": 40.395739,
+        "longitude": -3.756616,
+        "sourceUrl": "https://datos.madrid.es/dataset/200304-0-centros-culturales",
+        "verifiedAt": "2026-11-12"
+      }
+    },
+    "pausedReason": "Awaiting permission from the Ayuntamiento de Madrid: datos.madrid.es publishes the course dataset under CC BY 4.0, but its robots.txt (as found on 2026-11-13) disallows the CKAN API and resource downloads for automated clients, so ingestion is held until automated access is allowed.",
+    "registration": {
+      "platform": "madrid-datos-cursos",
+      "origin": "https://datos.madrid.es",
+      "organism": "C.C. FERNANDO DE LOS RIOS",
+      "verifiedAt": "2026-11-12"
+    }
+  },
+  {
+    "id": "cc-mad-centro-cultural-fernando-lazaro-carreter",
+    "slug": "centro-cultural-fernando-lazaro-carreter",
+    "name": "Centro Cultural Fernando Lázaro Carreter (Carabanchel)",
+    "officialUrl": "https://www.madrid.es/sites/v/index.jsp?vgnextchannel=bfa48ab43d6bb410VgnVCM100000171f5a0aRCRD&vgnextoid=340ed2d6fe9a6110VgnVCM1000000b205a0aRCRD",
+    "address": "CALLE VERDAD 29, 28019 Madrid",
+    "country": "ES",
+    "city": "Madrid",
+    "cityId": "madrid",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "location": {
+        "latitude": 40.391645,
+        "longitude": -3.717138,
+        "sourceUrl": "https://datos.madrid.es/dataset/200304-0-centros-culturales",
+        "verifiedAt": "2026-11-12"
+      }
+    },
+    "pausedReason": "Awaiting permission from the Ayuntamiento de Madrid: datos.madrid.es publishes the course dataset under CC BY 4.0, but its robots.txt (as found on 2026-11-13) disallows the CKAN API and resource downloads for automated clients, so ingestion is held until automated access is allowed.",
+    "registration": {
+      "platform": "madrid-datos-cursos",
+      "origin": "https://datos.madrid.es",
+      "organism": "C.C. FERNANDO LAZARO CARRETER",
+      "verifiedAt": "2026-11-12"
+    }
+  },
+  {
+    "id": "cc-mad-centro-cultural-fuente-de-san-pedro-valderrivas",
+    "slug": "centro-cultural-fuente-de-san-pedro-valderrivas",
+    "name": "Centro Cultural Fuente de San Pedro - Valderrivas (Vicálvaro)",
+    "officialUrl": "https://www.madrid.es/sites/v/index.jsp?vgnextchannel=bfa48ab43d6bb410VgnVCM100000171f5a0aRCRD&vgnextoid=67d82728d0f1c810VgnVCM2000001f4a900aRCRD",
+    "address": "CALLE TITANIO 5, 28032 Madrid",
+    "country": "ES",
+    "city": "Madrid",
+    "cityId": "madrid",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "location": {
+        "latitude": 40.402181,
+        "longitude": -3.601411,
+        "sourceUrl": "https://datos.madrid.es/dataset/200304-0-centros-culturales",
+        "verifiedAt": "2026-11-12"
+      }
+    },
+    "pausedReason": "Awaiting permission from the Ayuntamiento de Madrid: datos.madrid.es publishes the course dataset under CC BY 4.0, but its robots.txt (as found on 2026-11-13) disallows the CKAN API and resource downloads for automated clients, so ingestion is held until automated access is allowed.",
+    "registration": {
+      "platform": "madrid-datos-cursos",
+      "origin": "https://datos.madrid.es",
+      "organism": "CENTRO CULTURAL FUENTE DE SAN PEDRO - VALDERRIVAS",
+      "verifiedAt": "2026-11-12"
+    }
+  },
+  {
+    "id": "cc-mad-centro-cultural-galileo",
+    "slug": "centro-cultural-galileo",
+    "name": "Centro Cultural Galileo (Chamberí)",
+    "officialUrl": "https://www.madrid.es/sites/v/index.jsp?vgnextchannel=bfa48ab43d6bb410VgnVCM100000171f5a0aRCRD&vgnextoid=30181e79ee71c010VgnVCM1000000b205a0aRCRD",
+    "address": "CALLE GALILEO 39, 28015 Madrid",
+    "country": "ES",
+    "city": "Madrid",
+    "cityId": "madrid",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "location": {
+        "latitude": 40.433719,
+        "longitude": -3.710447,
+        "sourceUrl": "https://datos.madrid.es/dataset/200304-0-centros-culturales",
+        "verifiedAt": "2026-11-12"
+      }
+    },
+    "pausedReason": "Awaiting permission from the Ayuntamiento de Madrid: datos.madrid.es publishes the course dataset under CC BY 4.0, but its robots.txt (as found on 2026-11-13) disallows the CKAN API and resource downloads for automated clients, so ingestion is held until automated access is allowed.",
+    "registration": {
+      "platform": "madrid-datos-cursos",
+      "origin": "https://datos.madrid.es",
+      "organism": "C.C. \"GALILEO\"",
+      "verifiedAt": "2026-11-12"
+    }
+  },
+  {
+    "id": "cc-mad-centro-cultural-gloria-fuertes",
+    "slug": "centro-cultural-gloria-fuertes",
+    "name": "Centro Cultural Gloria Fuertes (Barajas)",
+    "officialUrl": "https://www.madrid.es/sites/v/index.jsp?vgnextchannel=bfa48ab43d6bb410VgnVCM100000171f5a0aRCRD&vgnextoid=2e5068540e41c010VgnVCM2000000c205a0aRCRD",
+    "address": "AVENIDA LOGROÑO 179, 28042 Madrid",
+    "country": "ES",
+    "city": "Madrid",
+    "cityId": "madrid",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "location": {
+        "latitude": 40.460631,
+        "longitude": -3.593669,
+        "sourceUrl": "https://datos.madrid.es/dataset/200304-0-centros-culturales",
+        "verifiedAt": "2026-11-12"
+      }
+    },
+    "pausedReason": "Awaiting permission from the Ayuntamiento de Madrid: datos.madrid.es publishes the course dataset under CC BY 4.0, but its robots.txt (as found on 2026-11-13) disallows the CKAN API and resource downloads for automated clients, so ingestion is held until automated access is allowed.",
+    "registration": {
+      "platform": "madrid-datos-cursos",
+      "origin": "https://datos.madrid.es",
+      "organism": "CENTRO SOCIO-CULTURAL GLORIA FUERTES",
+      "verifiedAt": "2026-11-12"
+    }
+  },
+  {
+    "id": "cc-mad-centro-cultural-hortaleza",
+    "slug": "centro-cultural-hortaleza",
+    "name": "Centro Cultural Hortaleza",
+    "officialUrl": "https://www.madrid.es/sites/v/index.jsp?vgnextchannel=bfa48ab43d6bb410VgnVCM100000171f5a0aRCRD&vgnextoid=86381e79ee71c010VgnVCM1000000b205a0aRCRD",
+    "address": "CALLE SANTA VIRGILIA 15, 28033 Madrid",
+    "country": "ES",
+    "city": "Madrid",
+    "cityId": "madrid",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "location": {
+        "latitude": 40.476824,
+        "longitude": -3.64205,
+        "sourceUrl": "https://datos.madrid.es/dataset/200304-0-centros-culturales",
+        "verifiedAt": "2026-11-12"
+      }
+    },
+    "pausedReason": "Awaiting permission from the Ayuntamiento de Madrid: datos.madrid.es publishes the course dataset under CC BY 4.0, but its robots.txt (as found on 2026-11-13) disallows the CKAN API and resource downloads for automated clients, so ingestion is held until automated access is allowed.",
+    "registration": {
+      "platform": "madrid-datos-cursos",
+      "origin": "https://datos.madrid.es",
+      "organism": "C.C. HORTALEZA",
+      "verifiedAt": "2026-11-12"
+    }
+  },
+  {
+    "id": "cc-mad-centro-cultural-jose-luis-lopez-vazquez",
+    "slug": "centro-cultural-jose-luis-lopez-vazquez",
+    "name": "Centro Cultural José Luis López Vázquez (San Blas - Canillejas)",
+    "officialUrl": "https://www.madrid.es/sites/v/index.jsp?vgnextchannel=bfa48ab43d6bb410VgnVCM100000171f5a0aRCRD&vgnextoid=b790e37de110f210VgnVCM1000000b205a0aRCRD",
+    "address": "CALLE FEBRERO 4, 28022 Madrid",
+    "country": "ES",
+    "city": "Madrid",
+    "cityId": "madrid",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "location": {
+        "latitude": 40.446827,
+        "longitude": -3.572738,
+        "sourceUrl": "https://datos.madrid.es/dataset/200304-0-centros-culturales",
+        "verifiedAt": "2026-11-12"
+      }
+    },
+    "pausedReason": "Awaiting permission from the Ayuntamiento de Madrid: datos.madrid.es publishes the course dataset under CC BY 4.0, but its robots.txt (as found on 2026-11-13) disallows the CKAN API and resource downloads for automated clients, so ingestion is held until automated access is allowed.",
+    "registration": {
+      "platform": "madrid-datos-cursos",
+      "origin": "https://datos.madrid.es",
+      "organism": "C.C. JOSE LUIS LOPEZ VAZQUEZ",
+      "verifiedAt": "2026-11-12"
+    }
+  },
+  {
+    "id": "cc-mad-centro-cultural-jose-luis-sampedro",
+    "slug": "centro-cultural-jose-luis-sampedro",
+    "name": "Centro Cultural José Luis Sampedro (Latina)",
+    "officialUrl": "https://www.madrid.es/sites/v/index.jsp?vgnextchannel=bfa48ab43d6bb410VgnVCM100000171f5a0aRCRD&vgnextoid=bd3fba61e681c010VgnVCM1000000b205a0aRCRD",
+    "address": "CALLE CASTROSERNA 4, 28047 Madrid",
+    "country": "ES",
+    "city": "Madrid",
+    "cityId": "madrid",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "location": {
+        "latitude": 40.401594,
+        "longitude": -3.749111,
+        "sourceUrl": "https://datos.madrid.es/dataset/200304-0-centros-culturales",
+        "verifiedAt": "2026-11-12"
+      }
+    },
+    "pausedReason": "Awaiting permission from the Ayuntamiento de Madrid: datos.madrid.es publishes the course dataset under CC BY 4.0, but its robots.txt (as found on 2026-11-13) disallows the CKAN API and resource downloads for automated clients, so ingestion is held until automated access is allowed.",
+    "registration": {
+      "platform": "madrid-datos-cursos",
+      "origin": "https://datos.madrid.es",
+      "organism": "C.C. JOSE LUIS SAMPEDRO  ( ANTES C.C. LUCERO)",
+      "verifiedAt": "2026-11-12"
+    }
+  },
+  {
+    "id": "cc-mad-centro-cultural-juan-genoves",
+    "slug": "centro-cultural-juan-genoves",
+    "name": "Centro Cultural Juan Genovés (Moncloa - Aravaca)",
+    "officialUrl": "https://www.madrid.es/sites/v/index.jsp?vgnextchannel=bfa48ab43d6bb410VgnVCM100000171f5a0aRCRD&vgnextoid=13153d0b5e71c010VgnVCM1000000b205a0aRCRD",
+    "address": "TRAVESIA CA&amp;Ntilde;O 5, 28023 Madrid",
+    "country": "ES",
+    "city": "Madrid",
+    "cityId": "madrid",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "location": {
+        "latitude": 40.458678,
+        "longitude": -3.78635,
+        "sourceUrl": "https://datos.madrid.es/dataset/200304-0-centros-culturales",
+        "verifiedAt": "2026-11-12"
+      }
+    },
+    "pausedReason": "Awaiting permission from the Ayuntamiento de Madrid: datos.madrid.es publishes the course dataset under CC BY 4.0, but its robots.txt (as found on 2026-11-13) disallows the CKAN API and resource downloads for automated clients, so ingestion is held until automated access is allowed.",
+    "registration": {
+      "platform": "madrid-datos-cursos",
+      "origin": "https://datos.madrid.es",
+      "organism": "C.C. JUAN GENOVES (ANTES C.C. ARAVACA)",
+      "verifiedAt": "2026-11-12"
+    }
+  },
+  {
+    "id": "cc-mad-centro-cultural-juan-gris",
+    "slug": "centro-cultural-juan-gris",
+    "name": "Centro Cultural Juan Gris (Moncloa - Aravaca)",
+    "officialUrl": "https://www.madrid.es/sites/v/index.jsp?vgnextchannel=bfa48ab43d6bb410VgnVCM100000171f5a0aRCRD&vgnextoid=79a81e79ee71c010VgnVCM1000000b205a0aRCRD",
+    "address": "CALLE FRANCOS RODRIGUEZ 100, 28039 Madrid",
+    "country": "ES",
+    "city": "Madrid",
+    "cityId": "madrid",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "location": {
+        "latitude": 40.457863,
+        "longitude": -3.712248,
+        "sourceUrl": "https://datos.madrid.es/dataset/200304-0-centros-culturales",
+        "verifiedAt": "2026-11-12"
+      }
+    },
+    "pausedReason": "Awaiting permission from the Ayuntamiento de Madrid: datos.madrid.es publishes the course dataset under CC BY 4.0, but its robots.txt (as found on 2026-11-13) disallows the CKAN API and resource downloads for automated clients, so ingestion is held until automated access is allowed.",
+    "registration": {
+      "platform": "madrid-datos-cursos",
+      "origin": "https://datos.madrid.es",
+      "organism": "C.C. JUAN GRIS",
+      "verifiedAt": "2026-11-12"
+    }
+  },
+  {
+    "id": "cc-mad-centro-cultural-julio-cortazar",
+    "slug": "centro-cultural-julio-cortazar",
+    "name": "Centro Cultural Julio Cortázar (Moncloa - Aravaca)",
+    "officialUrl": "https://www.madrid.es/sites/v/index.jsp?vgnextchannel=bfa48ab43d6bb410VgnVCM100000171f5a0aRCRD&vgnextoid=cfc81e79ee71c010VgnVCM1000000b205a0aRCRD",
+    "address": "CALLE ANTONIO MACHADO 20, 28035 Madrid",
+    "country": "ES",
+    "city": "Madrid",
+    "cityId": "madrid",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "location": {
+        "latitude": 40.466784,
+        "longitude": -3.71956,
+        "sourceUrl": "https://datos.madrid.es/dataset/200304-0-centros-culturales",
+        "verifiedAt": "2026-11-12"
+      }
+    },
+    "pausedReason": "Awaiting permission from the Ayuntamiento de Madrid: datos.madrid.es publishes the course dataset under CC BY 4.0, but its robots.txt (as found on 2026-11-13) disallows the CKAN API and resource downloads for automated clients, so ingestion is held until automated access is allowed.",
+    "registration": {
+      "platform": "madrid-datos-cursos",
+      "origin": "https://datos.madrid.es",
+      "organism": "C.C. JULIO CORTAZAR",
+      "verifiedAt": "2026-11-12"
+    }
+  },
+  {
+    "id": "cc-mad-centro-cultural-la-elipa",
+    "slug": "centro-cultural-la-elipa",
+    "name": "Centro Cultural la Elipa (Ciudad Lineal)",
+    "officialUrl": "https://www.madrid.es/sites/v/index.jsp?vgnextchannel=bfa48ab43d6bb410VgnVCM100000171f5a0aRCRD&vgnextoid=6c191e79ee71c010VgnVCM1000000b205a0aRCRD",
+    "address": "CALLE SANTA FELICIDAD 39, 28017 Madrid",
+    "country": "ES",
+    "city": "Madrid",
+    "cityId": "madrid",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "location": {
+        "latitude": 40.42447,
+        "longitude": -3.65042,
+        "sourceUrl": "https://datos.madrid.es/dataset/200304-0-centros-culturales",
+        "verifiedAt": "2026-11-12"
+      }
+    },
+    "pausedReason": "Awaiting permission from the Ayuntamiento de Madrid: datos.madrid.es publishes the course dataset under CC BY 4.0, but its robots.txt (as found on 2026-11-13) disallows the CKAN API and resource downloads for automated clients, so ingestion is held until automated access is allowed.",
+    "registration": {
+      "platform": "madrid-datos-cursos",
+      "origin": "https://datos.madrid.es",
+      "organism": "C.C. LA ELIPA",
+      "verifiedAt": "2026-11-12"
+    }
+  },
+  {
+    "id": "cc-mad-centro-cultural-la-vaguada",
+    "slug": "centro-cultural-la-vaguada",
+    "name": "Centro Cultural La Vaguada (Fuencarral - El Pardo)",
+    "officialUrl": "https://www.madrid.es/sites/v/index.jsp?vgnextchannel=bfa48ab43d6bb410VgnVCM100000171f5a0aRCRD&vgnextoid=09691e79ee71c010VgnVCM1000000b205a0aRCRD",
+    "address": "AVENIDA MONFORTE DE LEMOS 38, 28029 Madrid",
+    "country": "ES",
+    "city": "Madrid",
+    "cityId": "madrid",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "location": {
+        "latitude": 40.479008,
+        "longitude": -3.709138,
+        "sourceUrl": "https://datos.madrid.es/dataset/200304-0-centros-culturales",
+        "verifiedAt": "2026-11-12"
+      }
+    },
+    "pausedReason": "Awaiting permission from the Ayuntamiento de Madrid: datos.madrid.es publishes the course dataset under CC BY 4.0, but its robots.txt (as found on 2026-11-13) disallows the CKAN API and resource downloads for automated clients, so ingestion is held until automated access is allowed.",
+    "registration": {
+      "platform": "madrid-datos-cursos",
+      "origin": "https://datos.madrid.es",
+      "organism": "CENTRO CIVICO LA VAGUADA",
+      "verifiedAt": "2026-11-12"
+    }
+  },
+  {
+    "id": "cc-mad-centro-cultural-las-californias",
+    "slug": "centro-cultural-las-californias",
+    "name": "Centro Cultural Las Californias (Retiro)",
+    "officialUrl": "https://www.madrid.es/sites/v/index.jsp?vgnextchannel=bfa48ab43d6bb410VgnVCM100000171f5a0aRCRD&vgnextoid=a6c875993dc63110VgnVCM1000000b205a0aRCRD",
+    "address": "CALLE LUIS PEIDRO 2, 28007 Madrid",
+    "country": "ES",
+    "city": "Madrid",
+    "cityId": "madrid",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "location": {
+        "latitude": 40.397022,
+        "longitude": -3.673877,
+        "sourceUrl": "https://datos.madrid.es/dataset/200304-0-centros-culturales",
+        "verifiedAt": "2026-11-12"
+      }
+    },
+    "pausedReason": "Awaiting permission from the Ayuntamiento de Madrid: datos.madrid.es publishes the course dataset under CC BY 4.0, but its robots.txt (as found on 2026-11-13) disallows the CKAN API and resource downloads for automated clients, so ingestion is held until automated access is allowed.",
+    "registration": {
+      "platform": "madrid-datos-cursos",
+      "origin": "https://datos.madrid.es",
+      "organism": "LAS CALIFORNIAS",
+      "verifiedAt": "2026-11-12"
+    }
+  },
+  {
+    "id": "cc-mad-centro-cultural-lavapies",
+    "slug": "centro-cultural-lavapies",
+    "name": "Centro Cultural Lavapiés (Centro)",
+    "officialUrl": "https://www.madrid.es/sites/v/index.jsp?vgnextchannel=bfa48ab43d6bb410VgnVCM100000171f5a0aRCRD&vgnextoid=5f891e79ee71c010VgnVCM1000000b205a0aRCRD",
+    "address": "CALLE OLIVAR 46, 28012 Madrid",
+    "country": "ES",
+    "city": "Madrid",
+    "cityId": "madrid",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "location": {
+        "latitude": 40.409679,
+        "longitude": -3.701557,
+        "sourceUrl": "https://datos.madrid.es/dataset/200304-0-centros-culturales",
+        "verifiedAt": "2026-11-12"
+      }
+    },
+    "pausedReason": "Awaiting permission from the Ayuntamiento de Madrid: datos.madrid.es publishes the course dataset under CC BY 4.0, but its robots.txt (as found on 2026-11-13) disallows the CKAN API and resource downloads for automated clients, so ingestion is held until automated access is allowed.",
+    "registration": {
+      "platform": "madrid-datos-cursos",
+      "origin": "https://datos.madrid.es",
+      "organism": "C.C. \"LAVAPIES\"",
+      "verifiedAt": "2026-11-12"
+    }
+  },
+  {
+    "id": "cc-mad-centro-cultural-lope-de-vega",
+    "slug": "centro-cultural-lope-de-vega",
+    "name": "Centro Cultural Lope de Vega (Puente de Vallecas)",
+    "officialUrl": "https://www.madrid.es/sites/v/index.jsp?vgnextchannel=bfa48ab43d6bb410VgnVCM100000171f5a0aRCRD&vgnextoid=4a273d0b5e71c010VgnVCM1000000b205a0aRCRD",
+    "address": "CALLE CONCEJO DE TEVERGA 1, 28053 Madrid",
+    "country": "ES",
+    "city": "Madrid",
+    "cityId": "madrid",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "location": {
+        "latitude": 40.386297,
+        "longitude": -3.671858,
+        "sourceUrl": "https://datos.madrid.es/dataset/200304-0-centros-culturales",
+        "verifiedAt": "2026-11-12"
+      }
+    },
+    "pausedReason": "Awaiting permission from the Ayuntamiento de Madrid: datos.madrid.es publishes the course dataset under CC BY 4.0, but its robots.txt (as found on 2026-11-13) disallows the CKAN API and resource downloads for automated clients, so ingestion is held until automated access is allowed.",
+    "registration": {
+      "platform": "madrid-datos-cursos",
+      "origin": "https://datos.madrid.es",
+      "organism": "C.C. LOPE DE VEGA",
+      "verifiedAt": "2026-11-12"
+    }
+  },
+  {
+    "id": "cc-mad-centro-cultural-los-rosales",
+    "slug": "centro-cultural-los-rosales",
+    "name": "Centro Cultural Los Rosales (Villaverde)",
+    "officialUrl": "https://www.madrid.es/sites/v/index.jsp?vgnextchannel=bfa48ab43d6bb410VgnVCM100000171f5a0aRCRD&vgnextoid=a5b91e79ee71c010VgnVCM1000000b205a0aRCRD",
+    "address": "AVENIDA LOS ROSALES 133, 28021 Madrid",
+    "country": "ES",
+    "city": "Madrid",
+    "cityId": "madrid",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "location": {
+        "latitude": 40.350752,
+        "longitude": -3.677296,
+        "sourceUrl": "https://datos.madrid.es/dataset/200304-0-centros-culturales",
+        "verifiedAt": "2026-11-12"
+      }
+    },
+    "pausedReason": "Awaiting permission from the Ayuntamiento de Madrid: datos.madrid.es publishes the course dataset under CC BY 4.0, but its robots.txt (as found on 2026-11-13) disallows the CKAN API and resource downloads for automated clients, so ingestion is held until automated access is allowed.",
+    "registration": {
+      "platform": "madrid-datos-cursos",
+      "origin": "https://datos.madrid.es",
+      "organism": "C.C. LOS ROSALES",
+      "verifiedAt": "2026-11-12"
+    }
+  },
+  {
+    "id": "cc-mad-centro-cultural-mercado-de-ibiza",
+    "slug": "centro-cultural-mercado-de-ibiza",
+    "name": "Centro Cultural Mercado de Ibiza (Retiro)",
+    "officialUrl": "https://www.madrid.es/sites/v/index.jsp?vgnextchannel=bfa48ab43d6bb410VgnVCM100000171f5a0aRCRD&vgnextoid=dbeab973f50e7310VgnVCM1000000b205a0aRCRD",
+    "address": "CALLE IBIZA 8 PLANTA 1ª, 28009 Madrid",
+    "country": "ES",
+    "city": "Madrid",
+    "cityId": "madrid",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "location": {
+        "latitude": 40.418179,
+        "longitude": -3.677376,
+        "sourceUrl": "https://datos.madrid.es/dataset/200304-0-centros-culturales",
+        "verifiedAt": "2026-11-12"
+      }
+    },
+    "pausedReason": "Awaiting permission from the Ayuntamiento de Madrid: datos.madrid.es publishes the course dataset under CC BY 4.0, but its robots.txt (as found on 2026-11-13) disallows the CKAN API and resource downloads for automated clients, so ingestion is held until automated access is allowed.",
+    "registration": {
+      "platform": "madrid-datos-cursos",
+      "origin": "https://datos.madrid.es",
+      "organism": "C.C. MERCADO DE IBIZA",
+      "verifiedAt": "2026-11-12"
+    }
+  },
+  {
+    "id": "cc-mad-centro-cultural-meseta-de-orcasitas",
+    "slug": "centro-cultural-meseta-de-orcasitas",
+    "name": "Centro Cultural Meseta de Orcasitas (Usera)",
+    "officialUrl": "https://www.madrid.es/sites/v/index.jsp?vgnextchannel=bfa48ab43d6bb410VgnVCM100000171f5a0aRCRD&vgnextoid=fbd91e79ee71c010VgnVCM1000000b205a0aRCRD",
+    "address": "PLAZA ASOCIACION 1, 28041 Madrid",
+    "country": "ES",
+    "city": "Madrid",
+    "cityId": "madrid",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "location": {
+        "latitude": 40.369695,
+        "longitude": -3.708118,
+        "sourceUrl": "https://datos.madrid.es/dataset/200304-0-centros-culturales",
+        "verifiedAt": "2026-11-12"
+      }
+    },
+    "pausedReason": "Awaiting permission from the Ayuntamiento de Madrid: datos.madrid.es publishes the course dataset under CC BY 4.0, but its robots.txt (as found on 2026-11-13) disallows the CKAN API and resource downloads for automated clients, so ingestion is held until automated access is allowed.",
+    "registration": {
+      "platform": "madrid-datos-cursos",
+      "origin": "https://datos.madrid.es",
+      "organism": "C.C. MESETA DE ORCASITAS",
+      "verifiedAt": "2026-11-12"
+    }
+  },
+  {
+    "id": "cc-mad-centro-cultural-miguel-hernandez",
+    "slug": "centro-cultural-miguel-hernandez",
+    "name": "Centro Cultural Miguel Hernández (Latina)",
+    "officialUrl": "https://www.madrid.es/sites/v/index.jsp?vgnextchannel=bfa48ab43d6bb410VgnVCM100000171f5a0aRCRD&vgnextoid=420a1e79ee71c010VgnVCM1000000b205a0aRCRD",
+    "address": "CALLE SERRADILLA 13, 28044 Madrid",
+    "country": "ES",
+    "city": "Madrid",
+    "cityId": "madrid",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "location": {
+        "latitude": 40.378815,
+        "longitude": -3.781881,
+        "sourceUrl": "https://datos.madrid.es/dataset/200304-0-centros-culturales",
+        "verifiedAt": "2026-11-12"
+      }
+    },
+    "pausedReason": "Awaiting permission from the Ayuntamiento de Madrid: datos.madrid.es publishes the course dataset under CC BY 4.0, but its robots.txt (as found on 2026-11-13) disallows the CKAN API and resource downloads for automated clients, so ingestion is held until automated access is allowed.",
+    "registration": {
+      "platform": "madrid-datos-cursos",
+      "origin": "https://datos.madrid.es",
+      "organism": "CENTRO CULTURAL MIGUEL HERNANDEZ",
+      "verifiedAt": "2026-11-12"
+    }
+  },
+  {
+    "id": "cc-mad-centro-cultural-nicolas-salmeron",
+    "slug": "centro-cultural-nicolas-salmeron",
+    "name": "Centro Cultural Nicolás Salmerón (Chamartín)",
+    "officialUrl": "https://www.madrid.es/sites/v/index.jsp?vgnextchannel=bfa48ab43d6bb410VgnVCM100000171f5a0aRCRD&vgnextoid=ee4a1e79ee71c010VgnVCM1000000b205a0aRCRD",
+    "address": "CALLE MANTUANO 51, 28002 Madrid",
+    "country": "ES",
+    "city": "Madrid",
+    "cityId": "madrid",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "location": {
+        "latitude": 40.448341,
+        "longitude": -3.676199,
+        "sourceUrl": "https://datos.madrid.es/dataset/200304-0-centros-culturales",
+        "verifiedAt": "2026-11-12"
+      }
+    },
+    "pausedReason": "Awaiting permission from the Ayuntamiento de Madrid: datos.madrid.es publishes the course dataset under CC BY 4.0, but its robots.txt (as found on 2026-11-13) disallows the CKAN API and resource downloads for automated clients, so ingestion is held until automated access is allowed.",
+    "registration": {
+      "platform": "madrid-datos-cursos",
+      "origin": "https://datos.madrid.es",
+      "organism": "C.C. \"NICOLAS SALMERON\"",
+      "verifiedAt": "2026-11-12"
+    }
+  },
+  {
+    "id": "cc-mad-centro-cultural-orcasur",
+    "slug": "centro-cultural-orcasur",
+    "name": "Centro Cultural Orcasur (Usera)",
+    "officialUrl": "https://www.madrid.es/sites/v/index.jsp?vgnextchannel=bfa48ab43d6bb410VgnVCM100000171f5a0aRCRD&vgnextoid=8b9a1e79ee71c010VgnVCM1000000b205a0aRCRD",
+    "address": "PLAZA PUEBLO 2, 28041 Madrid",
+    "country": "ES",
+    "city": "Madrid",
+    "cityId": "madrid",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "location": {
+        "latitude": 40.366772,
+        "longitude": -3.701135,
+        "sourceUrl": "https://datos.madrid.es/dataset/200304-0-centros-culturales",
+        "verifiedAt": "2026-11-12"
+      }
+    },
+    "pausedReason": "Awaiting permission from the Ayuntamiento de Madrid: datos.madrid.es publishes the course dataset under CC BY 4.0, but its robots.txt (as found on 2026-11-13) disallows the CKAN API and resource downloads for automated clients, so ingestion is held until automated access is allowed.",
+    "registration": {
+      "platform": "madrid-datos-cursos",
+      "origin": "https://datos.madrid.es",
+      "organism": "C.C. ORCASUR",
+      "verifiedAt": "2026-11-12"
+    }
+  },
+  {
+    "id": "cc-mad-centro-cultural-principe-de-asturias",
+    "slug": "centro-cultural-principe-de-asturias",
+    "name": "Centro Cultural Príncipe de Asturias (Ciudad Lineal)",
+    "officialUrl": "https://www.madrid.es/sites/v/index.jsp?vgnextchannel=bfa48ab43d6bb410VgnVCM100000171f5a0aRCRD&vgnextoid=d1ca1e79ee71c010VgnVCM1000000b205a0aRCRD",
+    "address": "CALLE HERMANOS GARCIA NOBLEJAS 14, 28037 Madrid",
+    "country": "ES",
+    "city": "Madrid",
+    "cityId": "madrid",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "location": {
+        "latitude": 40.436447,
+        "longitude": -3.637292,
+        "sourceUrl": "https://datos.madrid.es/dataset/200304-0-centros-culturales",
+        "verifiedAt": "2026-11-12"
+      }
+    },
+    "pausedReason": "Awaiting permission from the Ayuntamiento de Madrid: datos.madrid.es publishes the course dataset under CC BY 4.0, but its robots.txt (as found on 2026-11-13) disallows the CKAN API and resource downloads for automated clients, so ingestion is held until automated access is allowed.",
+    "registration": {
+      "platform": "madrid-datos-cursos",
+      "origin": "https://datos.madrid.es",
+      "organism": "C.C. PRINCIPE DE ASTURIAS",
+      "verifiedAt": "2026-11-12"
+    }
+  },
+  {
+    "id": "cc-mad-centro-cultural-puerta-de-toledo",
+    "slug": "centro-cultural-puerta-de-toledo",
+    "name": "Centro Cultural Puerta de Toledo (Centro)",
+    "officialUrl": "https://www.madrid.es/sites/v/index.jsp?vgnextchannel=bfa48ab43d6bb410VgnVCM100000171f5a0aRCRD&vgnextoid=28ea1e79ee71c010VgnVCM1000000b205a0aRCRD",
+    "address": "AVENIDA GRAN VIA DE SAN FRANCISCO 2, 28005 Madrid",
+    "country": "ES",
+    "city": "Madrid",
+    "cityId": "madrid",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "location": {
+        "latitude": 40.407411,
+        "longitude": -3.711917,
+        "sourceUrl": "https://datos.madrid.es/dataset/200304-0-centros-culturales",
+        "verifiedAt": "2026-11-12"
+      }
+    },
+    "pausedReason": "Awaiting permission from the Ayuntamiento de Madrid: datos.madrid.es publishes the course dataset under CC BY 4.0, but its robots.txt (as found on 2026-11-13) disallows the CKAN API and resource downloads for automated clients, so ingestion is held until automated access is allowed.",
+    "registration": {
+      "platform": "madrid-datos-cursos",
+      "origin": "https://datos.madrid.es",
+      "organism": "C.C. \"PUERTA DE TOLEDO\"",
+      "verifiedAt": "2026-11-12"
+    }
+  },
+  {
+    "id": "cc-mad-centro-cultural-quinta-del-berro-rafael-altamira",
+    "slug": "centro-cultural-quinta-del-berro-rafael-altamira",
+    "name": "Centro Cultural Quinta del Berro - Rafael Altamira (Salamanca)",
+    "officialUrl": "https://www.madrid.es/sites/v/index.jsp?vgnextchannel=bfa48ab43d6bb410VgnVCM100000171f5a0aRCRD&vgnextoid=bcc7cbf06c81c010VgnVCM1000000b205a0aRCRD",
+    "address": "CALLE ENRIQUE D'ALMONTE 1, 28028 Madrid",
+    "country": "ES",
+    "city": "Madrid",
+    "cityId": "madrid",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "location": {
+        "latitude": 40.422069,
+        "longitude": -3.662961,
+        "sourceUrl": "https://datos.madrid.es/dataset/200304-0-centros-culturales",
+        "verifiedAt": "2026-11-12"
+      }
+    },
+    "pausedReason": "Awaiting permission from the Ayuntamiento de Madrid: datos.madrid.es publishes the course dataset under CC BY 4.0, but its robots.txt (as found on 2026-11-13) disallows the CKAN API and resource downloads for automated clients, so ingestion is held until automated access is allowed.",
+    "registration": {
+      "platform": "madrid-datos-cursos",
+      "origin": "https://datos.madrid.es",
+      "organism": "C.C. \"PALACETE FUENTE DEL BERRO\"",
+      "verifiedAt": "2026-11-12"
+    }
+  },
+  {
+    "id": "cc-mad-centro-cultural-san-francisco-la-prensa",
+    "slug": "centro-cultural-san-francisco-la-prensa",
+    "name": "Centro Cultural San Francisco La Prensa (Carabanchel)",
+    "officialUrl": "https://www.madrid.es/sites/v/index.jsp?vgnextchannel=bfa48ab43d6bb410VgnVCM100000171f5a0aRCRD&vgnextoid=5787e842ec9a6110VgnVCM1000000b205a0aRCRD",
+    "address": "CALLE ALISEDA 4, 28025 Madrid",
+    "country": "ES",
+    "city": "Madrid",
+    "cityId": "madrid",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "location": {
+        "latitude": 40.376914,
+        "longitude": -3.741626,
+        "sourceUrl": "https://datos.madrid.es/dataset/200304-0-centros-culturales",
+        "verifiedAt": "2026-11-12"
+      }
+    },
+    "pausedReason": "Awaiting permission from the Ayuntamiento de Madrid: datos.madrid.es publishes the course dataset under CC BY 4.0, but its robots.txt (as found on 2026-11-13) disallows the CKAN API and resource downloads for automated clients, so ingestion is held until automated access is allowed.",
+    "registration": {
+      "platform": "madrid-datos-cursos",
+      "origin": "https://datos.madrid.es",
+      "organism": "CENTRO SOCIO CULTURAL SAN FRANCISCO-LA PRENSA",
+      "verifiedAt": "2026-11-12"
+    }
+  },
+  {
+    "id": "cc-mad-centro-cultural-san-juan-bautista",
+    "slug": "centro-cultural-san-juan-bautista",
+    "name": "Centro Cultural San Juan Bautista (Ciudad Lineal)",
+    "officialUrl": "https://www.madrid.es/sites/v/index.jsp?vgnextchannel=bfa48ab43d6bb410VgnVCM100000171f5a0aRCRD&vgnextoid=618b1e79ee71c010VgnVCM1000000b205a0aRCRD",
+    "address": "CALLE SAN NEMESIO 4, 28043 Madrid",
+    "country": "ES",
+    "city": "Madrid",
+    "cityId": "madrid",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "location": {
+        "latitude": 40.452247,
+        "longitude": -3.658029,
+        "sourceUrl": "https://datos.madrid.es/dataset/200304-0-centros-culturales",
+        "verifiedAt": "2026-11-12"
+      }
+    },
+    "pausedReason": "Awaiting permission from the Ayuntamiento de Madrid: datos.madrid.es publishes the course dataset under CC BY 4.0, but its robots.txt (as found on 2026-11-13) disallows the CKAN API and resource downloads for automated clients, so ingestion is held until automated access is allowed.",
+    "registration": {
+      "platform": "madrid-datos-cursos",
+      "origin": "https://datos.madrid.es",
+      "organism": "C.C. SAN JUAN BAUTISTA",
+      "verifiedAt": "2026-11-12"
+    }
+  },
+  {
+    "id": "cc-mad-centro-cultural-sara-montiel",
+    "slug": "centro-cultural-sara-montiel",
+    "name": "Centro Cultural Sara Montiel (Latina)",
+    "officialUrl": "https://www.madrid.es/sites/v/index.jsp?vgnextchannel=bfa48ab43d6bb410VgnVCM100000171f5a0aRCRD&vgnextoid=c957cbf06c81c010VgnVCM1000000b205a0aRCRD",
+    "address": "CARRETERA BOADILLA DEL MONTE 40, 28024 Madrid",
+    "country": "ES",
+    "city": "Madrid",
+    "cityId": "madrid",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "location": {
+        "latitude": 40.399504,
+        "longitude": -3.77502,
+        "sourceUrl": "https://datos.madrid.es/dataset/200304-0-centros-culturales",
+        "verifiedAt": "2026-11-12"
+      }
+    },
+    "pausedReason": "Awaiting permission from the Ayuntamiento de Madrid: datos.madrid.es publishes the course dataset under CC BY 4.0, but its robots.txt (as found on 2026-11-13) disallows the CKAN API and resource downloads for automated clients, so ingestion is held until automated access is allowed.",
+    "registration": {
+      "platform": "madrid-datos-cursos",
+      "origin": "https://datos.madrid.es",
+      "organism": "C.C. SARA MONTIEL",
+      "verifiedAt": "2026-11-12"
+    }
+  },
+  {
+    "id": "cc-mad-centro-cultural-valdebernardo",
+    "slug": "centro-cultural-valdebernardo",
+    "name": "Centro Cultural Valdebernardo (Vicálvaro)",
+    "officialUrl": "https://www.madrid.es/sites/v/index.jsp?vgnextchannel=bfa48ab43d6bb410VgnVCM100000171f5a0aRCRD&vgnextoid=69188899fc81c010VgnVCM1000000b205a0aRCRD",
+    "address": "BULEVAR INDALECIO PRIETO 21, 28032 Madrid",
+    "country": "ES",
+    "city": "Madrid",
+    "cityId": "madrid",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "location": {
+        "latitude": 40.399832,
+        "longitude": -3.621272,
+        "sourceUrl": "https://datos.madrid.es/dataset/200304-0-centros-culturales",
+        "verifiedAt": "2026-11-12"
+      }
+    },
+    "pausedReason": "Awaiting permission from the Ayuntamiento de Madrid: datos.madrid.es publishes the course dataset under CC BY 4.0, but its robots.txt (as found on 2026-11-13) disallows the CKAN API and resource downloads for automated clients, so ingestion is held until automated access is allowed.",
+    "registration": {
+      "platform": "madrid-datos-cursos",
+      "origin": "https://datos.madrid.es",
+      "organism": "C.C. VALDEBERNARDO",
+      "verifiedAt": "2026-11-12"
+    }
+  },
+  {
+    "id": "cc-mad-centro-cultural-zazuar",
+    "slug": "centro-cultural-zazuar",
+    "name": "Centro Cultural Zazuar (Villa de Vallecas)",
+    "officialUrl": "https://www.madrid.es/sites/v/index.jsp?vgnextchannel=bfa48ab43d6bb410VgnVCM100000171f5a0aRCRD&vgnextoid=9d8c1e79ee71c010VgnVCM1000000b205a0aRCRD",
+    "address": "CALLE ZAZUAR 4, 28031 Madrid",
+    "country": "ES",
+    "city": "Madrid",
+    "cityId": "madrid",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "location": {
+        "latitude": 40.382819,
+        "longitude": -3.606138,
+        "sourceUrl": "https://datos.madrid.es/dataset/200304-0-centros-culturales",
+        "verifiedAt": "2026-11-12"
+      }
+    },
+    "pausedReason": "Awaiting permission from the Ayuntamiento de Madrid: datos.madrid.es publishes the course dataset under CC BY 4.0, but its robots.txt (as found on 2026-11-13) disallows the CKAN API and resource downloads for automated clients, so ingestion is held until automated access is allowed.",
+    "registration": {
+      "platform": "madrid-datos-cursos",
+      "origin": "https://datos.madrid.es",
+      "organism": "C.C. ZAZUAR",
+      "verifiedAt": "2026-11-12"
+    }
+  },
+  {
+    "id": "cc-mad-centro-dotacional-integrado-arganzuela-angel-del-rio",
+    "slug": "centro-dotacional-integrado-arganzuela-angel-del-rio",
+    "name": "Centro Dotacional Integrado Arganzuela Ángel del Río",
+    "officialUrl": "https://www.madrid.es/sites/v/index.jsp?vgnextchannel=bfa48ab43d6bb410VgnVCM100000171f5a0aRCRD&vgnextoid=f9ea79262ef5d010VgnVCM1000000b205a0aRCRD",
+    "address": "CALLE CANARIAS 17, 28045 Madrid",
+    "country": "ES",
+    "city": "Madrid",
+    "cityId": "madrid",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "location": {
+        "latitude": 40.402424,
+        "longitude": -3.695444,
+        "sourceUrl": "https://datos.madrid.es/dataset/200304-0-centros-culturales",
+        "verifiedAt": "2026-11-12"
+      }
+    },
+    "pausedReason": "Awaiting permission from the Ayuntamiento de Madrid: datos.madrid.es publishes the course dataset under CC BY 4.0, but its robots.txt (as found on 2026-11-13) disallows the CKAN API and resource downloads for automated clients, so ingestion is held until automated access is allowed.",
+    "registration": {
+      "platform": "madrid-datos-cursos",
+      "origin": "https://datos.madrid.es",
+      "organism": "CENTRO DOTACIONAL INTEGRADO ARGANZUELA",
+      "verifiedAt": "2026-11-12"
+    }
+  },
+  {
+    "id": "cc-mad-centro-sociocultural-agata",
+    "slug": "centro-sociocultural-agata",
+    "name": "Centro Sociocultural Ágata (Villaverde)",
+    "officialUrl": "https://www.madrid.es/sites/v/index.jsp?vgnextchannel=bfa48ab43d6bb410VgnVCM100000171f5a0aRCRD&vgnextoid=d9743d0b5e71c010VgnVCM1000000b205a0aRCRD",
+    "address": "CALLE DOCTOR MARTIN AREVALO 2, 28021 Madrid",
+    "country": "ES",
+    "city": "Madrid",
+    "cityId": "madrid",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "location": {
+        "latitude": 40.346369,
+        "longitude": -3.708515,
+        "sourceUrl": "https://datos.madrid.es/dataset/200304-0-centros-culturales",
+        "verifiedAt": "2026-11-12"
+      }
+    },
+    "pausedReason": "Awaiting permission from the Ayuntamiento de Madrid: datos.madrid.es publishes the course dataset under CC BY 4.0, but its robots.txt (as found on 2026-11-13) disallows the CKAN API and resource downloads for automated clients, so ingestion is held until automated access is allowed.",
+    "registration": {
+      "platform": "madrid-datos-cursos",
+      "origin": "https://datos.madrid.es",
+      "organism": "C.C. AGATA",
+      "verifiedAt": "2026-11-12"
+    }
+  },
+  {
+    "id": "cc-mad-centro-sociocultural-alberto-sanchez",
+    "slug": "centro-sociocultural-alberto-sanchez",
+    "name": "Centro Sociocultural Alberto Sánchez (Puente de Vallecas)",
+    "officialUrl": "https://www.madrid.es/sites/v/index.jsp?vgnextchannel=bfa48ab43d6bb410VgnVCM100000171f5a0aRCRD&vgnextoid=20a43d0b5e71c010VgnVCM1000000b205a0aRCRD",
+    "address": "CALLE RISCO DE PELOCHE 14, 28038 Madrid",
+    "country": "ES",
+    "city": "Madrid",
+    "cityId": "madrid",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "location": {
+        "latitude": 40.393619,
+        "longitude": -3.655602,
+        "sourceUrl": "https://datos.madrid.es/dataset/200304-0-centros-culturales",
+        "verifiedAt": "2026-11-12"
+      }
+    },
+    "pausedReason": "Awaiting permission from the Ayuntamiento de Madrid: datos.madrid.es publishes the course dataset under CC BY 4.0, but its robots.txt (as found on 2026-11-13) disallows the CKAN API and resource downloads for automated clients, so ingestion is held until automated access is allowed.",
+    "registration": {
+      "platform": "madrid-datos-cursos",
+      "origin": "https://datos.madrid.es",
+      "organism": "CENTRO SOCIOCULTURAL ALBERTO SANCHEZ",
+      "verifiedAt": "2026-11-12"
+    }
+  },
+  {
+    "id": "cc-mad-centro-sociocultural-alfonso-xii",
+    "slug": "centro-sociocultural-alfonso-xii",
+    "name": "Centro Sociocultural Alfonso XII (Fuencarral - El Pardo)",
+    "officialUrl": "https://www.madrid.es/sites/v/index.jsp?vgnextchannel=bfa48ab43d6bb410VgnVCM100000171f5a0aRCRD&vgnextoid=b7d168540e41c010VgnVCM2000000c205a0aRCRD",
+    "address": "CALLE MIRA EL RIO 4, 28048 Madrid",
+    "country": "ES",
+    "city": "Madrid",
+    "cityId": "madrid",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "location": {
+        "latitude": 40.519673,
+        "longitude": -3.777906,
+        "sourceUrl": "https://datos.madrid.es/dataset/200304-0-centros-culturales",
+        "verifiedAt": "2026-11-12"
+      }
+    },
+    "pausedReason": "Awaiting permission from the Ayuntamiento de Madrid: datos.madrid.es publishes the course dataset under CC BY 4.0, but its robots.txt (as found on 2026-11-13) disallows the CKAN API and resource downloads for automated clients, so ingestion is held until automated access is allowed.",
+    "registration": {
+      "platform": "madrid-datos-cursos",
+      "origin": "https://datos.madrid.es",
+      "organism": "CENTRO INTEGRADO ALFONSO XII",
+      "verifiedAt": "2026-11-12"
+    }
+  },
+  {
+    "id": "cc-mad-centro-sociocultural-almirante-churruca",
+    "slug": "centro-sociocultural-almirante-churruca",
+    "name": "Centro Sociocultural Almirante Churruca (Latina)",
+    "officialUrl": "https://www.madrid.es/sites/v/index.jsp?vgnextchannel=bfa48ab43d6bb410VgnVCM100000171f5a0aRCRD&vgnextoid=76c43d0b5e71c010VgnVCM1000000b205a0aRCRD",
+    "address": "CALLE FUENTE DEL TIRO 72, 28024 Madrid",
+    "country": "ES",
+    "city": "Madrid",
+    "cityId": "madrid",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "location": {
+        "latitude": 40.383009,
+        "longitude": -3.77996,
+        "sourceUrl": "https://datos.madrid.es/dataset/200304-0-centros-culturales",
+        "verifiedAt": "2026-11-12"
+      }
+    },
+    "pausedReason": "Awaiting permission from the Ayuntamiento de Madrid: datos.madrid.es publishes the course dataset under CC BY 4.0, but its robots.txt (as found on 2026-11-13) disallows the CKAN API and resource downloads for automated clients, so ingestion is held until automated access is allowed.",
+    "registration": {
+      "platform": "madrid-datos-cursos",
+      "origin": "https://datos.madrid.es",
+      "organism": "C.C. ALMIRANTE CHURRUCA",
+      "verifiedAt": "2026-11-12"
+    }
+  },
+  {
+    "id": "cc-mad-centro-sociocultural-blasco-ibanez",
+    "slug": "centro-sociocultural-blasco-ibanez",
+    "name": "Centro Sociocultural Blasco Ibáñez (Carabanchel)",
+    "officialUrl": "https://www.madrid.es/sites/v/index.jsp?vgnextchannel=bfa48ab43d6bb410VgnVCM100000171f5a0aRCRD&vgnextoid=fb453d0b5e71c010VgnVCM1000000b205a0aRCRD",
+    "address": "CALLE SOLDADO JOSE MARIA REY 44, 28019 Madrid",
+    "country": "ES",
+    "city": "Madrid",
+    "cityId": "madrid",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "location": {
+        "latitude": 40.394961,
+        "longitude": -3.732763,
+        "sourceUrl": "https://datos.madrid.es/dataset/200304-0-centros-culturales",
+        "verifiedAt": "2026-11-12"
+      }
+    },
+    "pausedReason": "Awaiting permission from the Ayuntamiento de Madrid: datos.madrid.es publishes the course dataset under CC BY 4.0, but its robots.txt (as found on 2026-11-13) disallows the CKAN API and resource downloads for automated clients, so ingestion is held until automated access is allowed.",
+    "registration": {
+      "platform": "madrid-datos-cursos",
+      "origin": "https://datos.madrid.es",
+      "organism": "C.C. BLASCO IBAÑEZ",
+      "verifiedAt": "2026-11-12"
+    }
+  },
+  {
+    "id": "cc-mad-centro-sociocultural-bohemios",
+    "slug": "centro-sociocultural-bohemios",
+    "name": "Centro Sociocultural Bohemios (Villaverde)",
+    "officialUrl": "https://www.madrid.es/sites/v/index.jsp?vgnextchannel=bfa48ab43d6bb410VgnVCM100000171f5a0aRCRD&vgnextoid=42753d0b5e71c010VgnVCM1000000b205a0aRCRD",
+    "address": "CALLE LOS BOHEMIOS 1, 28041 Madrid",
+    "country": "ES",
+    "city": "Madrid",
+    "cityId": "madrid",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "location": {
+        "latitude": 40.356397,
+        "longitude": -3.69405,
+        "sourceUrl": "https://datos.madrid.es/dataset/200304-0-centros-culturales",
+        "verifiedAt": "2026-11-12"
+      }
+    },
+    "pausedReason": "Awaiting permission from the Ayuntamiento de Madrid: datos.madrid.es publishes the course dataset under CC BY 4.0, but its robots.txt (as found on 2026-11-13) disallows the CKAN API and resource downloads for automated clients, so ingestion is held until automated access is allowed.",
+    "registration": {
+      "platform": "madrid-datos-cursos",
+      "origin": "https://datos.madrid.es",
+      "organism": "C.C. BOHEMIOS",
+      "verifiedAt": "2026-11-12"
+    }
+  },
+  {
+    "id": "cc-mad-centro-sociocultural-canovas-del-castillo",
+    "slug": "centro-sociocultural-canovas-del-castillo",
+    "name": "Centro Sociocultural Cánovas del Castillo (Usera)",
+    "officialUrl": "https://www.madrid.es/sites/v/index.jsp?vgnextchannel=bfa48ab43d6bb410VgnVCM100000171f5a0aRCRD&vgnextoid=1087cbf06c81c010VgnVCM1000000b205a0aRCRD",
+    "address": "CALLE JULIO AGUIRRE 10, 28026 Madrid",
+    "country": "ES",
+    "city": "Madrid",
+    "cityId": "madrid",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "location": {
+        "latitude": 40.386273,
+        "longitude": -3.700075,
+        "sourceUrl": "https://datos.madrid.es/dataset/200304-0-centros-culturales",
+        "verifiedAt": "2026-11-12"
+      }
+    },
+    "pausedReason": "Awaiting permission from the Ayuntamiento de Madrid: datos.madrid.es publishes the course dataset under CC BY 4.0, but its robots.txt (as found on 2026-11-13) disallows the CKAN API and resource downloads for automated clients, so ingestion is held until automated access is allowed.",
+    "registration": {
+      "platform": "madrid-datos-cursos",
+      "origin": "https://datos.madrid.es",
+      "organism": "C.C. CANOVAS DEL CASTILLO",
+      "verifiedAt": "2026-11-12"
+    }
+  },
+  {
+    "id": "cc-mad-centro-sociocultural-ciudad-lineal",
+    "slug": "centro-sociocultural-ciudad-lineal",
+    "name": "Centro Sociocultural Ciudad Lineal (Ciudad Lineal)",
+    "officialUrl": "https://www.madrid.es/sites/v/index.jsp?vgnextchannel=bfa48ab43d6bb410VgnVCM100000171f5a0aRCRD&vgnextoid=16f81e79ee71c010VgnVCM1000000b205a0aRCRD",
+    "address": "CALLE POETA BLAS DE OTERO 81, 28017 Madrid",
+    "country": "ES",
+    "city": "Madrid",
+    "cityId": "madrid",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "location": {
+        "latitude": 40.422857,
+        "longitude": -3.65168,
+        "sourceUrl": "https://datos.madrid.es/dataset/200304-0-centros-culturales",
+        "verifiedAt": "2026-11-12"
+      }
+    },
+    "pausedReason": "Awaiting permission from the Ayuntamiento de Madrid: datos.madrid.es publishes the course dataset under CC BY 4.0, but its robots.txt (as found on 2026-11-13) disallows the CKAN API and resource downloads for automated clients, so ingestion is held until automated access is allowed.",
+    "registration": {
+      "platform": "madrid-datos-cursos",
+      "origin": "https://datos.madrid.es",
+      "organism": "CENTRO SOCIOCULTURAL CIUDAD LINEAL",
+      "verifiedAt": "2026-11-12"
+    }
+  },
+  {
+    "id": "cc-mad-centro-sociocultural-eduardo-chillida",
+    "slug": "centro-sociocultural-eduardo-chillida",
+    "name": "Centro Sociocultural Eduardo Chillida (Moratalaz)",
+    "officialUrl": "https://www.madrid.es/sites/v/index.jsp?vgnextchannel=bfa48ab43d6bb410VgnVCM100000171f5a0aRCRD&vgnextoid=01963d0b5e71c010VgnVCM1000000b205a0aRCRD",
+    "address": "CALLE ARROYO BELINCOSO 9, 28030 Madrid",
+    "country": "ES",
+    "city": "Madrid",
+    "cityId": "madrid",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "location": {
+        "latitude": 40.409345,
+        "longitude": -3.653037,
+        "sourceUrl": "https://datos.madrid.es/dataset/200304-0-centros-culturales",
+        "verifiedAt": "2026-11-12"
+      }
+    },
+    "pausedReason": "Awaiting permission from the Ayuntamiento de Madrid: datos.madrid.es publishes the course dataset under CC BY 4.0, but its robots.txt (as found on 2026-11-13) disallows the CKAN API and resource downloads for automated clients, so ingestion is held until automated access is allowed.",
+    "registration": {
+      "platform": "madrid-datos-cursos",
+      "origin": "https://datos.madrid.es",
+      "organism": "C.S.C. EDUARDO CHILLIDA",
+      "verifiedAt": "2026-11-12"
+    }
+  },
+  {
+    "id": "cc-mad-centro-sociocultural-el-greco",
+    "slug": "centro-sociocultural-el-greco",
+    "name": "Centro Sociocultural El Greco (Latina)",
+    "officialUrl": "https://www.madrid.es/sites/v/index.jsp?vgnextchannel=bfa48ab43d6bb410VgnVCM100000171f5a0aRCRD&vgnextoid=cae2b3e42751c010VgnVCM2000000c205a0aRCRD",
+    "address": "CALLE EL GRECO 29, 28011 Madrid",
+    "country": "ES",
+    "city": "Madrid",
+    "cityId": "madrid",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "location": {
+        "latitude": 40.407316,
+        "longitude": -3.747465,
+        "sourceUrl": "https://datos.madrid.es/dataset/200304-0-centros-culturales",
+        "verifiedAt": "2026-11-12"
+      }
+    },
+    "pausedReason": "Awaiting permission from the Ayuntamiento de Madrid: datos.madrid.es publishes the course dataset under CC BY 4.0, but its robots.txt (as found on 2026-11-13) disallows the CKAN API and resource downloads for automated clients, so ingestion is held until automated access is allowed.",
+    "registration": {
+      "platform": "madrid-datos-cursos",
+      "origin": "https://datos.madrid.es",
+      "organism": "C.S.C. EL GRECO",
+      "verifiedAt": "2026-11-12"
+    }
+  },
+  {
+    "id": "cc-mad-centro-sociocultural-francisco-fatou",
+    "slug": "centro-sociocultural-francisco-fatou",
+    "name": "Centro Sociocultural Francisco Fatou (Villa de Vallecas)",
+    "officialUrl": "https://www.madrid.es/sites/v/index.jsp?vgnextchannel=bfa48ab43d6bb410VgnVCM100000171f5a0aRCRD&vgnextoid=d9e73d0b5e71c010VgnVCM1000000b205a0aRCRD",
+    "address": "CALLE MANUEL VELEZ 10, 28031 Madrid",
+    "country": "ES",
+    "city": "Madrid",
+    "cityId": "madrid",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "location": {
+        "latitude": 40.37959,
+        "longitude": -3.623109,
+        "sourceUrl": "https://datos.madrid.es/dataset/200304-0-centros-culturales",
+        "verifiedAt": "2026-11-12"
+      }
+    },
+    "pausedReason": "Awaiting permission from the Ayuntamiento de Madrid: datos.madrid.es publishes the course dataset under CC BY 4.0, but its robots.txt (as found on 2026-11-13) disallows the CKAN API and resource downloads for automated clients, so ingestion is held until automated access is allowed.",
+    "registration": {
+      "platform": "madrid-datos-cursos",
+      "origin": "https://datos.madrid.es",
+      "organism": "C.C. FRANCISCO FATOU",
+      "verifiedAt": "2026-11-12"
+    }
+  },
+  {
+    "id": "cc-mad-centro-sociocultural-garcia-lorca",
+    "slug": "centro-sociocultural-garcia-lorca",
+    "name": "Centro Sociocultural García Lorca (Carabanchel)",
+    "officialUrl": "https://www.madrid.es/sites/v/index.jsp?vgnextchannel=bfa48ab43d6bb410VgnVCM100000171f5a0aRCRD&vgnextoid=e6773d0b5e71c010VgnVCM1000000b205a0aRCRD",
+    "address": "CALLE EUGENIA DE MONTIJO 105, 28044 Madrid",
+    "country": "ES",
+    "city": "Madrid",
+    "cityId": "madrid",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "location": {
+        "latitude": 40.374208,
+        "longitude": -3.751028,
+        "sourceUrl": "https://datos.madrid.es/dataset/200304-0-centros-culturales",
+        "verifiedAt": "2026-11-12"
+      }
+    },
+    "pausedReason": "Awaiting permission from the Ayuntamiento de Madrid: datos.madrid.es publishes the course dataset under CC BY 4.0, but its robots.txt (as found on 2026-11-13) disallows the CKAN API and resource downloads for automated clients, so ingestion is held until automated access is allowed.",
+    "registration": {
+      "platform": "madrid-datos-cursos",
+      "origin": "https://datos.madrid.es",
+      "organism": "C.C. GARCIA LORCA",
+      "verifiedAt": "2026-11-12"
+    }
+  },
+  {
+    "id": "cc-mad-centro-sociocultural-jose-de-espronceda",
+    "slug": "centro-sociocultural-jose-de-espronceda",
+    "name": "Centro Sociocultural José de Espronceda (Tetuán)",
+    "officialUrl": "https://www.madrid.es/sites/v/index.jsp?vgnextchannel=bfa48ab43d6bb410VgnVCM100000171f5a0aRCRD&vgnextoid=23881e79ee71c010VgnVCM1000000b205a0aRCRD",
+    "address": "CALLE ALMANSA 9, 28039 Madrid",
+    "country": "ES",
+    "city": "Madrid",
+    "cityId": "madrid",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "location": {
+        "latitude": 40.448643,
+        "longitude": -3.704513,
+        "sourceUrl": "https://datos.madrid.es/dataset/200304-0-centros-culturales",
+        "verifiedAt": "2026-11-12"
+      }
+    },
+    "pausedReason": "Awaiting permission from the Ayuntamiento de Madrid: datos.madrid.es publishes the course dataset under CC BY 4.0, but its robots.txt (as found on 2026-11-13) disallows the CKAN API and resource downloads for automated clients, so ingestion is held until automated access is allowed.",
+    "registration": {
+      "platform": "madrid-datos-cursos",
+      "origin": "https://datos.madrid.es",
+      "organism": "CSC \"JOSE DE ESPRONCEDA\"",
+      "verifiedAt": "2026-11-12"
+    }
+  },
+  {
+    "id": "cc-mad-centro-sociocultural-juvenil-de-moratalaz",
+    "slug": "centro-sociocultural-juvenil-de-moratalaz",
+    "name": "Centro Sociocultural Juvenil de Moratalaz",
+    "officialUrl": "https://www.madrid.es/sites/v/index.jsp?vgnextchannel=bfa48ab43d6bb410VgnVCM100000171f5a0aRCRD&vgnextoid=bf388899fc81c010VgnVCM1000000b205a0aRCRD",
+    "address": "CALLE FUENTE CARRANTONA 10, 28030 Madrid",
+    "country": "ES",
+    "city": "Madrid",
+    "cityId": "madrid",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "location": {
+        "latitude": 40.399285,
+        "longitude": -3.6366,
+        "sourceUrl": "https://datos.madrid.es/dataset/200304-0-centros-culturales",
+        "verifiedAt": "2026-11-12"
+      }
+    },
+    "pausedReason": "Awaiting permission from the Ayuntamiento de Madrid: datos.madrid.es publishes the course dataset under CC BY 4.0, but its robots.txt (as found on 2026-11-13) disallows the CKAN API and resource downloads for automated clients, so ingestion is held until automated access is allowed.",
+    "registration": {
+      "platform": "madrid-datos-cursos",
+      "origin": "https://datos.madrid.es",
+      "organism": "C.S.C. Y JUVENIL MORATALAZ",
+      "verifiedAt": "2026-11-12"
+    }
+  },
+  {
+    "id": "cc-mad-centro-sociocultural-juvenil-de-usera",
+    "slug": "centro-sociocultural-juvenil-de-usera",
+    "name": "Centro Sociocultural Juvenil de Usera",
+    "officialUrl": "https://www.madrid.es/sites/v/index.jsp?vgnextchannel=bfa48ab43d6bb410VgnVCM100000171f5a0aRCRD&vgnextoid=876e1e79ee71c010VgnVCM1000000b205a0aRCRD",
+    "address": "CALLE CUESTA 4, 28026 Madrid",
+    "country": "ES",
+    "city": "Madrid",
+    "cityId": "madrid",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "location": {
+        "latitude": 40.389866,
+        "longitude": -3.707459,
+        "sourceUrl": "https://datos.madrid.es/dataset/200304-0-centros-culturales",
+        "verifiedAt": "2026-11-12"
+      }
+    },
+    "pausedReason": "Awaiting permission from the Ayuntamiento de Madrid: datos.madrid.es publishes the course dataset under CC BY 4.0, but its robots.txt (as found on 2026-11-13) disallows the CKAN API and resource downloads for automated clients, so ingestion is held until automated access is allowed.",
+    "registration": {
+      "platform": "madrid-datos-cursos",
+      "origin": "https://datos.madrid.es",
+      "organism": "CENTRO SOCIO CULTURAL JUVENIL DE USERA",
+      "verifiedAt": "2026-11-12"
+    }
+  },
+  {
+    "id": "cc-mad-centro-sociocultural-latina",
+    "slug": "centro-sociocultural-latina",
+    "name": "Centro Sociocultural Latina",
+    "officialUrl": "https://www.madrid.es/sites/v/index.jsp?vgnextchannel=bfa48ab43d6bb410VgnVCM100000171f5a0aRCRD&vgnextoid=a4ed8899fc81c010VgnVCM1000000b205a0aRCRD",
+    "address": "CALLE RODRIGO DE ARANA 50, 28044 Madrid",
+    "country": "ES",
+    "city": "Madrid",
+    "cityId": "madrid",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "location": {
+        "latitude": 40.379637,
+        "longitude": -3.765949,
+        "sourceUrl": "https://datos.madrid.es/dataset/200304-0-centros-culturales",
+        "verifiedAt": "2026-11-12"
+      }
+    },
+    "pausedReason": "Awaiting permission from the Ayuntamiento de Madrid: datos.madrid.es publishes the course dataset under CC BY 4.0, but its robots.txt (as found on 2026-11-13) disallows the CKAN API and resource downloads for automated clients, so ingestion is held until automated access is allowed.",
+    "registration": {
+      "platform": "madrid-datos-cursos",
+      "origin": "https://datos.madrid.es",
+      "organism": "CENTRO SOCIO CULTURAL LATINA",
+      "verifiedAt": "2026-11-12"
+    }
+  },
+  {
+    "id": "cc-mad-centro-sociocultural-luis-gonzaga",
+    "slug": "centro-sociocultural-luis-gonzaga",
+    "name": "Centro Sociocultural Luis Gonzaga (Chamartín)",
+    "officialUrl": "https://www.madrid.es/sites/v/index.jsp?vgnextchannel=bfa48ab43d6bb410VgnVCM100000171f5a0aRCRD&vgnextoid=ba8b3d232e91f010VgnVCM1000000b205a0aRCRD",
+    "address": "CALLE PRINCIPE DE VERGARA 142, 28002 Madrid",
+    "country": "ES",
+    "city": "Madrid",
+    "cityId": "madrid",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "location": {
+        "latitude": 40.444902,
+        "longitude": -3.678079,
+        "sourceUrl": "https://datos.madrid.es/dataset/200304-0-centros-culturales",
+        "verifiedAt": "2026-11-12"
+      }
+    },
+    "pausedReason": "Awaiting permission from the Ayuntamiento de Madrid: datos.madrid.es publishes the course dataset under CC BY 4.0, but its robots.txt (as found on 2026-11-13) disallows the CKAN API and resource downloads for automated clients, so ingestion is held until automated access is allowed.",
+    "registration": {
+      "platform": "madrid-datos-cursos",
+      "origin": "https://datos.madrid.es",
+      "organism": "CENTRO JUVENIL \"LUIS GONZAGA\"",
+      "verifiedAt": "2026-11-12"
+    }
+  },
+  {
+    "id": "cc-mad-centro-sociocultural-maestro-alonso",
+    "slug": "centro-sociocultural-maestro-alonso",
+    "name": "Centro Sociocultural Maestro Alonso (Salamanca)",
+    "officialUrl": "https://www.madrid.es/sites/v/index.jsp?vgnextchannel=bfa48ab43d6bb410VgnVCM100000171f5a0aRCRD&vgnextoid=783f1e79ee71c010VgnVCM1000000b205a0aRCRD",
+    "address": "CALLE MAESTRO ALONSO 6, 28028 Madrid",
+    "country": "ES",
+    "city": "Madrid",
+    "cityId": "madrid",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "location": {
+        "latitude": 40.429393,
+        "longitude": -3.664846,
+        "sourceUrl": "https://datos.madrid.es/dataset/200304-0-centros-culturales",
+        "verifiedAt": "2026-11-12"
+      }
+    },
+    "pausedReason": "Awaiting permission from the Ayuntamiento de Madrid: datos.madrid.es publishes the course dataset under CC BY 4.0, but its robots.txt (as found on 2026-11-13) disallows the CKAN API and resource downloads for automated clients, so ingestion is held until automated access is allowed.",
+    "registration": {
+      "platform": "madrid-datos-cursos",
+      "origin": "https://datos.madrid.es",
+      "organism": "CENTRO SOCIOCULTURAL MAESTRO ALONSO",
+      "verifiedAt": "2026-11-12"
+    }
+  },
+  {
+    "id": "cc-mad-centro-sociocultural-marconi",
+    "slug": "centro-sociocultural-marconi",
+    "name": "Centro Sociocultural Marconi (Villaverde)",
+    "officialUrl": "https://www.madrid.es/sites/v/index.jsp?vgnextchannel=bfa48ab43d6bb410VgnVCM100000171f5a0aRCRD&vgnextoid=6cb0085f5181c010VgnVCM1000000b205a0aRCRD",
+    "address": "ACCESO COLONIA MARCONI 4, 28021 Madrid",
+    "country": "ES",
+    "city": "Madrid",
+    "cityId": "madrid",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "location": {
+        "latitude": 40.334756,
+        "longitude": -3.700804,
+        "sourceUrl": "https://datos.madrid.es/dataset/200304-0-centros-culturales",
+        "verifiedAt": "2026-11-12"
+      }
+    },
+    "pausedReason": "Awaiting permission from the Ayuntamiento de Madrid: datos.madrid.es publishes the course dataset under CC BY 4.0, but its robots.txt (as found on 2026-11-13) disallows the CKAN API and resource downloads for automated clients, so ingestion is held until automated access is allowed.",
+    "registration": {
+      "platform": "madrid-datos-cursos",
+      "origin": "https://datos.madrid.es",
+      "organism": "C.S. MARCONI",
+      "verifiedAt": "2026-11-12"
+    }
+  },
+  {
+    "id": "cc-mad-centro-sociocultural-miguel-de-cervantes",
+    "slug": "centro-sociocultural-miguel-de-cervantes",
+    "name": "Centro Sociocultural Miguel de Cervantes (San Blas - Canillejas)",
+    "officialUrl": "https://www.madrid.es/sites/v/index.jsp?vgnextchannel=bfa48ab43d6bb410VgnVCM100000171f5a0aRCRD&vgnextoid=24be1e79ee71c010VgnVCM1000000b205a0aRCRD",
+    "address": "CALLE ALIAGA 5, 28022 Madrid",
+    "country": "ES",
+    "city": "Madrid",
+    "cityId": "madrid",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "location": {
+        "latitude": 40.436656,
+        "longitude": -3.611352,
+        "sourceUrl": "https://datos.madrid.es/dataset/200304-0-centros-culturales",
+        "verifiedAt": "2026-11-12"
+      }
+    },
+    "pausedReason": "Awaiting permission from the Ayuntamiento de Madrid: datos.madrid.es publishes the course dataset under CC BY 4.0, but its robots.txt (as found on 2026-11-13) disallows the CKAN API and resource downloads for automated clients, so ingestion is held until automated access is allowed.",
+    "registration": {
+      "platform": "madrid-datos-cursos",
+      "origin": "https://datos.madrid.es",
+      "organism": "CENTRO JUVENIL MIGUEL DE CERVANTES",
+      "verifiedAt": "2026-11-12"
+    }
+  },
+  {
+    "id": "cc-mad-centro-sociocultural-montecarmelo",
+    "slug": "centro-sociocultural-montecarmelo",
+    "name": "Centro Sociocultural Montecarmelo (Fuencarral - El Pardo)",
+    "officialUrl": "https://www.madrid.es/sites/v/index.jsp?vgnextchannel=bfa48ab43d6bb410VgnVCM100000171f5a0aRCRD&vgnextoid=30f2b51ae6295210VgnVCM2000000c205a0aRCRD",
+    "address": "Carretera M-607 Km 13 L-10 Acceso por Av. Santuario de Valverde, frente al número 114b, 28049 Madrid",
+    "country": "ES",
+    "city": "Madrid",
+    "cityId": "madrid",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "location": {
+        "latitude": 40.515712,
+        "longitude": -3.686053,
+        "sourceUrl": "https://datos.madrid.es/dataset/200304-0-centros-culturales",
+        "verifiedAt": "2026-11-12"
+      }
+    },
+    "pausedReason": "Awaiting permission from the Ayuntamiento de Madrid: datos.madrid.es publishes the course dataset under CC BY 4.0, but its robots.txt (as found on 2026-11-13) disallows the CKAN API and resource downloads for automated clients, so ingestion is held until automated access is allowed.",
+    "registration": {
+      "platform": "madrid-datos-cursos",
+      "origin": "https://datos.madrid.es",
+      "organism": "CENTRO SOCIOCULTURAL MONTECARMELO",
+      "verifiedAt": "2026-11-12"
+    }
+  },
+  {
+    "id": "cc-mad-centro-sociocultural-oporto",
+    "slug": "centro-sociocultural-oporto",
+    "name": "Centro Sociocultural Oporto (Carabanchel)",
+    "officialUrl": "https://www.madrid.es/sites/v/index.jsp?vgnextchannel=bfa48ab43d6bb410VgnVCM100000171f5a0aRCRD&vgnextoid=357a1e79ee71c010VgnVCM1000000b205a0aRCRD",
+    "address": "AVENIDA OPORTO 78, 28019 Madrid",
+    "country": "ES",
+    "city": "Madrid",
+    "cityId": "madrid",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "location": {
+        "latitude": 40.386827,
+        "longitude": -3.727749,
+        "sourceUrl": "https://datos.madrid.es/dataset/200304-0-centros-culturales",
+        "verifiedAt": "2026-11-12"
+      }
+    },
+    "pausedReason": "Awaiting permission from the Ayuntamiento de Madrid: datos.madrid.es publishes the course dataset under CC BY 4.0, but its robots.txt (as found on 2026-11-13) disallows the CKAN API and resource downloads for automated clients, so ingestion is held until automated access is allowed.",
+    "registration": {
+      "platform": "madrid-datos-cursos",
+      "origin": "https://datos.madrid.es",
+      "organism": "C.S. OPORTO",
+      "verifiedAt": "2026-11-12"
+    }
+  },
+  {
+    "id": "cc-mad-centro-sociocultural-rafael-de-leon",
+    "slug": "centro-sociocultural-rafael-de-leon",
+    "name": "Centro Sociocultural Rafael de León (Fuencarral - El Pardo)",
+    "officialUrl": "https://www.madrid.es/sites/v/index.jsp?vgnextchannel=bfa48ab43d6bb410VgnVCM100000171f5a0aRCRD&vgnextoid=7e0b1e79ee71c010VgnVCM1000000b205a0aRCRD",
+    "address": "CALLE ISLA DE ONS 14, 28035 Madrid",
+    "country": "ES",
+    "city": "Madrid",
+    "cityId": "madrid",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "location": {
+        "latitude": 40.480256,
+        "longitude": -3.721469,
+        "sourceUrl": "https://datos.madrid.es/dataset/200304-0-centros-culturales",
+        "verifiedAt": "2026-11-12"
+      }
+    },
+    "pausedReason": "Awaiting permission from the Ayuntamiento de Madrid: datos.madrid.es publishes the course dataset under CC BY 4.0, but its robots.txt (as found on 2026-11-13) disallows the CKAN API and resource downloads for automated clients, so ingestion is held until automated access is allowed.",
+    "registration": {
+      "platform": "madrid-datos-cursos",
+      "origin": "https://datos.madrid.es",
+      "organism": "C.S.C. RAFAEL DE LEON",
+      "verifiedAt": "2026-11-12"
+    }
+  },
+  {
+    "id": "cc-mad-centro-sociocultural-rosario-de-acuna",
+    "slug": "centro-sociocultural-rosario-de-acuna",
+    "name": "Centro Sociocultural Rosario de Acuña (Latina)",
+    "officialUrl": "https://www.madrid.es/sites/v/index.jsp?vgnextchannel=bfa48ab43d6bb410VgnVCM100000171f5a0aRCRD&vgnextoid=2bae598d1351c010VgnVCM1000000b205a0aRCRD",
+    "address": "CALLE MARIA DEL CARMEN 65, 28011 Madrid",
+    "country": "ES",
+    "city": "Madrid",
+    "cityId": "madrid",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "location": {
+        "latitude": 40.406474,
+        "longitude": -3.732701,
+        "sourceUrl": "https://datos.madrid.es/dataset/200304-0-centros-culturales",
+        "verifiedAt": "2026-11-12"
+      }
+    },
+    "pausedReason": "Awaiting permission from the Ayuntamiento de Madrid: datos.madrid.es publishes the course dataset under CC BY 4.0, but its robots.txt (as found on 2026-11-13) disallows the CKAN API and resource downloads for automated clients, so ingestion is held until automated access is allowed.",
+    "registration": {
+      "platform": "madrid-datos-cursos",
+      "origin": "https://datos.madrid.es",
+      "organism": "CSC ROSARIO DE ACUÑA",
+      "verifiedAt": "2026-11-12"
+    }
+  },
+  {
+    "id": "cc-mad-centro-sociocultural-san-cristobal-de-los-angeles",
+    "slug": "centro-sociocultural-san-cristobal-de-los-angeles",
+    "name": "Centro Sociocultural San Cristóbal de los Ángeles (Villaverde)",
+    "officialUrl": "https://www.madrid.es/sites/v/index.jsp?vgnextchannel=bfa48ab43d6bb410VgnVCM100000171f5a0aRCRD&vgnextoid=7f4a79262ef5d010VgnVCM1000000b205a0aRCRD",
+    "address": "PLAZA PINAZO 9 PLANTA 1ª, 28021 Madrid",
+    "country": "ES",
+    "city": "Madrid",
+    "cityId": "madrid",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "location": {
+        "latitude": 40.342684,
+        "longitude": -3.69144,
+        "sourceUrl": "https://datos.madrid.es/dataset/200304-0-centros-culturales",
+        "verifiedAt": "2026-11-12"
+      }
+    },
+    "pausedReason": "Awaiting permission from the Ayuntamiento de Madrid: datos.madrid.es publishes the course dataset under CC BY 4.0, but its robots.txt (as found on 2026-11-13) disallows the CKAN API and resource downloads for automated clients, so ingestion is held until automated access is allowed.",
+    "registration": {
+      "platform": "madrid-datos-cursos",
+      "origin": "https://datos.madrid.es",
+      "organism": "CENTRO CULTURAL SAN CRISTOBAL DE LOS ANGELES",
+      "verifiedAt": "2026-11-12"
+    }
+  },
+  {
+    "id": "cc-mad-centro-sociocultural-san-fermin",
+    "slug": "centro-sociocultural-san-fermin",
+    "name": "Centro Sociocultural San Fermín (Usera)",
+    "officialUrl": "https://www.madrid.es/sites/v/index.jsp?vgnextchannel=bfa48ab43d6bb410VgnVCM100000171f5a0aRCRD&vgnextoid=1b5b1e79ee71c010VgnVCM1000000b205a0aRCRD",
+    "address": "CALLE ESTAFETA 33 entrada por calle Taconera, 28041 Madrid",
+    "country": "ES",
+    "city": "Madrid",
+    "cityId": "madrid",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "location": {
+        "latitude": 40.371654,
+        "longitude": -3.692057,
+        "sourceUrl": "https://datos.madrid.es/dataset/200304-0-centros-culturales",
+        "verifiedAt": "2026-11-12"
+      }
+    },
+    "pausedReason": "Awaiting permission from the Ayuntamiento de Madrid: datos.madrid.es publishes the course dataset under CC BY 4.0, but its robots.txt (as found on 2026-11-13) disallows the CKAN API and resource downloads for automated clients, so ingestion is held until automated access is allowed.",
+    "registration": {
+      "platform": "madrid-datos-cursos",
+      "origin": "https://datos.madrid.es",
+      "organism": "C.C. SAN FERMIN",
+      "verifiedAt": "2026-11-12"
+    }
+  },
+  {
+    "id": "cc-mad-centro-sociocultural-santa-petronila",
+    "slug": "centro-sociocultural-santa-petronila",
+    "name": "Centro Sociocultural Santa Petronila (Villaverde)",
+    "officialUrl": "https://www.madrid.es/sites/v/index.jsp?vgnextchannel=bfa48ab43d6bb410VgnVCM100000171f5a0aRCRD&vgnextoid=03f7cbf06c81c010VgnVCM1000000b205a0aRCRD",
+    "address": "CALLE MARIA MARTINEZ OVIOL 12, 28021 Madrid",
+    "country": "ES",
+    "city": "Madrid",
+    "cityId": "madrid",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "location": {
+        "latitude": 40.350887,
+        "longitude": -3.691498,
+        "sourceUrl": "https://datos.madrid.es/dataset/200304-0-centros-culturales",
+        "verifiedAt": "2026-11-12"
+      }
+    },
+    "pausedReason": "Awaiting permission from the Ayuntamiento de Madrid: datos.madrid.es publishes the course dataset under CC BY 4.0, but its robots.txt (as found on 2026-11-13) disallows the CKAN API and resource downloads for automated clients, so ingestion is held until automated access is allowed.",
+    "registration": {
+      "platform": "madrid-datos-cursos",
+      "origin": "https://datos.madrid.es",
+      "organism": "C.S.C. SANTA PETRONILA",
+      "verifiedAt": "2026-11-12"
+    }
+  },
+  {
+    "id": "cc-mad-centro-sociocultural-siena",
+    "slug": "centro-sociocultural-siena",
+    "name": "Centro Sociocultural Siena (Ciudad Lineal)",
+    "officialUrl": "https://www.madrid.es/sites/v/index.jsp?vgnextchannel=bfa48ab43d6bb410VgnVCM100000171f5a0aRCRD&vgnextoid=1114c2c6e051c010VgnVCM2000000c205a0aRCRD",
+    "address": "CALLE SIENA 52 Local, 28027 Madrid",
+    "country": "ES",
+    "city": "Madrid",
+    "cityId": "madrid",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "location": {
+        "latitude": 40.433169,
+        "longitude": -3.651871,
+        "sourceUrl": "https://datos.madrid.es/dataset/200304-0-centros-culturales",
+        "verifiedAt": "2026-11-12"
+      }
+    },
+    "pausedReason": "Awaiting permission from the Ayuntamiento de Madrid: datos.madrid.es publishes the course dataset under CC BY 4.0, but its robots.txt (as found on 2026-11-13) disallows the CKAN API and resource downloads for automated clients, so ingestion is held until automated access is allowed.",
+    "registration": {
+      "platform": "madrid-datos-cursos",
+      "origin": "https://datos.madrid.es",
+      "organism": "CENTRO SOCIOCULTURAL SIENA",
+      "verifiedAt": "2026-11-12"
+    }
+  },
+  {
+    "id": "cc-mad-centro-sociocultural-talleres-de-creatividad",
+    "slug": "centro-sociocultural-talleres-de-creatividad",
+    "name": "Centro Sociocultural Talleres de Creatividad (Puente de Vallecas)",
+    "officialUrl": "https://www.madrid.es/sites/v/index.jsp?vgnextchannel=bfa48ab43d6bb410VgnVCM100000171f5a0aRCRD&vgnextoid=b7ab1e79ee71c010VgnVCM1000000b205a0aRCRD",
+    "address": "CALLE SIERRA CARBONERA 74, 28053 Madrid",
+    "country": "ES",
+    "city": "Madrid",
+    "cityId": "madrid",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "location": {
+        "latitude": 40.390101,
+        "longitude": -3.665324,
+        "sourceUrl": "https://datos.madrid.es/dataset/200304-0-centros-culturales",
+        "verifiedAt": "2026-11-12"
+      }
+    },
+    "pausedReason": "Awaiting permission from the Ayuntamiento de Madrid: datos.madrid.es publishes the course dataset under CC BY 4.0, but its robots.txt (as found on 2026-11-13) disallows the CKAN API and resource downloads for automated clients, so ingestion is held until automated access is allowed.",
+    "registration": {
+      "platform": "madrid-datos-cursos",
+      "origin": "https://datos.madrid.es",
+      "organism": "CENTRO SOCIOCULTURAL TALLERES DE CREATIVIDAD",
+      "verifiedAt": "2026-11-12"
+    }
+  },
+  {
+    "id": "cc-mad-centro-sociocultural-teresa-de-calcuta",
+    "slug": "centro-sociocultural-teresa-de-calcuta",
+    "name": "Centro Sociocultural Teresa de Calcuta (Barajas)",
+    "officialUrl": "https://www.madrid.es/sites/v/index.jsp?vgnextchannel=bfa48ab43d6bb410VgnVCM100000171f5a0aRCRD&vgnextoid=f50e1e79ee71c010VgnVCM1000000b205a0aRCRD",
+    "address": "PLAZA NAVIO 4, 28042 Madrid",
+    "country": "ES",
+    "city": "Madrid",
+    "cityId": "madrid",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "location": {
+        "latitude": 40.455321,
+        "longitude": -3.58763,
+        "sourceUrl": "https://datos.madrid.es/dataset/200304-0-centros-culturales",
+        "verifiedAt": "2026-11-12"
+      }
+    },
+    "pausedReason": "Awaiting permission from the Ayuntamiento de Madrid: datos.madrid.es publishes the course dataset under CC BY 4.0, but its robots.txt (as found on 2026-11-13) disallows the CKAN API and resource downloads for automated clients, so ingestion is held until automated access is allowed.",
+    "registration": {
+      "platform": "madrid-datos-cursos",
+      "origin": "https://datos.madrid.es",
+      "organism": "CENTRO INTEGRADO TERESA DE CALCUTA",
+      "verifiedAt": "2026-11-12"
+    }
+  },
+  {
+    "id": "cc-mad-centro-sociocultural-tetuan",
+    "slug": "centro-sociocultural-tetuan",
+    "name": "Centro Sociocultural Tetuán",
+    "officialUrl": "https://www.madrid.es/sites/v/index.jsp?vgnextchannel=bfa48ab43d6bb410VgnVCM100000171f5a0aRCRD&vgnextoid=0ecb1e79ee71c010VgnVCM1000000b205a0aRCRD",
+    "address": "CALLE BRAVO MURILLO 251, 28020 Madrid",
+    "country": "ES",
+    "city": "Madrid",
+    "cityId": "madrid",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "location": {
+        "latitude": 40.459079,
+        "longitude": -3.700253,
+        "sourceUrl": "https://datos.madrid.es/dataset/200304-0-centros-culturales",
+        "verifiedAt": "2026-11-12"
+      }
+    },
+    "pausedReason": "Awaiting permission from the Ayuntamiento de Madrid: datos.madrid.es publishes the course dataset under CC BY 4.0, but its robots.txt (as found on 2026-11-13) disallows the CKAN API and resource downloads for automated clients, so ingestion is held until automated access is allowed.",
+    "registration": {
+      "platform": "madrid-datos-cursos",
+      "origin": "https://datos.madrid.es",
+      "organism": "C.C. \"TETUAN\"",
+      "verifiedAt": "2026-11-12"
+    }
+  },
+  {
+    "id": "cc-mad-centro-sociocultural-valle-inclan",
+    "slug": "centro-sociocultural-valle-inclan",
+    "name": "Centro Sociocultural Valle Inclán (Fuencarral - El Pardo)",
+    "officialUrl": "https://www.madrid.es/sites/v/index.jsp?vgnextchannel=bfa48ab43d6bb410VgnVCM100000171f5a0aRCRD&vgnextoid=aa1c1e79ee71c010VgnVCM1000000b205a0aRCRD",
+    "address": "CALLE ARZOBISPO MORCILLO 7, 28029 Madrid",
+    "country": "ES",
+    "city": "Madrid",
+    "cityId": "madrid",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "location": {
+        "latitude": 40.481068,
+        "longitude": -3.69335,
+        "sourceUrl": "https://datos.madrid.es/dataset/200304-0-centros-culturales",
+        "verifiedAt": "2026-11-12"
+      }
+    },
+    "pausedReason": "Awaiting permission from the Ayuntamiento de Madrid: datos.madrid.es publishes the course dataset under CC BY 4.0, but its robots.txt (as found on 2026-11-13) disallows the CKAN API and resource downloads for automated clients, so ingestion is held until automated access is allowed.",
+    "registration": {
+      "platform": "madrid-datos-cursos",
+      "origin": "https://datos.madrid.es",
+      "organism": "CENTRO SOCIO CULTURAL VALLE-INCLÁN",
+      "verifiedAt": "2026-11-12"
+    }
+  },
+  {
+    "id": "cc-mad-centro-sociocultural-valverde",
+    "slug": "centro-sociocultural-valverde",
+    "name": "Centro Sociocultural Valverde (Fuencarral - El Pardo)",
+    "officialUrl": "https://www.madrid.es/sites/v/index.jsp?vgnextchannel=bfa48ab43d6bb410VgnVCM100000171f5a0aRCRD&vgnextoid=f04c1e79ee71c010VgnVCM1000000b205a0aRCRD",
+    "address": "PLAZA ISLAS AZORES 1, 28034 Madrid",
+    "country": "ES",
+    "city": "Madrid",
+    "cityId": "madrid",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "location": {
+        "latitude": 40.495046,
+        "longitude": -3.688007,
+        "sourceUrl": "https://datos.madrid.es/dataset/200304-0-centros-culturales",
+        "verifiedAt": "2026-11-12"
+      }
+    },
+    "pausedReason": "Awaiting permission from the Ayuntamiento de Madrid: datos.madrid.es publishes the course dataset under CC BY 4.0, but its robots.txt (as found on 2026-11-13) disallows the CKAN API and resource downloads for automated clients, so ingestion is held until automated access is allowed.",
+    "registration": {
+      "platform": "madrid-datos-cursos",
+      "origin": "https://datos.madrid.es",
+      "organism": "CENTRO SOCIO-CULTURAL VALVERDE",
+      "verifiedAt": "2026-11-12"
+    }
+  },
+  {
+    "id": "cc-mad-espacio-cultural-antonio-lopez",
+    "slug": "espacio-cultural-antonio-lopez",
+    "name": "Espacio Cultural Antonio López (Chamartín)",
+    "officialUrl": "https://www.madrid.es/sites/v/index.jsp?vgnextchannel=bfa48ab43d6bb410VgnVCM100000171f5a0aRCRD&vgnextoid=529ec6cfcac59910VgnVCM100000891ecb1aRCRD",
+    "address": "CALLE PASTORA IMPERIO 4, 28036 Madrid",
+    "country": "ES",
+    "city": "Madrid",
+    "cityId": "madrid",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "location": {
+        "latitude": 40.482722,
+        "longitude": -3.675308,
+        "sourceUrl": "https://datos.madrid.es/dataset/200304-0-centros-culturales",
+        "verifiedAt": "2026-11-12"
+      }
+    },
+    "pausedReason": "Awaiting permission from the Ayuntamiento de Madrid: datos.madrid.es publishes the course dataset under CC BY 4.0, but its robots.txt (as found on 2026-11-13) disallows the CKAN API and resource downloads for automated clients, so ingestion is held until automated access is allowed.",
+    "registration": {
+      "platform": "madrid-datos-cursos",
+      "origin": "https://datos.madrid.es",
+      "organism": "ESPACIO CULTURAL ANTONIO LÓPEZ",
+      "verifiedAt": "2026-11-12"
+    }
+  }
+]
