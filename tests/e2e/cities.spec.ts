@@ -15,6 +15,12 @@ test('the course and centre menus list the cities and work without JavaScript', 
     'Zaragoza',
     'Todas las ciudades',
   ]);
+  // Opening one menu closes the other (exclusive details, no JavaScript).
+  const centresEs = page.locator('.nav-menu').filter({ hasText: 'Centros' });
+  await centresEs.locator('summary').click();
+  await expect(courses).not.toHaveAttribute('open');
+  await courses.locator('summary').click();
+  await expect(centresEs).not.toHaveAttribute('open');
   await courses.getByRole('link', { name: 'Zaragoza' }).click();
   await expect(page).toHaveURL(/\/es\/zaragoza\/cursos$/);
   await page.goto('/ca/');
