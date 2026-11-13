@@ -3,6 +3,7 @@ import { cleanText, dmyDate, euroCents } from '../normalization/values';
 import { createSourceFetcher, type FetchOptions } from '../http';
 import { assertRobotsAllowPath } from '../robots';
 import { VITORIA_ORIGIN } from '../../centres/schema';
+import { weekdayNames } from '../../time/dates';
 import type { CourseRecord, SourceAdapter, SourceConfig } from '../types';
 
 // Vitoria-Gasteiz publishes the courses of its civic centres (and sports facilities) in
@@ -15,15 +16,9 @@ import type { CourseRecord, SourceAdapter, SourceConfig } from '../types';
 const PATH = '/m01-10s/actividadAction.do';
 const MAX_GROUPS = 600;
 const MAX_PAGES = 10;
-const DAYS: Record<string, string> = {
-  L: 'lunes',
-  M: 'martes',
-  X: 'miércoles',
-  J: 'jueves',
-  V: 'viernes',
-  S: 'sábado',
-  D: 'domingo',
-};
+// The listing's weekday codes, Monday first ("M-J" is Tuesday and Thursday).
+const DAY_CODES = ['L', 'M', 'X', 'J', 'V', 'S', 'D'];
+const DAY_NAMES = weekdayNames('es');
 
 export interface VitoriaGroup {
   id: string;
@@ -171,7 +166,7 @@ export function normalTariffCents(html: string, startDate: string | null) {
 const dayList = new Intl.ListFormat('es', { type: 'conjunction' });
 
 function weekdays(code: string): string | null {
-  const days = code.split('-').map((day) => DAYS[day]);
+  const days = code.split('-').map((day) => DAY_NAMES[DAY_CODES.indexOf(day)]);
   return days.every(Boolean) ? dayList.format(days as string[]) : null;
 }
 

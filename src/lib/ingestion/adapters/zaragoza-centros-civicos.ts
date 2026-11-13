@@ -5,6 +5,7 @@ import { createSourceFetcher, type FetchOptions } from '../http';
 import { assertRobotsAllowPath } from '../robots';
 import { isIsoDate } from '../../time/dates';
 import { ZARAGOZA_ORIGIN } from '../../centres/schema';
+import { weekdayNames } from '../../time/dates';
 import type { CourseRecord, SourceAdapter, SourceConfig } from '../types';
 
 // Zaragoza's municipal civic centres (Centros Cívicos). The city's public events API
@@ -28,15 +29,10 @@ const SEASON_TITLE =
 // Group rehearsals ("Ensayo jota aragonesa", "Ensayos musicales"), meetings and
 // members' days are listed in the same programme but are not courses or workshops.
 const NOT_A_COURSE = /^(?:ensayos?\b|reuni[oó]n(?:es)?\b|d[ií]a del socio$)/iu;
-const DAYS = [
-  'Lunes',
-  'Martes',
-  'Miércoles',
-  'Jueves',
-  'Viernes',
-  'Sábado',
-  'Domingo',
-] as const;
+// The events API names weekdays in Spanish with an initial capital ("Lunes").
+const DAYS = weekdayNames('es').map(
+  (day) => day[0]!.toLocaleUpperCase('es') + day.slice(1),
+);
 const time = z.string().regex(/^([01]\d|2[0-3]):[0-5]\d$/);
 
 const programmesSchema = z.object({
@@ -57,7 +53,9 @@ const eventSchema = z.object({
         openingHours: z
           .array(
             z.object({
-              dayOfWeek: z.enum(DAYS),
+              dayOfWeek: z.string().refine((day) => DAYS.includes(day), {
+                message: 'Unknown weekday',
+              }),
               startTime: time,
               endTime: time,
             }),

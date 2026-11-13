@@ -5,6 +5,7 @@ import {
   isTimeZone,
   localDateIn,
   parseIsoDate,
+  weekdayNames,
 } from '../../src/lib/time/dates';
 import {
   dmyDate,
@@ -125,5 +126,21 @@ describe('shared source values', () => {
     expect(euroCents('0,29')).toBe(29);
     for (const value of ['', '12,345', '1.234,56', '€5', '-3'])
       expect(euroCents(value)).toBeNull();
+  });
+});
+
+describe('weekday names', () => {
+  it('come from the runtime locale data, Monday first', () => {
+    expect(weekdayNames('es')).toEqual([
+      'lunes',
+      'martes',
+      'miércoles',
+      'jueves',
+      'viernes',
+      'sábado',
+      'domingo',
+    ]);
+    expect(weekdayNames('ca')[0]).toBe('dilluns');
+    expect(weekdayNames('ca')[6]).toBe('diumenge');
   });
 });

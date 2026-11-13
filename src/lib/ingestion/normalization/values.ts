@@ -1,6 +1,6 @@
-import type { Month } from 'date-fns';
+import { format, isExists, isValid, parse, type Month } from 'date-fns';
 import { ca } from 'date-fns/locale';
-import { isIsoDate } from '../../time/dates';
+import { ISO_DATE } from '../../time/dates';
 
 // Source pages use Catalan month names; the locale data is the single source of truth.
 // Matching stays exact (full names only): similar-looking words never become dates.
@@ -25,15 +25,17 @@ export function localDate(
   month: number | undefined,
   year: string,
 ): string | null {
-  if (month === undefined) return null;
-  const value = `${year}-${String(month).padStart(2, '0')}-${day.padStart(2, '0')}`;
-  return isIsoDate(value) ? value : null;
+  if (month === undefined || !isExists(Number(year), month - 1, Number(day)))
+    return null;
+  return format(new Date(Number(year), month - 1, Number(day)), ISO_DATE);
 }
 
 /** "dd/mm/yyyy" as an ISO date, or null when it is not a real date (e.g. 31/02/2026). */
 export function dmyDate(value: string): string | null {
-  const match = /^(\d{1,2})\/(\d{1,2})\/(\d{4})$/u.exec(value.trim());
-  return match ? localDate(match[1]!, Number(match[2]), match[3]!) : null;
+  // A four-digit year only: date-fns would read "06/10/26" as the year 26.
+  if (!/^\d{1,2}\/\d{1,2}\/\d{4}$/u.test(value.trim())) return null;
+  const date = parse(value.trim(), 'd/M/yyyy', new Date(0));
+  return isValid(date) ? format(date, ISO_DATE) : null;
 }
 
 /** An amount such as "12,50", "33.19" or "37" in cents, with exact decimal arithmetic. */
