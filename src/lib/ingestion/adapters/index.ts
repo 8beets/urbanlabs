@@ -6,6 +6,7 @@ import { createGironaAdapter } from './girona-centres-civics';
 import { createVitoriaAdapter } from './vitoria-gasteiz-actividades';
 import { createElPratAdapter } from './el-prat-cursos';
 import { createSabadellAdapter } from './sabadell-centres-civics';
+import { createReusAdapter } from './reus-inscripcions';
 import { createMadridAdapter } from './madrid-datos-cursos';
 import type { FetchOptions } from '../http';
 import type { SourceAdapter, SourceConfig } from '../types';
@@ -32,6 +33,8 @@ export function adapterFor(
       return createElPratAdapter(options);
     case 'sabadell-centres-civics':
       return createSabadellAdapter(options);
+    case 'reus-inscripcions':
+      return createReusAdapter(options);
     case 'madrid-datos-cursos':
       return createMadridAdapter(options);
   }
