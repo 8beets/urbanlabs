@@ -16,7 +16,7 @@ towards the Free plan's daily request limit.
 
 ## Decision
 
-- **Snapshot, then build.** `scripts/export-snapshot.ts` reads production D1 once
+- **Snapshot, then build.** `src/commands/snapshot.ts` reads production D1 once
   per build with bounded, keyset-paginated `SELECT`s (`src/lib/catalog/export.ts`)
   and writes a validated JSON snapshot. Astro prerenders every public page from it
   (`output: 'static'`, `prerenderEnvironment: 'node'`). `wrangler d1 export` is not

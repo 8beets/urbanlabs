@@ -90,6 +90,7 @@ Suggested structure:
 
 ```text
 src/
+  commands/
   components/
   layouts/
   pages/
@@ -107,7 +108,6 @@ src/
   styles/
 
 migrations/
-scripts/
 tests/
   fixtures/
   unit/
