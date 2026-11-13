@@ -1,7 +1,7 @@
 ---
 import { m } from '../paraglide/messages.js';
 import { type Locale } from '../i18n/ui';
-import { citiesCoursesPath, homePath } from '../i18n/paths';
+import { citiesCoursesPath, homePath, localizedPaths } from '../i18n/paths';
 import { coveredCities, sourceCityLabels } from '../i18n/geography';
 import type { CourseListing } from '../lib/catalog/types';
 import SiteLayout from '../layouts/SiteLayout.astro';
@@ -25,7 +25,7 @@ const themes = [
   locale={locale}
   title={m.pageTitle({}, { locale })}
   section="home"
-  languagePaths={{ es: homePath('es'), ca: homePath('ca') }}
+  languagePaths={localizedPaths(homePath)}
 >
   <section class="hero" aria-labelledby="title">
     <div class="hero-copy">

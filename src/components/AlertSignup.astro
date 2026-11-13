@@ -1,7 +1,7 @@
 ---
 import { m } from '../paraglide/messages.js';
 import { cityLabel } from '../i18n/geography';
-import { citiesCoursesPath } from '../i18n/paths';
+import { citiesCoursesPath, localizedPaths } from '../i18n/paths';
 import { categoryLabel, type Locale } from '../i18n/ui';
 import { alertPath } from '../lib/alerts/emails';
 import type { SignupPageData } from '../lib/alerts/page';
@@ -25,10 +25,7 @@ const query = Astro.request.method === 'GET' ? Astro.url.search : '';
   locale={locale}
   title={m.alertsPageTitle({}, { locale })}
   section="none"
-  languagePaths={{
-    es: `${alertPath('es')}${query}`,
-    ca: `${alertPath('ca')}${query}`,
-  }}
+  languagePaths={localizedPaths((l) => `${alertPath(l)}${query}`)}
 >
   <section class="alert-page" aria-labelledby="title">
     <h1 id="title">{m.alertsTitle({}, { locale })}</h1>

@@ -5,6 +5,7 @@ import {
   citiesCentresPath,
   citiesCoursesPath,
   courseSearchPath,
+  localizedPaths,
 } from '../i18n/paths';
 import { cityLabel } from '../i18n/geography';
 import { type Locale } from '../i18n/ui';
@@ -36,7 +37,7 @@ const sorted = cities
   title={`${title} · UrbanLabs`}
   description={intro}
   section={kind}
-  languagePaths={{ es: listPath('es'), ca: listPath('ca') }}
+  languagePaths={localizedPaths(listPath)}
 >
   <section class="centre-heading">
     <h1>{title}</h1>

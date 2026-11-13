@@ -77,7 +77,7 @@ export function appliedFilters({
   if (filters.maxPriceCents !== null)
     applied.push({
       key: 'maxPrice',
-      label: `${m.price({}, { locale })}: ${new Intl.NumberFormat(locale, { style: 'currency', currency: 'EUR' }).format(filters.maxPriceCents / 100)}`,
+      label: `${m.price({}, { locale })}: ${m.priceAmount({ amount: filters.maxPriceCents / 100 }, { locale })}`,
     });
   return applied;
 }

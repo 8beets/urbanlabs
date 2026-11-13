@@ -1,6 +1,6 @@
 ---
 import { m } from '../paraglide/messages.js';
-import { centreDirectoryPath, centrePath } from '../i18n/paths';
+import { centreDirectoryPath, centrePath, localizedPaths } from '../i18n/paths';
 import { formatLocalDate, type Locale } from '../i18n/ui';
 import type { SnapshotCentre, CourseListing } from '../lib/catalog/types';
 import SiteLayout from '../layouts/SiteLayout.astro';
@@ -19,10 +19,9 @@ interface Props {
 const { locale, city, centre, courses, page, prevUrl, nextUrl } = Astro.props;
 const base = centreDirectoryPath(locale, city);
 const suffix = page > 1 ? `/${page}` : '';
-const paths = {
-  es: `${centrePath('es', city, centre.slug)}${suffix}`,
-  ca: `${centrePath('ca', city, centre.slug)}${suffix}`,
-};
+const paths = localizedPaths(
+  (l) => `${centrePath(l, city, centre.slug)}${suffix}`,
+);
 const courseParams = new URLSearchParams({ centre: centre.id });
 ---
 

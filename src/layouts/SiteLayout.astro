@@ -1,5 +1,6 @@
 ---
 import { m } from '../paraglide/messages.js';
+import { locales } from '../paraglide/runtime.js';
 import {
   centreDirectoryPath,
   citiesCentresPath,
@@ -115,20 +116,15 @@ const menus = [
           ))}
         </nav>
         <nav class="language-nav" aria-label={m.language({}, { locale })}>
-          <a
-            href={languagePaths.es}
-            lang="es"
-            aria-current={locale === 'es' ? 'page' : undefined}
-          >
-            {m.languageSpanish({}, { locale })}
-          </a>
-          <a
-            href={languagePaths.ca}
-            lang="ca"
-            aria-current={locale === 'ca' ? 'page' : undefined}
-          >
-            {m.languageCatalan({}, { locale })}
-          </a>
+          {locales.map((target) => (
+            <a
+              href={languagePaths[target]}
+              lang={target}
+              aria-current={target === locale ? 'page' : undefined}
+            >
+              {m.languageName({}, { locale: target })}
+            </a>
+          ))}
         </nav>
       </div>
     </header>

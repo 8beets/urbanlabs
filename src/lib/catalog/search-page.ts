@@ -1,4 +1,5 @@
 import { m } from '../../paraglide/messages.js';
+import { baseLocale, isLocale } from '../../paraglide/runtime.js';
 import { courseSearchPath } from '../../i18n/paths';
 import { categoryLabel, type Locale } from '../../i18n/ui';
 import { startMonthLabel } from '../courses/start-month';
@@ -164,13 +165,16 @@ function updatePage(
   for (const link of document.querySelectorAll<HTMLAnchorElement>(
     '.language-nav a[lang]',
   )) {
-    const target = link.lang === 'ca' ? 'ca' : 'es';
+    const target = link.lang;
+    if (!isLocale(target)) continue;
     link.href = `${courseSearchPath(target, city)}${params.size ? `?${params}` : ''}`;
   }
 }
 
 export async function startSearchPage(root: HTMLElement): Promise<void> {
-  const locale: Locale = root.dataset.locale === 'ca' ? 'ca' : 'es';
+  const locale: Locale = isLocale(root.dataset.locale)
+    ? root.dataset.locale
+    : baseLocale;
   const alerts = root.dataset.alerts === 'true';
   const results = root.querySelector<HTMLElement>('[data-discovery-results]');
   const form = root.querySelector<HTMLFormElement>('[data-dynamic-filters]');

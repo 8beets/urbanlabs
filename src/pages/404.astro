@@ -1,11 +1,18 @@
 ---
 import { m } from '../paraglide/messages.js';
-import { citiesCentresPath, citiesCoursesPath, homePath } from '../i18n/paths';
+import { baseLocale, isLocale } from '../paraglide/runtime.js';
+import {
+  citiesCentresPath,
+  citiesCoursesPath,
+  homePath,
+  localizedPaths,
+} from '../i18n/paths';
 import SiteLayout from '../layouts/SiteLayout.astro';
 // Rendered on the Worker for unknown paths, so the language follows the requested URL.
 export const prerender = false;
 
-const locale = Astro.url.pathname.split('/')[1] === 'ca' ? 'ca' : 'es';
+const segment = Astro.url.pathname.split('/')[1];
+const locale = isLocale(segment) ? segment : baseLocale;
 Astro.response.status = 404;
 ---
 
@@ -14,7 +21,7 @@ Astro.response.status = 404;
   title={`404 · ${m.pageNotFound({}, { locale })} · UrbanLabs`}
   description={m.pageNotFoundIntro({}, { locale })}
   section="none"
-  languagePaths={{ es: '/es/404', ca: '/ca/404' }}
+  languagePaths={localizedPaths((l) => `/${l}/404`)}
 >
   <section class="not-found" aria-labelledby="not-found-title">
     <p class="error-code">404</p>
