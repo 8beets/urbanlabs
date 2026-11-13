@@ -12,6 +12,9 @@ on:
       source:
         description: 'Approved source IDs, comma-separated (empty = every source that is due)'
         required: false
+      city:
+        description: 'City ID, e.g. girona (every approved source in that city)'
+        required: false
       force:
         description: 'Refresh every approved source regardless of when it last succeeded'
         type: boolean
@@ -36,6 +39,7 @@ jobs:
       batches: ${{ steps.plan.outputs.batches }}
     env:
       SOURCE: ${{ inputs.source }}
+      CITY: ${{ inputs.city }}
       FORCE: ${{ inputs.force }}
     steps:
       - uses: actions/checkout@v6
@@ -50,6 +54,7 @@ jobs:
         run: |
           args=()
           if [ -n "$SOURCE" ]; then args+=(--sources "$SOURCE"); fi
+          if [ -n "$CITY" ]; then args+=(--city "$CITY"); fi
           if [ "$FORCE" = "true" ]; then args+=(--force); fi
           npm run ingest:plan -- "${args[@]}"
   # One job per batch, strictly one at a time. A failing batch is reported but does

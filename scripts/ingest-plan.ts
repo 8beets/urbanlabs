@@ -18,7 +18,10 @@ const { values } = parseArgs({
   },
 });
 const force = values.force ?? false;
-const explicit = values.source !== undefined || values.sources !== undefined;
+const explicit =
+  values.source !== undefined ||
+  values.sources !== undefined ||
+  values.city !== undefined;
 const batchSize = Number(values['batch-size']);
 
 const wanted = selectedSources(values);

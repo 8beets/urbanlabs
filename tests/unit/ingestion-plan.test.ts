@@ -118,7 +118,17 @@ describe('command-line source selection', () => {
     ).toEqual(['miram-urgell', 'miram-can-baste']);
   });
 
+  it('selects every approved source in a city', () => {
+    const girona = selectedSources(['--city', 'girona']);
+    expect(girona.length).toBeGreaterThan(0);
+    expect(girona.length).toBe(
+      sources.filter((s) => s.institution.cityId === 'girona').length,
+    );
+  });
+
   it.each([
+    [['--city', 'atlantis']],
+    [['--city', 'girona', '--source', 'miram-urgell']],
     [['--source']],
     [['--source', '--live']],
     [['--sources']],
