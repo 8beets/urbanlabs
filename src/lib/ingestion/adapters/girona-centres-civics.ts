@@ -122,6 +122,11 @@ export function parseGironaActivity(
     throw new Error(`Girona activity ${listing.id} structure changed`);
   if (venue !== listing.venue)
     throw new Error(`Girona activity ${listing.id} venue mismatch`);
+  const startDate = period ? isoDate(period[1]!) : null;
+  const endDate = period ? isoDate(period[2]!) : null;
+  // Some published periods end before they start (e.g. 10/10/2026 - 12/06/2026);
+  // which date is wrong is unknown, so both stay unknown rather than guessed.
+  const consistent = !startDate || !endDate || startDate <= endDate;
   const schedule = cleanText(values.get('Horari') ?? '');
   const price = publicPriceCents(values.get('Tarifes') ?? '');
   return {
@@ -129,8 +134,8 @@ export function parseGironaActivity(
     title: listing.title,
     officialUrl: `${GIRONA_ORIGIN}/si/activitats/consulta3/${listing.id}`,
     category: listing.group,
-    startDate: period ? isoDate(period[1]!) : null,
-    endDate: period ? isoDate(period[2]!) : null,
+    startDate: consistent ? startDate : null,
+    endDate: consistent ? endDate : null,
     // Courses held away from the centre name their venue.
     scheduleText:
       [schedule, venue === source.venue ? '' : venue]

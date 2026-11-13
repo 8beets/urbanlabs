@@ -106,6 +106,23 @@ describe('Girona civic-centre parsing', () => {
       expect(publicPriceCents(tariff)).toBeNull();
   });
 
+  it('leaves both dates unknown when the published period ends before it starts', () => {
+    const record = parseGironaActivity(
+      fixture('14998').replace('08/06/2027', '08/06/2026'),
+      activity('14998'),
+      source('barri-vell-mercadal'),
+    );
+    expect([record.startDate, record.endDate]).toEqual([null, null]);
+    expect(courseRecordSchema.safeParse(record).success).toBe(true);
+    expect(
+      courseRecordSchema.safeParse({
+        ...record,
+        startDate: '2026-10-06',
+        endDate: '2026-06-08',
+      }).success,
+    ).toBe(false);
+  });
+
   it('rejects a detail page for another activity or venue', () => {
     expect(() =>
       parseGironaActivity(
