@@ -5,7 +5,8 @@ export type SourcePlatform =
   | 'zaragoza-centros-civicos'
   | 'girona-centres-civics'
   | 'vitoria-gasteiz-actividades'
-  | 'el-prat-cursos';
+  | 'el-prat-cursos'
+  | 'sabadell-centres-civics';
 
 export interface SourceConfig {
   id: string;
@@ -15,7 +16,7 @@ export interface SourceConfig {
   listingUrl: string;
   excludedCategoryCodes?: string[];
   excludedExternalIds?: string[];
-  /** The centre's number on its platform (Tarragona activity codes, Zaragoza `idLugar`, Vitoria `cen`). */
+  /** The centre's number on its platform (Tarragona activity codes, Zaragoza `idLugar`, Vitoria `cen`, Sabadell venue id). */
   centreCode?: number;
   /** Girona and Vitoria-Gasteiz: the centre's venue name (El Prat: its page path); Girona: the activity-code prefix of the courses it runs elsewhere. */
   venue?: string;

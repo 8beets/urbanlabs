@@ -9,7 +9,7 @@ UrbanLabs helps people discover courses and visit the organizer's official listi
 ## Features
 
 - Astro + strict TypeScript, Tailwind CSS, Cloudflare Workers, and D1 configuration.
-- Reusable adapters (Miram registration sites, Zaragoza's civic-centre events API, Girona's municipal registration system, El Prat de Llobregat's course guide, Alicante Aula Abierta, Tarragona and Vitoria-Gasteiz civic centres) with centre configuration separated from extraction.
+- Reusable adapters (Miram registration sites, Zaragoza's civic-centre events API, Girona's municipal registration system, El Prat de Llobregat's course guide, Alicante Aula Abierta, Tarragona, Vitoria-Gasteiz and Sabadell civic centres) with centre configuration separated from extraction.
 - Versioned relational schema, atomic imports, stable identifiers, provenance, and failed-run tracking.
 - Spanish (`/es/`) and Catalan (`/ca/`) homepages show the latest 20 added, unexpired course editions from every city.
 - One section per city ([ADR 0010](docs/adr/0010-city-sections.md)): `/es/<city>/` lists its topics, `/es/<city>/cursos` searches its courses (topic pages at `/es/<city>/cursos/<topic>`), and `/es/<city>/centros` lists its centres. The header's Cursos and Centros menus, `/es/cursos` and `/es/centros` list the cities. Catalan uses `/ca/<city>/cursos` and `/ca/<city>/centres`.
