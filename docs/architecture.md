@@ -16,6 +16,10 @@ No account is required for browsing. No analytics, trackers, cookies, sessions, 
 
 Centre and category navigation uses real database values, parameterized equality filters, and a category index. Navigation preserves other filters, resets pagination when a centre/category changes, and keeps selections when switching languages. Category interface labels are localized; source values remain unchanged in D1 and URLs. Category/centre choices include non-expired offerings independently of the current text and price filters, allowing users to change either dimension even when a combination has no results.
 
+## Operational commands
+
+Ingestion, snapshots, alerts, centre sync and build checks are [commander](https://github.com/tj/commander.js) subcommands in `src/commands/` (one file each, entry `src/commands/index.ts`), run with tsx through the `npm run` scripts; `npm run cli -- --help` lists them. They are not part of the site bundle. `src/commands/database.ts` chooses local D1 or production D1 (`--remote`), and `src/commands/options.ts` holds the shared `--source`/`--sources`/`--city` selection. `npm run check` runs every check (also via `docker compose --profile checks run --rm checks`).
+
 ## Discovery categories
 
 Courses are listed under one of 13 fixed topics (ADR 0009) and optionally one audience (families, children and young people, older people, women). The reviewed category tables live in `data/categories.json` (validated when loaded: known topics and audiences, no category listed twice); `src/lib/courses/categories.ts` holds the title rules and is the only code that decides either. Classification is a pure function of the stored source category and title, run at build time and in the browser search, so changing the tables needs only a rebuild. D1 keeps original category values unchanged for provenance.
@@ -200,7 +204,7 @@ the current category and city, only when `alertsConfigured` finds every setting.
 
 Decided in [ADR 0008](adr/0008-static-site.md) (issue #89).
 
-- `scripts/export-snapshot.ts` (`npm run snapshot`, `snapshot:production`) reads D1
+- `src/commands/snapshot.ts` (`npm run snapshot`, `snapshot:production`) reads D1
   with bounded queries (`src/lib/catalog/export.ts`) and writes a validated snapshot
   (`.cache/snapshot.json`, or `URBANLABS_SNAPSHOT`). It never writes to D1.
 - `astro build` prerenders every public page from that snapshot in Node

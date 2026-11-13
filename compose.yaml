@@ -29,7 +29,7 @@ services:
       - /workspace/dist
       - /workspace/test-results
       - /workspace/playwright-report
-    command: sh scripts/check.sh
+    command: npm run check
 
 volumes:
   dependencies:

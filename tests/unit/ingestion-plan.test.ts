@@ -1,20 +1,22 @@
 import { describe, expect, it } from 'vitest';
 import { planIngestion } from '../../src/lib/ingestion/plan';
-import { parseArgs } from 'node:util';
+import { Command } from 'commander';
 import {
-  selectedSources as selectFromValues,
-  sourceOptions,
-} from '../../src/lib/ingestion/cli';
-
-// Parses like the ingestion scripts do, so invalid flags are covered too.
-const selectedSources = (args: string[]) =>
-  selectFromValues(
-    parseArgs({
-      args,
-      options: { ...sourceOptions, live: { type: 'boolean' } },
-    }).values,
-  );
+  selectedSources as selectFromOptions,
+  withSourceOptions,
+} from '../../src/commands/options';
 import { sources } from '../../src/lib/sources';
+
+// Parses like the commands do, so invalid flags are covered too.
+const selectedSources = (args: string[]) => {
+  const command = withSourceOptions(
+    new Command()
+      .option('--live')
+      .exitOverride()
+      .configureOutput({ writeErr: () => {} }),
+  ).parse(args, { from: 'user' });
+  return selectFromOptions(command.opts());
+};
 
 const now = new Date('2026-11-09T04:17:00Z');
 const options = { now, minAgeHours: 20, maxSources: 100, batchSize: 3 };
