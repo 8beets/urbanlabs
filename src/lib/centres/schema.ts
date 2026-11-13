@@ -96,6 +96,25 @@ const zaragozaRegistrationSchema = z.strictObject({
   mayBeEmpty: z.boolean().optional(),
 });
 
+// Girona's civic-centre network: the Ajuntament's registration system, one offer
+// listing every activity of the network (the adapter finds the current offer).
+export const GIRONA_ORIGIN = 'https://seu.girona.cat';
+const gironaRegistrationSchema = z.strictObject({
+  platform: z.literal('girona-centres-civics'),
+  origin: z.literal(GIRONA_ORIGIN),
+  // The centre's own "Equipament" name in the listing, e.g. "C. C. Pont Major".
+  venue: z.string().min(3).max(100),
+  // Activities it runs at other venues (local socials, Espai Cívic Mercadal…) carry its
+  // two-letter code prefix. Omitted when another centre's prefix is shared (Pedret).
+  codePrefix: z
+    .string()
+    .regex(/^[A-Z]{2}$/)
+    .optional(),
+  verifiedAt: z.iso.date(),
+  robotsTxt: z.literal('absent'),
+  mayBeEmpty: z.boolean().optional(),
+});
+
 // Add new platforms as further members of this union, each with its own adapter
 // (src/lib/ingestion/adapters) and a case in toSourceConfig.
 export const registrationSchema = z.discriminatedUnion('platform', [
@@ -103,6 +122,7 @@ export const registrationSchema = z.discriminatedUnion('platform', [
   aulaAbiertaRegistrationSchema,
   tarragonaRegistrationSchema,
   zaragozaRegistrationSchema,
+  gironaRegistrationSchema,
 ]);
 
 export const centreSchema = z.strictObject({
@@ -142,7 +162,10 @@ export function aulaAbiertaListingUrl(
 function platformSource(
   centre: Centre,
   registration: Centre['registration'],
-): Pick<SourceConfig, 'name' | 'listingUrl' | 'centreCode'> {
+): Pick<
+  SourceConfig,
+  'name' | 'listingUrl' | 'centreCode' | 'venue' | 'codePrefix'
+> {
   switch (registration.platform) {
     case 'miram':
       return {
@@ -166,6 +189,16 @@ function platformSource(
         // The centre's public activity listing; the adapter reads its `idLugar`.
         listingUrl: `${registration.origin}/sede/servicio/cultura/evento/list?idLugar=${registration.placeId}`,
         centreCode: registration.placeId,
+      };
+    case 'girona-centres-civics':
+      return {
+        name: `${centre.name} · Centres Cívics de Girona`,
+        // The centre's own page; the adapter reads the network's offer at the origin.
+        listingUrl: centre.officialUrl,
+        venue: registration.venue,
+        ...(registration.codePrefix
+          ? { codePrefix: registration.codePrefix }
+          : {}),
       };
   }
 }

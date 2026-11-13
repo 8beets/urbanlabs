@@ -1,38 +1,79 @@
 {
-  "countries": [{ "code": "ES", "name": "España" }],
+  "countries": [
+    {
+      "code": "ES",
+      "name": "España"
+    }
+  ],
   "regions": [
-    { "id": "catalunya", "country": "ES", "name": "Catalunya" },
+    {
+      "id": "catalunya",
+      "country": "ES",
+      "name": "Catalunya"
+    },
     {
       "id": "comunitat-valenciana",
       "country": "ES",
       "name": "Comunitat Valenciana"
     },
-    { "id": "aragon", "country": "ES", "name": "Aragón" }
+    {
+      "id": "aragon",
+      "country": "ES",
+      "name": "Aragón"
+    }
   ],
   "cities": [
     {
       "id": "alicante",
       "country": "ES",
       "region": "comunitat-valenciana",
-      "names": { "es": "Alicante", "ca": "Alacant" }
+      "names": {
+        "es": "Alicante",
+        "ca": "Alacant"
+      }
     },
     {
       "id": "barcelona",
       "country": "ES",
       "region": "catalunya",
-      "names": { "es": "Barcelona", "ca": "Barcelona" }
+      "names": {
+        "es": "Barcelona",
+        "ca": "Barcelona"
+      }
+    },
+    {
+      "id": "girona",
+      "country": "ES",
+      "region": "catalunya",
+      "names": {
+        "es": "Girona",
+        "ca": "Girona"
+      },
+      "dataCredit": {
+        "url": "https://web.girona.cat/avislegal",
+        "names": {
+          "es": "Ayuntamiento de Girona",
+          "ca": "Ajuntament de Girona"
+        }
+      }
     },
     {
       "id": "tarragona",
       "country": "ES",
       "region": "catalunya",
-      "names": { "es": "Tarragona", "ca": "Tarragona" }
+      "names": {
+        "es": "Tarragona",
+        "ca": "Tarragona"
+      }
     },
     {
       "id": "zaragoza",
       "country": "ES",
       "region": "aragon",
-      "names": { "es": "Zaragoza", "ca": "Saragossa" },
+      "names": {
+        "es": "Zaragoza",
+        "ca": "Saragossa"
+      },
       "dataCredit": {
         "url": "https://www.zaragoza.es/sede/portal/aviso-legal#condiciones",
         "names": {

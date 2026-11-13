@@ -2,6 +2,8 @@ export interface FetchOptions {
   fetch?: typeof fetch;
   sleep?: (milliseconds: number) => Promise<void>;
   intervalMs?: number;
+  /** Keep the session cookies the source sets and send them back (Girona's listing). */
+  session?: boolean;
 }
 
 export const sleep = (milliseconds: number) =>
@@ -13,6 +15,7 @@ export function createSourceFetcher(
 ) {
   const fetcher = options.fetch ?? fetch;
   const pause = options.sleep ?? sleep;
+  const cookies = new Map<string, string>();
   return async (url: string, allowNotFound = false): Promise<string | null> => {
     if (new URL(url).origin !== origin || new URL(url).protocol !== 'https:')
       throw new Error('Source URL outside approved origin');
@@ -26,6 +29,13 @@ export function createSourceFetcher(
           headers: {
             'User-Agent': 'LearnAprop/0.1 (local course metadata research)',
             Accept: 'text/html,text/plain;q=0.9',
+            ...(cookies.size
+              ? {
+                  Cookie: [...cookies]
+                    .map(([name, value]) => `${name}=${value}`)
+                    .join('; '),
+                }
+              : {}),
           },
         });
       } catch (error) {
@@ -33,6 +43,13 @@ export function createSourceFetcher(
         await pause(1000 * 2 ** attempt);
         continue;
       }
+      if (options.session)
+        for (const cookie of response.headers.getSetCookie()) {
+          const pair = cookie.split(';', 1)[0]!;
+          const split = pair.indexOf('=');
+          if (split > 0)
+            cookies.set(pair.slice(0, split).trim(), pair.slice(split + 1));
+        }
       if (response.status === 404 && allowNotFound) {
         await response.body?.cancel();
         return null;

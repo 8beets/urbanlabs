@@ -20,7 +20,12 @@
       "Tallers artístics",
       "RECURSOS - CREATIVITAT - FET A MÀ",
       "Dibuix, còmic i il·lustració",
-      "Artes plásticas"
+      "Artes plásticas",
+      "Dibuix i pintura",
+      "Artesania tèxtil - anuals",
+      "Artesania tèxtil - monogràfics",
+      "Manualitats - anuals",
+      "Manualitats - monogràfics"
     ],
     "fotografia-i-audiovisual": [
       "FOTOGRAFIA",
@@ -33,7 +38,8 @@
       "CINEMA",
       "Ràdio i pòdcast",
       "Cine",
-      "Imagen y sonido"
+      "Imagen y sonido",
+      "Fotografia i audiovisual"
     ],
     "musica": [
       "MÚSICA",
@@ -52,7 +58,9 @@
       "Dansa i expressió corporal",
       "BALL I MOVIMENT",
       "MOVIMENT, EXPRESSIÓ I DANSES",
-      "7- ARTS ESCÈNIQUES I BALL"
+      "7- ARTS ESCÈNIQUES I BALL",
+      "Dansa i ball - anuals",
+      "Dansa i ball - monogràfics"
     ],
     "teatre": [
       "TEATRE",
@@ -62,7 +70,8 @@
       "ENTORN DE LES ARTS ESCÈNIQUES",
       "Escola d'Arts Escèniques Tísner (4 a 17 anys)",
       "CIRC",
-      "Teatro y Artes Escénicas"
+      "Teatro y Artes Escénicas",
+      "Teatre i arts escèniques"
     ],
     "activitat-fisica": [
       "ACTIVITAT FÍSICA",
@@ -78,7 +87,8 @@
       "FARINERA COS I MENT",
       "Benestar",
       "Benestar personal",
-      "Deporte"
+      "Deporte",
+      "Activitats físiques - anuals"
     ],
     "benestar": [
       "Creixement personal",
@@ -94,7 +104,8 @@
       "CUINA I NUTRICIÓ",
       "Cuina sostenible",
       "Puntuals de cuina",
-      "A taula! Tallers de cuina"
+      "A taula! Tallers de cuina",
+      "Vins i altres begudes"
     ],
     "idiomes": ["IDIOMES", "LLENGÜES", "4- LLENGÜES", "Idiomas"],
     "humanitats-i-ciencia": [
@@ -117,7 +128,8 @@
       "Itineraris",
       "SORTIDES",
       "VISITES CULTURALS,VISITES GUIADES, SORTIDES i EXCURSIONS",
-      "Espai Dona"
+      "Espai Dona",
+      "Ciència, literatura i pensament"
     ],
     "tecnologia": [
       "NOVES TECNOLOGIES",
@@ -131,7 +143,8 @@
       "Creació Visual i Sonora",
       "1_Tallers de creació multimèdia i maker",
       "4_Tallers d'informàtica per a gent gran",
-      "3_Tallers de fabricació digital i robòtica per infants, adolescents i joves"
+      "3_Tallers de fabricació digital i robòtica per infants, adolescents i joves",
+      "Comunicació, noves tecnologies i robòtica"
     ],
     "natura": [
       "Medi ambient",
@@ -142,7 +155,8 @@
       "Hort al balcó",
       "Aula Ambiental",
       "Itineraris d'Aula Ambiental",
-      "MÉS ECO"
+      "MÉS ECO",
+      "Natura, ecologia i sostenibilitat"
     ]
   },
   "mixed": [
@@ -229,7 +243,10 @@
     "Tallers Joves",
     "GENT GRAN",
     "Persones Grans",
-    "ESPECIAL GENT GRAN"
+    "ESPECIAL GENT GRAN",
+    "Escacs i jocs de taula",
+    "Memòria i reforç de la llengua",
+    "Nadons (0-3 anys)"
   ],
   "audiences": {
     "families": [
@@ -244,7 +261,8 @@
       "Puntuals Familiars",
       "Tallers per a infants i families",
       "Infantil i familiar",
-      "Sessions de Planetari | Familiars"
+      "Sessions de Planetari | Familiars",
+      "Nadons (0-3 anys)"
     ],
     "infants-i-joves": [
       "Infants",

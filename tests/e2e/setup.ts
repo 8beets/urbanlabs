@@ -5,6 +5,10 @@ import { runIngestion } from '../../src/lib/ingestion/run';
 import { parseMiramPage } from '../../src/lib/ingestion/adapters/miram';
 import { selectSources, sources } from '../../src/lib/sources';
 import { universidadRecords } from '../helpers/zaragoza';
+import {
+  parseGironaActivity,
+  parseGironaListing,
+} from '../../src/lib/ingestion/adapters/girona-centres-civics';
 import { E2E_ALERT_IDS } from './alert-fixtures';
 import { mkdirSync, readFileSync, readdirSync, writeFileSync } from 'node:fs';
 import { exportSnapshot } from '../../src/lib/catalog/export';
@@ -311,6 +315,46 @@ async function setup() {
       await runIngestion(
         db,
         { fetchRecords: async () => zaragozaRecords },
+        source,
+      );
+    }
+    // Girona: the saved Barri Vell course, and one explicitly synthetic course for every
+    // other civic centre so each active source has a centre page and marker.
+    const gironaFixture = (name: string) =>
+      readFileSync(
+        new URL(
+          `../fixtures/girona-centres-civics-${name}.html`,
+          import.meta.url,
+        ),
+        'utf8',
+      );
+    const gironaListing = parseGironaListing(gironaFixture('listing'));
+    for (const [index, source] of sources
+      .filter((s) => s.platform === 'girona-centres-civics')
+      .entries()) {
+      const record = {
+        ...parseGironaActivity(
+          gironaFixture('14998'),
+          gironaListing.find((a) => a.id === '14998')!,
+          source,
+        ),
+        startDate: '2099-01-01',
+        endDate: '2099-12-31',
+      };
+      await runIngestion(
+        db,
+        {
+          fetchRecords: async () => [
+            source.venue === 'C. C. Barri Vell - Mercadal'
+              ? record
+              : {
+                  ...record,
+                  externalId: `9970${index}`,
+                  title: `TEST workshop ${source.institution.name}`,
+                  officialUrl: source.institution.url,
+                },
+          ],
+        },
         source,
       );
     }

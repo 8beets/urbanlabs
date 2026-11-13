@@ -37,6 +37,7 @@ it('puts courses and centres under the city id in every locale', () => {
 it('lists the cities with an approved source; no city id is a fixed section', () => {
   expect(sourceCities().map((city) => city.id)).toEqual([
     'barcelona',
+    'girona',
     'zaragoza',
   ]);
   for (const centre of centres)
