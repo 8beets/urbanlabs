@@ -1,6 +1,7 @@
 import { expect, it } from 'vitest';
 import {
   RESERVED_SEGMENTS,
+  aboutPath,
   centreDirectoryPath,
   centrePath,
   citiesCentresPath,
@@ -40,6 +41,11 @@ it('lists the cities with an approved source; no city id is a fixed section', ()
     'girona',
     'zaragoza',
   ]);
+  // Every fixed section's localized segment is reserved.
+  for (const locale of ['es', 'ca'] as const)
+    expect(RESERVED_SEGMENTS).toContain(
+      aboutPath(locale).split('/')[2] as never,
+    );
   for (const centre of centres)
     expect(RESERVED_SEGMENTS).not.toContain(centre.cityId as never);
 });

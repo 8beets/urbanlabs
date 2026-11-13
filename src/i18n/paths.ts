@@ -14,6 +14,8 @@ export const RESERVED_SEGMENTS = [
   'centres',
   'alertas',
   'alertes',
+  'proyecto',
+  'projecte',
   '404',
 ] as const;
 
@@ -24,6 +26,11 @@ export function homePath(locale: Locale): string {
 /** The city page, an index route like the homepage (hence the trailing slash). */
 export function cityPath(locale: Locale, city: string): string {
   return `/${locale}/${city}/`;
+}
+
+/** The page about the project, its sources and licences. */
+export function aboutPath(locale: Locale): string {
+  return `/${locale}/${m.pathAbout({}, { locale })}`;
 }
 
 /** The list of cities to search courses in. */

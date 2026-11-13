@@ -1,0 +1,105 @@
+---
+import { m } from '../paraglide/messages.js';
+import { aboutPath, centreDirectoryPath } from '../i18n/paths';
+import { sourceCityLabels } from '../i18n/geography';
+import { type Locale } from '../i18n/ui';
+import { geographyCity } from '../lib/locations/registry';
+import { sources } from '../lib/sources';
+import SiteLayout from '../layouts/SiteLayout.astro';
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const repo = 'https://github.com/8beets/urbanlabs';
+// Generated from the registry and data/geography.json, so new cities appear here.
+const cities = sourceCityLabels(locale).map((city) => ({
+  ...city,
+  centres: sources.filter((source) => source.institution.cityId === city.id)
+    .length,
+  credit: geographyCity(city.id)?.dataCredit,
+}));
+const title = m.aboutTitle({}, { locale });
+---
+
+<SiteLayout
+  locale={locale}
+  title={`${title} · UrbanLabs`}
+  description={m.aboutIntro({}, { locale })}
+  section="none"
+  languagePaths={{ es: aboutPath('es'), ca: aboutPath('ca') }}
+>
+  <article class="about">
+    <h1>{title}</h1>
+    <p class="intro">{m.aboutIntro({}, { locale })}</p>
+
+    <h2>{m.aboutWhatTitle({}, { locale })}</h2>
+    <p>{m.aboutWhat({}, { locale })}</p>
+
+    <h2>{m.aboutDataTitle({}, { locale })}</h2>
+    <ul>
+      <li>{m.aboutDataOfficial({}, { locale })}</li>
+      <li>{m.aboutDataVerified({}, { locale })}</li>
+      <li>{m.aboutDataUnknown({}, { locale })}</li>
+      <li>{m.aboutDataAvailability({}, { locale })}</li>
+    </ul>
+
+    <h2>{m.aboutSourcesTitle({}, { locale })}</h2>
+    <p>{m.aboutSourcesIntro({}, { locale })}</p>
+    <ul class="about-sources">
+      {cities.map((city) => (
+        <li>
+          <a href={centreDirectoryPath(locale, city.id)}>
+            {city.label} ·{' '}
+            {m.aboutSourcesCentres({ count: city.centres }, { locale })}
+          </a>
+          {city.credit && (
+            <>
+              {' '}
+              — {m.aboutSourcesCredit({}, { locale })}{' '}
+              {city.credit.names[locale]} ·{' '}
+              <a href={city.credit.url}>
+                {m.aboutSourcesTerms({}, { locale })}
+              </a>
+            </>
+          )}
+        </li>
+      ))}
+    </ul>
+    <p>
+      <a href={`${repo}/blob/main/docs/data-sources.md`}>
+        {m.aboutSourcesDocs({}, { locale })}
+      </a>
+    </p>
+
+    <h2>{m.aboutLicencesTitle({}, { locale })}</h2>
+    <ul>
+      <li>
+        <a href={`${repo}/blob/main/LICENSE`}>
+          {m.aboutLicenceCode({}, { locale })}
+        </a>
+      </li>
+      <li>{m.aboutLicenceData({}, { locale })}</li>
+      <li>
+        <a href="https://www.pexels.com/license/">
+          {m.aboutLicencePhotos({}, { locale })}
+        </a>
+      </li>
+      <li>
+        <a href="https://www.openstreetmap.org/copyright">
+          {m.aboutLicenceMap({}, { locale })}
+        </a>
+      </li>
+      <li>{m.aboutLicenceFont({}, { locale })}</li>
+    </ul>
+
+    <h2>{m.aboutPrivacyTitle({}, { locale })}</h2>
+    <p>{m.aboutPrivacyNoTracking({}, { locale })}</p>
+    <p>{m.aboutPrivacyAlerts({}, { locale })}</p>
+
+    <h2>{m.aboutContributeTitle({}, { locale })}</h2>
+    <p>{m.aboutContribute({}, { locale })}</p>
+    <p>
+      <a href={`${repo}/issues`}>{m.aboutContributeLink({}, { locale })}</a>
+    </p>
+  </article>
+</SiteLayout>

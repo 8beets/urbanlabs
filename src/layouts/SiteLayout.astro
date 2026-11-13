@@ -6,6 +6,7 @@ import {
   citiesCoursesPath,
   courseSearchPath,
   homePath,
+  aboutPath,
 } from '../i18n/paths';
 import { coveredCities, sourceCityLabels } from '../i18n/geography';
 import { geographyCity } from '../lib/locations/registry';
@@ -139,6 +140,7 @@ const menus = [
         <p>{m.footer({}, { locale })}</p>
       </div>
       <div class="footer-links">
+        <a href={aboutPath(locale)}>{m.aboutNav({}, { locale })}</a>
         <a class="github-link" href="https://github.com/8beets/urbanlabs">
           <img src="/icons/github.svg" alt="" width="20" height="20" />
           {m.githubRepo({}, { locale })}
