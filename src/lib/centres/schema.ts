@@ -175,6 +175,21 @@ const madridRegistrationSchema = z.strictObject({
   mayBeEmpty: z.boolean().optional(),
 });
 
+// Reus's civic centres: the city's registration platform (inscripcions.reus.cat,
+// fixed listing in the adapter); each activity names its centre in "Lloc".
+export const REUS_ORIGIN = 'https://inscripcions.reus.cat';
+const reusRegistrationSchema = z.strictObject({
+  platform: z.literal('reus-inscripcions'),
+  origin: z.literal(REUS_ORIGIN),
+  // The centre's name as the listing and activity pages give it ("Lloc").
+  venue: z.string().min(3).max(100),
+  verifiedAt: z.iso.date(),
+  // Reviewed policy: robots.txt disallows account, booking and payment paths only;
+  // the adapter checks the listing and activity paths on every run.
+  robotsTxt: z.literal('allows-requested-paths'),
+  mayBeEmpty: z.boolean().optional(),
+});
+
 // Add new platforms as further members of this union, each with its own adapter
 // (src/lib/ingestion/adapters) and a case in toSourceConfig.
 export const registrationSchema = z.discriminatedUnion('platform', [
@@ -187,6 +202,7 @@ export const registrationSchema = z.discriminatedUnion('platform', [
   elPratRegistrationSchema,
   sabadellRegistrationSchema,
   madridRegistrationSchema,
+  reusRegistrationSchema,
 ]);
 
 export const centreSchema = z.strictObject({
@@ -293,6 +309,13 @@ function platformSource(
         // the newest CSV snapshot of the city's dataset.
         listingUrl: centre.officialUrl,
         venue: registration.organism,
+      };
+    case 'reus-inscripcions':
+      return {
+        name: `${centre.name} · Xarxa de Centres Cívics de Reus`,
+        // The centre's page on reus.cat; the adapter reads the network's listing.
+        listingUrl: centre.officialUrl,
+        venue: registration.venue,
       };
   }
 }

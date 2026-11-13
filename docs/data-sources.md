@@ -289,6 +289,17 @@ Researched 2026-11-12 (issue #98); 83 district cultural centres registered in `d
 - **Access blocked.** On 2026-11-13 `datos.madrid.es/robots.txt` started disallowing `/api/`, `/dataset/*/resource/*` and any query string for `User-agent: *`, with `Crawl-delay: 10`; the legacy `/egob/catalogo/…` URLs redirect to the blocked downloads, and datos.gob.es links to the same files. The district registration catalogue on sede.madrid.es answers "Access Denied" (Akamai) to automated clients. All 83 centres carry `pausedReason`: validated but **not ingested, scheduled or published** until automated access is allowed. The adapter checks robots.txt for both the API and the CSV path, so it stops on its own while the rules stand. A draft request is in `docs/madrid-permission-request.md`.
 - **Attribution.** `data/geography.json` gives Madrid a `dataCredit` for the CC BY 4.0 notice.
 
+## Reus — Xarxa de Centres Cívics (municipal network), paused
+
+Researched 2026-11-13; the 7 civic centres registered in `data/centres/es/reus.json` (del Carme, Gregal, Llevant, Mas Abelló, Mestral, Migjorn, Ponent). Adapter `reus-inscripcions`.
+
+- **Where the data is.** The city's registration platform `inscripcions.reus.cat` (the "inscribirme" platform also used by Tarragona, with another page template). The home listing filtered to the Centres Cívics department (`?page=<n>&depart=6&…`) shows 21 cards per page (7 pages, 143 activities on 2026-11-13); each card names the centre ("Centre Cívic Migjorn", sometimes with ", Reus"). The adapter follows the pages while a "Next" link exists and reads only the source centre's activity pages.
+- **Records.** The page slug is the external id and the page the official URL. Each activity page has a schema.org `Event` (name, place, offers with availability) and visible blocks: "Data i Hora" ("Dimarts, 24 Novembre 2026 - Dimarts, 02 Febrer 2027" and "19:45h - 21:15h"), "Lloc" and "Preu" ("55.65€", "Gratuïta"). Dates come from the visible block; the times are stored verbatim and no weekday or recurrence is inferred. The trailing "– CC <centre>" is removed from titles. Sold out only when every offer is `SoldOut`; cancelled when `eventStatus` is `EventCancelled`. Only a single exact price (or "Gratuït/Gratuïta") is kept. The activity page's place must match the card's centre; titles can name another centre ("TAST DE CERVESES - CC DEL CARME" at Migjorn), and the place wins. No source category is kept yet (the cards' hashtags, e.g. #Formatives, #Salut, are not mapped).
+- **Scope.** The department lists courses, one-off workshops, talks and visits together; they are not told apart yet.
+- **Access.** `inscripcions.reus.cat/robots.txt` disallows account, booking, payment, `/api/` and `/ajax/` paths for `User-agent: *`; the adapter checks the listing and each activity path on every run.
+- **Profiles.** Address, phone, email and coordinates come from the network page on reus.cat ([Centres Cívics](https://www.reus.cat/centres-civics)); Gregal has no page of its own there, so its official URL is that network page.
+- **Permission pending.** The [avís legal](https://www.reus.cat/avis-legal) allows the content only "exclusivament per al seu ús personal, privat i no lucratiu" and subjects any other use to "prèvia i expressa autorització". All 7 centres carry `pausedReason`: validated but **not ingested, scheduled or published** until written permission is granted. A draft request is in `docs/reus-permission-request.md`.
+
 ## Investigated and deferred
 
 ### FAB Casa del Rellotge — official programme link

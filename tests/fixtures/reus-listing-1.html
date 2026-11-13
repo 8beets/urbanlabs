@@ -1,0 +1,897 @@
+
+<!DOCTYPE html>
+<!--[if IE]>
+<html id="ie6" dir="ltr" lang="es-ES">
+<![endif]-->
+<!--[if IE 7]>
+<html id="ie7" dir="ltr" lang="es-ES">
+<![endif]-->
+<!--[if IE 8]>
+<html id="ie8" dir="ltr" lang="es-ES">
+<![endif]-->
+<!--[if !(IE 6) | !(IE 7) | !(IE 8)  ]><!-->
+<!--<![endif]-->
+<html lang="ca" xmlns:fb="http://ogp.me/ns/fb#" xmlns:og="http://ogp.me/ns#">
+<head>
+<meta charset="UTF-8" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0" />
+<link rel="profile" href="https://gmpg.org/xfn/11">
+<title>
+        Sistema d&#39;Inscripcions | Ajuntament de Reus
+</title>
+        <meta name="description" content="Sistema d&#39;inscripcions de l&#39;Ajuntament de Reus.">
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.2/summernote.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://storage.googleapis.com/inscribirme.appspot.com/static/css/angular-csp.css"/>
+    <link rel="stylesheet" href="https://storage.googleapis.com/inscribirme.appspot.com/static/css/docs.css"/>
+    <link rel="stylesheet" href="https://storage.googleapis.com/inscribirme.appspot.com/static/css/form-builder-material.min.css"/>
+    <link rel="stylesheet" href="https://storage.googleapis.com/inscribirme.appspot.com/static/css/form-viewer-material.min.css"/>
+    <link rel="stylesheet" href="https://storage.googleapis.com/inscribirme.appspot.com/static/css/flex-calendar.css"/>
+    <link rel='stylesheet' type='text/css' media='all' href="https://storage.googleapis.com/inscribirme.appspot.com/static/js/bootstrap-datepicker/css/bootstrap-datepicker3.css">
+    <link rel="stylesheet" href="https://storage.googleapis.com/inscribirme.appspot.com/static/css/datetimepicker.css"/>
+    <link rel="stylesheet" href="https://storage.googleapis.com/inscribirme.appspot.com/static/css/keyboard/keyboard.css"/>
+    <link rel="stylesheet" href="https://storage.googleapis.com/inscribirme.appspot.com/static/css/magnific-popup.css" type="text/css" />
+    <link rel="stylesheet" href="https://storage.googleapis.com/inscribirme.appspot.com/static/css/ng-table.min.css"/>
+    <link rel="stylesheet" href="https://storage.googleapis.com/inscribirme.appspot.com/static/css/dropzone.min.css"/>
+    <link rel="stylesheet" href="https://storage.googleapis.com/inscribirme.appspot.com/static/css/new/footer.css"/>
+    <link rel="stylesheet" href="https://storage.googleapis.com/inscribirme.appspot.com/static/css/new/seat_map.css"/>
+    <link rel="stylesheet" href="https://storage.googleapis.com/inscribirme.appspot.com/static/css/new/fontawesome6/css/all.css"/>
+    <link rel="stylesheet" href="https://storage.googleapis.com/inscribirme.appspot.com/static/css/angular-material.min.css"/>
+    <link rel="stylesheet" href="https://storage.googleapis.com/inscribirme.appspot.com/static/css/bootstrap.3.3.7.min.css"/>
+    <link rel="stylesheet" href="https://storage.googleapis.com/inscribirme.appspot.com/static/css/inscribirme.css?v=1"/> 
+    <link rel="stylesheet" href="https://storage.googleapis.com/inscribirme.appspot.com/static/fontawesome/css/all.min.css"/>
+    <link rel="stylesheet" href="https://storage.googleapis.com/inscribirme.appspot.com/static/css/new_style.css"/> <!-- new css style -->
+    <!-- NEW STYLES -->
+    <!--end NEW STYLES -->
+<!--[if IE 9]>
+<link rel="stylesheet" type="text/css" media="all" href="ie/ie9.css" />
+<![endif]-->
+<!--[if lt IE 9]>
+<link rel="stylesheet" type="text/css" media="all" href="ie/ie.css" />
+<![endif]-->
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+</head>
+    <meta name="theme-color" content="#60223b">
+    <link rel="icon" type="image/x-icon" href="https://storage.googleapis.com/inscribirme.appspot.com/media/inscribirme/favicon-fd4d601c2f70f8ba399cca1554ae026a-1615993152299836.png">
+<body ng-app="inscribirmeApp" class="AJUNTAMENT DE REUS  nomobile  " ng-cloak>
+        <div style="display: flex;   flex-direction: column;" >
+        <div style="flex: 1;">
+        <!-- Google Tag Manager (noscript) -->
+        <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=G-XLJ3EFPF5D"
+        height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+        <!-- End Google Tag Manager (noscript) -->
+<div ng-controller="headerCtrl">
+<!--Log in dialog -->
+<div style="visibility: hidden">
+    <div class="md-dialog-container" id="login_dialog">
+    </div>
+</div>
+<!--Sign up dialog -->
+<div style="visibility: hidden">
+    <div class="md-dialog-container" id="signup_dialog">
+    </div>
+</div>
+</div>
+<section class="header">
+    <div class="container-fluid pintado">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6 col-xs-6">
+                            <a href="http://www.reus.cat/" target="_blank" title="enllaç a l'ajuntament de reus">
+                                <img class="img-responsive" src="https://storage.googleapis.com/inscribirme.appspot.com/static/reus/ajuntament-de-reus.gif" alt="ajuntament de reus">
+                            </a>
+                        </div>
+                        <div class="col-md-6 col-xs-6 in">
+                            <a href="/joventut">
+                                <i class="fa-regular fa-user"></i>
+                            </a>
+                            <form action="/i18n/setlang/" method="post" class="set-lang selected_lang">
+                                <input type='hidden' name='csrfmiddlewaretoken' value='R7w6x2mzKXpJjJO5qWD940e0QAjiDK7S' />
+                                <input type="hidden" name="language" value="ca">
+                                <input type="submit" value="CA" />|
+                            </form>
+                            <form action="/i18n/setlang/" method="post" class="set-lang ">
+                                <input type='hidden' name='csrfmiddlewaretoken' value='R7w6x2mzKXpJjJO5qWD940e0QAjiDK7S' />
+                                <input type="hidden" name="language" value="es">
+                                <input type="submit" value="ES" />
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="menu">
+    <nav class="navbar navbar-default">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="https://inscripcions.reus.cat/" title="enllaç a joventut reus"><img class="img-responsive" src="https://storage.googleapis.com/inscribirme.appspot.com/static/img/reus/logo-reus-subheader.png" alt="inscripcions reus logo"></a>
+                    </div>
+                </div>
+                <div class="navbar-collapse collapse" id="bs-example-navbar-collapse-1" aria-expanded="false" style="height: 1px;">
+                    <div class="row">
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <ul class="nav navbar-nav navbar-right">
+                                <li>
+                                    <a href="https://www.twitter.com/reus_cat" target="_blank" title="enllaç a twitter de joventut reus">
+                                        <img class="img-responsive" src="https://storage.googleapis.com/inscribirme.appspot.com/static/reus/twitter.png" alt="twitter  de joventut reus">
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="https://www.facebook.com/reus.cat?ref=tn_tnmn" target="_blank" title="enllaç a facebook de joventut reus">
+                                        <img class="img-responsive" src="https://storage.googleapis.com/inscribirme.appspot.com/static/reus/facebook.png" alt=" facebook de joventut reus">
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="https://www.instagram.com/reus_cat/" target="_blank" title="enllaç a instagram de joventut reus">
+                                        <img class="img-responsive" src="https://storage.googleapis.com/inscribirme.appspot.com/static/reus/instagram.png" alt="instagram  de joventut reus">
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="https://www.youtube.com/reuscatsessions" target="_blank" title="enllaç a youtube de joventut reus">
+                                        <img class="img-responsive" src="https://storage.googleapis.com/inscribirme.appspot.com/static/reus/youtube.png" alt=" youtube de joventut reus">
+                                    </a>
+                                </li>
+                                <!--<li>
+                                    <a href="https://issuu.com/reus_cat/" target="_blank" title="enllaç a flickr de joventut reus">
+                                        <img class="img-responsive" src="https://www.reus.cat/sites/reus/files/xarxes_socials/ico-isu.png" alt="flickr  de joventut reus">
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="https://t.me/ReusCatNoticies" target="_blank" title="enllaç a soundcloud de joventut reus">
+                                        <img class="img-responsive" src="http://www.reus.cat/sites/reus/files/Fitxers/ajuntament/comunicacio/imatges/icono-telegram.png" alt="soundcloud  de joventut reus">
+                                    </a>
+                                </li>-->
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+</section>
+<!-- MAIN CONTENT -->
+    <div id="contentblock">
+<div id="home_background" style="background-size: cover; background-position: center center; height: 317px; ">
+    <div id="home_search_form_wrapper" style="width: 1000px; height: 100%; margin: auto; position: relative;">
+        <div id="home_search_form" style="width: inherit;" class="contentblock_inner v2 ">
+            <div >
+                <form method="GET" action="">
+                    <input type="hidden" name="depart" value="6">
+                    <md-input-container class="form_input" style="text-align: left;">
+                        <label>Troba l’activitat que desitges</label>
+                        <input type="text" name="activitat" style="width: 300px;" >
+                    </md-input-container>
+                    <md-input-container style="text-align: left;" ng-init="categoria=">
+                      <label>Categoria</label>
+                      <md-select ng-model="categoria" name="categoria" style="margin: 0;" >
+                          <md-option value="" ></md-option>
+                              <md-option value="0">Curs</md-option>
+                              <md-option value="1">Taller</md-option>
+                              <md-option value="2">Casal</md-option>
+                              <md-option value="3">Sortida</md-option>
+                              <md-option value="4">Espectacle</md-option>
+                              <md-option value="5">Xerrada o conferència</md-option>
+                              <md-option value="6">Visita</md-option>
+                              <md-option value="7">Extraescolars</md-option>
+                              <md-option value="8">Cursa</md-option>
+                              <md-option value="9">Caminada</md-option>
+                              <md-option value="10">Altres</md-option>
+                              <md-option value="11">+60</md-option>
+                      </md-select>
+                    </md-input-container>
+                    <md-input-container style="text-align: left;" ng-init="edat=">
+                      <label>Edat </label>
+                      <md-select ng-model="edat" name="edat" style="margin: 0;" multiple>
+                              <md-option value="0">Infants</md-option>
+                              <md-option value="1">Joves</md-option>
+                              <md-option value="2">Adults</md-option>
+                              <md-option value="3">Gent Gran</md-option>
+                              <md-option value="4">Públic familiar</md-option>
+                              <md-option value="5">Tots els públics</md-option>
+                      </md-select>
+                    </md-input-container>
+                    <md-input-container style="text-align: left;" ng-init="tema=">
+                      <label>Temàtica</label>
+                      <md-select ng-model="tema" name="tema" style="margin: 0;" multiple>
+                              <md-option value="0">Formatives</md-option>
+                              <md-option value="1">Oci i Lleure</md-option>
+                              <md-option value="2">Esportives</md-option>
+                              <md-option value="3">Culturals</md-option>
+                              <md-option value="4">Noves tecnologies</md-option>
+                              <md-option value="5">Manualitats</md-option>
+                              <md-option value="6">Medi ambient</md-option>
+                              <md-option value="7">Socials</md-option>
+                              <md-option value="8">Salut</md-option>
+                              <md-option value="9">Prescripció Social</md-option>
+                              <md-option value="10">Altres</md-option>
+                              <md-option value="11">Empresa</md-option>
+                      </md-select>
+                    </md-input-container>
+                    <!--
+                    <md-input-container style="text-align: left;">
+                      <label>Departamento</label>
+                      <md-select ng-model="depart" name="depart" style="margin: 0;">
+                              <md-option value="0" >Joventut</md-option>
+                              <md-option value="1" >Educació</md-option>
+                              <md-option value="2" >Mas Pintat</md-option>
+                              <md-option value="3" >Escola Oberta de Salut</md-option>
+                              <md-option value="4" >Biblioteques</md-option>
+                              <md-option value="5" >Marta Mata</md-option>
+                              <md-option value="6" selected>Centres Cívics</md-option>
+                              <md-option value="7" >Gent Gran</md-option>
+                              <md-option value="8" >Esports</md-option>
+                              <md-option value="9" >Arxiu Municipal</md-option>
+                              <md-option value="10" >Altres</md-option>
+                              <md-option value="11" >Mas Carandell</md-option>
+                              <md-option value="12" >Promoció econòmica</md-option>
+                              <md-option value="13" >Empresa, Formació i Ocupació</md-option>
+                              <md-option value="14" >Serveis Socials</md-option>
+                      </md-select>
+                    </md-input-container>
+                    -->
+                    <div class="form_submit form_input">
+                        <input type="submit" value="Cercar">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div>
+        <span id="left" style="position: absolute; left: 0; top: 50%;"></span>
+        <div class="contentblock_inner" ng-controller="homeCard" style="margin-top: 40px !important;">
+                <a href="/respiranaturaccdelcarme" class="inscribirme_event v2" id="event_6a95786733fd1b6c517ca13a">
+                    <div class="photo">
+                            <img style="height: 178px;" src="https://storage.googleapis.com/inscribirme.appspot.com/media/inscribirme/event-f839fb8db8673f2101e823cb7e2f6384-1787564649821010.png?v=529996" alt="RESPIRA NATURA - CC DEL CARME">
+                                        <span class="price">Gratuïta</span>
+                    </div>
+                    <div class="content">
+                        <ul class="categorias">
+                                <li>#Oci i Lleure</li>
+                                <li>#Prescripció Social</li>
+                        </ul>
+                        <h1 class="name"><span>RESPIRA NATURA - CC DEL CARME</span></h1>
+                            <p class="gray" style="padding-right: 15px;">Dimecres 18 Novembre 2026</p>
+                        <p style="color: rgb(60,60,60); height: 35px; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis;"><img src="https://storage.googleapis.com/inscribirme.appspot.com/static/img/inscribirme/location.png" style="width: 14px;"> Centre Cívic del Carme </p>
+                            <p class="categorie" >Queden: <span style="color: rgb(60,60,60);">5 dies</span></p>
+                    </div>
+                </a>
+                    <div class="event_card inscribirme-share ">
+                        <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A//inscripcions.reus.cat/%3Fpage%3D1%26depart%3D6%26activitat%3D%26categoria%3D%26edat%3D%26tema%3Drespiranaturaccdelcarme"><img src="https://storage.googleapis.com/inscribirme.appspot.com/static/img/inscribirme/facebook_icon.png"></a>
+                        <a target="_blank" href="https://twitter.com/intent/tweet?text=https%3A//inscripcions.reus.cat/%3Fpage%3D1%26depart%3D6%26activitat%3D%26categoria%3D%26edat%3D%26tema%3Drespiranaturaccdelcarme"><img src="https://storage.googleapis.com/inscribirme.appspot.com/static/img/inscribirme/twitter_icon.png"></a>
+                        <a target="_blank" href="https://plus.google.com/share?url=https%3A//inscripcions.reus.cat/%3Fpage%3D1%26depart%3D6%26activitat%3D%26categoria%3D%26edat%3D%26tema%3Drespiranaturaccdelcarme"><img src="https://storage.googleapis.com/inscribirme.appspot.com/static/img/inscribirme/google_icon.png"></a>
+                        <a target="_blank" href="https://pinterest.com/pin/create/button/?url=https%3A//inscripcions.reus.cat/%3Fpage%3D1%26depart%3D6%26activitat%3D%26categoria%3D%26edat%3D%26tema%3Drespiranaturaccdelcarme"><img src="https://storage.googleapis.com/inscribirme.appspot.com/static/img/inscribirme/pinterest_icon.png"></a>
+                    </div>
+                <!--Tickets dialog -->
+                <div style="visibility: hidden">
+                    <div class="md-dialog-container" id="inscribirme_dialog_6a95786733fd1b6c517ca13a">
+                    </div>
+                </div>
+                <a href="/encaranoutilitzeslaplicatiudelamevasalutdescobreixtotelquetofereixccponent" class="inscribirme_event v2" id="event_6a9673981453f01754ee3251">
+                    <div class="photo">
+                            <img style="height: 178px;" src="https://storage.googleapis.com/inscribirme.appspot.com/media/inscribirme/event-f839fb8db8673f2101e823cb7e2f6384-1788245142650438.png" alt="ENCARA NO UTILITZES L’APLICATIU DE LA MEVA SALUT? DESCOBREIX TOT EL QUE T’OFEREIX! - CC PONENT">
+                                        <span class="price">Gratuïta</span>
+                    </div>
+                    <div class="content">
+                        <ul class="categorias">
+                                <li>#Formatives</li>
+                                <li>#Salut</li>
+                        </ul>
+                        <h1 class="name"><span>ENCARA NO UTILITZES L’APLICATIU DE LA MEVA SALUT? DESCOBREIX TOT EL QUE T’OFEREIX! - CC PONENT</span></h1>
+                            <p class="gray" style="padding-right: 15px;">Dimecres 18 Novembre 2026</p>
+                        <p style="color: rgb(60,60,60); height: 35px; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis;"><img src="https://storage.googleapis.com/inscribirme.appspot.com/static/img/inscribirme/location.png" style="width: 14px;"> Centre Cívic Ponent </p>
+                            <p class="categorie" >Queden: <span style="color: rgb(60,60,60);">5 dies</span></p>
+                    </div>
+                </a>
+                    <div class="event_card inscribirme-share ">
+                        <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A//inscripcions.reus.cat/%3Fpage%3D1%26depart%3D6%26activitat%3D%26categoria%3D%26edat%3D%26tema%3Dencaranoutilitzeslaplicatiudelamevasalutdescobreixtotelquetofereixccponent"><img src="https://storage.googleapis.com/inscribirme.appspot.com/static/img/inscribirme/facebook_icon.png"></a>
+                        <a target="_blank" href="https://twitter.com/intent/tweet?text=https%3A//inscripcions.reus.cat/%3Fpage%3D1%26depart%3D6%26activitat%3D%26categoria%3D%26edat%3D%26tema%3Dencaranoutilitzeslaplicatiudelamevasalutdescobreixtotelquetofereixccponent"><img src="https://storage.googleapis.com/inscribirme.appspot.com/static/img/inscribirme/twitter_icon.png"></a>
+                        <a target="_blank" href="https://plus.google.com/share?url=https%3A//inscripcions.reus.cat/%3Fpage%3D1%26depart%3D6%26activitat%3D%26categoria%3D%26edat%3D%26tema%3Dencaranoutilitzeslaplicatiudelamevasalutdescobreixtotelquetofereixccponent"><img src="https://storage.googleapis.com/inscribirme.appspot.com/static/img/inscribirme/google_icon.png"></a>
+                        <a target="_blank" href="https://pinterest.com/pin/create/button/?url=https%3A//inscripcions.reus.cat/%3Fpage%3D1%26depart%3D6%26activitat%3D%26categoria%3D%26edat%3D%26tema%3Dencaranoutilitzeslaplicatiudelamevasalutdescobreixtotelquetofereixccponent"><img src="https://storage.googleapis.com/inscribirme.appspot.com/static/img/inscribirme/pinterest_icon.png"></a>
+                    </div>
+                <!--Tickets dialog -->
+                <div style="visibility: hidden">
+                    <div class="md-dialog-container" id="inscribirme_dialog_6a9673981453f01754ee3251">
+                    </div>
+                </div>
+                <a href="/fotografiagastronomicaperaxarxessocialsccmestral" class="inscribirme_event v2" id="event_6a96c77bfa62d4de1f4857de">
+                    <div class="photo">
+                            <img style="height: 178px;" src="https://storage.googleapis.com/inscribirme.appspot.com/media/inscribirme/event-f839fb8db8673f2101e823cb7e2f6384-1788266363498798.png" alt="FOTOGRAFIA GASTRONÒMICA PER A XARXES SOCIALS - CC MESTRAL">
+                                        <span class="price">Gratuïta</span>
+                    </div>
+                    <div class="content">
+                        <ul class="categorias">
+                                <li>#Formatives</li>
+                                <li>#Noves tecnologies</li>
+                                <li>#Manualitats</li>
+                        </ul>
+                        <h1 class="name"><span>FOTOGRAFIA GASTRONÒMICA PER A XARXES SOCIALS - CC MESTRAL</span></h1>
+                            <p class="gray" style="padding-right: 15px;">Dimecres 18 Novembre 2026</p>
+                        <p style="color: rgb(60,60,60); height: 35px; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis;"><img src="https://storage.googleapis.com/inscribirme.appspot.com/static/img/inscribirme/location.png" style="width: 14px;"> Centre Cívic Mestral </p>
+                            <p class="categorie" >Queden: <span style="color: rgb(60,60,60);">5 dies</span></p>
+                    </div>
+                </a>
+                    <div class="event_card inscribirme-share ">
+                        <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A//inscripcions.reus.cat/%3Fpage%3D1%26depart%3D6%26activitat%3D%26categoria%3D%26edat%3D%26tema%3Dfotografiagastronomicaperaxarxessocialsccmestral"><img src="https://storage.googleapis.com/inscribirme.appspot.com/static/img/inscribirme/facebook_icon.png"></a>
+                        <a target="_blank" href="https://twitter.com/intent/tweet?text=https%3A//inscripcions.reus.cat/%3Fpage%3D1%26depart%3D6%26activitat%3D%26categoria%3D%26edat%3D%26tema%3Dfotografiagastronomicaperaxarxessocialsccmestral"><img src="https://storage.googleapis.com/inscribirme.appspot.com/static/img/inscribirme/twitter_icon.png"></a>
+                        <a target="_blank" href="https://plus.google.com/share?url=https%3A//inscripcions.reus.cat/%3Fpage%3D1%26depart%3D6%26activitat%3D%26categoria%3D%26edat%3D%26tema%3Dfotografiagastronomicaperaxarxessocialsccmestral"><img src="https://storage.googleapis.com/inscribirme.appspot.com/static/img/inscribirme/google_icon.png"></a>
+                        <a target="_blank" href="https://pinterest.com/pin/create/button/?url=https%3A//inscripcions.reus.cat/%3Fpage%3D1%26depart%3D6%26activitat%3D%26categoria%3D%26edat%3D%26tema%3Dfotografiagastronomicaperaxarxessocialsccmestral"><img src="https://storage.googleapis.com/inscribirme.appspot.com/static/img/inscribirme/pinterest_icon.png"></a>
+                    </div>
+                <!--Tickets dialog -->
+                <div style="visibility: hidden">
+                    <div class="md-dialog-container" id="inscribirme_dialog_6a96c77bfa62d4de1f4857de">
+                    </div>
+                </div>
+                <a href="/nutricioenletapaadultaccmasabello" class="inscribirme_event v2" id="event_6a8bf57d2af60bd3aa60db9b">
+                    <div class="photo">
+                            <img style="height: 178px;" src="https://storage.googleapis.com/inscribirme.appspot.com/media/inscribirme/event-f839fb8db8673f2101e823cb7e2f6384-1787557245248091.png" alt="NUTRICIÓ EN L’ETAPA ADULTA - CC MAS ABELLÓ">
+                                        <span class="price">Gratuïta</span>
+                    </div>
+                    <div class="content">
+                        <ul class="categorias">
+                                <li>#Formatives</li>
+                                <li>#Salut</li>
+                        </ul>
+                        <h1 class="name"><span>NUTRICIÓ EN L’ETAPA ADULTA - CC MAS ABELLÓ</span></h1>
+                            <p class="gray" style="padding-right: 15px;">Dijous 19 Novembre 2026</p>
+                        <p style="color: rgb(60,60,60); height: 35px; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis;"><img src="https://storage.googleapis.com/inscribirme.appspot.com/static/img/inscribirme/location.png" style="width: 14px;"> Centre Cívic Mas Abelló </p>
+                            <p class="categorie" >Queden: <span style="color: rgb(60,60,60);">6 dies</span></p>
+                    </div>
+                </a>
+                    <div class="event_card inscribirme-share ">
+                        <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A//inscripcions.reus.cat/%3Fpage%3D1%26depart%3D6%26activitat%3D%26categoria%3D%26edat%3D%26tema%3Dnutricioenletapaadultaccmasabello"><img src="https://storage.googleapis.com/inscribirme.appspot.com/static/img/inscribirme/facebook_icon.png"></a>
+                        <a target="_blank" href="https://twitter.com/intent/tweet?text=https%3A//inscripcions.reus.cat/%3Fpage%3D1%26depart%3D6%26activitat%3D%26categoria%3D%26edat%3D%26tema%3Dnutricioenletapaadultaccmasabello"><img src="https://storage.googleapis.com/inscribirme.appspot.com/static/img/inscribirme/twitter_icon.png"></a>
+                        <a target="_blank" href="https://plus.google.com/share?url=https%3A//inscripcions.reus.cat/%3Fpage%3D1%26depart%3D6%26activitat%3D%26categoria%3D%26edat%3D%26tema%3Dnutricioenletapaadultaccmasabello"><img src="https://storage.googleapis.com/inscribirme.appspot.com/static/img/inscribirme/google_icon.png"></a>
+                        <a target="_blank" href="https://pinterest.com/pin/create/button/?url=https%3A//inscripcions.reus.cat/%3Fpage%3D1%26depart%3D6%26activitat%3D%26categoria%3D%26edat%3D%26tema%3Dnutricioenletapaadultaccmasabello"><img src="https://storage.googleapis.com/inscribirme.appspot.com/static/img/inscribirme/pinterest_icon.png"></a>
+                    </div>
+                <!--Tickets dialog -->
+                <div style="visibility: hidden">
+                    <div class="md-dialog-container" id="inscribirme_dialog_6a8bf57d2af60bd3aa60db9b">
+                    </div>
+                </div>
+                <a href="/cafetertuliataularodonaauxinfermeriaicosidoresantichospital" class="inscribirme_event v2" id="event_6af2f93fda76997d473bd7c2">
+                    <div class="photo">
+                            <img style="height: 178px;" src="https://storage.googleapis.com/inscribirme.appspot.com/media/inscribirme/event-3cbf312b2063e592e88324932798d335-1794308415185863.jpg" alt="CAFÈ TERTÚLIA-Taula rodona: Aux. Infermeria i Cosidores Antic Hospital">
+                                        <span class="price">Gratuïta</span>
+                    </div>
+                    <div class="content">
+                        <ul class="categorias">
+                                <li>#Oci i Lleure</li>
+                                <li>#Socials</li>
+                                <li>#Salut</li>
+                        </ul>
+                        <h1 class="name"><span>CAFÈ TERTÚLIA-Taula rodona: Aux. Infermeria i Cosidores Antic Hospital</span></h1>
+                            <p class="gray" style="padding-right: 15px;">Dijous 19 Novembre 2026</p>
+                        <p style="color: rgb(60,60,60); height: 35px; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis;"><img src="https://storage.googleapis.com/inscribirme.appspot.com/static/img/inscribirme/location.png" style="width: 14px;"> Centre Cívic Gregal, Reus</p>
+                            <p class="categorie" >Queden: <span style="color: rgb(60,60,60);">6 dies</span></p>
+                    </div>
+                </a>
+                    <div class="event_card inscribirme-share ">
+                        <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A//inscripcions.reus.cat/%3Fpage%3D1%26depart%3D6%26activitat%3D%26categoria%3D%26edat%3D%26tema%3Dcafetertuliataularodonaauxinfermeriaicosidoresantichospital"><img src="https://storage.googleapis.com/inscribirme.appspot.com/static/img/inscribirme/facebook_icon.png"></a>
+                        <a target="_blank" href="https://twitter.com/intent/tweet?text=https%3A//inscripcions.reus.cat/%3Fpage%3D1%26depart%3D6%26activitat%3D%26categoria%3D%26edat%3D%26tema%3Dcafetertuliataularodonaauxinfermeriaicosidoresantichospital"><img src="https://storage.googleapis.com/inscribirme.appspot.com/static/img/inscribirme/twitter_icon.png"></a>
+                        <a target="_blank" href="https://plus.google.com/share?url=https%3A//inscripcions.reus.cat/%3Fpage%3D1%26depart%3D6%26activitat%3D%26categoria%3D%26edat%3D%26tema%3Dcafetertuliataularodonaauxinfermeriaicosidoresantichospital"><img src="https://storage.googleapis.com/inscribirme.appspot.com/static/img/inscribirme/google_icon.png"></a>
+                        <a target="_blank" href="https://pinterest.com/pin/create/button/?url=https%3A//inscripcions.reus.cat/%3Fpage%3D1%26depart%3D6%26activitat%3D%26categoria%3D%26edat%3D%26tema%3Dcafetertuliataularodonaauxinfermeriaicosidoresantichospital"><img src="https://storage.googleapis.com/inscribirme.appspot.com/static/img/inscribirme/pinterest_icon.png"></a>
+                    </div>
+                <!--Tickets dialog -->
+                <div style="visibility: hidden">
+                    <div class="md-dialog-container" id="inscribirme_dialog_6af2f93fda76997d473bd7c2">
+                    </div>
+                </div>
+                <a href="/clubdelecturacomicimangaperadultsccllevant" class="inscribirme_event v2" id="event_6a97feeb90f028cbe70cf085">
+                    <div class="photo">
+                            <img style="height: 178px;" src="https://storage.googleapis.com/inscribirme.appspot.com/media/inscribirme/event-f839fb8db8673f2101e823cb7e2f6384-1792147560615603.png" alt="CLUB DE LECTURA: CÒMIC I MANGA PER ADULTS - CC LLEVANT">
+                                        <span class="price">Gratuïta</span>
+                    </div>
+                    <div class="content">
+                        <ul class="categorias">
+                                <li>#Formatives</li>
+                        </ul>
+                        <h1 class="name"><span>CLUB DE LECTURA: CÒMIC I MANGA PER ADULTS - CC LLEVANT</span></h1>
+                            <p class="gray" style="padding-right: 15px;">Dijous 19 Novembre 2026</p>
+                        <p style="color: rgb(60,60,60); height: 35px; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis;"><img src="https://storage.googleapis.com/inscribirme.appspot.com/static/img/inscribirme/location.png" style="width: 14px;"> Centre Cívic Llevant </p>
+                            <p class="categorie" >Queden: <span style="color: rgb(60,60,60);">6 dies</span></p>
+                    </div>
+                </a>
+                    <div class="event_card inscribirme-share ">
+                        <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A//inscripcions.reus.cat/%3Fpage%3D1%26depart%3D6%26activitat%3D%26categoria%3D%26edat%3D%26tema%3Dclubdelecturacomicimangaperadultsccllevant"><img src="https://storage.googleapis.com/inscribirme.appspot.com/static/img/inscribirme/facebook_icon.png"></a>
+                        <a target="_blank" href="https://twitter.com/intent/tweet?text=https%3A//inscripcions.reus.cat/%3Fpage%3D1%26depart%3D6%26activitat%3D%26categoria%3D%26edat%3D%26tema%3Dclubdelecturacomicimangaperadultsccllevant"><img src="https://storage.googleapis.com/inscribirme.appspot.com/static/img/inscribirme/twitter_icon.png"></a>
+                        <a target="_blank" href="https://plus.google.com/share?url=https%3A//inscripcions.reus.cat/%3Fpage%3D1%26depart%3D6%26activitat%3D%26categoria%3D%26edat%3D%26tema%3Dclubdelecturacomicimangaperadultsccllevant"><img src="https://storage.googleapis.com/inscribirme.appspot.com/static/img/inscribirme/google_icon.png"></a>
+                        <a target="_blank" href="https://pinterest.com/pin/create/button/?url=https%3A//inscripcions.reus.cat/%3Fpage%3D1%26depart%3D6%26activitat%3D%26categoria%3D%26edat%3D%26tema%3Dclubdelecturacomicimangaperadultsccllevant"><img src="https://storage.googleapis.com/inscribirme.appspot.com/static/img/inscribirme/pinterest_icon.png"></a>
+                    </div>
+                <!--Tickets dialog -->
+                <div style="visibility: hidden">
+                    <div class="md-dialog-container" id="inscribirme_dialog_6a97feeb90f028cbe70cf085">
+                    </div>
+                </div>
+                <a href="/aperitiusipintxospersorprendreccmestral" class="inscribirme_event v2" id="event_6a8e9ccd7f8fb4d5436b668b">
+                    <div class="photo">
+                            <img style="height: 178px;" src="https://storage.googleapis.com/inscribirme.appspot.com/media/inscribirme/event-f839fb8db8673f2101e823cb7e2f6384-1787731149146813.png" alt="APERITIUS I PINTXOS PER SORPRENDRE  – CC MESTRAL">
+                                        <span class="price">11.1€</span>
+                    </div>
+                    <div class="content">
+                        <ul class="categorias">
+                                <li>#Formatives</li>
+                                <li>#Oci i Lleure</li>
+                                <li>#Manualitats</li>
+                        </ul>
+                        <h1 class="name"><span>APERITIUS I PINTXOS PER SORPRENDRE  – CC MESTRAL</span></h1>
+                            <p class="gray" style="padding-right: 15px;">Dijous 19 Novembre 2026</p>
+                        <p style="color: rgb(60,60,60); height: 35px; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis;"><img src="https://storage.googleapis.com/inscribirme.appspot.com/static/img/inscribirme/location.png" style="width: 14px;"> Centre Cívic Mestral </p>
+                            <p class="categorie" >Queden: <span style="color: rgb(60,60,60);">6 dies</span></p>
+                    </div>
+                </a>
+                    <div class="event_card inscribirme-share ">
+                        <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A//inscripcions.reus.cat/%3Fpage%3D1%26depart%3D6%26activitat%3D%26categoria%3D%26edat%3D%26tema%3Daperitiusipintxospersorprendreccmestral"><img src="https://storage.googleapis.com/inscribirme.appspot.com/static/img/inscribirme/facebook_icon.png"></a>
+                        <a target="_blank" href="https://twitter.com/intent/tweet?text=https%3A//inscripcions.reus.cat/%3Fpage%3D1%26depart%3D6%26activitat%3D%26categoria%3D%26edat%3D%26tema%3Daperitiusipintxospersorprendreccmestral"><img src="https://storage.googleapis.com/inscribirme.appspot.com/static/img/inscribirme/twitter_icon.png"></a>
+                        <a target="_blank" href="https://plus.google.com/share?url=https%3A//inscripcions.reus.cat/%3Fpage%3D1%26depart%3D6%26activitat%3D%26categoria%3D%26edat%3D%26tema%3Daperitiusipintxospersorprendreccmestral"><img src="https://storage.googleapis.com/inscribirme.appspot.com/static/img/inscribirme/google_icon.png"></a>
+                        <a target="_blank" href="https://pinterest.com/pin/create/button/?url=https%3A//inscripcions.reus.cat/%3Fpage%3D1%26depart%3D6%26activitat%3D%26categoria%3D%26edat%3D%26tema%3Daperitiusipintxospersorprendreccmestral"><img src="https://storage.googleapis.com/inscribirme.appspot.com/static/img/inscribirme/pinterest_icon.png"></a>
+                    </div>
+                <!--Tickets dialog -->
+                <div style="visibility: hidden">
+                    <div class="md-dialog-container" id="inscribirme_dialog_6a8e9ccd7f8fb4d5436b668b">
+                    </div>
+                </div>
+                <a href="/platsdecullerallegumsen30minutsccllevant1" class="inscribirme_event v2" id="event_6a97f43f9ebcb31f80bd3b44">
+                    <div class="photo">
+                            <img style="height: 178px;" src="https://storage.googleapis.com/inscribirme.appspot.com/media/inscribirme/event-f839fb8db8673f2101e823cb7e2f6384-1788343359953226.png" alt="PLATS DE CULLERA: LLEGUMS EN 30 MINUTS - CC LLEVANT">
+                                        <span class="price">Gratuïta</span>
+                    </div>
+                    <div class="content">
+                        <ul class="categorias">
+                                <li>#Formatives</li>
+                                <li>#Manualitats</li>
+                        </ul>
+                        <h1 class="name"><span>PLATS DE CULLERA: LLEGUMS EN 30 MINUTS - CC LLEVANT</span></h1>
+                            <p class="gray" style="padding-right: 15px;">Divendres 20 Novembre 2026</p>
+                        <p style="color: rgb(60,60,60); height: 35px; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis;"><img src="https://storage.googleapis.com/inscribirme.appspot.com/static/img/inscribirme/location.png" style="width: 14px;"> Centre Cívic Llevant </p>
+                            <p class="categorie" >Queden: <span style="color: rgb(60,60,60);">7 dies</span></p>
+                    </div>
+                </a>
+                    <div class="event_card inscribirme-share ">
+                        <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A//inscripcions.reus.cat/%3Fpage%3D1%26depart%3D6%26activitat%3D%26categoria%3D%26edat%3D%26tema%3Dplatsdecullerallegumsen30minutsccllevant1"><img src="https://storage.googleapis.com/inscribirme.appspot.com/static/img/inscribirme/facebook_icon.png"></a>
+                        <a target="_blank" href="https://twitter.com/intent/tweet?text=https%3A//inscripcions.reus.cat/%3Fpage%3D1%26depart%3D6%26activitat%3D%26categoria%3D%26edat%3D%26tema%3Dplatsdecullerallegumsen30minutsccllevant1"><img src="https://storage.googleapis.com/inscribirme.appspot.com/static/img/inscribirme/twitter_icon.png"></a>
+                        <a target="_blank" href="https://plus.google.com/share?url=https%3A//inscripcions.reus.cat/%3Fpage%3D1%26depart%3D6%26activitat%3D%26categoria%3D%26edat%3D%26tema%3Dplatsdecullerallegumsen30minutsccllevant1"><img src="https://storage.googleapis.com/inscribirme.appspot.com/static/img/inscribirme/google_icon.png"></a>
+                        <a target="_blank" href="https://pinterest.com/pin/create/button/?url=https%3A//inscripcions.reus.cat/%3Fpage%3D1%26depart%3D6%26activitat%3D%26categoria%3D%26edat%3D%26tema%3Dplatsdecullerallegumsen30minutsccllevant1"><img src="https://storage.googleapis.com/inscribirme.appspot.com/static/img/inscribirme/pinterest_icon.png"></a>
+                    </div>
+                <!--Tickets dialog -->
+                <div style="visibility: hidden">
+                    <div class="md-dialog-container" id="inscribirme_dialog_6a97f43f9ebcb31f80bd3b44">
+                    </div>
+                </div>
+                <a href="/eselmeuproblemadesalutunaurgenciaccdelcarme" class="inscribirme_event v2" id="event_6a97dada9794d323bf7d8a1c">
+                    <div class="photo">
+                            <img style="height: 178px;" src="https://storage.googleapis.com/inscribirme.appspot.com/media/inscribirme/event-f839fb8db8673f2101e823cb7e2f6384-1788336858722386.png" alt="ÉS EL MEU PROBLEMA DE SALUT UNA URGÈNCIA? - CC DEL CARME">
+                                        <span class="price">Gratuïta</span>
+                    </div>
+                    <div class="content">
+                        <ul class="categorias">
+                                <li>#Formatives</li>
+                                <li>#Salut</li>
+                        </ul>
+                        <h1 class="name"><span>ÉS EL MEU PROBLEMA DE SALUT UNA URGÈNCIA? - CC DEL CARME</span></h1>
+                            <p class="gray" style="padding-right: 15px;">Dilluns 23 Novembre 2026</p>
+                        <p style="color: rgb(60,60,60); height: 35px; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis;"><img src="https://storage.googleapis.com/inscribirme.appspot.com/static/img/inscribirme/location.png" style="width: 14px;"> Centre Cívic del Carme </p>
+                            <p class="categorie" >Queden: <span style="color: rgb(60,60,60);">10 dies</span></p>
+                    </div>
+                </a>
+                    <div class="event_card inscribirme-share ">
+                        <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A//inscripcions.reus.cat/%3Fpage%3D1%26depart%3D6%26activitat%3D%26categoria%3D%26edat%3D%26tema%3Deselmeuproblemadesalutunaurgenciaccdelcarme"><img src="https://storage.googleapis.com/inscribirme.appspot.com/static/img/inscribirme/facebook_icon.png"></a>
+                        <a target="_blank" href="https://twitter.com/intent/tweet?text=https%3A//inscripcions.reus.cat/%3Fpage%3D1%26depart%3D6%26activitat%3D%26categoria%3D%26edat%3D%26tema%3Deselmeuproblemadesalutunaurgenciaccdelcarme"><img src="https://storage.googleapis.com/inscribirme.appspot.com/static/img/inscribirme/twitter_icon.png"></a>
+                        <a target="_blank" href="https://plus.google.com/share?url=https%3A//inscripcions.reus.cat/%3Fpage%3D1%26depart%3D6%26activitat%3D%26categoria%3D%26edat%3D%26tema%3Deselmeuproblemadesalutunaurgenciaccdelcarme"><img src="https://storage.googleapis.com/inscribirme.appspot.com/static/img/inscribirme/google_icon.png"></a>
+                        <a target="_blank" href="https://pinterest.com/pin/create/button/?url=https%3A//inscripcions.reus.cat/%3Fpage%3D1%26depart%3D6%26activitat%3D%26categoria%3D%26edat%3D%26tema%3Deselmeuproblemadesalutunaurgenciaccdelcarme"><img src="https://storage.googleapis.com/inscribirme.appspot.com/static/img/inscribirme/pinterest_icon.png"></a>
+                    </div>
+                <!--Tickets dialog -->
+                <div style="visibility: hidden">
+                    <div class="md-dialog-container" id="inscribirme_dialog_6a97dada9794d323bf7d8a1c">
+                    </div>
+                </div>
+                <a href="/cuinapersoltersccmigjorn2" class="inscribirme_event v2" id="event_6a8d85937af277e97b3ae7de">
+                    <div class="photo">
+                            <img style="height: 178px;" src="https://storage.googleapis.com/inscribirme.appspot.com/media/inscribirme/event-f839fb8db8673f2101e823cb7e2f6384-1753777515286718.jpg?v=189131?v=128960?v=881472" alt="CUINA PER SOLTERS – CC MIGJORN">
+                                        <span class="price">55.65€</span>
+                    </div>
+                    <div class="content">
+                        <ul class="categorias">
+                                <li>#Formatives</li>
+                                <li>#Oci i Lleure</li>
+                                <li>#Manualitats</li>
+                        </ul>
+                        <h1 class="name"><span>CUINA PER SOLTERS – CC MIGJORN</span></h1>
+                            <p class="gray" style="padding-right: 15px;">Dimarts 24 Novembre 2026</p>
+                        <p style="color: rgb(60,60,60); height: 35px; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis;"><img src="https://storage.googleapis.com/inscribirme.appspot.com/static/img/inscribirme/location.png" style="width: 14px;"> Centre Cívic Migjorn </p>
+                            <p class="categorie" >Queden: <span style="color: rgb(60,60,60);">11 dies</span></p>
+                    </div>
+                </a>
+                    <div class="event_card inscribirme-share ">
+                        <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A//inscripcions.reus.cat/%3Fpage%3D1%26depart%3D6%26activitat%3D%26categoria%3D%26edat%3D%26tema%3Dcuinapersoltersccmigjorn2"><img src="https://storage.googleapis.com/inscribirme.appspot.com/static/img/inscribirme/facebook_icon.png"></a>
+                        <a target="_blank" href="https://twitter.com/intent/tweet?text=https%3A//inscripcions.reus.cat/%3Fpage%3D1%26depart%3D6%26activitat%3D%26categoria%3D%26edat%3D%26tema%3Dcuinapersoltersccmigjorn2"><img src="https://storage.googleapis.com/inscribirme.appspot.com/static/img/inscribirme/twitter_icon.png"></a>
+                        <a target="_blank" href="https://plus.google.com/share?url=https%3A//inscripcions.reus.cat/%3Fpage%3D1%26depart%3D6%26activitat%3D%26categoria%3D%26edat%3D%26tema%3Dcuinapersoltersccmigjorn2"><img src="https://storage.googleapis.com/inscribirme.appspot.com/static/img/inscribirme/google_icon.png"></a>
+                        <a target="_blank" href="https://pinterest.com/pin/create/button/?url=https%3A//inscripcions.reus.cat/%3Fpage%3D1%26depart%3D6%26activitat%3D%26categoria%3D%26edat%3D%26tema%3Dcuinapersoltersccmigjorn2"><img src="https://storage.googleapis.com/inscribirme.appspot.com/static/img/inscribirme/pinterest_icon.png"></a>
+                    </div>
+                <!--Tickets dialog -->
+                <div style="visibility: hidden">
+                    <div class="md-dialog-container" id="inscribirme_dialog_6a8d85937af277e97b3ae7de">
+                    </div>
+                </div>
+                <a href="/encaranoutilitzeslaplicatiudelamevasalutdescobreixtotelquetofereixcccarme" class="inscribirme_event v2" id="event_6a967465ea1f2cabeab8b06f">
+                    <div class="photo">
+                            <img style="height: 178px;" src="https://storage.googleapis.com/inscribirme.appspot.com/media/inscribirme/event-f839fb8db8673f2101e823cb7e2f6384-1788245093993629.png" alt="ENCARA NO UTILITZES L’APLICATIU DE LA MEVA SALUT? DESCOBREIX TOT EL QUE T’OFEREIX! - CC CARME">
+                                        <span class="price">Gratuïta</span>
+                    </div>
+                    <div class="content">
+                        <ul class="categorias">
+                                <li>#Formatives</li>
+                                <li>#Salut</li>
+                        </ul>
+                        <h1 class="name"><span>ENCARA NO UTILITZES L’APLICATIU DE LA MEVA SALUT? DESCOBREIX TOT EL QUE T’OFEREIX! - CC CARME</span></h1>
+                            <p class="gray" style="padding-right: 15px;">Dimecres 25 Novembre 2026</p>
+                        <p style="color: rgb(60,60,60); height: 35px; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis;"><img src="https://storage.googleapis.com/inscribirme.appspot.com/static/img/inscribirme/location.png" style="width: 14px;"> Centre Cívic del Carme </p>
+                            <p class="categorie" >Queden: <span style="color: rgb(60,60,60);">12 dies</span></p>
+                    </div>
+                </a>
+                    <div class="event_card inscribirme-share ">
+                        <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A//inscripcions.reus.cat/%3Fpage%3D1%26depart%3D6%26activitat%3D%26categoria%3D%26edat%3D%26tema%3Dencaranoutilitzeslaplicatiudelamevasalutdescobreixtotelquetofereixcccarme"><img src="https://storage.googleapis.com/inscribirme.appspot.com/static/img/inscribirme/facebook_icon.png"></a>
+                        <a target="_blank" href="https://twitter.com/intent/tweet?text=https%3A//inscripcions.reus.cat/%3Fpage%3D1%26depart%3D6%26activitat%3D%26categoria%3D%26edat%3D%26tema%3Dencaranoutilitzeslaplicatiudelamevasalutdescobreixtotelquetofereixcccarme"><img src="https://storage.googleapis.com/inscribirme.appspot.com/static/img/inscribirme/twitter_icon.png"></a>
+                        <a target="_blank" href="https://plus.google.com/share?url=https%3A//inscripcions.reus.cat/%3Fpage%3D1%26depart%3D6%26activitat%3D%26categoria%3D%26edat%3D%26tema%3Dencaranoutilitzeslaplicatiudelamevasalutdescobreixtotelquetofereixcccarme"><img src="https://storage.googleapis.com/inscribirme.appspot.com/static/img/inscribirme/google_icon.png"></a>
+                        <a target="_blank" href="https://pinterest.com/pin/create/button/?url=https%3A//inscripcions.reus.cat/%3Fpage%3D1%26depart%3D6%26activitat%3D%26categoria%3D%26edat%3D%26tema%3Dencaranoutilitzeslaplicatiudelamevasalutdescobreixtotelquetofereixcccarme"><img src="https://storage.googleapis.com/inscribirme.appspot.com/static/img/inscribirme/pinterest_icon.png"></a>
+                    </div>
+                <!--Tickets dialog -->
+                <div style="visibility: hidden">
+                    <div class="md-dialog-container" id="inscribirme_dialog_6a967465ea1f2cabeab8b06f">
+                    </div>
+                </div>
+                <a href="/cuinadefornlesmillorsreceptesccmigjorn" class="inscribirme_event v2" id="event_6a8d88a37fe20296db70bf74">
+                    <div class="photo">
+                            <img style="height: 178px;" src="https://storage.googleapis.com/inscribirme.appspot.com/media/inscribirme/event-f839fb8db8673f2101e823cb7e2f6384-1794233894860241.png" alt="CUINA DE FORN. LES MILLORS RECEPTES  – CC MIGJORN">
+                                        <span class="price">14.8€</span>
+                    </div>
+                    <div class="content">
+                        <ul class="categorias">
+                                <li>#Formatives</li>
+                                <li>#Oci i Lleure</li>
+                                <li>#Manualitats</li>
+                                <li>#Salut</li>
+                        </ul>
+                        <h1 class="name"><span>CUINA DE FORN. LES MILLORS RECEPTES  – CC MIGJORN</span></h1>
+                            <p class="gray" style="padding-right: 15px;">Dimecres 25 Novembre 2026</p>
+                        <p style="color: rgb(60,60,60); height: 35px; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis;"><img src="https://storage.googleapis.com/inscribirme.appspot.com/static/img/inscribirme/location.png" style="width: 14px;"> Centre Cívic Migjorn </p>
+                            <p class="categorie" >Queden: <span style="color: rgb(60,60,60);">12 dies</span></p>
+                    </div>
+                </a>
+                    <div class="event_card inscribirme-share ">
+                        <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A//inscripcions.reus.cat/%3Fpage%3D1%26depart%3D6%26activitat%3D%26categoria%3D%26edat%3D%26tema%3Dcuinadefornlesmillorsreceptesccmigjorn"><img src="https://storage.googleapis.com/inscribirme.appspot.com/static/img/inscribirme/facebook_icon.png"></a>
+                        <a target="_blank" href="https://twitter.com/intent/tweet?text=https%3A//inscripcions.reus.cat/%3Fpage%3D1%26depart%3D6%26activitat%3D%26categoria%3D%26edat%3D%26tema%3Dcuinadefornlesmillorsreceptesccmigjorn"><img src="https://storage.googleapis.com/inscribirme.appspot.com/static/img/inscribirme/twitter_icon.png"></a>
+                        <a target="_blank" href="https://plus.google.com/share?url=https%3A//inscripcions.reus.cat/%3Fpage%3D1%26depart%3D6%26activitat%3D%26categoria%3D%26edat%3D%26tema%3Dcuinadefornlesmillorsreceptesccmigjorn"><img src="https://storage.googleapis.com/inscribirme.appspot.com/static/img/inscribirme/google_icon.png"></a>
+                        <a target="_blank" href="https://pinterest.com/pin/create/button/?url=https%3A//inscripcions.reus.cat/%3Fpage%3D1%26depart%3D6%26activitat%3D%26categoria%3D%26edat%3D%26tema%3Dcuinadefornlesmillorsreceptesccmigjorn"><img src="https://storage.googleapis.com/inscribirme.appspot.com/static/img/inscribirme/pinterest_icon.png"></a>
+                    </div>
+                <!--Tickets dialog -->
+                <div style="visibility: hidden">
+                    <div class="md-dialog-container" id="inscribirme_dialog_6a8d88a37fe20296db70bf74">
+                    </div>
+                </div>
+                <a href="/focacciesdetemporadaccmestral" class="inscribirme_event v2" id="event_6a969fb2ab179fc40060a034">
+                    <div class="photo">
+                            <img style="height: 178px;" src="https://storage.googleapis.com/inscribirme.appspot.com/media/inscribirme/event-f839fb8db8673f2101e823cb7e2f6384-1788256178498581.png" alt="FOCACCIES DE TEMPORADA - CC MESTRAL">
+                                        <span class="price">Gratuïta</span>
+                    </div>
+                    <div class="content">
+                        <ul class="categorias">
+                                <li>#Formatives</li>
+                                <li>#Culturals</li>
+                                <li>#Manualitats</li>
+                        </ul>
+                        <h1 class="name"><span>FOCACCIES DE TEMPORADA - CC MESTRAL</span></h1>
+                            <p class="gray" style="padding-right: 15px;">Dijous 26 Novembre 2026</p>
+                        <p style="color: rgb(60,60,60); height: 35px; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis;"><img src="https://storage.googleapis.com/inscribirme.appspot.com/static/img/inscribirme/location.png" style="width: 14px;"> Centre Cívic Mestral </p>
+                            <p class="categorie" >Queden: <span style="color: rgb(60,60,60);">13 dies</span></p>
+                    </div>
+                </a>
+                    <div class="event_card inscribirme-share ">
+                        <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A//inscripcions.reus.cat/%3Fpage%3D1%26depart%3D6%26activitat%3D%26categoria%3D%26edat%3D%26tema%3Dfocacciesdetemporadaccmestral"><img src="https://storage.googleapis.com/inscribirme.appspot.com/static/img/inscribirme/facebook_icon.png"></a>
+                        <a target="_blank" href="https://twitter.com/intent/tweet?text=https%3A//inscripcions.reus.cat/%3Fpage%3D1%26depart%3D6%26activitat%3D%26categoria%3D%26edat%3D%26tema%3Dfocacciesdetemporadaccmestral"><img src="https://storage.googleapis.com/inscribirme.appspot.com/static/img/inscribirme/twitter_icon.png"></a>
+                        <a target="_blank" href="https://plus.google.com/share?url=https%3A//inscripcions.reus.cat/%3Fpage%3D1%26depart%3D6%26activitat%3D%26categoria%3D%26edat%3D%26tema%3Dfocacciesdetemporadaccmestral"><img src="https://storage.googleapis.com/inscribirme.appspot.com/static/img/inscribirme/google_icon.png"></a>
+                        <a target="_blank" href="https://pinterest.com/pin/create/button/?url=https%3A//inscripcions.reus.cat/%3Fpage%3D1%26depart%3D6%26activitat%3D%26categoria%3D%26edat%3D%26tema%3Dfocacciesdetemporadaccmestral"><img src="https://storage.googleapis.com/inscribirme.appspot.com/static/img/inscribirme/pinterest_icon.png"></a>
+                    </div>
+                <!--Tickets dialog -->
+                <div style="visibility: hidden">
+                    <div class="md-dialog-container" id="inscribirme_dialog_6a969fb2ab179fc40060a034">
+                    </div>
+                </div>
+                <a href="/platsdecullerafavadaasturianaccmasabello" class="inscribirme_event v2" id="event_6a8beaacb2337c1b9be3e4ff">
+                    <div class="photo">
+                            <img style="height: 178px;" src="https://storage.googleapis.com/inscribirme.appspot.com/media/inscribirme/event-f839fb8db8673f2101e823cb7e2f6384-1787554476594850.png" alt="PLATS DE CULLERA: FAVADA ASTURIANA - CC MAS ABELLÓ">
+                                        <span class="price">Gratuïta</span>
+                    </div>
+                    <div class="content">
+                        <ul class="categorias">
+                                <li>#Oci i Lleure</li>
+                        </ul>
+                        <h1 class="name"><span>PLATS DE CULLERA: FAVADA ASTURIANA - CC MAS ABELLÓ</span></h1>
+                            <p class="gray" style="padding-right: 15px;">Dijous 26 Novembre 2026</p>
+                        <p style="color: rgb(60,60,60); height: 35px; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis;"><img src="https://storage.googleapis.com/inscribirme.appspot.com/static/img/inscribirme/location.png" style="width: 14px;"> Centre Cívic Mas Abelló </p>
+                            <p class="categorie" >Queden: <span style="color: rgb(60,60,60);">13 dies</span></p>
+                    </div>
+                </a>
+                    <div class="event_card inscribirme-share ">
+                        <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A//inscripcions.reus.cat/%3Fpage%3D1%26depart%3D6%26activitat%3D%26categoria%3D%26edat%3D%26tema%3Dplatsdecullerafavadaasturianaccmasabello"><img src="https://storage.googleapis.com/inscribirme.appspot.com/static/img/inscribirme/facebook_icon.png"></a>
+                        <a target="_blank" href="https://twitter.com/intent/tweet?text=https%3A//inscripcions.reus.cat/%3Fpage%3D1%26depart%3D6%26activitat%3D%26categoria%3D%26edat%3D%26tema%3Dplatsdecullerafavadaasturianaccmasabello"><img src="https://storage.googleapis.com/inscribirme.appspot.com/static/img/inscribirme/twitter_icon.png"></a>
+                        <a target="_blank" href="https://plus.google.com/share?url=https%3A//inscripcions.reus.cat/%3Fpage%3D1%26depart%3D6%26activitat%3D%26categoria%3D%26edat%3D%26tema%3Dplatsdecullerafavadaasturianaccmasabello"><img src="https://storage.googleapis.com/inscribirme.appspot.com/static/img/inscribirme/google_icon.png"></a>
+                        <a target="_blank" href="https://pinterest.com/pin/create/button/?url=https%3A//inscripcions.reus.cat/%3Fpage%3D1%26depart%3D6%26activitat%3D%26categoria%3D%26edat%3D%26tema%3Dplatsdecullerafavadaasturianaccmasabello"><img src="https://storage.googleapis.com/inscribirme.appspot.com/static/img/inscribirme/pinterest_icon.png"></a>
+                    </div>
+                <!--Tickets dialog -->
+                <div style="visibility: hidden">
+                    <div class="md-dialog-container" id="inscribirme_dialog_6a8beaacb2337c1b9be3e4ff">
+                    </div>
+                </div>
+                <a href="/tallerdemassatgeinfantilccponent" class="inscribirme_event v2" id="event_6a954d30c9c2818b0a834ca9">
+                    <div class="photo">
+                            <img style="height: 178px;" src="https://storage.googleapis.com/inscribirme.appspot.com/media/inscribirme/event-f839fb8db8673f2101e823cb7e2f6384-1788169520677122.png" alt="TALLER DE MASSATGE INFANTIL  - CC PONENT">
+                                        <span class="price">Gratuïta</span>
+                    </div>
+                    <div class="content">
+                        <ul class="categorias">
+                                <li>#Oci i Lleure</li>
+                        </ul>
+                        <h1 class="name"><span>TALLER DE MASSATGE INFANTIL  - CC PONENT</span></h1>
+                            <p class="gray" style="padding-right: 15px;">Dissabte 28 Novembre 2026</p>
+                        <p style="color: rgb(60,60,60); height: 35px; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis;"><img src="https://storage.googleapis.com/inscribirme.appspot.com/static/img/inscribirme/location.png" style="width: 14px;"> Centre Cívic Ponent </p>
+                            <p class="categorie" >Queden: <span style="color: rgb(60,60,60);">15 dies</span></p>
+                    </div>
+                </a>
+                    <div class="event_card inscribirme-share ">
+                        <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A//inscripcions.reus.cat/%3Fpage%3D1%26depart%3D6%26activitat%3D%26categoria%3D%26edat%3D%26tema%3Dtallerdemassatgeinfantilccponent"><img src="https://storage.googleapis.com/inscribirme.appspot.com/static/img/inscribirme/facebook_icon.png"></a>
+                        <a target="_blank" href="https://twitter.com/intent/tweet?text=https%3A//inscripcions.reus.cat/%3Fpage%3D1%26depart%3D6%26activitat%3D%26categoria%3D%26edat%3D%26tema%3Dtallerdemassatgeinfantilccponent"><img src="https://storage.googleapis.com/inscribirme.appspot.com/static/img/inscribirme/twitter_icon.png"></a>
+                        <a target="_blank" href="https://plus.google.com/share?url=https%3A//inscripcions.reus.cat/%3Fpage%3D1%26depart%3D6%26activitat%3D%26categoria%3D%26edat%3D%26tema%3Dtallerdemassatgeinfantilccponent"><img src="https://storage.googleapis.com/inscribirme.appspot.com/static/img/inscribirme/google_icon.png"></a>
+                        <a target="_blank" href="https://pinterest.com/pin/create/button/?url=https%3A//inscripcions.reus.cat/%3Fpage%3D1%26depart%3D6%26activitat%3D%26categoria%3D%26edat%3D%26tema%3Dtallerdemassatgeinfantilccponent"><img src="https://storage.googleapis.com/inscribirme.appspot.com/static/img/inscribirme/pinterest_icon.png"></a>
+                    </div>
+                <!--Tickets dialog -->
+                <div style="visibility: hidden">
+                    <div class="md-dialog-container" id="inscribirme_dialog_6a954d30c9c2818b0a834ca9">
+                    </div>
+                </div>
+                <a href="/taitxienfamiliaccgregal" class="inscribirme_event v2" id="event_6a917bbe5dad92284249ef37">
+                    <div class="photo">
+                            <img style="height: 178px;" src="https://storage.googleapis.com/inscribirme.appspot.com/media/inscribirme/event-f839fb8db8673f2101e823cb7e2f6384-1788871971514849.png" alt="TAITXÍ EN FAMÍLIA- CC GREGAL">
+                                        <span class="price">Gratuïta</span>
+                    </div>
+                    <div class="content">
+                        <ul class="categorias">
+                                <li>#Oci i Lleure</li>
+                        </ul>
+                        <h1 class="name"><span>TAITXÍ EN FAMÍLIA- CC GREGAL</span></h1>
+                            <p class="gray" style="padding-right: 15px;">Dissabte 28 Novembre 2026</p>
+                        <p style="color: rgb(60,60,60); height: 35px; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis;"><img src="https://storage.googleapis.com/inscribirme.appspot.com/static/img/inscribirme/location.png" style="width: 14px;"> Centre Cívic Gregal </p>
+                            <p class="categorie" >Queden: <span style="color: rgb(60,60,60);">15 dies</span></p>
+                    </div>
+                </a>
+                    <div class="event_card inscribirme-share ">
+                        <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A//inscripcions.reus.cat/%3Fpage%3D1%26depart%3D6%26activitat%3D%26categoria%3D%26edat%3D%26tema%3Dtaitxienfamiliaccgregal"><img src="https://storage.googleapis.com/inscribirme.appspot.com/static/img/inscribirme/facebook_icon.png"></a>
+                        <a target="_blank" href="https://twitter.com/intent/tweet?text=https%3A//inscripcions.reus.cat/%3Fpage%3D1%26depart%3D6%26activitat%3D%26categoria%3D%26edat%3D%26tema%3Dtaitxienfamiliaccgregal"><img src="https://storage.googleapis.com/inscribirme.appspot.com/static/img/inscribirme/twitter_icon.png"></a>
+                        <a target="_blank" href="https://plus.google.com/share?url=https%3A//inscripcions.reus.cat/%3Fpage%3D1%26depart%3D6%26activitat%3D%26categoria%3D%26edat%3D%26tema%3Dtaitxienfamiliaccgregal"><img src="https://storage.googleapis.com/inscribirme.appspot.com/static/img/inscribirme/google_icon.png"></a>
+                        <a target="_blank" href="https://pinterest.com/pin/create/button/?url=https%3A//inscripcions.reus.cat/%3Fpage%3D1%26depart%3D6%26activitat%3D%26categoria%3D%26edat%3D%26tema%3Dtaitxienfamiliaccgregal"><img src="https://storage.googleapis.com/inscribirme.appspot.com/static/img/inscribirme/pinterest_icon.png"></a>
+                    </div>
+                <!--Tickets dialog -->
+                <div style="visibility: hidden">
+                    <div class="md-dialog-container" id="inscribirme_dialog_6a917bbe5dad92284249ef37">
+                    </div>
+                </div>
+                <a href="/respiranaturaccmasabello" class="inscribirme_event v2" id="event_6a8c126923883583c31c4858">
+                    <div class="photo">
+                            <img style="height: 178px;" src="https://storage.googleapis.com/inscribirme.appspot.com/media/inscribirme/event-f839fb8db8673f2101e823cb7e2f6384-1787564649821010.png" alt="RESPIRA NATURA - CC MAS ABELLÓ">
+                                        <span class="price">Gratuïta</span>
+                    </div>
+                    <div class="content">
+                        <ul class="categorias">
+                                <li>#Oci i Lleure</li>
+                                <li>#Prescripció Social</li>
+                        </ul>
+                        <h1 class="name"><span>RESPIRA NATURA - CC MAS ABELLÓ</span></h1>
+                            <p class="gray" style="padding-right: 15px;">Dimarts 01 Desembre 2026</p>
+                        <p style="color: rgb(60,60,60); height: 35px; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis;"><img src="https://storage.googleapis.com/inscribirme.appspot.com/static/img/inscribirme/location.png" style="width: 14px;"> Centre Cívic Mas Abelló </p>
+                            <p class="categorie" >Queden: <span style="color: rgb(60,60,60);">18 dies</span></p>
+                    </div>
+                </a>
+                    <div class="event_card inscribirme-share ">
+                        <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A//inscripcions.reus.cat/%3Fpage%3D1%26depart%3D6%26activitat%3D%26categoria%3D%26edat%3D%26tema%3Drespiranaturaccmasabello"><img src="https://storage.googleapis.com/inscribirme.appspot.com/static/img/inscribirme/facebook_icon.png"></a>
+                        <a target="_blank" href="https://twitter.com/intent/tweet?text=https%3A//inscripcions.reus.cat/%3Fpage%3D1%26depart%3D6%26activitat%3D%26categoria%3D%26edat%3D%26tema%3Drespiranaturaccmasabello"><img src="https://storage.googleapis.com/inscribirme.appspot.com/static/img/inscribirme/twitter_icon.png"></a>
+                        <a target="_blank" href="https://plus.google.com/share?url=https%3A//inscripcions.reus.cat/%3Fpage%3D1%26depart%3D6%26activitat%3D%26categoria%3D%26edat%3D%26tema%3Drespiranaturaccmasabello"><img src="https://storage.googleapis.com/inscribirme.appspot.com/static/img/inscribirme/google_icon.png"></a>
+                        <a target="_blank" href="https://pinterest.com/pin/create/button/?url=https%3A//inscripcions.reus.cat/%3Fpage%3D1%26depart%3D6%26activitat%3D%26categoria%3D%26edat%3D%26tema%3Drespiranaturaccmasabello"><img src="https://storage.googleapis.com/inscribirme.appspot.com/static/img/inscribirme/pinterest_icon.png"></a>
+                    </div>
+                <!--Tickets dialog -->
+                <div style="visibility: hidden">
+                    <div class="md-dialog-container" id="inscribirme_dialog_6a8c126923883583c31c4858">
+                    </div>
+                </div>
+                <a href="/mesenlladelsexeelquesifuncionaenparella60ccllevant" class="inscribirme_event v2" id="event_6a97f62890f028cbe70cf06e">
+                    <div class="photo">
+                            <img style="height: 178px;" src="https://storage.googleapis.com/inscribirme.appspot.com/media/inscribirme/event-f839fb8db8673f2101e823cb7e2f6384-1788343848178772.png" alt="MÉS ENLLÀ DEL SEXE, EL QUE SÍ FUNCIONA EN PARELLA.  +60 - CC LLEVANT">
+                                        <span class="price">Gratuïta</span>
+                    </div>
+                    <div class="content">
+                        <ul class="categorias">
+                                <li>#Oci i Lleure</li>
+                                <li>#Salut</li>
+                                <li>#Prescripció Social</li>
+                        </ul>
+                        <h1 class="name"><span>MÉS ENLLÀ DEL SEXE, EL QUE SÍ FUNCIONA EN PARELLA.  +60 - CC LLEVANT</span></h1>
+                            <p class="gray" style="padding-right: 15px;">Dimarts 01 Desembre 2026</p>
+                        <p style="color: rgb(60,60,60); height: 35px; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis;"><img src="https://storage.googleapis.com/inscribirme.appspot.com/static/img/inscribirme/location.png" style="width: 14px;"> Centre Cívic Llevant </p>
+                            <p class="categorie" >Queden: <span style="color: rgb(60,60,60);">18 dies</span></p>
+                    </div>
+                </a>
+                    <div class="event_card inscribirme-share ">
+                        <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A//inscripcions.reus.cat/%3Fpage%3D1%26depart%3D6%26activitat%3D%26categoria%3D%26edat%3D%26tema%3Dmesenlladelsexeelquesifuncionaenparella60ccllevant"><img src="https://storage.googleapis.com/inscribirme.appspot.com/static/img/inscribirme/facebook_icon.png"></a>
+                        <a target="_blank" href="https://twitter.com/intent/tweet?text=https%3A//inscripcions.reus.cat/%3Fpage%3D1%26depart%3D6%26activitat%3D%26categoria%3D%26edat%3D%26tema%3Dmesenlladelsexeelquesifuncionaenparella60ccllevant"><img src="https://storage.googleapis.com/inscribirme.appspot.com/static/img/inscribirme/twitter_icon.png"></a>
+                        <a target="_blank" href="https://plus.google.com/share?url=https%3A//inscripcions.reus.cat/%3Fpage%3D1%26depart%3D6%26activitat%3D%26categoria%3D%26edat%3D%26tema%3Dmesenlladelsexeelquesifuncionaenparella60ccllevant"><img src="https://storage.googleapis.com/inscribirme.appspot.com/static/img/inscribirme/google_icon.png"></a>
+                        <a target="_blank" href="https://pinterest.com/pin/create/button/?url=https%3A//inscripcions.reus.cat/%3Fpage%3D1%26depart%3D6%26activitat%3D%26categoria%3D%26edat%3D%26tema%3Dmesenlladelsexeelquesifuncionaenparella60ccllevant"><img src="https://storage.googleapis.com/inscribirme.appspot.com/static/img/inscribirme/pinterest_icon.png"></a>
+                    </div>
+                <!--Tickets dialog -->
+                <div style="visibility: hidden">
+                    <div class="md-dialog-container" id="inscribirme_dialog_6a97f62890f028cbe70cf06e">
+                    </div>
+                </div>
+                <a href="/herenciesitestamentsccdelcarme" class="inscribirme_event v2" id="event_6a97d6df9dd7d0f2925d3a1c">
+                    <div class="photo">
+                            <img style="height: 178px;" src="https://storage.googleapis.com/inscribirme.appspot.com/media/inscribirme/event-f839fb8db8673f2101e823cb7e2f6384-1788335839069081.png" alt="HERÈNCIES I TESTAMENTS - CC DEL CARME">
+                                        <span class="price">Gratuïta</span>
+                    </div>
+                    <div class="content">
+                        <ul class="categorias">
+                                <li>#Formatives</li>
+                        </ul>
+                        <h1 class="name"><span>HERÈNCIES I TESTAMENTS - CC DEL CARME</span></h1>
+                            <p class="gray" style="padding-right: 15px;">Dimecres 02 Desembre 2026</p>
+                        <p style="color: rgb(60,60,60); height: 35px; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis;"><img src="https://storage.googleapis.com/inscribirme.appspot.com/static/img/inscribirme/location.png" style="width: 14px;"> Centre Cívic del Carme </p>
+                            <p class="categorie" >Queden: <span style="color: rgb(60,60,60);">19 dies</span></p>
+                    </div>
+                </a>
+                    <div class="event_card inscribirme-share ">
+                        <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A//inscripcions.reus.cat/%3Fpage%3D1%26depart%3D6%26activitat%3D%26categoria%3D%26edat%3D%26tema%3Dherenciesitestamentsccdelcarme"><img src="https://storage.googleapis.com/inscribirme.appspot.com/static/img/inscribirme/facebook_icon.png"></a>
+                        <a target="_blank" href="https://twitter.com/intent/tweet?text=https%3A//inscripcions.reus.cat/%3Fpage%3D1%26depart%3D6%26activitat%3D%26categoria%3D%26edat%3D%26tema%3Dherenciesitestamentsccdelcarme"><img src="https://storage.googleapis.com/inscribirme.appspot.com/static/img/inscribirme/twitter_icon.png"></a>
+                        <a target="_blank" href="https://plus.google.com/share?url=https%3A//inscripcions.reus.cat/%3Fpage%3D1%26depart%3D6%26activitat%3D%26categoria%3D%26edat%3D%26tema%3Dherenciesitestamentsccdelcarme"><img src="https://storage.googleapis.com/inscribirme.appspot.com/static/img/inscribirme/google_icon.png"></a>
+                        <a target="_blank" href="https://pinterest.com/pin/create/button/?url=https%3A//inscripcions.reus.cat/%3Fpage%3D1%26depart%3D6%26activitat%3D%26categoria%3D%26edat%3D%26tema%3Dherenciesitestamentsccdelcarme"><img src="https://storage.googleapis.com/inscribirme.appspot.com/static/img/inscribirme/pinterest_icon.png"></a>
+                    </div>
+                <!--Tickets dialog -->
+                <div style="visibility: hidden">
+                    <div class="md-dialog-container" id="inscribirme_dialog_6a97d6df9dd7d0f2925d3a1c">
+                    </div>
+                </div>
+                <a href="/cuinadenadalplatsdefestaccmigjorn1" class="inscribirme_event v2" id="event_6a8d895b001fec156502fb8d">
+                    <div class="photo">
+                            <img style="height: 178px;" src="https://storage.googleapis.com/inscribirme.appspot.com/media/inscribirme/event-f839fb8db8673f2101e823cb7e2f6384-1787660635530205.png" alt="CUINA DE NADAL. PLATS DE FESTA – CC MIGJORN">
+                                        <span class="price">14.8€</span>
+                    </div>
+                    <div class="content">
+                        <ul class="categorias">
+                                <li>#Formatives</li>
+                                <li>#Oci i Lleure</li>
+                                <li>#Manualitats</li>
+                                <li>#Salut</li>
+                        </ul>
+                        <h1 class="name"><span>CUINA DE NADAL. PLATS DE FESTA – CC MIGJORN</span></h1>
+                            <p class="gray" style="padding-right: 15px;">Dimecres 02 Desembre 2026</p>
+                        <p style="color: rgb(60,60,60); height: 35px; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis;"><img src="https://storage.googleapis.com/inscribirme.appspot.com/static/img/inscribirme/location.png" style="width: 14px;"> Centre Cívic Migjorn </p>
+                            <p class="categorie" >Queden: <span style="color: rgb(60,60,60);">19 dies</span></p>
+                    </div>
+                </a>
+                    <div class="event_card inscribirme-share ">
+                        <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A//inscripcions.reus.cat/%3Fpage%3D1%26depart%3D6%26activitat%3D%26categoria%3D%26edat%3D%26tema%3Dcuinadenadalplatsdefestaccmigjorn1"><img src="https://storage.googleapis.com/inscribirme.appspot.com/static/img/inscribirme/facebook_icon.png"></a>
+                        <a target="_blank" href="https://twitter.com/intent/tweet?text=https%3A//inscripcions.reus.cat/%3Fpage%3D1%26depart%3D6%26activitat%3D%26categoria%3D%26edat%3D%26tema%3Dcuinadenadalplatsdefestaccmigjorn1"><img src="https://storage.googleapis.com/inscribirme.appspot.com/static/img/inscribirme/twitter_icon.png"></a>
+                        <a target="_blank" href="https://plus.google.com/share?url=https%3A//inscripcions.reus.cat/%3Fpage%3D1%26depart%3D6%26activitat%3D%26categoria%3D%26edat%3D%26tema%3Dcuinadenadalplatsdefestaccmigjorn1"><img src="https://storage.googleapis.com/inscribirme.appspot.com/static/img/inscribirme/google_icon.png"></a>
+                        <a target="_blank" href="https://pinterest.com/pin/create/button/?url=https%3A//inscripcions.reus.cat/%3Fpage%3D1%26depart%3D6%26activitat%3D%26categoria%3D%26edat%3D%26tema%3Dcuinadenadalplatsdefestaccmigjorn1"><img src="https://storage.googleapis.com/inscribirme.appspot.com/static/img/inscribirme/pinterest_icon.png"></a>
+                    </div>
+                <!--Tickets dialog -->
+                <div style="visibility: hidden">
+                    <div class="md-dialog-container" id="inscribirme_dialog_6a8d895b001fec156502fb8d">
+                    </div>
+                </div>
+                <a href="/malaltiesdetransmissiosexualccgregal" class="inscribirme_event v2" id="event_6a95332c4374498122cb92c7">
+                    <div class="photo">
+                            <img style="height: 178px;" src="https://storage.googleapis.com/inscribirme.appspot.com/media/inscribirme/event-f839fb8db8673f2101e823cb7e2f6384-1788162860733542.png" alt="MALALTIES DE TRANSMISSIÓ SEXUAL - CC GREGAL">
+                                        <span class="price">Gratuïta</span>
+                    </div>
+                    <div class="content">
+                        <ul class="categorias">
+                                <li>#Formatives</li>
+                                <li>#Salut</li>
+                        </ul>
+                        <h1 class="name"><span>MALALTIES DE TRANSMISSIÓ SEXUAL - CC GREGAL</span></h1>
+                            <p class="gray" style="padding-right: 15px;">Dijous 03 Desembre 2026</p>
+                        <p style="color: rgb(60,60,60); height: 35px; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis;"><img src="https://storage.googleapis.com/inscribirme.appspot.com/static/img/inscribirme/location.png" style="width: 14px;"> Centre Cívic Gregal </p>
+                            <p class="categorie" >Queden: <span style="color: rgb(60,60,60);">20 dies</span></p>
+                    </div>
+                </a>
+                    <div class="event_card inscribirme-share ">
+                        <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A//inscripcions.reus.cat/%3Fpage%3D1%26depart%3D6%26activitat%3D%26categoria%3D%26edat%3D%26tema%3Dmalaltiesdetransmissiosexualccgregal"><img src="https://storage.googleapis.com/inscribirme.appspot.com/static/img/inscribirme/facebook_icon.png"></a>
+                        <a target="_blank" href="https://twitter.com/intent/tweet?text=https%3A//inscripcions.reus.cat/%3Fpage%3D1%26depart%3D6%26activitat%3D%26categoria%3D%26edat%3D%26tema%3Dmalaltiesdetransmissiosexualccgregal"><img src="https://storage.googleapis.com/inscribirme.appspot.com/static/img/inscribirme/twitter_icon.png"></a>
+                        <a target="_blank" href="https://plus.google.com/share?url=https%3A//inscripcions.reus.cat/%3Fpage%3D1%26depart%3D6%26activitat%3D%26categoria%3D%26edat%3D%26tema%3Dmalaltiesdetransmissiosexualccgregal"><img src="https://storage.googleapis.com/inscribirme.appspot.com/static/img/inscribirme/google_icon.png"></a>
+                        <a target="_blank" href="https://pinterest.com/pin/create/button/?url=https%3A//inscripcions.reus.cat/%3Fpage%3D1%26depart%3D6%26activitat%3D%26categoria%3D%26edat%3D%26tema%3Dmalaltiesdetransmissiosexualccgregal"><img src="https://storage.googleapis.com/inscribirme.appspot.com/static/img/inscribirme/pinterest_icon.png"></a>
+                    </div>
+                <!--Tickets dialog -->
+                <div style="visibility: hidden">
+                    <div class="md-dialog-container" id="inscribirme_dialog_6a95332c4374498122cb92c7">
+                    </div>
+                </div>
+            <div class="clear"></div>
+            <nav id="nav_paginator_home" aria-label="Page navigation" style="text-align: right; margin-right: 15px;">
+                <ul class="pagination">
+                            <li class="active"><a href="?page=1&depart=6&activitat=&categoria=&edat=&tema=">01</a></li>
+                            <li><a href="?page=2&depart=6&activitat=&categoria=&edat=&tema=">02</a></li>
+                            <li><a href="?page=3&depart=6&activitat=&categoria=&edat=&tema=">03</a></li>
+                            <li><a href="?page=4&depart=6&activitat=&categoria=&edat=&tema=">04</a></li>
+                            <li><a href="?page=5&depart=6&activitat=&categoria=&edat=&tema=">05</a></li>
+                            <li><a href="?page=6&depart=6&activitat=&categoria=&edat=&tema=">06</a></li>
+                            <li><a href="?page=7&depart=6&activitat=&categoria=&edat=&tema=">07</a></li>
+                        <li><a href="?page=2&depart=6&activitat=&categoria=&edat=&tema=" aria-label="Next">>></a></li>
+                </ul>
+            </nav>
+        </div>
+</div>
+<div class="clear"></div>
+    </div>
+    <!-- end MAIN CONTENT -->
+            </div>
+    <!-- FOOTER -->
+<section id="block-bean-footer" class="block block-bean clearfix">
+   <section class="footer-reus">
+      <div class="container">
+         <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+               <div class="footer__content">
+                  <img src="https://storage.googleapis.com/inscribirme.appspot.com/static/img/reus/logo-footer.svg" style="display: block;" alt="INSCRIPCIONS REUS">
+                  <br>
+                  <div class="footer__icons" style="text-align: center;">
+                     <a target="_blank" href="https://www.facebook.com/reus.cat?ref=tn_tnmn"><img src="https://storage.googleapis.com/inscribirme.appspot.com/static/reus/social-fb.svg" alt="facebook"></a>
+                     <a target="_blank" href="https://www.twitter.com/reus_cat"><img src="https://storage.googleapis.com/inscribirme.appspot.com/static/reus/social-twitter.svg" alt="twitter"></a>
+                     <a target="_blank" href="https://www.instagram.com/reus_cat/"><img src="https://storage.googleapis.com/inscribirme.appspot.com/static/reus/social-ig.svg" alt="instagram"></a>
+                     <a target="_blank" href="https://www.youtube.com/reuscatsessions"><img src="https://storage.googleapis.com/inscribirme.appspot.com/static/reus/social-youtube.svg" alt="youtube"></a>
+                     <!--<a target="_blank" href="https://issuu.com/reus_cat/"><img src="https://www.reus.cat/sites/reus/files/xarxes_socials/ico-isu.png" alt="issuu"></a>
+                     <a target="_blank" href="https://t.me/ReusCatNoticies"><img src="http://www.reus.cat/sites/reus/files/Fitxers/ajuntament/comunicacio/imatges/icono-telegram.png" alt="telegram"></a>-->
+                  </div>
+                  <br>
+                  <p class="footer__info">
+                     <a href="mailto:ajuntament@reus.cat" class="footer__link">ajuntament@reus.cat</a><br>
+                  </p>
+                  <br>
+                  <p class="footer__info">
+                     <a href="https://www.reus.cat/nota-legal" class="footer__link">Avís legal</a> ·
+                     <a href="https://www.reus.cat/informacio-addicional" class="footer__link">Transparència</a> ·
+                     <a href="http://www.reus.cat/accessibilitat" class="footer__link">Accessibilitat</a> ·
+                     <a href="http://www.reus.cat/mapa-web" class="footer__link">Mapa web</a>
+                  </p>
+               </div>
+            </div>
+         </div>
+      </div>
+   </section>
+   <footer class="footer-ajuntament-reus">
+      <div class="footer-ajuntament-reus__row">
+         <div class="footer-ajuntament-reus__item">
+            <a class="footer-ajuntament-reus__link" href="http://www.reus.cat/" target="_blank" title="link al web de l'ajuntament de reus">www.reus.cat</a>
+            <hr class="footer-ajuntament-reus__hr">
+            <p class="footer-ajuntament-reus__address"> <a href="https://www.google.es/maps/place/Ayuntamiento+de+Reus/@41.155362,1.1066533,17z/data=!3m1!4b1!4m5!3m4!1s0x12a1511d7bf7d1f5:0x2cc4a77b28089faa!8m2!3d41.155362!4d1.108842?hl=es" target="_blank" title="situació de l'Ajuntament de Reus"><strong>© Ajuntament de Reus </strong> Plaça del Mercadal</a> · 43201 Reus<br>
+               977 010 010 · <a href="mailto:ajuntament@reus.cat" title="enviar correu a l'ajuntament">ajuntament@reus.cat</a>
+            </p>
+         </div>
+         <div class="footer-ajuntament-reus__item">
+            <a href="http://www.reus.cat/" target="_blank" title="link al web de l'ajuntament de reus"><img alt="logo ajuntament reus footer" class="img-responsive-reus" src="https://storage.googleapis.com/inscribirme.appspot.com/static/reus/reus-logo-footer.png"></a>
+         </div>
+      </div>
+   </footer>
+</section>
+</body>
+</html>

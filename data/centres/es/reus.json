@@ -1,0 +1,219 @@
+[
+  {
+    "id": "cc-reus-del-carme",
+    "slug": "centre-civic-del-carme",
+    "name": "Centre Cívic del Carme",
+    "officialUrl": "https://www.reus.cat/ajuntament/centre-c%C3%ADvic-del-carme",
+    "address": "Plaça de la Patacada, 10, Reus",
+    "country": "ES",
+    "city": "Reus",
+    "cityId": "reus",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "phone": "977 010 051",
+      "email": "cc.delcarme@reus.cat",
+      "detailsSourceUrl": "https://www.reus.cat/centres-civics",
+      "detailsVerifiedAt": "2026-11-13",
+      "location": {
+        "latitude": 41.154494,
+        "longitude": 1.104876,
+        "sourceUrl": "https://www.reus.cat/centres-civics",
+        "verifiedAt": "2026-11-13"
+      }
+    },
+    "pausedReason": "Awaiting written permission from the Ajuntament de Reus: its legal notice (reus.cat/avis-legal) allows the site's content only for personal, private and non-profit use and requires prior express authorization for any other use, so publication is held until permission is granted.",
+    "registration": {
+      "platform": "reus-inscripcions",
+      "origin": "https://inscripcions.reus.cat",
+      "venue": "Centre Cívic del Carme",
+      "verifiedAt": "2026-11-13",
+      "robotsTxt": "allows-requested-paths"
+    }
+  },
+  {
+    "id": "cc-reus-gregal",
+    "slug": "centre-civic-gregal",
+    "name": "Centre Cívic Gregal",
+    "officialUrl": "https://www.reus.cat/centres-civics",
+    "address": "Carrer Antoni Gaudí, 18, Reus",
+    "country": "ES",
+    "city": "Reus",
+    "cityId": "reus",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "phone": "977 010 027",
+      "email": "cc.gregal@reus.cat",
+      "detailsSourceUrl": "https://www.reus.cat/centres-civics",
+      "detailsVerifiedAt": "2026-11-13",
+      "location": {
+        "latitude": 41.15962,
+        "longitude": 1.10518,
+        "sourceUrl": "https://www.reus.cat/centres-civics",
+        "verifiedAt": "2026-11-13"
+      }
+    },
+    "pausedReason": "Awaiting written permission from the Ajuntament de Reus: its legal notice (reus.cat/avis-legal) allows the site's content only for personal, private and non-profit use and requires prior express authorization for any other use, so publication is held until permission is granted.",
+    "registration": {
+      "platform": "reus-inscripcions",
+      "origin": "https://inscripcions.reus.cat",
+      "venue": "Centre Cívic Gregal",
+      "verifiedAt": "2026-11-13",
+      "robotsTxt": "allows-requested-paths"
+    }
+  },
+  {
+    "id": "cc-reus-llevant",
+    "slug": "centre-civic-llevant",
+    "name": "Centre Cívic Llevant",
+    "officialUrl": "https://www.reus.cat/serveis/centre-c%C3%ADvic-llevant",
+    "address": "Pl. Horts del Canonges, 1, Reus",
+    "country": "ES",
+    "city": "Reus",
+    "cityId": "reus",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "phone": "977 010 026",
+      "email": "cc.llevant@reus.cat",
+      "detailsSourceUrl": "https://www.reus.cat/centres-civics",
+      "detailsVerifiedAt": "2026-11-13",
+      "location": {
+        "latitude": 41.156302,
+        "longitude": 1.114049,
+        "sourceUrl": "https://www.reus.cat/centres-civics",
+        "verifiedAt": "2026-11-13"
+      }
+    },
+    "pausedReason": "Awaiting written permission from the Ajuntament de Reus: its legal notice (reus.cat/avis-legal) allows the site's content only for personal, private and non-profit use and requires prior express authorization for any other use, so publication is held until permission is granted.",
+    "registration": {
+      "platform": "reus-inscripcions",
+      "origin": "https://inscripcions.reus.cat",
+      "venue": "Centre Cívic Llevant",
+      "verifiedAt": "2026-11-13",
+      "robotsTxt": "allows-requested-paths"
+    }
+  },
+  {
+    "id": "cc-reus-mas-abello",
+    "slug": "centre-civic-mas-abello",
+    "name": "Centre Cívic Mas Abelló",
+    "officialUrl": "https://www.reus.cat/serveis/centre-c%C3%ADvic-mas-abell%C3%B3",
+    "address": "C/ Mas Carpa, 4, Reus",
+    "country": "ES",
+    "city": "Reus",
+    "cityId": "reus",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "phone": "977 010 030",
+      "email": "cc.masabello@reus.cat",
+      "detailsSourceUrl": "https://www.reus.cat/centres-civics",
+      "detailsVerifiedAt": "2026-11-13",
+      "location": {
+        "latitude": 41.150414,
+        "longitude": 1.118043,
+        "sourceUrl": "https://www.reus.cat/centres-civics",
+        "verifiedAt": "2026-11-13"
+      }
+    },
+    "pausedReason": "Awaiting written permission from the Ajuntament de Reus: its legal notice (reus.cat/avis-legal) allows the site's content only for personal, private and non-profit use and requires prior express authorization for any other use, so publication is held until permission is granted.",
+    "registration": {
+      "platform": "reus-inscripcions",
+      "origin": "https://inscripcions.reus.cat",
+      "venue": "Centre Cívic Mas Abelló",
+      "verifiedAt": "2026-11-13",
+      "robotsTxt": "allows-requested-paths"
+    }
+  },
+  {
+    "id": "cc-reus-mestral",
+    "slug": "centre-civic-mestral",
+    "name": "Centre Cívic Mestral",
+    "officialUrl": "https://www.reus.cat/serveis/centre-c%C3%ADvic-mestral",
+    "address": "Av. de Barcelona, 6, Reus",
+    "country": "ES",
+    "city": "Reus",
+    "cityId": "reus",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "phone": "977 010 039",
+      "email": "cc.mestral@reus.cat",
+      "detailsSourceUrl": "https://www.reus.cat/centres-civics",
+      "detailsVerifiedAt": "2026-11-13",
+      "location": {
+        "latitude": 41.160521,
+        "longitude": 1.095108,
+        "sourceUrl": "https://www.reus.cat/centres-civics",
+        "verifiedAt": "2026-11-13"
+      }
+    },
+    "pausedReason": "Awaiting written permission from the Ajuntament de Reus: its legal notice (reus.cat/avis-legal) allows the site's content only for personal, private and non-profit use and requires prior express authorization for any other use, so publication is held until permission is granted.",
+    "registration": {
+      "platform": "reus-inscripcions",
+      "origin": "https://inscripcions.reus.cat",
+      "venue": "Centre Cívic Mestral",
+      "verifiedAt": "2026-11-13",
+      "robotsTxt": "allows-requested-paths"
+    }
+  },
+  {
+    "id": "cc-reus-migjorn",
+    "slug": "centre-civic-migjorn",
+    "name": "Centre Cívic Migjorn",
+    "officialUrl": "https://www.reus.cat/serveis/centre-c%C3%ADvic-migjorn",
+    "address": "Riera de l'Escorial, 24, Reus",
+    "country": "ES",
+    "city": "Reus",
+    "cityId": "reus",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "phone": "977 010 032",
+      "email": "cc.migjorn@reus.cat",
+      "detailsSourceUrl": "https://www.reus.cat/centres-civics",
+      "detailsVerifiedAt": "2026-11-13",
+      "location": {
+        "latitude": 41.139469,
+        "longitude": 1.116914,
+        "sourceUrl": "https://www.reus.cat/centres-civics",
+        "verifiedAt": "2026-11-13"
+      }
+    },
+    "pausedReason": "Awaiting written permission from the Ajuntament de Reus: its legal notice (reus.cat/avis-legal) allows the site's content only for personal, private and non-profit use and requires prior express authorization for any other use, so publication is held until permission is granted.",
+    "registration": {
+      "platform": "reus-inscripcions",
+      "origin": "https://inscripcions.reus.cat",
+      "venue": "Centre Cívic Migjorn",
+      "verifiedAt": "2026-11-13",
+      "robotsTxt": "allows-requested-paths"
+    }
+  },
+  {
+    "id": "cc-reus-ponent",
+    "slug": "centre-civic-ponent",
+    "name": "Centre Cívic Ponent",
+    "officialUrl": "https://www.reus.cat/centre-c%C3%ADvic-ponent",
+    "address": "Av. dels Països Catalans, 106, Reus",
+    "country": "ES",
+    "city": "Reus",
+    "cityId": "reus",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "phone": "977 010 044",
+      "email": "cc.ponent@reus.cat",
+      "detailsSourceUrl": "https://www.reus.cat/centres-civics",
+      "detailsVerifiedAt": "2026-11-13",
+      "location": {
+        "latitude": 41.15141,
+        "longitude": 1.098113,
+        "sourceUrl": "https://www.reus.cat/centres-civics",
+        "verifiedAt": "2026-11-13"
+      }
+    },
+    "pausedReason": "Awaiting written permission from the Ajuntament de Reus: its legal notice (reus.cat/avis-legal) allows the site's content only for personal, private and non-profit use and requires prior express authorization for any other use, so publication is held until permission is granted.",
+    "registration": {
+      "platform": "reus-inscripcions",
+      "origin": "https://inscripcions.reus.cat",
+      "venue": "Centre Cívic Ponent",
+      "verifiedAt": "2026-11-13",
+      "robotsTxt": "allows-requested-paths"
+    }
+  }
+]

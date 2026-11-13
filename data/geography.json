@@ -141,6 +141,15 @@
           "ca": "Ajuntament de Madrid – datos.madrid.es (CC BY 4.0)"
         }
       }
+    },
+    {
+      "id": "reus",
+      "country": "ES",
+      "region": "catalunya",
+      "names": {
+        "es": "Reus",
+        "ca": "Reus"
+      }
     }
   ]
 }
