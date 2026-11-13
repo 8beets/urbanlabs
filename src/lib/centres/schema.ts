@@ -163,6 +163,18 @@ const sabadellRegistrationSchema = z.strictObject({
   mayBeEmpty: z.boolean().optional(),
 });
 
+// Madrid's district cultural centres: one open dataset on datos.madrid.es (CKAN,
+// fixed dataset id in the adapter); each row names its centre in ORGANISMO_DESC.
+export const MADRID_ORIGIN = 'https://datos.madrid.es';
+const madridRegistrationSchema = z.strictObject({
+  platform: z.literal('madrid-datos-cursos'),
+  origin: z.literal(MADRID_ORIGIN),
+  // The dataset's ORGANISMO_DESC for this centre, e.g. 'C.C. "CLARA DEL REY"'.
+  organism: z.string().min(3).max(200),
+  verifiedAt: z.iso.date(),
+  mayBeEmpty: z.boolean().optional(),
+});
+
 // Add new platforms as further members of this union, each with its own adapter
 // (src/lib/ingestion/adapters) and a case in toSourceConfig.
 export const registrationSchema = z.discriminatedUnion('platform', [
@@ -174,6 +186,7 @@ export const registrationSchema = z.discriminatedUnion('platform', [
   vitoriaRegistrationSchema,
   elPratRegistrationSchema,
   sabadellRegistrationSchema,
+  madridRegistrationSchema,
 ]);
 
 export const centreSchema = z.strictObject({
@@ -272,6 +285,14 @@ function platformSource(
         // The centre's own page; the adapter reads the city's course catalogue.
         listingUrl: centre.officialUrl,
         centreCode: registration.venueCode,
+      };
+    case 'madrid-datos-cursos':
+      return {
+        name: `${centre.name} · Centros culturales de Madrid`,
+        // The centre's madrid.es page (listing URLs are unique); the adapter reads
+        // the newest CSV snapshot of the city's dataset.
+        listingUrl: centre.officialUrl,
+        venue: registration.organism,
       };
   }
 }

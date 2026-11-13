@@ -25,6 +25,11 @@
       "id": "euskadi",
       "country": "ES",
       "name": "Euskadi"
+    },
+    {
+      "id": "comunidad-de-madrid",
+      "country": "ES",
+      "name": "Comunidad de Madrid"
     }
   ],
   "cities": [
@@ -119,6 +124,22 @@
       "names": {
         "es": "Sabadell",
         "ca": "Sabadell"
+      }
+    },
+    {
+      "id": "madrid",
+      "country": "ES",
+      "region": "comunidad-de-madrid",
+      "names": {
+        "es": "Madrid",
+        "ca": "Madrid"
+      },
+      "dataCredit": {
+        "url": "https://datos.madrid.es/dataset/50064-0-talleres-culturales-cursos",
+        "names": {
+          "es": "Ayuntamiento de Madrid – datos.madrid.es (CC BY 4.0)",
+          "ca": "Ajuntament de Madrid – datos.madrid.es (CC BY 4.0)"
+        }
       }
     }
   ]
