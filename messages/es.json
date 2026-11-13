@@ -127,6 +127,7 @@
   "languageSpanish": "Español",
   "languageCatalan": "Català",
   "weekdayAnd": "y",
+  "weekdayName": "{date: datetime weekday=long timeZone=UTC}",
   "mapContributors": "Colaboradores de OpenStreetMap",
   "archiveTitle": "Archivo de cursos",
   "archiveIntro": "Cursos y talleres que ya han terminado, con los mismos filtros que la búsqueda.",

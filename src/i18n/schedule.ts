@@ -1,14 +1,21 @@
 import { m } from '../paraglide/messages.js';
+import { locales } from '../paraglide/runtime.js';
 import type { Locale } from './ui';
-import { weekdayNames } from '../lib/time/dates';
 
 // Source schedules name weekdays in Spanish (Zaragoza, Vitoria) or Catalan (Barcelona,
 // Girona, El Prat…); each is shown in the interface language. Plurals ("sábados",
 // "dissabtes") add an "s" in both languages.
-const names: Record<Locale, string[]> = {
-  es: weekdayNames('es'),
-  ca: weekdayNames('ca'),
-};
+// 2024-01-01 is a Monday; the weekdayName message formats it in each locale.
+const names = Object.fromEntries(
+  locales.map((locale) => [
+    locale,
+    Array.from({ length: 7 }, (_, day) =>
+      m
+        .weekdayName({ date: Date.UTC(2024, 0, 1 + day) }, { locale })
+        .toLocaleLowerCase(locale),
+    ),
+  ]),
+) as Record<Locale, string[]>;
 const sourceWeekday = (locale: Locale) =>
   new RegExp(`(?<!\\p{L})(${names[locale].join('|')})(s?)(?!\\p{L})`, 'giu');
 const other = (locale: Locale): Locale => (locale === 'es' ? 'ca' : 'es');
