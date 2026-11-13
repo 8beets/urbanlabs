@@ -1,0 +1,214 @@
+<!-- Trimmed from sedeelectronica.vitoria-gasteiz.org on 2026-11-13; descriptions removed. -->
+<html><body>
+<div class="contenido migas">
+	<!-- En BD estan los nombres de las actividades en mayusculas, aqui queremos que salga en minusculas
+	salvo la primera letra -->
+	<a href="/m01-10s/actividadAction.do?accion=inicio&amp;anio=2026">Consulta e inscripción en actividades&nbsp;&gt;&nbsp;</a><a href="/m01-10s/actividadAction.do?accion=verCentros&amp;anio=2026">Selección de centro&nbsp;&gt;&nbsp;</a><a href="/m01-10s/actividadAction.do?accion=verCentros&cen=4&amp;anio=2026">Actividades&nbsp;&gt;&nbsp;</a>
+			<a class="textoNegrita colorCampo">Familiarización con el medio acuático (con acompañante)</a>
+</div>
+<h3>Consulta e inscripción en actividades</h3>
+<!-- Comprobamos si es necesario pintar algún campo para no poner un dl vacío -->
+<div class="clearfloats"></div>
+<dl class="fondoGris">
+	<dt>Centro:</dt>
+	<dd>
+		C.C. IPARRALDE
+	</dd>
+		<dt>Actividad:</dt>
+		<dd>Familiarización con el medio acuático (con acompañante)</dd>
+</dl>
+<div class="clearfloats"></div>
+<script type="text/javascript" src="/http/m01-10s/js/actividad.js"></script>
+<form id="formularioBusqueda" action="/m01-10s/actividadAction.do" method="post" class="form">
+	<input type="hidden" name="accion" value="curPorCenActFiltro" />	
+	<input type="hidden" name="anio" value="2026" />
+	<input type="hidden" name="sorteo" value="" />
+	<input type="hidden" name="bloq" value="" />
+	<input type="hidden" name="prog" value="" />
+	<input type="hidden" name="etiq" value="" />
+	<input type="hidden" name="cen" value="4" />
+	<input type="hidden" name="activ" value="FAMN" />
+	<input type="hidden" name="urlEstatica" value="verCentros&amp;cen=4&amp;activ=FAMN" />
+	<input type="hidden" name="jspResultadoVisualizar" value="C" />	
+	<input type="hidden" name="filtro.desde" value="" >
+	<input type="hidden" name="filtro.hasta" value="" >	
+		<p>Se pueden buscar las actividades por edad, por idioma y con plazas libres:</p>
+	<fieldset class="fieldset fieldset--inline">
+		<div class="field field--number">
+			<label class="field__label" for="EDAD">Edad:</label>
+			<input class="field__input" id="EDAD" type="text" name="filtro.edad" value='' size="3" maxlength="3" />
+		</div>
+		<div class="field field--select">
+			<label class="field__label" for="IDIOMA">Idioma:</label>
+			 <select name="filtro.idiomaActividad" class="field__select"><option value="" selected="selected">Todos</option>
+						<option value="E">Euskera</option>
+<option value="C">Castellano</option>
+<option value="I">Inglés</option>
+<option value="F">Francés</option>
+<option value="A">Alemán</option>
+<option value="L">Italiano</option>
+<option value="N">Sin idioma</option></select>
+		</div>
+	</fieldset>
+		<div class="fieldset fieldset--inline">
+							<div class="field field--checkboxset">
+								<input type="checkbox" name="filtro.libresSN" value="S" id="libresSN" class="field__checkbox" />
+	  							<label class="field__label" for="libresSN">Actividades con plazas libres</label>
+							</div>												
+		</div>
+	<div class="fieldset fieldset--inline">	
+		<input class="btn" type="submit" value="Buscar" />
+		<input class="btn" type="reset" value="Limpiar" onclick="return limpiarBusqueda();" />
+	</div>
+</form>
+		<div class="paginacionsup">
+			<div class="paginacionIzq">
+				<p>
+					21-24 de 24
+				</p>
+			</div>	
+			<div class="paginacionDcha">
+				<p>
+				<a href="/m01-10s/actividadAction.do?accion=verCentros&amp;cen=4&amp;activ=FAMN&amp;anio=2026&amp;nuevaPag=1">&lt;</a>
+					<a href="/m01-10s/actividadAction.do?accion=verCentros&amp;cen=4&amp;activ=FAMN&amp;anio=2026&amp;nuevaPag=1">1</a>
+					2
+				</p>
+			</div>
+		</div>
+			<h4>C.C. IPARRALDE</h4>
+			<table>
+			<thead>
+				<tr>
+					<th class="sinBordeL">Fechas</th>
+					<th>Días</th>
+					<th>Horario</th>
+					<th>Edad</th>
+					<th>Plazas</th>
+						<th>Situación</th>
+					<th>Idioma</th>	
+					<th class="sinBordeR">+Info</th>
+						<th class="sinBordeL sinBordeR">Inscripción</th>		
+				</tr>
+			</thead>
+			<tbody>
+		<tr>
+			<td class="textoIzquierda">10/04/2027 - 19/06/2027</td>
+			<td>S</td>
+			<td>10:30 - 11:00</td>		
+			<td>2-3</td>
+			<td>6</td>
+				<td>Previsto</td>	
+			<td>Bilingüe  </td>
+			<td>
+				<a href="/m01-10s/actividadAction.do?accion=verCentros&amp;cen=4&amp;activ=FAMN&amp;detalle=detalle&amp;id=2026%7C%7C4%7C%7CFAMN%7C%7C5%7C%7C3&amp;anio=2026&amp;nuevaPag=2">ver más</a>
+			</td>	
+					<td class="sinBordeR">	
+									<form class="form" action="https://sedeelectronica.vitoria-gasteiz.org/m01-10s/gw/actividadAction.do" style="margin:0;" method="get">
+										<input type="hidden" name="accion" value="inscribir" />
+										<!-- <input type="hidden" name="id" value="0" /> -->
+										<input type="hidden" name="id" value="2026||4||FAMN||5||3" />
+										<input type="hidden" name="urlEstatica" value="verCentros&amp;cen=4&amp;activ=FAMN" />
+										<input type="hidden" name="jspResultadoVisualizar" value="C" />
+										<input type="hidden" name="anio" value="2026" />
+										<input type="hidden" name="nuevaPag" value="2" />
+											<input type="submit" value="Inscribirse" onclick="javascript:comprabarPlazasNees(this);return false;" class="boton" />
+									</form>
+					</td>
+		</tr>
+		<tr>
+			<td class="textoIzquierda">10/04/2027 - 19/06/2027</td>
+			<td>S</td>
+			<td>11:00 - 11:30</td>		
+			<td>2-3</td>
+			<td>3</td>
+				<td>Previsto</td>	
+			<td>Bilingüe  </td>
+			<td>
+				<a href="/m01-10s/actividadAction.do?accion=verCentros&amp;cen=4&amp;activ=FAMN&amp;detalle=detalle&amp;id=2026%7C%7C4%7C%7CFAMN%7C%7C6%7C%7C3&amp;anio=2026&amp;nuevaPag=2">ver más</a>
+			</td>	
+					<td class="sinBordeR">	
+									<form class="form" action="https://sedeelectronica.vitoria-gasteiz.org/m01-10s/gw/actividadAction.do" style="margin:0;" method="get">
+										<input type="hidden" name="accion" value="inscribir" />
+										<!-- <input type="hidden" name="id" value="1" /> -->
+										<input type="hidden" name="id" value="2026||4||FAMN||6||3" />
+										<input type="hidden" name="urlEstatica" value="verCentros&amp;cen=4&amp;activ=FAMN" />
+										<input type="hidden" name="jspResultadoVisualizar" value="C" />
+										<input type="hidden" name="anio" value="2026" />
+										<input type="hidden" name="nuevaPag" value="2" />
+											<input type="submit" value="Inscribirse" onclick="javascript:comprabarPlazasNees(this);return false;" class="boton" />
+									</form>
+					</td>
+		</tr>
+		<tr>
+			<td class="textoIzquierda">10/04/2027 - 19/06/2027</td>
+			<td>S</td>
+			<td>11:30 - 12:00</td>		
+			<td>4-5</td>
+			<td>7</td>
+				<td>Previsto</td>	
+			<td>Bilingüe  </td>
+			<td>
+				<a href="/m01-10s/actividadAction.do?accion=verCentros&amp;cen=4&amp;activ=FAMN&amp;detalle=detalle&amp;id=2026%7C%7C4%7C%7CFAMN%7C%7C7%7C%7C3&amp;anio=2026&amp;nuevaPag=2">ver más</a>
+			</td>	
+					<td class="sinBordeR">	
+									<form class="form" action="https://sedeelectronica.vitoria-gasteiz.org/m01-10s/gw/actividadAction.do" style="margin:0;" method="get">
+										<input type="hidden" name="accion" value="inscribir" />
+										<!-- <input type="hidden" name="id" value="2" /> -->
+										<input type="hidden" name="id" value="2026||4||FAMN||7||3" />
+										<input type="hidden" name="urlEstatica" value="verCentros&amp;cen=4&amp;activ=FAMN" />
+										<input type="hidden" name="jspResultadoVisualizar" value="C" />
+										<input type="hidden" name="anio" value="2026" />
+										<input type="hidden" name="nuevaPag" value="2" />
+											<input type="submit" value="Inscribirse" onclick="javascript:comprabarPlazasNees(this);return false;" class="boton" />
+									</form>
+					</td>
+		</tr>
+		<tr>
+			<td class="textoIzquierda">10/04/2027 - 19/06/2027</td>
+			<td>S</td>
+			<td>12:00 - 12:30</td>		
+			<td>4-5</td>
+			<td>6</td>
+				<td>Previsto</td>	
+			<td>Bilingüe  </td>
+			<td>
+				<a href="/m01-10s/actividadAction.do?accion=verCentros&amp;cen=4&amp;activ=FAMN&amp;detalle=detalle&amp;id=2026%7C%7C4%7C%7CFAMN%7C%7C8%7C%7C3&amp;anio=2026&amp;nuevaPag=2">ver más</a>
+			</td>	
+					<td class="sinBordeR">	
+									<form class="form" action="https://sedeelectronica.vitoria-gasteiz.org/m01-10s/gw/actividadAction.do" style="margin:0;" method="get">
+										<input type="hidden" name="accion" value="inscribir" />
+										<!-- <input type="hidden" name="id" value="3" /> -->
+										<input type="hidden" name="id" value="2026||4||FAMN||8||3" />
+										<input type="hidden" name="urlEstatica" value="verCentros&amp;cen=4&amp;activ=FAMN" />
+										<input type="hidden" name="jspResultadoVisualizar" value="C" />
+										<input type="hidden" name="anio" value="2026" />
+										<input type="hidden" name="nuevaPag" value="2" />
+											<input type="submit" value="Inscribirse" onclick="javascript:comprabarPlazasNees(this);return false;" class="boton" />
+									</form>
+					</td>
+		</tr>
+	</tbody>
+		</table>
+<div class="paginacioninf">
+	<div class="paginacionIzq">
+		<p>
+			21-24 de 24
+		</p>
+	</div>	
+	<div class="paginacionDcha">
+		<p>
+		<a href="/m01-10s/actividadAction.do?accion=verCentros&amp;cen=4&amp;activ=FAMN&amp;anio=2026&amp;nuevaPag=1">&lt;</a>
+			<a href="/m01-10s/actividadAction.do?accion=verCentros&amp;cen=4&amp;activ=FAMN&amp;anio=2026&amp;nuevaPag=1">1</a>
+			2
+		</p>
+	</div>
+</div>
+</div>
+                            </div>
+                         </div>
+					   </div>
+					</section>
+				</div>
+			</div>
+						
+</body></html>

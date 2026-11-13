@@ -1,0 +1,352 @@
+[
+  {
+    "id": "cc-vit-abetxuko",
+    "slug": "abetxuko",
+    "name": "Centro Cívico Abetxuko",
+    "officialUrl": "https://www.vitoria-gasteiz.org/wb021/was/contenidoAction.do?idioma=es&uid=u_5bc3b646_131fa0c5dc0__7fc6",
+    "address": "Plaza de la Cooperativa, 8, Vitoria-Gasteiz",
+    "country": "ES",
+    "city": "Vitoria-Gasteiz",
+    "cityId": "vitoria-gasteiz",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "phone": "945 16 26 56",
+      "detailsSourceUrl": "https://www.vitoria-gasteiz.org/wb021/was/contenidoAction.do?idioma=es&uid=u_5bc3b646_131fa0c5dc0__7fc6",
+      "detailsVerifiedAt": "2026-11-13"
+    },
+    "pausedReason": "Awaiting written permission from the Ayuntamiento de Vitoria-Gasteiz: the legal notice of its sede electrónica (sedeelectronica.vitoria-gasteiz.org/portal/es/aviso-legal) states that all rights are reserved, so publication is held until permission is granted.",
+    "registration": {
+      "platform": "vitoria-gasteiz-actividades",
+      "origin": "https://sedeelectronica.vitoria-gasteiz.org",
+      "centreCode": 37,
+      "venue": "C.C. ABETXUKO",
+      "verifiedAt": "2026-11-13",
+      "robotsTxt": "allows-requested-paths"
+    }
+  },
+  {
+    "id": "cc-vit-aldabe",
+    "slug": "aldabe",
+    "name": "Centro Cívico Aldabe",
+    "officialUrl": "https://www.vitoria-gasteiz.org/wb021/was/contenidoAction.do?idioma=es&uid=u4878364b_12fc38fec62__7fc9",
+    "address": "Portal de Arriaga, 1-A, Vitoria-Gasteiz",
+    "country": "ES",
+    "city": "Vitoria-Gasteiz",
+    "cityId": "vitoria-gasteiz",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "phone": "945 16 19 30",
+      "detailsSourceUrl": "https://www.vitoria-gasteiz.org/wb021/was/contenidoAction.do?idioma=es&uid=u4878364b_12fc38fec62__7fc9",
+      "detailsVerifiedAt": "2026-11-13"
+    },
+    "pausedReason": "Awaiting written permission from the Ayuntamiento de Vitoria-Gasteiz: the legal notice of its sede electrónica (sedeelectronica.vitoria-gasteiz.org/portal/es/aviso-legal) states that all rights are reserved, so publication is held until permission is granted.",
+    "registration": {
+      "platform": "vitoria-gasteiz-actividades",
+      "origin": "https://sedeelectronica.vitoria-gasteiz.org",
+      "centreCode": 35,
+      "venue": "C.C. ALDABE",
+      "verifiedAt": "2026-11-13",
+      "robotsTxt": "allows-requested-paths"
+    }
+  },
+  {
+    "id": "cc-vit-arana",
+    "slug": "arana",
+    "name": "Centro Cívico Arana",
+    "officialUrl": "https://www.vitoria-gasteiz.org/wb021/was/contenidoAction.do?idioma=es&uid=u1bff3d0d_131ff2e3f66__7fae",
+    "address": "Aragón, 7, Vitoria-Gasteiz",
+    "country": "ES",
+    "city": "Vitoria-Gasteiz",
+    "cityId": "vitoria-gasteiz",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "phone": "945 16 17 34",
+      "detailsSourceUrl": "https://www.vitoria-gasteiz.org/wb021/was/contenidoAction.do?idioma=es&uid=u1bff3d0d_131ff2e3f66__7fae",
+      "detailsVerifiedAt": "2026-11-13"
+    },
+    "pausedReason": "Awaiting written permission from the Ayuntamiento de Vitoria-Gasteiz: the legal notice of its sede electrónica (sedeelectronica.vitoria-gasteiz.org/portal/es/aviso-legal) states that all rights are reserved, so publication is held until permission is granted.",
+    "registration": {
+      "platform": "vitoria-gasteiz-actividades",
+      "origin": "https://sedeelectronica.vitoria-gasteiz.org",
+      "centreCode": 39,
+      "venue": "C.C. ARANA",
+      "verifiedAt": "2026-11-13",
+      "robotsTxt": "allows-requested-paths"
+    }
+  },
+  {
+    "id": "cc-vit-ariznabarra",
+    "slug": "ariznabarra",
+    "name": "Centro Cívico Ariznabarra",
+    "officialUrl": "https://www.vitoria-gasteiz.org/wb021/was/contenidoAction.do?idioma=es&uid=u52ed70f3_131f4e5337e__7fef",
+    "address": "Ariznabarra, 19-C, Vitoria-Gasteiz",
+    "country": "ES",
+    "city": "Vitoria-Gasteiz",
+    "cityId": "vitoria-gasteiz",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "phone": "945 16 26 50",
+      "detailsSourceUrl": "https://www.vitoria-gasteiz.org/wb021/was/contenidoAction.do?idioma=es&uid=u52ed70f3_131f4e5337e__7fef",
+      "detailsVerifiedAt": "2026-11-13"
+    },
+    "pausedReason": "Awaiting written permission from the Ayuntamiento de Vitoria-Gasteiz: the legal notice of its sede electrónica (sedeelectronica.vitoria-gasteiz.org/portal/es/aviso-legal) states that all rights are reserved, so publication is held until permission is granted.",
+    "registration": {
+      "platform": "vitoria-gasteiz-actividades",
+      "origin": "https://sedeelectronica.vitoria-gasteiz.org",
+      "centreCode": 40,
+      "venue": "C.C. ARIZNABARRA",
+      "verifiedAt": "2026-11-13",
+      "robotsTxt": "allows-requested-paths"
+    }
+  },
+  {
+    "id": "cc-vit-arriaga",
+    "slug": "arriaga",
+    "name": "Centro Cívico Arriaga",
+    "officialUrl": "https://www.vitoria-gasteiz.org/wb021/was/contenidoAction.do?idioma=es&uid=u1bff3d0d_131ff2e3f66__7ff1",
+    "address": "Francisco Javier de Landaburu, 9-A, Vitoria-Gasteiz",
+    "country": "ES",
+    "city": "Vitoria-Gasteiz",
+    "cityId": "vitoria-gasteiz",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "phone": "945 16 17 70",
+      "detailsSourceUrl": "https://www.vitoria-gasteiz.org/wb021/was/contenidoAction.do?idioma=es&uid=u1bff3d0d_131ff2e3f66__7ff1",
+      "detailsVerifiedAt": "2026-11-13"
+    },
+    "pausedReason": "Awaiting written permission from the Ayuntamiento de Vitoria-Gasteiz: the legal notice of its sede electrónica (sedeelectronica.vitoria-gasteiz.org/portal/es/aviso-legal) states that all rights are reserved, so publication is held until permission is granted.",
+    "registration": {
+      "platform": "vitoria-gasteiz-actividades",
+      "origin": "https://sedeelectronica.vitoria-gasteiz.org",
+      "centreCode": 41,
+      "venue": "C.C. ARRIAGA",
+      "verifiedAt": "2026-11-13",
+      "robotsTxt": "allows-requested-paths"
+    }
+  },
+  {
+    "id": "cc-vit-el-campillo",
+    "slug": "el-campillo",
+    "name": "Centro Cívico El Campillo",
+    "officialUrl": "https://www.vitoria-gasteiz.org/wb021/was/contenidoAction.do?idioma=es&uid=u4878364b_12fc38fec62__7fbd",
+    "address": "Santa María, 4, Vitoria-Gasteiz",
+    "country": "ES",
+    "city": "Vitoria-Gasteiz",
+    "cityId": "vitoria-gasteiz",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "phone": "945 16 16 80",
+      "detailsSourceUrl": "https://www.vitoria-gasteiz.org/wb021/was/contenidoAction.do?idioma=es&uid=u4878364b_12fc38fec62__7fbd",
+      "detailsVerifiedAt": "2026-11-13"
+    },
+    "pausedReason": "Awaiting written permission from the Ayuntamiento de Vitoria-Gasteiz: the legal notice of its sede electrónica (sedeelectronica.vitoria-gasteiz.org/portal/es/aviso-legal) states that all rights are reserved, so publication is held until permission is granted.",
+    "registration": {
+      "platform": "vitoria-gasteiz-actividades",
+      "origin": "https://sedeelectronica.vitoria-gasteiz.org",
+      "centreCode": 12,
+      "venue": "C.C. EL CAMPILLO",
+      "verifiedAt": "2026-11-13",
+      "robotsTxt": "allows-requested-paths"
+    }
+  },
+  {
+    "id": "cc-vit-el-pilar",
+    "slug": "el-pilar",
+    "name": "Centro Cívico El Pilar",
+    "officialUrl": "https://www.vitoria-gasteiz.org/wb021/was/contenidoAction.do?idioma=es&uid=u1bff3d0d_131ff2e3f66__7fb5",
+    "address": "Plaza de la Constitución, 5, Vitoria-Gasteiz",
+    "country": "ES",
+    "city": "Vitoria-Gasteiz",
+    "cityId": "vitoria-gasteiz",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "phone": "945 16 12 33",
+      "detailsSourceUrl": "https://www.vitoria-gasteiz.org/wb021/was/contenidoAction.do?idioma=es&uid=u1bff3d0d_131ff2e3f66__7fb5",
+      "detailsVerifiedAt": "2026-11-13"
+    },
+    "pausedReason": "Awaiting written permission from the Ayuntamiento de Vitoria-Gasteiz: the legal notice of its sede electrónica (sedeelectronica.vitoria-gasteiz.org/portal/es/aviso-legal) states that all rights are reserved, so publication is held until permission is granted.",
+    "registration": {
+      "platform": "vitoria-gasteiz-actividades",
+      "origin": "https://sedeelectronica.vitoria-gasteiz.org",
+      "centreCode": 47,
+      "venue": "C.C. EL PILAR",
+      "verifiedAt": "2026-11-13",
+      "robotsTxt": "allows-requested-paths"
+    }
+  },
+  {
+    "id": "cc-vit-hegoalde",
+    "slug": "hegoalde",
+    "name": "Centro Cívico Hegoalde",
+    "officialUrl": "https://www.vitoria-gasteiz.org/wb021/was/contenidoAction.do?idioma=es&uid=u1c5a886b_13204552479__7ffa",
+    "address": "Alberto Schommer, 10, Vitoria-Gasteiz",
+    "country": "ES",
+    "city": "Vitoria-Gasteiz",
+    "cityId": "vitoria-gasteiz",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "phone": "945 16 18 80",
+      "detailsSourceUrl": "https://www.vitoria-gasteiz.org/wb021/was/contenidoAction.do?idioma=es&uid=u1c5a886b_13204552479__7ffa",
+      "detailsVerifiedAt": "2026-11-13"
+    },
+    "pausedReason": "Awaiting written permission from the Ayuntamiento de Vitoria-Gasteiz: the legal notice of its sede electrónica (sedeelectronica.vitoria-gasteiz.org/portal/es/aviso-legal) states that all rights are reserved, so publication is held until permission is granted.",
+    "registration": {
+      "platform": "vitoria-gasteiz-actividades",
+      "origin": "https://sedeelectronica.vitoria-gasteiz.org",
+      "centreCode": 34,
+      "venue": "C.C. HEGOALDE",
+      "verifiedAt": "2026-11-13",
+      "robotsTxt": "allows-requested-paths"
+    }
+  },
+  {
+    "id": "cc-vit-ibaiondo",
+    "slug": "ibaiondo",
+    "name": "Centro Cívico Ibaiondo",
+    "officialUrl": "https://www.vitoria-gasteiz.org/wb021/was/contenidoAction.do?idioma=es&uid=u4878364b_12fc38fec62__7fc0",
+    "address": "Landaberde, 31, Vitoria-Gasteiz",
+    "country": "ES",
+    "city": "Vitoria-Gasteiz",
+    "cityId": "vitoria-gasteiz",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "phone": "945 16 18 13",
+      "detailsSourceUrl": "https://www.vitoria-gasteiz.org/wb021/was/contenidoAction.do?idioma=es&uid=u4878364b_12fc38fec62__7fc0",
+      "detailsVerifiedAt": "2026-11-13"
+    },
+    "pausedReason": "Awaiting written permission from the Ayuntamiento de Vitoria-Gasteiz: the legal notice of its sede electrónica (sedeelectronica.vitoria-gasteiz.org/portal/es/aviso-legal) states that all rights are reserved, so publication is held until permission is granted.",
+    "registration": {
+      "platform": "vitoria-gasteiz-actividades",
+      "origin": "https://sedeelectronica.vitoria-gasteiz.org",
+      "centreCode": 54,
+      "venue": "C.C. IBAIONDO",
+      "verifiedAt": "2026-11-13",
+      "robotsTxt": "allows-requested-paths"
+    }
+  },
+  {
+    "id": "cc-vit-iparralde",
+    "slug": "iparralde",
+    "name": "Centro Cívico Iparralde",
+    "officialUrl": "https://www.vitoria-gasteiz.org/wb021/was/contenidoAction.do?idioma=es&uid=u4878364b_12fc38fec62__7fc1",
+    "address": "Plaza Zuberoa, 1, Vitoria-Gasteiz",
+    "country": "ES",
+    "city": "Vitoria-Gasteiz",
+    "cityId": "vitoria-gasteiz",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "phone": "945 16 17 50",
+      "detailsSourceUrl": "https://www.vitoria-gasteiz.org/wb021/was/contenidoAction.do?idioma=es&uid=u4878364b_12fc38fec62__7fc1",
+      "detailsVerifiedAt": "2026-11-13"
+    },
+    "pausedReason": "Awaiting written permission from the Ayuntamiento de Vitoria-Gasteiz: the legal notice of its sede electrónica (sedeelectronica.vitoria-gasteiz.org/portal/es/aviso-legal) states that all rights are reserved, so publication is held until permission is granted.",
+    "registration": {
+      "platform": "vitoria-gasteiz-actividades",
+      "origin": "https://sedeelectronica.vitoria-gasteiz.org",
+      "centreCode": 4,
+      "venue": "C.C. IPARRALDE",
+      "verifiedAt": "2026-11-13",
+      "robotsTxt": "allows-requested-paths"
+    }
+  },
+  {
+    "id": "cc-vit-judimendi",
+    "slug": "judimendi",
+    "name": "Centro Cívico Judimendi",
+    "officialUrl": "https://www.vitoria-gasteiz.org/wb021/was/contenidoAction.do?idioma=es&uid=u4878364b_12fc38fec62__7fb3",
+    "address": "Avenida de Judimendi, 26 (entrada por Plaza Sefarad), Vitoria-Gasteiz",
+    "country": "ES",
+    "city": "Vitoria-Gasteiz",
+    "cityId": "vitoria-gasteiz",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "phone": "945 16 17 40",
+      "detailsSourceUrl": "https://www.vitoria-gasteiz.org/wb021/was/contenidoAction.do?idioma=es&uid=u4878364b_12fc38fec62__7fb3",
+      "detailsVerifiedAt": "2026-11-13"
+    },
+    "pausedReason": "Awaiting written permission from the Ayuntamiento de Vitoria-Gasteiz: the legal notice of its sede electrónica (sedeelectronica.vitoria-gasteiz.org/portal/es/aviso-legal) states that all rights are reserved, so publication is held until permission is granted.",
+    "registration": {
+      "platform": "vitoria-gasteiz-actividades",
+      "origin": "https://sedeelectronica.vitoria-gasteiz.org",
+      "centreCode": 6,
+      "venue": "C.C. JUDIMENDI",
+      "verifiedAt": "2026-11-13",
+      "robotsTxt": "allows-requested-paths"
+    }
+  },
+  {
+    "id": "cc-vit-lakua",
+    "slug": "lakua",
+    "name": "Centro Cívico Lakua",
+    "officialUrl": "https://www.vitoria-gasteiz.org/wb021/was/contenidoAction.do?idioma=es&uid=u4878364b_12fc38fec62__7fd8",
+    "address": "Senda de los Echanove, 2, Vitoria-Gasteiz",
+    "country": "ES",
+    "city": "Vitoria-Gasteiz",
+    "cityId": "vitoria-gasteiz",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "phone": "945 16 26 30",
+      "detailsSourceUrl": "https://www.vitoria-gasteiz.org/wb021/was/contenidoAction.do?idioma=es&uid=u4878364b_12fc38fec62__7fd8",
+      "detailsVerifiedAt": "2026-11-13"
+    },
+    "pausedReason": "Awaiting written permission from the Ayuntamiento de Vitoria-Gasteiz: the legal notice of its sede electrónica (sedeelectronica.vitoria-gasteiz.org/portal/es/aviso-legal) states that all rights are reserved, so publication is held until permission is granted.",
+    "registration": {
+      "platform": "vitoria-gasteiz-actividades",
+      "origin": "https://sedeelectronica.vitoria-gasteiz.org",
+      "centreCode": 26,
+      "venue": "C.C. LAKUA",
+      "verifiedAt": "2026-11-13",
+      "robotsTxt": "allows-requested-paths"
+    }
+  },
+  {
+    "id": "cc-vit-salburua",
+    "slug": "salburua",
+    "name": "Centro Cívico Salburua",
+    "officialUrl": "https://www.vitoria-gasteiz.org/wb021/was/contenidoAction.do?idioma=es&uid=u_723d698f_14d333feed3__7ecc",
+    "address": "Avenida Bratislava, 2, Vitoria-Gasteiz",
+    "country": "ES",
+    "city": "Vitoria-Gasteiz",
+    "cityId": "vitoria-gasteiz",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "phone": "945 16 16 37",
+      "detailsSourceUrl": "https://www.vitoria-gasteiz.org/wb021/was/contenidoAction.do?idioma=es&uid=u_723d698f_14d333feed3__7ecc",
+      "detailsVerifiedAt": "2026-11-13"
+    },
+    "pausedReason": "Awaiting written permission from the Ayuntamiento de Vitoria-Gasteiz: the legal notice of its sede electrónica (sedeelectronica.vitoria-gasteiz.org/portal/es/aviso-legal) states that all rights are reserved, so publication is held until permission is granted.",
+    "registration": {
+      "platform": "vitoria-gasteiz-actividades",
+      "origin": "https://sedeelectronica.vitoria-gasteiz.org",
+      "centreCode": 65,
+      "venue": "C.C. SALBURUA",
+      "verifiedAt": "2026-11-13",
+      "robotsTxt": "allows-requested-paths"
+    }
+  },
+  {
+    "id": "cc-vit-zabalgana",
+    "slug": "zabalgana",
+    "name": "Centro Cívico Zabalgana",
+    "officialUrl": "https://www.vitoria-gasteiz.org/wb021/was/contenidoAction.do?idioma=es&uid=u5e86ec82_15e83cf300f__7e7f",
+    "address": "Juan Gris, 2, Vitoria-Gasteiz",
+    "country": "ES",
+    "city": "Vitoria-Gasteiz",
+    "cityId": "vitoria-gasteiz",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "phone": "945 16 16 30",
+      "detailsSourceUrl": "https://www.vitoria-gasteiz.org/wb021/was/contenidoAction.do?idioma=es&uid=u5e86ec82_15e83cf300f__7e7f",
+      "detailsVerifiedAt": "2026-11-13"
+    },
+    "pausedReason": "Awaiting written permission from the Ayuntamiento de Vitoria-Gasteiz: the legal notice of its sede electrónica (sedeelectronica.vitoria-gasteiz.org/portal/es/aviso-legal) states that all rights are reserved, so publication is held until permission is granted.",
+    "registration": {
+      "platform": "vitoria-gasteiz-actividades",
+      "origin": "https://sedeelectronica.vitoria-gasteiz.org",
+      "centreCode": 64,
+      "venue": "C.C. ZABALGANA",
+      "verifiedAt": "2026-11-13",
+      "robotsTxt": "allows-requested-paths"
+    }
+  }
+]

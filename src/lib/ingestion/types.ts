@@ -3,7 +3,8 @@ export type SourcePlatform =
   | 'alicante-aula-abierta'
   | 'tarragona-centres-civics'
   | 'zaragoza-centros-civicos'
-  | 'girona-centres-civics';
+  | 'girona-centres-civics'
+  | 'vitoria-gasteiz-actividades';
 
 export interface SourceConfig {
   id: string;
@@ -13,9 +14,9 @@ export interface SourceConfig {
   listingUrl: string;
   excludedCategoryCodes?: string[];
   excludedExternalIds?: string[];
-  /** The centre's number on its platform (Tarragona activity codes, Zaragoza `idLugar`). */
+  /** The centre's number on its platform (Tarragona activity codes, Zaragoza `idLugar`, Vitoria `cen`). */
   centreCode?: number;
-  /** Girona: the centre's venue name, and the activity-code prefix of the courses it runs elsewhere. */
+  /** Girona and Vitoria-Gasteiz: the centre's venue name; Girona: the activity-code prefix of the courses it runs elsewhere. */
   venue?: string;
   codePrefix?: string;
   /** An empty listing is a valid, successful snapshot (seasonal centres). */
