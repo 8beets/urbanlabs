@@ -1,5 +1,5 @@
 import { load } from 'cheerio';
-import { cleanText } from '../normalization/values';
+import { cleanText, dmyDate, euroCents } from '../normalization/values';
 import { createSourceFetcher, type FetchOptions } from '../http';
 import { assertRobotsAllowPath } from '../robots';
 import { EL_PRAT_ORIGIN } from '../../centres/schema';
@@ -68,11 +68,6 @@ export function parseElPratListing(html: string): {
   return { courses, next: url ? url.pathname + url.search : null };
 }
 
-const isoDate = (date: string) => {
-  const [day, month, year] = date.split('/');
-  return `${year}-${month}-${day}`;
-};
-
 /** Start and end dates from the "Quan" text; a single date is a one-day course. */
 export function elPratDates(when: string): {
   startDate: string | null;
@@ -82,10 +77,10 @@ export function elPratDates(when: string): {
     /^Del (\d{2}\/\d{2}\/\d{4})(?: - \d{1,2}:\d{2} h)? al (\d{2}\/\d{2}\/\d{4})\b/u,
   );
   if (range)
-    return { startDate: isoDate(range[1]!), endDate: isoDate(range[2]!) };
+    return { startDate: dmyDate(range[1]!), endDate: dmyDate(range[2]!) };
   const dates = when.match(/\d{2}\/\d{2}\/\d{4}/gu) ?? [];
   if (dates.length === 1 && when.startsWith(dates[0]!))
-    return { startDate: isoDate(dates[0]!), endDate: isoDate(dates[0]!) };
+    return { startDate: dmyDate(dates[0]!), endDate: dmyDate(dates[0]!) };
   return { startDate: null, endDate: null };
 }
 
@@ -106,9 +101,8 @@ export function elPratSchedule(when: string): string | null {
 /** Price in cents from the "Inscripció" text: "37€ 9 sessions", "Inscripció gratuïta". */
 export function elPratPriceCents(text: string): number | null {
   if (/^(?:Inscripció gratuïta|Gratuït)\b/u.test(text)) return 0;
-  const price = text.match(/^(\d+)(?:[.,](\d{1,2}))? ?€(?:\s|$)/u);
-  if (!price) return null;
-  return Number(price[1]) * 100 + Number((price[2] ?? '0').padEnd(2, '0'));
+  const price = text.match(/^(\d+(?:[.,]\d{1,2})?) ?€(?:\s|$)/u);
+  return price ? euroCents(price[1]!) : null;
 }
 
 export function parseElPratCourse(

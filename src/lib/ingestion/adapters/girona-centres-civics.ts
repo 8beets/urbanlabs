@@ -1,5 +1,5 @@
 import { load, type CheerioAPI } from 'cheerio';
-import { cleanText } from '../normalization/values';
+import { cleanText, dmyDate, euroCents } from '../normalization/values';
 import { createSourceFetcher, type FetchOptions } from '../http';
 import { assertRobotsAllowAll } from '../robots';
 import type { CourseRecord, SourceAdapter, SourceConfig } from '../types';
@@ -91,18 +91,13 @@ export function belongsTo(activity: GironaListing, source: SourceConfig) {
   );
 }
 
-function isoDate(value: string): string {
-  const [day, month, year] = value.split('/');
-  return `${year}-${month}-${day}`;
-}
-
 /** Only an explicit public price; per-term and members' prices stay unknown. */
 export function publicPriceCents(tariffs: string): number | null {
   for (const line of tariffs.split('\n')) {
     const match = cleanText(line).match(
       /^preu públic:\s*(\d+(?:[.,]\d{1,2})?)\s*€$/iu,
     );
-    if (match) return Math.round(Number(match[1]!.replace(',', '.')) * 100);
+    if (match) return euroCents(match[1]!);
   }
   return null;
 }
@@ -122,8 +117,8 @@ export function parseGironaActivity(
     throw new Error(`Girona activity ${listing.id} structure changed`);
   if (venue !== listing.venue)
     throw new Error(`Girona activity ${listing.id} venue mismatch`);
-  const startDate = period ? isoDate(period[1]!) : null;
-  const endDate = period ? isoDate(period[2]!) : null;
+  const startDate = period ? dmyDate(period[1]!) : null;
+  const endDate = period ? dmyDate(period[2]!) : null;
   // Some published periods end before they start (e.g. 10/10/2026 - 12/06/2026);
   // which date is wrong is unknown, so both stay unknown rather than guessed.
   const consistent = !startDate || !endDate || startDate <= endDate;

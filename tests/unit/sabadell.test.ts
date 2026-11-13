@@ -1,5 +1,10 @@
-import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
+import {
+  existsFixture,
+  fakeSource,
+  pathOf,
+  readFixture,
+} from '../helpers/source';
 import {
   createSabadellAdapter,
   parseSabadellActivity,
@@ -12,11 +17,7 @@ import { centres } from '../../src/lib/centres/registry';
 import { toSourceConfig } from '../../src/lib/centres/schema';
 import { sources } from '../../src/lib/sources';
 
-const fixture = (name: string) =>
-  readFileSync(
-    new URL(`../fixtures/sabadell-${name}.html`, import.meta.url),
-    'utf8',
-  );
+const fixture = (name: string) => readFixture(`sabadell-${name}.html`);
 const source = (slug: string) =>
   toSourceConfig(centres.find((c) => c.id === `cc-sbd-${slug}`)!);
 const ORIGIN = 'https://web.sabadell.cat';
@@ -80,33 +81,21 @@ describe('Sabadell course catalogue', () => {
 
 describe('Sabadell adapter', () => {
   const run = (overrides: Record<string, string> = {}) => {
-    const requests: string[] = [];
-    const adapter = createSabadellAdapter({
-      intervalMs: 0,
-      sleep: async () => {},
-      fetch: async (input) => {
-        const url = new URL(String(input));
-        const path = url.pathname + url.search;
-        requests.push(path);
-        if (path in overrides) return new Response(overrides[path]);
-        if (path === '/robots.txt') return new Response('', { status: 404 });
-        // Page 2 repeats page 1, as Joomla does past the last page.
-        if (url.pathname.endsWith('cursos-i-tallers'))
-          return new Response(fixture('listing'));
-        const id = url.searchParams.get('id')!;
-        try {
-          return new Response(fixture(id));
-        } catch {
-          // Activities without a saved article are at another centre.
-          return new Response(
-            fixture('115816')
-              .replace('ZUMBA', `TEST ${id}`)
-              .replace('26214', '1'),
-          );
-        }
-      },
+    const { options, requests } = fakeSource((url) => {
+      const path = pathOf(url.href);
+      if (path in overrides) return overrides[path];
+      if (path === '/robots.txt') return null;
+      // Page 2 repeats page 1, as Joomla does past the last page.
+      if (url.pathname.endsWith('cursos-i-tallers')) return fixture('listing');
+      const id = url.searchParams.get('id')!;
+      // Activities without a saved article are at another centre.
+      return existsFixture(`sabadell-${id}.html`)
+        ? fixture(id)
+        : fixture('115816')
+            .replace('ZUMBA', `TEST ${id}`)
+            .replace('26214', '1');
     });
-    return { adapter, requests };
+    return { adapter: createSabadellAdapter(options), requests };
   };
 
   it('reads the catalogue and keeps the centre’s activities', async () => {

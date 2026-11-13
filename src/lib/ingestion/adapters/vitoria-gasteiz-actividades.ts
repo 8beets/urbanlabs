@@ -1,5 +1,5 @@
 import { load } from 'cheerio';
-import { cleanText } from '../normalization/values';
+import { cleanText, dmyDate, euroCents } from '../normalization/values';
 import { createSourceFetcher, type FetchOptions } from '../http';
 import { assertRobotsAllowPath } from '../robots';
 import { VITORIA_ORIGIN } from '../../centres/schema';
@@ -148,11 +148,6 @@ async function activityGroups(
   return groups;
 }
 
-const isoDate = (date: string) => {
-  const [day, month, year] = date.split('/');
-  return `${year}-${month}-${day}`;
-};
-
 /** Price in cents from the normal tariff, for joining on the first day only. */
 export function normalTariffCents(html: string, startDate: string | null) {
   const $ = load(html);
@@ -161,17 +156,16 @@ export function normalTariffCents(html: string, startDate: string | null) {
   const firstJoin = cleanText(table.find('thead th').eq(1).text()).match(
     /(\d{2}\/\d{2}\/\d{4})$/u,
   );
-  if (!firstJoin || isoDate(firstJoin[1]!) !== startDate) return null;
+  if (!firstJoin || dmyDate(firstJoin[1]!) !== startDate) return null;
   const row = table
     .find('tbody tr')
     .filter((_, tr) =>
       /^TARIFA NORMAL$/u.test(cleanText($(tr).children('td').first().text())),
     );
   const price = cleanText(row.children('td').eq(1).text()).match(
-    /^(\d+)(?:\.(\d{1,2}))? €$/u,
+    /^(\d+(?:\.\d{1,2})?) €$/u,
   );
-  if (row.length !== 1 || !price) return null;
-  return Number(price[1]) * 100 + Number((price[2] ?? '0').padEnd(2, '0'));
+  return row.length === 1 && price ? euroCents(price[1]!) : null;
 }
 
 const dayList = new Intl.ListFormat('es', { type: 'conjunction' });
@@ -202,8 +196,8 @@ export function parseVitoriaGroup(
   const period = values
     .get('Fechas')
     ?.match(/^(\d{2}\/\d{2}\/\d{4}) - (\d{2}\/\d{2}\/\d{4})$/u);
-  const startDate = period ? isoDate(period[1]!) : null;
-  const endDate = period ? isoDate(period[2]!) : null;
+  const startDate = period ? dmyDate(period[1]!) : null;
+  const endDate = period ? dmyDate(period[2]!) : null;
   const daysCode = values.get('Días') ?? '';
   const schedule = [weekdays(daysCode) ?? daysCode, values.get('Horario') ?? '']
     .filter(Boolean)

@@ -1,5 +1,5 @@
-import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
+import { fakeSource, readFixture } from '../helpers/source';
 import {
   createZaragozaAdapter,
   currentProgramme,
@@ -12,10 +12,7 @@ import { toSourceConfig } from '../../src/lib/centres/schema';
 import { centres } from '../../src/lib/centres/registry';
 import { courseTopic } from '../../src/lib/courses/categories';
 
-const fixture = (name: string) =>
-  JSON.parse(
-    readFileSync(new URL(`../fixtures/${name}.json`, import.meta.url), 'utf8'),
-  );
+const fixture = (name: string) => JSON.parse(readFixture(`${name}.json`));
 const universidad = fixture('zaragoza-universidad');
 const programmes = fixture('zaragoza-programmes');
 const source = toSourceConfig(
@@ -143,20 +140,13 @@ describe('robots.txt path rules', () => {
 
 describe('Zaragoza fetching', () => {
   const run = (robotsText: string, list = universidad) => {
-    const requests: string[] = [];
-    const adapter = createZaragozaAdapter({
-      intervalMs: 0,
-      sleep: async () => {},
-      fetch: async (input) => {
-        const url = String(input);
-        requests.push(url);
-        if (url.endsWith('/robots.txt')) return new Response(robotsText);
-        if (url.includes('programa-list.json'))
-          return new Response(JSON.stringify(programmes));
-        return new Response(JSON.stringify(list));
-      },
+    const { options, requests } = fakeSource((url) => {
+      if (url.pathname === '/robots.txt') return robotsText;
+      return JSON.stringify(
+        url.pathname.endsWith('programa-list.json') ? programmes : list,
+      );
     });
-    return { adapter, requests };
+    return { adapter: createZaragozaAdapter(options), requests };
   };
 
   it('checks robots.txt, finds the season and reads only the centre listing', async () => {

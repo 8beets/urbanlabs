@@ -1,6 +1,10 @@
 import { load } from 'cheerio';
 import { format, isValid, parse } from 'date-fns';
-import { catalanMonthNumber, cleanText } from '../normalization/values';
+import {
+  catalanMonthNumber,
+  cleanText,
+  euroCents,
+} from '../normalization/values';
 import { createSourceFetcher, type FetchOptions } from '../http';
 import { assertRobotsAllowAll } from '../robots';
 import { ISO_DATE } from '../../time/dates';
@@ -37,7 +41,7 @@ function activityDates(line: string): [string | null, string | null] {
 function priceCents(text: string): number | null {
   if (/^gratu[ïi]t$/iu.test(text)) return 0;
   const match = text.match(/^(\d+(?:[.,]\d{1,2})?)\s*€$/u);
-  return match ? Math.round(Number(match[1]!.replace(',', '.')) * 100) : null;
+  return match ? euroCents(match[1]!) : null;
 }
 
 /** Parses one registration page (schema.org Event plus the visible detail blocks). */

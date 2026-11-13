@@ -30,6 +30,21 @@ export function localDate(
   return isIsoDate(value) ? value : null;
 }
 
+/** "dd/mm/yyyy" as an ISO date, or null when it is not a real date (e.g. 31/02/2026). */
+export function dmyDate(value: string): string | null {
+  const match = /^(\d{1,2})\/(\d{1,2})\/(\d{4})$/u.exec(value.trim());
+  return match ? localDate(match[1]!, Number(match[2]), match[3]!) : null;
+}
+
+/** An amount such as "12,50", "33.19" or "37" in cents, with exact decimal arithmetic. */
+export function euroCents(amount: string): number | null {
+  const match = /^(\d+)(?:[.,](\d{1,2}))?$/u.exec(amount.trim());
+  if (!match) return null;
+  const cents =
+    Number(match[1]) * 100 + Number((match[2] ?? '0').padEnd(2, '0'));
+  return Number.isSafeInteger(cents) ? cents : null;
+}
+
 export function parseDateRange(value: string): [string | null, string | null] {
   const dates = [
     ...value

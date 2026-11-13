@@ -1,6 +1,7 @@
 import { getSource } from '../../src/lib/sources';
 import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
+import { fakeSource, readFixture } from '../helpers/source';
 import {
   createMiramAdapter,
   parseMiramPage,
@@ -318,28 +319,14 @@ describe('bounded fetching', () => {
       listingUrl:
         'https://albareda.inscripcionscc.com/MiramModular/buscador/buscador.jsp?g=1&c=13&t=AC&f=02',
     };
-    const requests: string[] = [];
-    const adapter = createMiramAdapter({
-      intervalMs: 0,
-      sleep: async () => {},
-      fetch: async (input) => {
-        const requested = String(input);
-        requests.push(requested);
-        if (requested.endsWith('/robots.txt'))
-          return new Response('', { status: 404 });
-        const file =
-          new URL(requested).searchParams.get('p') === '1' ? 'next' : 'first';
-        return new Response(
-          readFileSync(
-            new URL(
-              `../fixtures/miram-albareda-music-${file}.html`,
-              import.meta.url,
-            ),
-            'utf8',
+    const { options, requests } = fakeSource(({ pathname, searchParams }) =>
+      pathname === '/robots.txt'
+        ? null
+        : readFixture(
+            `miram-albareda-music-${searchParams.get('p') === '1' ? 'next' : 'first'}.html`,
           ),
-        );
-      },
-    });
+    );
+    const adapter = createMiramAdapter(options);
     expect(
       (await adapter.fetchRecords(source)).map((record) => record.externalId),
     ).toEqual(['2264', '2267']);
@@ -420,46 +407,32 @@ describe('bounded fetching', () => {
     await expect(huge('https://example.org/list')).rejects.toThrow('2 MB');
   });
   it('follows categories and pagination once, retaining stable identity', async () => {
-    const requests: string[] = [];
     const rootHtml = `<select id="eFamilia"></select><a class="card" href="${url}">IDIOMES</a>`;
-    const adapter = createMiramAdapter({
-      intervalMs: 0,
-      sleep: async () => {},
-      fetch: async (input) => {
-        const requested = String(input);
-        requests.push(requested);
-        if (requested.endsWith('/robots.txt'))
-          return new Response('', { status: 404 });
-        if (requested === santAndreu.listingUrl) return new Response(rootHtml);
-        if (requested === url)
-          return new Response(
-            `${fixture}<a rel="next" href="${url}&p=2">2</a>`,
-          );
-        return new Response(fixture);
-      },
+    const { options, requests } = fakeSource(({ href, pathname }) => {
+      if (pathname === '/robots.txt') return null;
+      if (href === santAndreu.listingUrl) return rootHtml;
+      if (href === url)
+        return `${fixture}<a rel="next" href="${url}&p=2">2</a>`;
+      return fixture;
     });
+    const adapter = createMiramAdapter(options);
     expect(await adapter.fetchRecords(santAndreu)).toHaveLength(4);
     expect(requests).toHaveLength(4);
   });
   it('fails closed on robots policy changes and external pagination', async () => {
-    const adapter = createMiramAdapter({
-      intervalMs: 0,
-      sleep: async () => {},
-      fetch: async () => new Response('User-agent: *\nDisallow: /'),
-    });
+    const adapter = createMiramAdapter(
+      fakeSource(() => 'User-agent: *\nDisallow: /').options,
+    );
     await expect(adapter.fetchRecords(santAndreu)).rejects.toThrow(
       'robots.txt',
     );
-    const external = createMiramAdapter({
-      intervalMs: 0,
-      sleep: async () => {},
-      fetch: async (input) =>
-        String(input).endsWith('/robots.txt')
-          ? new Response('', { status: 404 })
-          : new Response(
-              `${fixture}<a rel="next" href="https://evil.example/">next</a>`,
-            ),
-    });
+    const external = createMiramAdapter(
+      fakeSource(({ pathname }) =>
+        pathname === '/robots.txt'
+          ? null
+          : `${fixture}<a rel="next" href="https://evil.example/">next</a>`,
+      ).options,
+    );
     await expect(external.fetchRecords(santAndreu)).rejects.toThrow(
       'approved source',
     );

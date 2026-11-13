@@ -1,5 +1,5 @@
-import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
+import { fakeSource, readFixture } from '../helpers/source';
 import {
   createAulaAbiertaAdapter,
   parseAulaAbiertaPage,
@@ -11,8 +11,7 @@ import { centres } from '../../src/lib/centres/registry';
 import type { SourceConfig } from '../../src/lib/ingestion/types';
 
 const base = 'https://w3.alicante.es/cultura/aula-abierta/consulta-cursos.php';
-const fixture = (name: string) =>
-  readFileSync(new URL(`../fixtures/${name}.html`, import.meta.url), 'utf8');
+const fixture = (name: string) => readFixture(`${name}.html`);
 const chalet = fixture('alicante-aula-abierta-chalet');
 
 const source: SourceConfig = toSourceConfig(
@@ -75,21 +74,10 @@ describe('Alicante Aula Abierta adapter', () => {
 
 describe('Aula Abierta fetching', () => {
   const run = (pages: Record<string, Response | string>) => {
-    const requests: string[] = [];
-    const adapter = createAulaAbiertaAdapter({
-      intervalMs: 0,
-      sleep: async () => {},
-      fetch: async (input) => {
-        const url = String(input);
-        requests.push(url);
-        if (url.endsWith('/robots.txt'))
-          return pages.robots instanceof Response
-            ? pages.robots
-            : new Response('', { status: 404 });
-        return new Response(String(pages.listing), { status: 200 });
-      },
-    });
-    return { adapter, requests };
+    const { options, requests } = fakeSource((url) =>
+      url.pathname === '/robots.txt' ? pages.robots : String(pages.listing),
+    );
+    return { adapter: createAulaAbiertaAdapter(options), requests };
   };
   it('fetches only the approved classroom page after checking robots.txt', async () => {
     const { adapter, requests } = run({ listing: chalet });

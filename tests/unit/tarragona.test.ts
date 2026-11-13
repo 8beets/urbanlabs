@@ -1,5 +1,5 @@
-import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
+import { fakeSource, readFixture } from '../helpers/source';
 import {
   createTarragonaAdapter,
   parseTarragonaActivity,
@@ -9,8 +9,7 @@ import { courseRecordSchema } from '../../src/lib/ingestion/validation/record';
 import { centres } from '../../src/lib/centres/registry';
 import { toSourceConfig } from '../../src/lib/centres/schema';
 
-const fixture = (name: string) =>
-  readFileSync(new URL(`../fixtures/${name}.html`, import.meta.url), 'utf8');
+const fixture = (name: string) => readFixture(`${name}.html`);
 const paid = fixture('tarragona-activity-paid');
 const free = fixture('tarragona-activity-free');
 const url =
@@ -85,35 +84,22 @@ describe('robots.txt policy', () => {
 
 describe('Tarragona fetching', () => {
   const run = (overrides: Record<string, string | null> = {}) => {
-    const requests: string[] = [];
-    const adapter = createTarragonaAdapter({
-      intervalMs: 0,
-      sleep: async () => {},
-      fetch: async (input) => {
-        const target = String(input);
-        requests.push(target);
-        if (target in overrides) {
-          const body = overrides[target];
-          return body === null
-            ? new Response('', { status: 404 })
-            : new Response(body, { status: 200 });
-        }
-        const { hostname, pathname } = new URL(target);
-        if (pathname === '/robots.txt')
-          return hostname === 'www.tarragona.cat'
-            ? new Response('User-agent: *\nDisallow:\n', { status: 200 })
-            : new Response('', { status: 404 });
-        if (pathname.endsWith('/activitats-i-cursos/activitats-i-cursos'))
-          return new Response(fixture('tarragona-index'));
-        if (pathname.endsWith('/activitats-i-cursos-monografics'))
-          return new Response(fixture('tarragona-catalogue'));
-        if (hostname === 'www.tarragona.cat')
-          return new Response(fixture('tarragona-category-arts'));
-        if (pathname.endsWith('-c2t26ac1ap')) return new Response(paid);
-        return new Response('not saved', { status: 500 });
-      },
+    const { options, requests } = fakeSource(({ href, hostname, pathname }) => {
+      if (href in overrides) return overrides[href];
+      if (pathname === '/robots.txt')
+        return hostname === 'www.tarragona.cat'
+          ? 'User-agent: *\nDisallow:\n'
+          : null;
+      if (pathname.endsWith('/activitats-i-cursos/activitats-i-cursos'))
+        return fixture('tarragona-index');
+      if (pathname.endsWith('/activitats-i-cursos-monografics'))
+        return fixture('tarragona-catalogue');
+      if (hostname === 'www.tarragona.cat')
+        return fixture('tarragona-category-arts');
+      if (pathname.endsWith('-c2t26ac1ap')) return paid;
+      return new Response('not saved', { status: 500 });
     });
-    return { adapter, requests };
+    return { adapter: createTarragonaAdapter(options), requests };
   };
   it('follows the newest catalogue to the centre’s own activity pages only', async () => {
     const { adapter, requests } = run();
