@@ -59,6 +59,7 @@ test('reports invalid input accessibly before any verification', async ({
   await expect(page.locator('#city option')).toHaveText([
     'Tria una ciutat',
     'Barcelona',
+    'El Prat de Llobregat',
     'Girona',
     'Saragossa',
   ]);

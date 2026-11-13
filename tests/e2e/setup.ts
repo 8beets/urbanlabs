@@ -9,6 +9,10 @@ import {
   parseGironaActivity,
   parseGironaListing,
 } from '../../src/lib/ingestion/adapters/girona-centres-civics';
+import {
+  parseElPratCourse,
+  parseElPratListing,
+} from '../../src/lib/ingestion/adapters/el-prat-cursos';
 import { E2E_ALERT_IDS } from './alert-fixtures';
 import { mkdirSync, readFileSync, readdirSync, writeFileSync } from 'node:fs';
 import { exportSnapshot } from '../../src/lib/catalog/export';
@@ -350,6 +354,47 @@ async function setup() {
               : {
                   ...record,
                   externalId: `9970${index}`,
+                  title: `TEST workshop ${source.institution.name}`,
+                  officialUrl: source.institution.url,
+                },
+          ],
+        },
+        source,
+      );
+    }
+    // El Prat: the saved Sant Jordi course, and one explicitly synthetic course for every
+    // other civic centre so each active source has a centre page and marker.
+    const elPratFixture = (name: string) =>
+      readFileSync(
+        new URL(`../fixtures/el-prat-${name}.html`, import.meta.url),
+        'utf8',
+      );
+    const elPratCard = parseElPratListing(
+      elPratFixture('listing-0'),
+    ).courses.find((c) => c.slug === 'fet-x-joves-punch-needle')!;
+    for (const source of sources.filter(
+      (s) => s.platform === 'el-prat-cursos',
+    )) {
+      const record = {
+        ...parseElPratCourse(
+          elPratFixture('fet-x-joves-punch-needle'),
+          elPratCard,
+          sources.find(
+            (s) => s.id === 'el-prat-cursos-sant-jordi-ribera-baixa',
+          )!,
+        ),
+        startDate: '2099-01-01',
+        endDate: '2099-01-01',
+      };
+      await runIngestion(
+        db,
+        {
+          fetchRecords: async () => [
+            source.id === 'el-prat-cursos-sant-jordi-ribera-baixa'
+              ? record
+              : {
+                  ...record,
+                  externalId: `test-${source.institution.id}`,
                   title: `TEST workshop ${source.institution.name}`,
                   officialUrl: source.institution.url,
                 },

@@ -4,6 +4,7 @@ import { createTarragonaAdapter } from './tarragona-centres-civics';
 import { createZaragozaAdapter } from './zaragoza-centros-civicos';
 import { createGironaAdapter } from './girona-centres-civics';
 import { createVitoriaAdapter } from './vitoria-gasteiz-actividades';
+import { createElPratAdapter } from './el-prat-cursos';
 import type { FetchOptions } from '../http';
 import type { SourceAdapter, SourceConfig } from '../types';
 
@@ -25,5 +26,7 @@ export function adapterFor(
       return createGironaAdapter(options);
     case 'vitoria-gasteiz-actividades':
       return createVitoriaAdapter(options);
+    case 'el-prat-cursos':
+      return createElPratAdapter(options);
   }
 }
