@@ -148,6 +148,21 @@ const elPratRegistrationSchema = z.strictObject({
   mayBeEmpty: z.boolean().optional(),
 });
 
+// Sabadell's civic centres: one course catalogue on web.sabadell.cat (fixed paths in
+// the adapter); each activity names its venue by its directory entry ("Lloc").
+export const SABADELL_ORIGIN = 'https://web.sabadell.cat';
+const sabadellRegistrationSchema = z.strictObject({
+  platform: z.literal('sabadell-centres-civics'),
+  origin: z.literal(SABADELL_ORIGIN),
+  // The centre's directory entry id ("fitxes-repertori … id=25735"), also the
+  // catalogue's centre filter value ("cod:lloc-25735-").
+  venueCode: z.number().int().positive(),
+  verifiedAt: z.iso.date(),
+  // web.sabadell.cat has no robots.txt (404); the adapter honours one if it appears.
+  robotsTxt: z.literal('absent'),
+  mayBeEmpty: z.boolean().optional(),
+});
+
 // Add new platforms as further members of this union, each with its own adapter
 // (src/lib/ingestion/adapters) and a case in toSourceConfig.
 export const registrationSchema = z.discriminatedUnion('platform', [
@@ -158,6 +173,7 @@ export const registrationSchema = z.discriminatedUnion('platform', [
   gironaRegistrationSchema,
   vitoriaRegistrationSchema,
   elPratRegistrationSchema,
+  sabadellRegistrationSchema,
 ]);
 
 export const centreSchema = z.strictObject({
@@ -249,6 +265,13 @@ function platformSource(
         // The centre's page; the adapter reads the city's course guide.
         listingUrl: `${registration.origin}${registration.centrePage}`,
         venue: registration.centrePage,
+      };
+    case 'sabadell-centres-civics':
+      return {
+        name: `${centre.name} · Centres Cívics de Sabadell`,
+        // The centre's own page; the adapter reads the city's course catalogue.
+        listingUrl: centre.officialUrl,
+        centreCode: registration.venueCode,
       };
   }
 }

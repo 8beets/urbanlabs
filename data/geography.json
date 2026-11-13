@@ -111,6 +111,15 @@
           "ca": "Ajuntament del Prat de Llobregat"
         }
       }
+    },
+    {
+      "id": "sabadell",
+      "country": "ES",
+      "region": "catalunya",
+      "names": {
+        "es": "Sabadell",
+        "ca": "Sabadell"
+      }
     }
   ]
 }

@@ -1,0 +1,316 @@
+[
+  {
+    "id": "cc-sbd-ca-n-oriac",
+    "slug": "ca-n-oriac",
+    "name": "Centre Cívic de Ca n'Oriac",
+    "officialUrl": "https://web.sabadell.cat/centres-civics-relacio/civic-ca-n-oriac",
+    "address": "c. d'Arousa, 2, 08207 Sabadell",
+    "country": "ES",
+    "city": "Sabadell",
+    "cityId": "sabadell",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "phone": "93 723 14 95",
+      "detailsSourceUrl": "https://web.sabadell.cat/centres-civics-relacio/civic-ca-n-oriac",
+      "detailsVerifiedAt": "2026-11-13"
+    },
+    "pausedReason": "Awaiting written permission from the Ajuntament de Sabadell: its terms of use (web.sabadell.cat/condicions-d-us) forbid reproduction, distribution and public communication of the site's content except for private use, so publication is held until permission is granted.",
+    "registration": {
+      "platform": "sabadell-centres-civics",
+      "origin": "https://web.sabadell.cat",
+      "venueCode": 8028,
+      "verifiedAt": "2026-11-13",
+      "robotsTxt": "absent"
+    }
+  },
+  {
+    "id": "cc-sbd-can-llong-castellarnau",
+    "slug": "can-llong-castellarnau",
+    "name": "Centre Cívic de Can Llong-Castellarnau",
+    "officialUrl": "https://web.sabadell.cat/centres-civics-relacio/can-llong-castellarnau",
+    "address": "av. d'Estrasburg, 82, 08206 Sabadell",
+    "country": "ES",
+    "city": "Sabadell",
+    "cityId": "sabadell",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "phone": "93 746 25 18",
+      "detailsSourceUrl": "https://web.sabadell.cat/centres-civics-relacio/can-llong-castellarnau",
+      "detailsVerifiedAt": "2026-11-13"
+    },
+    "pausedReason": "Awaiting written permission from the Ajuntament de Sabadell: its terms of use (web.sabadell.cat/condicions-d-us) forbid reproduction, distribution and public communication of the site's content except for private use, so publication is held until permission is granted.",
+    "registration": {
+      "platform": "sabadell-centres-civics",
+      "origin": "https://web.sabadell.cat",
+      "venueCode": 25735,
+      "verifiedAt": "2026-11-13",
+      "robotsTxt": "absent"
+    }
+  },
+  {
+    "id": "cc-sbd-can-puiggener",
+    "slug": "can-puiggener",
+    "name": "Centre Cívic de Can Puiggener",
+    "officialUrl": "https://web.sabadell.cat/centres-civics-relacio/can-puiggener",
+    "address": "pl. del Primer de Maig, 1, 08208 Sabadell",
+    "country": "ES",
+    "city": "Sabadell",
+    "cityId": "sabadell",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "phone": "93 723 78 09",
+      "detailsSourceUrl": "https://web.sabadell.cat/centres-civics-relacio/can-puiggener",
+      "detailsVerifiedAt": "2026-11-13"
+    },
+    "pausedReason": "Awaiting written permission from the Ajuntament de Sabadell: its terms of use (web.sabadell.cat/condicions-d-us) forbid reproduction, distribution and public communication of the site's content except for private use, so publication is held until permission is granted.",
+    "registration": {
+      "platform": "sabadell-centres-civics",
+      "origin": "https://web.sabadell.cat",
+      "venueCode": 7984,
+      "verifiedAt": "2026-11-13",
+      "robotsTxt": "absent"
+    }
+  },
+  {
+    "id": "cc-sbd-can-rull",
+    "slug": "can-rull",
+    "name": "Centre Cívic de Can Rull",
+    "officialUrl": "https://web.sabadell.cat/centres-civics-relacio/centre-civic-de-can-rull",
+    "address": "c. de Sant Isidor, 51, 08206 Sabadell",
+    "country": "ES",
+    "city": "Sabadell",
+    "cityId": "sabadell",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "phone": "93 723 66 00",
+      "detailsSourceUrl": "https://web.sabadell.cat/centres-civics-relacio/centre-civic-de-can-rull",
+      "detailsVerifiedAt": "2026-11-13"
+    },
+    "pausedReason": "Awaiting written permission from the Ajuntament de Sabadell: its terms of use (web.sabadell.cat/condicions-d-us) forbid reproduction, distribution and public communication of the site's content except for private use, so publication is held until permission is granted.",
+    "registration": {
+      "platform": "sabadell-centres-civics",
+      "origin": "https://web.sabadell.cat",
+      "venueCode": 2923,
+      "verifiedAt": "2026-11-13",
+      "robotsTxt": "absent"
+    }
+  },
+  {
+    "id": "cc-sbd-concordia",
+    "slug": "concordia",
+    "name": "Centre Cívic de la Concòrdia",
+    "officialUrl": "https://web.sabadell.cat/centres-civics-relacio/centre-civic-concordia",
+    "address": "c. de la Lusitània, 3, 08206 Sabadell",
+    "country": "ES",
+    "city": "Sabadell",
+    "cityId": "sabadell",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "phone": "93 723 11 99",
+      "detailsSourceUrl": "https://web.sabadell.cat/centres-civics-relacio/centre-civic-concordia",
+      "detailsVerifiedAt": "2026-11-13"
+    },
+    "pausedReason": "Awaiting written permission from the Ajuntament de Sabadell: its terms of use (web.sabadell.cat/condicions-d-us) forbid reproduction, distribution and public communication of the site's content except for private use, so publication is held until permission is granted.",
+    "registration": {
+      "platform": "sabadell-centres-civics",
+      "origin": "https://web.sabadell.cat",
+      "venueCode": 22880,
+      "verifiedAt": "2026-11-13",
+      "robotsTxt": "absent"
+    }
+  },
+  {
+    "id": "cc-sbd-creu-alta-cal-balsach",
+    "slug": "creu-alta-cal-balsach",
+    "name": "Centre Cívic de la Creu Alta-Cal Balsach",
+    "officialUrl": "https://web.sabadell.cat/centres-civics-relacio/creu-alta-cal-balsach",
+    "address": "ctra. de Prats de Lluçanès, 16, 08208 Sabadell",
+    "country": "ES",
+    "city": "Sabadell",
+    "cityId": "sabadell",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "phone": "93 724 77 27",
+      "detailsSourceUrl": "https://web.sabadell.cat/centres-civics-relacio/creu-alta-cal-balsach",
+      "detailsVerifiedAt": "2026-11-13"
+    },
+    "pausedReason": "Awaiting written permission from the Ajuntament de Sabadell: its terms of use (web.sabadell.cat/condicions-d-us) forbid reproduction, distribution and public communication of the site's content except for private use, so publication is held until permission is granted.",
+    "registration": {
+      "platform": "sabadell-centres-civics",
+      "origin": "https://web.sabadell.cat",
+      "venueCode": 20744,
+      "verifiedAt": "2026-11-13",
+      "robotsTxt": "absent"
+    }
+  },
+  {
+    "id": "cc-sbd-creu-de-barbera",
+    "slug": "creu-de-barbera",
+    "name": "Centre Cívic de la Creu de Barberà",
+    "officialUrl": "https://web.sabadell.cat/centres-civics-relacio/creu-de-barbera",
+    "address": "pl. de Castelao, 1, 08204 Sabadell",
+    "country": "ES",
+    "city": "Sabadell",
+    "cityId": "sabadell",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "phone": "93 711 68 57",
+      "detailsSourceUrl": "https://web.sabadell.cat/centres-civics-relacio/creu-de-barbera",
+      "detailsVerifiedAt": "2026-11-13"
+    },
+    "pausedReason": "Awaiting written permission from the Ajuntament de Sabadell: its terms of use (web.sabadell.cat/condicions-d-us) forbid reproduction, distribution and public communication of the site's content except for private use, so publication is held until permission is granted.",
+    "registration": {
+      "platform": "sabadell-centres-civics",
+      "origin": "https://web.sabadell.cat",
+      "venueCode": 828,
+      "verifiedAt": "2026-11-13",
+      "robotsTxt": "absent",
+      "mayBeEmpty": true
+    }
+  },
+  {
+    "id": "cc-sbd-josep-m-plans-molina",
+    "slug": "josep-m-plans-molina",
+    "name": "Centre Cívic Dr. Josep M. Plans Molina (Can Deu)",
+    "officialUrl": "https://web.sabadell.cat/centres-civics-relacio/josep-m-plans-molina",
+    "address": "c. del Portal de la Floresta, 20, 08207 Sabadell",
+    "country": "ES",
+    "city": "Sabadell",
+    "cityId": "sabadell",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "phone": "93 716 97 52",
+      "detailsSourceUrl": "https://web.sabadell.cat/centres-civics-relacio/josep-m-plans-molina",
+      "detailsVerifiedAt": "2026-11-13"
+    },
+    "pausedReason": "Awaiting written permission from the Ajuntament de Sabadell: its terms of use (web.sabadell.cat/condicions-d-us) forbid reproduction, distribution and public communication of the site's content except for private use, so publication is held until permission is granted.",
+    "registration": {
+      "platform": "sabadell-centres-civics",
+      "origin": "https://web.sabadell.cat",
+      "venueCode": 9314,
+      "verifiedAt": "2026-11-13",
+      "robotsTxt": "absent"
+    }
+  },
+  {
+    "id": "cc-sbd-parc-del-nord",
+    "slug": "parc-del-nord",
+    "name": "Espai Polivalent del Parc del Nord",
+    "officialUrl": "https://web.sabadell.cat/centres-civics-relacio/espai-polivalent-del-parc-del-nord",
+    "address": "rda. de Navacerrada, 4, 08207 Sabadell",
+    "country": "ES",
+    "city": "Sabadell",
+    "cityId": "sabadell",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "phone": "93 745 31 84",
+      "detailsSourceUrl": "https://web.sabadell.cat/centres-civics-relacio/espai-polivalent-del-parc-del-nord",
+      "detailsVerifiedAt": "2026-11-13"
+    },
+    "pausedReason": "Awaiting written permission from the Ajuntament de Sabadell: its terms of use (web.sabadell.cat/condicions-d-us) forbid reproduction, distribution and public communication of the site's content except for private use, so publication is held until permission is granted.",
+    "registration": {
+      "platform": "sabadell-centres-civics",
+      "origin": "https://web.sabadell.cat",
+      "venueCode": 24512,
+      "verifiedAt": "2026-11-13",
+      "robotsTxt": "absent"
+    }
+  },
+  {
+    "id": "cc-sbd-gracia",
+    "slug": "gracia",
+    "name": "Centre Cívic de Gràcia",
+    "officialUrl": "https://web.sabadell.cat/centres-civics-relacio/gracia",
+    "address": "pl. del Treball, 1, 08205 Sabadell",
+    "country": "ES",
+    "city": "Sabadell",
+    "cityId": "sabadell",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "phone": "93 710 90 60",
+      "detailsSourceUrl": "https://web.sabadell.cat/centres-civics-relacio/gracia",
+      "detailsVerifiedAt": "2026-11-13"
+    },
+    "pausedReason": "Awaiting written permission from the Ajuntament de Sabadell: its terms of use (web.sabadell.cat/condicions-d-us) forbid reproduction, distribution and public communication of the site's content except for private use, so publication is held until permission is granted.",
+    "registration": {
+      "platform": "sabadell-centres-civics",
+      "origin": "https://web.sabadell.cat",
+      "venueCode": 5202,
+      "verifiedAt": "2026-11-13",
+      "robotsTxt": "absent"
+    }
+  },
+  {
+    "id": "cc-sbd-poblenou",
+    "slug": "poblenou",
+    "name": "Centre Cívic del Poblenou",
+    "officialUrl": "https://web.sabadell.cat/centres-civics-relacio/poblenou",
+    "address": "c. del Remei, 1, 08202 Sabadell",
+    "country": "ES",
+    "city": "Sabadell",
+    "cityId": "sabadell",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "phone": "93 727 22 79",
+      "detailsSourceUrl": "https://web.sabadell.cat/centres-civics-relacio/poblenou",
+      "detailsVerifiedAt": "2026-11-13"
+    },
+    "pausedReason": "Awaiting written permission from the Ajuntament de Sabadell: its terms of use (web.sabadell.cat/condicions-d-us) forbid reproduction, distribution and public communication of the site's content except for private use, so publication is held until permission is granted.",
+    "registration": {
+      "platform": "sabadell-centres-civics",
+      "origin": "https://web.sabadell.cat",
+      "venueCode": 4258,
+      "verifiedAt": "2026-11-13",
+      "robotsTxt": "absent",
+      "mayBeEmpty": true
+    }
+  },
+  {
+    "id": "cc-sbd-sant-oleguer",
+    "slug": "sant-oleguer",
+    "name": "Centre Cívic de Sant Oleguer",
+    "officialUrl": "https://web.sabadell.cat/centres-civics-relacio/sant-oleguer",
+    "address": "c. de Sol i Padrís, 93, 08203 Sabadell",
+    "country": "ES",
+    "city": "Sabadell",
+    "cityId": "sabadell",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "phone": "93 712 00 00",
+      "detailsSourceUrl": "https://web.sabadell.cat/centres-civics-relacio/sant-oleguer",
+      "detailsVerifiedAt": "2026-11-13"
+    },
+    "pausedReason": "Awaiting written permission from the Ajuntament de Sabadell: its terms of use (web.sabadell.cat/condicions-d-us) forbid reproduction, distribution and public communication of the site's content except for private use, so publication is held until permission is granted.",
+    "registration": {
+      "platform": "sabadell-centres-civics",
+      "origin": "https://web.sabadell.cat",
+      "venueCode": 20864,
+      "verifiedAt": "2026-11-13",
+      "robotsTxt": "absent"
+    }
+  },
+  {
+    "id": "cc-sbd-torre-romeu",
+    "slug": "torre-romeu",
+    "name": "Centre Cívic de Torre-romeu",
+    "officialUrl": "https://web.sabadell.cat/centres-civics-relacio/torre-romeu",
+    "address": "pl. de Montcortès, 1, 08202 Sabadell",
+    "country": "ES",
+    "city": "Sabadell",
+    "cityId": "sabadell",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "phone": "93 727 10 83",
+      "detailsSourceUrl": "https://web.sabadell.cat/centres-civics-relacio/torre-romeu",
+      "detailsVerifiedAt": "2026-11-13"
+    },
+    "pausedReason": "Awaiting written permission from the Ajuntament de Sabadell: its terms of use (web.sabadell.cat/condicions-d-us) forbid reproduction, distribution and public communication of the site's content except for private use, so publication is held until permission is granted.",
+    "registration": {
+      "platform": "sabadell-centres-civics",
+      "origin": "https://web.sabadell.cat",
+      "venueCode": 26214,
+      "verifiedAt": "2026-11-13",
+      "robotsTxt": "absent"
+    }
+  }
+]
