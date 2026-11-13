@@ -2,14 +2,14 @@
 import { m } from '../paraglide/messages.js';
 import { formatLocalDate, type Locale } from '../i18n/ui';
 import InteractiveCentreMap from './InteractiveCentreMap.astro';
-import type { Centre } from '../lib/catalog/types';
+import type { SnapshotCentre } from '../lib/catalog/types';
 import {
   openStreetMapLocation,
   openStreetMapSearch,
 } from '../lib/institutions/maps';
 interface Props {
   locale: Locale;
-  centre: Centre;
+  centre: SnapshotCentre;
   /** The city's centre directory path; markers link below it. */
   base: string;
 }

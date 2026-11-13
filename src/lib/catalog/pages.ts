@@ -17,7 +17,12 @@ import {
   type SearchIndex,
 } from './search-index';
 import type { City } from '../locations/geography';
-import type { Centre, CentreMapPoint, CourseListing, Snapshot } from './types';
+import type {
+  SnapshotCentre,
+  CentreMapPoint,
+  CourseListing,
+  Snapshot,
+} from './types';
 
 // Build-time page data. Everything is computed from one snapshot at its own date, so
 // all pages and the search index of a build agree with each other.
@@ -114,7 +119,7 @@ export function searchIndexes(city: string): {
 }
 
 export interface CentrePage {
-  centre: Centre;
+  centre: SnapshotCentre;
   city: string;
   courses: CourseListing[];
 }
@@ -149,7 +154,7 @@ export function loadCentrePages(): CentrePage[] {
 }
 
 export interface DirectoryData {
-  centres: Centre[];
+  centres: SnapshotCentre[];
   mapCentres: CentreMapPoint[];
   mapHasMore: boolean;
 }

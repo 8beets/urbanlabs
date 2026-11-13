@@ -2,7 +2,7 @@
 import { m } from '../paraglide/messages.js';
 import { centreDirectoryPath, centrePath } from '../i18n/paths';
 import { formatLocalDate, type Locale } from '../i18n/ui';
-import type { Centre, CourseListing } from '../lib/catalog/types';
+import type { SnapshotCentre, CourseListing } from '../lib/catalog/types';
 import SiteLayout from '../layouts/SiteLayout.astro';
 import CentreMap from './CentreMap.astro';
 import CourseCard from './CourseCard.astro';
@@ -10,7 +10,7 @@ import ExpiredCards from './ExpiredCards.astro';
 interface Props {
   locale: Locale;
   city: string;
-  centre: Centre;
+  centre: SnapshotCentre;
   courses: CourseListing[];
   page: number;
   prevUrl?: string | undefined;
