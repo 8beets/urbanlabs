@@ -1,9 +1,4 @@
 import { Command } from 'commander';
-import { WranglerIngestionDatabase } from '../lib/db/wrangler-ingestion';
-import { liveCutoffDate } from '../lib/db/clock';
-import { createEmailSender } from '../lib/alerts/sender';
-import { createLogSender } from '../lib/alerts/adapters/log';
-import { purgeUnconfirmed, sendDueDigests } from '../lib/alerts/service';
 import { integer } from './options';
 
 // Daily job. Commander rejects unknown options, so a mistyped --dry-run fails
@@ -22,6 +17,21 @@ export const alertsSendCommand = new Command('alerts-send')
     integer,
   )
   .action(async (options: { dryRun?: boolean; limit?: number }) => {
+    // Loaded here: the alert emails need the compiled Paraglide messages, which the
+    // other commands' workflows (ingestion, snapshot, freshness) do not build.
+    const [
+      { WranglerIngestionDatabase },
+      { liveCutoffDate },
+      { createEmailSender },
+      { createLogSender },
+      { purgeUnconfirmed, sendDueDigests },
+    ] = await Promise.all([
+      import('../lib/db/wrangler-ingestion'),
+      import('../lib/db/clock'),
+      import('../lib/alerts/sender'),
+      import('../lib/alerts/adapters/log'),
+      import('../lib/alerts/service'),
+    ]);
     const dryRun = options.dryRun ?? false;
     const emailLimit =
       options.limit ?? integer(process.env.ALERT_DAILY_LIMIT ?? '250');
