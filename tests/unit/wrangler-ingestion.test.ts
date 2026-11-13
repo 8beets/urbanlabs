@@ -2,6 +2,7 @@ import { DatabaseSync } from 'node:sqlite';
 import { describe, expect, it } from 'vitest';
 import {
   renderStatement,
+  describeCommandFailure,
   parseCommandResults,
 } from '../../src/lib/db/wrangler-ingestion';
 
@@ -54,5 +55,27 @@ describe('Wrangler SQL transport', () => {
     expect(() => renderStatement('SELECT ?', [])).toThrow('count');
     expect(() => renderStatement('SELECT ?', [NaN])).toThrow('numeric');
     expect(() => renderStatement('SELECT ?', [Infinity])).toThrow('numeric');
+  });
+});
+
+describe('describeCommandFailure', () => {
+  it('reports the D1 error from stdout, a timeout, or the bare message', () => {
+    const failed = Object.assign(
+      new Error('Command failed: wrangler\nwarning'),
+      {
+        stdout: '\x1b[31m{"error":{"text":"SQLITE_TOOBIG"}}\x1b[0m\n',
+      },
+    );
+    expect(describeCommandFailure(failed)).toBe(
+      'Wrangler D1 command failed: {"error":{"text":"SQLITE_TOOBIG"}}',
+    );
+    expect(
+      describeCommandFailure(
+        Object.assign(new Error('x'), { killed: true, signal: 'SIGTERM' }),
+      ),
+    ).toBe('Wrangler D1 command timed out (SIGTERM)');
+    expect(
+      describeCommandFailure(new Error('Command failed: wrangler\nwarn')),
+    ).toBe('Wrangler D1 command failed: Command failed: wrangler');
   });
 });

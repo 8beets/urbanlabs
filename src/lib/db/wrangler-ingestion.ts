@@ -23,6 +23,25 @@ export function parseCommandResults(stdout: string) {
 }
 type SqlValue = string | number | null;
 
+// Wrangler prints the D1 error on stdout (--json) and only warnings on stderr, and a
+// timeout kills it silently; say which, so a failed ingestion can be diagnosed.
+export function describeCommandFailure(error: unknown): string {
+  const { killed, signal, stdout } = (error ?? {}) as {
+    killed?: boolean;
+    signal?: string | null;
+    stdout?: unknown;
+  };
+  if (killed) return `Wrangler D1 command timed out (${signal ?? 'killed'})`;
+  const output = String(stdout ?? '')
+    // eslint-disable-next-line no-control-regex -- strips ANSI colours
+    .replace(/\x1b\[[0-9;]*m/g, '')
+    .trim();
+  const reason = error instanceof Error ? error.message.split('\n')[0] : '';
+  return output
+    ? `Wrangler D1 command failed: ${output.slice(-2000)}`
+    : `Wrangler D1 command failed: ${reason}`;
+}
+
 export function renderStatement(sql: string, values: SqlValue[]): string {
   const parts = sql.split('?');
   if (parts.length !== values.length + 1)
@@ -85,7 +104,9 @@ export class WranglerIngestionDatabase implements IngestionDatabase {
         ...args,
       ],
       { timeout: 90000, maxBuffer: 4_000_000 },
-    );
+    ).catch((error: unknown) => {
+      throw new Error(describeCommandFailure(error), { cause: error });
+    });
     return parseCommandResults(stdout);
   }
 
