@@ -1,6 +1,11 @@
 ---
 import { m } from '../paraglide/messages.js';
-import { centreDirectoryPath, cityPath, courseSearchPath } from '../i18n/paths';
+import {
+  centreDirectoryPath,
+  cityPath,
+  courseSearchPath,
+  localizedPaths,
+} from '../i18n/paths';
 import { cityLabel } from '../i18n/geography';
 import type { City } from '../lib/locations/geography';
 import { type Locale } from '../i18n/ui';
@@ -30,10 +35,7 @@ const title = m.cityCoursesTitle({ city: name }, { locale });
   locale={locale}
   title={`${title} · UrbanLabs`}
   section="courses"
-  languagePaths={{
-    es: courseSearchPath('es', city.id),
-    ca: courseSearchPath('ca', city.id),
-  }}
+  languagePaths={localizedPaths((l) => courseSearchPath(l, city.id))}
 >
   <section class="search-heading" aria-labelledby="title">
     <h1 id="title" data-search-title>

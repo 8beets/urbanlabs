@@ -5,6 +5,7 @@ import {
   cityPath,
   courseSearchPath,
   topicPath,
+  localizedPaths,
 } from '../i18n/paths';
 import { cityLabel } from '../i18n/geography';
 import { categoryLabel, type Locale } from '../i18n/ui';
@@ -30,7 +31,7 @@ const sorted = topics
   title={`${m.cityCoursesTitle({ city: name }, { locale })} · UrbanLabs`}
   description={m.cityIntro({ city: name }, { locale })}
   section="courses"
-  languagePaths={{ es: cityPath('es', city.id), ca: cityPath('ca', city.id) }}
+  languagePaths={localizedPaths((l) => cityPath(l, city.id))}
 >
   <section class="centre-heading">
     <h1>{name}</h1>

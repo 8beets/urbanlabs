@@ -1,4 +1,5 @@
 import { m } from '../paraglide/messages.js';
+import { locales } from '../paraglide/runtime.js';
 import type { Locale } from './ui';
 
 // Every locale is prefixed (`prefixDefaultLocale: true` in astro.config.mjs). These
@@ -18,6 +19,15 @@ export const RESERVED_SEGMENTS = [
   'projecte',
   '404',
 ] as const;
+
+/** One path per configured locale, e.g. for the language switcher. */
+export function localizedPaths(
+  path: (locale: Locale) => string,
+): Record<Locale, string> {
+  return Object.fromEntries(
+    locales.map((locale) => [locale, path(locale)]),
+  ) as Record<Locale, string>;
+}
 
 export function homePath(locale: Locale): string {
   return `/${locale}/`;

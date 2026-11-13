@@ -1,6 +1,6 @@
 ---
 import { m } from '../paraglide/messages.js';
-import { centreDirectoryPath } from '../i18n/paths';
+import { centreDirectoryPath, localizedPaths } from '../i18n/paths';
 import { cityLabel } from '../i18n/geography';
 import type { City } from '../lib/locations/geography';
 import { type Locale } from '../i18n/ui';
@@ -22,10 +22,7 @@ const title = m.cityCentresTitle({ city: cityLabel(city, locale) }, { locale });
   title={`${title} · UrbanLabs`}
   description={m.directoryIntro({}, { locale })}
   section="centres"
-  languagePaths={{
-    es: centreDirectoryPath('es', city.id),
-    ca: centreDirectoryPath('ca', city.id),
-  }}
+  languagePaths={localizedPaths((l) => centreDirectoryPath(l, city.id))}
 >
   <section class="centre-heading">
     <h1>{title}</h1>

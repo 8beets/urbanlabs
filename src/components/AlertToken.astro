@@ -1,6 +1,6 @@
 ---
 import { m } from '../paraglide/messages.js';
-import { citiesCoursesPath } from '../i18n/paths';
+import { citiesCoursesPath, localizedPaths } from '../i18n/paths';
 import type { Locale } from '../i18n/ui';
 import { alertPath } from '../lib/alerts/emails';
 import type { TokenPageData } from '../lib/alerts/page';
@@ -23,10 +23,7 @@ const query = data.token ? `?token=${encodeURIComponent(data.token)}` : '';
   locale={locale}
   title={`${title} · UrbanLabs`}
   section="none"
-  languagePaths={{
-    es: `${alertPath('es', purpose)}${query}`,
-    ca: `${alertPath('ca', purpose)}${query}`,
-  }}
+  languagePaths={localizedPaths((l) => `${alertPath(l, purpose)}${query}`)}
 >
   <section class="alert-page" aria-labelledby="title">
     <h1 id="title">{title}</h1>

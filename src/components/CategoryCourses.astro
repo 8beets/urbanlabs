@@ -1,7 +1,12 @@
 ---
 import type { Page } from 'astro';
 import { m } from '../paraglide/messages.js';
-import { cityPath, courseSearchPath, topicPath } from '../i18n/paths';
+import {
+  cityPath,
+  courseSearchPath,
+  localizedPaths,
+  topicPath,
+} from '../i18n/paths';
 import { cityLabel } from '../i18n/geography';
 import type { City } from '../lib/locations/geography';
 import { categoryLabel, type Locale } from '../i18n/ui';
@@ -29,7 +34,7 @@ const filterParams = new URLSearchParams({ category });
   title={`${label} · ${name} · UrbanLabs`}
   description={m.categoryPageIntro({}, { locale })}
   section="courses"
-  languagePaths={{ es: path('es'), ca: path('ca') }}
+  languagePaths={localizedPaths(path)}
 >
   <p class="breadcrumb">
     <a href={cityPath(locale, city.id)}>← {name}</a>

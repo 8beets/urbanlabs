@@ -31,10 +31,7 @@ function priceText(course: CourseListing, locale: Locale): string {
       ? m.priceFromOrganizer({ organizer: course.organizer }, { locale })
       : m.unknownPrice({}, { locale });
   if (course.price_cents === 0) return m.freePrice({}, { locale });
-  return new Intl.NumberFormat(locale, {
-    style: 'currency',
-    currency: course.currency ?? 'EUR',
-  }).format(course.price_cents / 100);
+  return m.priceAmount({ amount: course.price_cents / 100 }, { locale });
 }
 
 /**
