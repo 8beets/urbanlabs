@@ -4,49 +4,13 @@ import type { Audience } from '../courses/categories';
 
 export type { GeographicFilters };
 
-/** One published course edition as listed on cards (category is the raw source value). */
-export interface CourseListing {
-  id: string;
-  title: string;
-  title_reviewed: 0 | 1;
-  category: string | null;
-  institution: string;
-  institution_id: string;
-  institution_slug: string;
-  /** City of the centre; course and centre links point into it. */
-  city_id: string;
-  start_date: string | null;
-  end_date: string | null;
-  schedule_text: string | null;
-  price_cents: number | null;
-  currency: string | null;
-  is_cancelled: 0 | 1;
-  is_sold_out: 0 | 1;
-  organizer: string | null;
-  official_url: string;
-  last_successfully_verified_at: string;
-}
-
-/** Snapshot rows also carry the provenance used to order the latest additions. */
-export interface SnapshotEdition extends CourseListing {
-  first_seen_at: string;
-  source_id: string;
-  external_id: string;
-}
-
-export interface InstitutionLocation {
-  institution_id: string;
-  country_code: string;
-  city_id: string;
-  region_id: string;
-}
-
 const nullableText = z.string().nullable();
 // Source links are rendered as hrefs; only web URLs may ever reach a page.
 const webUrl = z.string().regex(/^https?:\/\/\S+$/);
 const isoDate = z.string().regex(/^\d{4}-\d{2}-\d{2}$/);
 const flag = z.union([z.literal(0), z.literal(1)]);
 
+/** One published course edition as listed on cards (category is the raw source value). */
 export const courseListingSchema = z.object({
   id: z.string().min(1),
   title: z.string(),
@@ -68,6 +32,7 @@ export const courseListingSchema = z.object({
   last_successfully_verified_at: z.string().min(10),
 });
 
+/** Snapshot rows also carry the provenance used to order the latest additions. */
 export const snapshotEditionSchema = courseListingSchema.extend({
   first_seen_at: z.string().min(1),
   source_id: z.string().min(1),
@@ -147,7 +112,10 @@ export const snapshotSchema = z.object({
 });
 
 export type Snapshot = z.infer<typeof snapshotSchema>;
-export type Centre = z.infer<typeof centreSchema>;
+export type CourseListing = z.infer<typeof courseListingSchema>;
+export type SnapshotEdition = z.infer<typeof snapshotEditionSchema>;
+export type InstitutionLocation = z.infer<typeof locationSchema>;
+export type SnapshotCentre = z.infer<typeof centreSchema>;
 export type CentreMapPoint = z.infer<typeof mapCentreSchema>;
 
 /** The subset of a snapshot that discovery queries need (also the browser index). */

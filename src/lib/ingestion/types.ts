@@ -1,12 +1,9 @@
-export type SourcePlatform =
-  | 'miram'
-  | 'alicante-aula-abierta'
-  | 'tarragona-centres-civics'
-  | 'zaragoza-centros-civicos'
-  | 'girona-centres-civics'
-  | 'vitoria-gasteiz-actividades'
-  | 'el-prat-cursos'
-  | 'sabadell-centres-civics';
+import type { z } from 'zod';
+import type { Centre } from '../centres/schema';
+import type { courseRecordSchema } from './validation/record';
+
+/** Derived from the registration schema, so a platform is declared once. */
+export type SourcePlatform = Centre['registration']['platform'];
 
 export interface SourceConfig {
   id: string;
@@ -35,24 +32,8 @@ export interface SourceConfig {
   };
 }
 
-export interface CourseRecord {
-  externalId: string;
-  title: string;
-  officialUrl: string;
-  category: string | null;
-  startDate: string | null;
-  endDate: string | null;
-  scheduleText: string | null;
-  priceCents: number | null;
-  currency: 'EUR' | null;
-  availability: null;
-  isCancelled: boolean;
-  /** True only when the source explicitly reports no places left. */
-  isSoldOut: boolean;
-  /** Entity running the course when the source names one other than the centre. */
-  organizer?: string | null;
-  courseLanguage: null;
-}
+/** What an adapter returns for one course edition, before persistence. */
+export type CourseRecord = z.infer<typeof courseRecordSchema>;
 
 export interface SourceAdapter {
   fetchRecords(source: SourceConfig): Promise<CourseRecord[]>;
