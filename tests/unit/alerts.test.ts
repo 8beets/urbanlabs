@@ -61,7 +61,7 @@ describe('alert request validation', () => {
     [{ email: 'a@b.cd', category: 'CUINA', city: 'barcelona' }, 'category'],
     [{ email: 'a@b.cd', city: 'Barcelona!' }, 'city'],
   ])('rejects %j', (values, reason) => {
-    expect(() => parseAlertRequest(form(values), 'es')).toThrowError(
+    expect(() => parseAlertRequest(form(values), 'es')).toThrow(
       new InvalidAlertRequest(reason),
     );
   });

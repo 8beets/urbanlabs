@@ -17,6 +17,21 @@ export function parseIsoDate(value: string): Date {
   return parseISO(value);
 }
 
+/**
+ * Lower-case weekday names in a locale, Monday first, from the runtime's CLDR data
+ * (e.g. "lunes" … "domingo", "dilluns" … "diumenge").
+ */
+export function weekdayNames(locale: string): string[] {
+  const format = new Intl.DateTimeFormat(locale, {
+    weekday: 'long',
+    timeZone: 'UTC',
+  });
+  // 1 January 2024 was a Monday.
+  return Array.from({ length: 7 }, (_, day) =>
+    format.format(Date.UTC(2024, 0, 1 + day)).toLocaleLowerCase(locale),
+  );
+}
+
 /** True when the string is an IANA time zone the runtime understands. */
 export function isTimeZone(value: string): boolean {
   try {

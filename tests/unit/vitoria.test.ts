@@ -1,5 +1,10 @@
-import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
+import {
+  existsFixture,
+  fakeSource,
+  pathOf,
+  readFixture,
+} from '../helpers/source';
 import {
   createVitoriaAdapter,
   currentSeason,
@@ -13,11 +18,7 @@ import { centres } from '../../src/lib/centres/registry';
 import { toSourceConfig } from '../../src/lib/centres/schema';
 import { sources } from '../../src/lib/sources';
 
-const fixture = (name: string) =>
-  readFileSync(
-    new URL(`../fixtures/vitoria-${name}.html`, import.meta.url),
-    'utf8',
-  );
+const fixture = (name: string) => readFixture(`vitoria-${name}.html`);
 const iparralde = toSourceConfig(
   centres.find((c) => c.id === 'cc-vit-iparralde')!,
 );
@@ -165,33 +166,24 @@ describe('Vitoria-Gasteiz adapter', () => {
     ),
   };
   const detail = (id: string) => {
-    try {
-      return fixture(`detail-${id}`);
-    } catch {
-      // Groups without a saved page reuse a sibling of the same activity.
-      return fixture(`detail-2026-4-AGIA-2-1`);
-    }
+    // Groups without a saved page reuse a sibling of the same activity.
+    return fixture(
+      existsFixture(`vitoria-detail-${id}.html`)
+        ? `detail-${id}`
+        : 'detail-2026-4-AGIA-2-1',
+    );
   };
   const run = (overrides: Record<string, string> = {}) => {
-    const requests: string[] = [];
-    const adapter = createVitoriaAdapter({
-      intervalMs: 0,
-      sleep: async () => {},
-      fetch: async (input) => {
-        const url = new URL(String(input));
-        const path = url.pathname + url.search;
-        requests.push(path);
-        const id = url.searchParams.get('id');
-        const body =
-          overrides[path] ??
-          pages[path] ??
-          (id ? detail(id.replaceAll('||', '-')) : undefined);
-        return body === undefined
-          ? new Response('', { status: 404 })
-          : new Response(body);
-      },
+    const { options, requests } = fakeSource((url) => {
+      const path = pathOf(url.href);
+      const id = url.searchParams.get('id');
+      return (
+        overrides[path] ??
+        pages[path] ??
+        (id ? detail(id.replaceAll('||', '-')) : null)
+      );
     });
-    return { adapter, requests };
+    return { adapter: createVitoriaAdapter(options), requests };
   };
 
   it('fetches every group of the centre’s activities, across pages', async () => {
@@ -209,7 +201,9 @@ describe('Vitoria-Gasteiz adapter', () => {
     expect(records.every((r) => courseRecordSchema.safeParse(r).success)).toBe(
       true,
     );
-    expect(requests.every((path) => !path.startsWith('/cas/'))).toBe(true);
+    expect(requests.map(pathOf).every((p) => !p.startsWith('/cas/'))).toBe(
+      true,
+    );
   });
 
   it('rejects an activity whose group pages are incomplete', async () => {

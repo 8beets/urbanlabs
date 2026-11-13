@@ -1,5 +1,5 @@
 import { load } from 'cheerio';
-import { catalanMonthNumber, cleanText } from '../normalization/values';
+import { cleanText, parseDateRange } from '../normalization/values';
 import { createSourceFetcher, type FetchOptions } from '../http';
 import { assertRobotsAllowPath } from '../robots';
 import { SABADELL_ORIGIN } from '../../centres/schema';
@@ -51,22 +51,13 @@ export function parseSabadellListing(
   return [...seen].map(([id, path]) => ({ id, path }));
 }
 
-const DATE = /(\d{1,2}) (?:de |d')(\p{L}+) de (\d{4})/gu;
-
 /** "De dilluns 14 de setembre de 2026 a divendres 23 de juliol de 2027". */
 export function sabadellDates(text: string): {
   startDate: string | null;
   endDate: string | null;
 } {
-  const dates = [...text.matchAll(DATE)].map(([, day, monthName, year]) => {
-    const month = catalanMonthNumber(monthName!);
-    return month
-      ? `${year}-${String(month).padStart(2, '0')}-${day!.padStart(2, '0')}`
-      : null;
-  });
-  if (dates.length === 2 && /^De /u.test(text) && dates.every(Boolean))
-    return { startDate: dates[0]!, endDate: dates[1]! };
-  return { startDate: null, endDate: null };
+  const [startDate, endDate] = parseDateRange(text);
+  return { startDate, endDate };
 }
 
 export function parseSabadellActivity(

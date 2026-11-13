@@ -1,5 +1,5 @@
-import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
+import { fakeSource, pathOf, readFixture } from '../helpers/source';
 import {
   belongsTo,
   currentOffer,
@@ -12,10 +12,7 @@ import { courseRecordSchema } from '../../src/lib/ingestion/validation/record';
 import { sources } from '../../src/lib/sources';
 
 const fixture = (name: string) =>
-  readFileSync(
-    new URL(`../fixtures/girona-centres-civics-${name}.html`, import.meta.url),
-    'utf8',
-  );
+  readFixture(`girona-centres-civics-${name}.html`);
 const girona = sources.filter((s) => s.platform === 'girona-centres-civics');
 const source = (slug: string) =>
   girona.find((s) => s.id === `girona-centres-civics-${slug}`)!;
@@ -143,12 +140,9 @@ describe('Girona civic-centre parsing', () => {
 
 describe('Girona adapter', () => {
   it('keeps the listing session and fetches only its own courses', async () => {
-    const requested: string[] = [];
-    const fetch = async (url: string | URL | Request, init?: RequestInit) => {
-      const path = new URL(String(url)).pathname;
-      requested.push(path);
+    const { options, requests } = fakeSource(({ pathname: path }, init) => {
       const cookie = new Headers(init?.headers).get('cookie');
-      if (path === '/robots.txt') return new Response('', { status: 404 });
+      if (path === '/robots.txt') return null;
       if (path === '/si/activitats/consulta')
         return new Response(fixture('offers'), {
           headers: { 'set-cookie': 'PHPSESSID=abc; path=/' },
@@ -156,17 +150,16 @@ describe('Girona adapter', () => {
       if (path === '/si/activitats/consulta2/181')
         // Without the session the listing redirects to the offer index.
         return cookie === 'PHPSESSID=abc'
-          ? new Response(fixture('listing'))
+          ? fixture('listing')
           : new Response(null, { status: 302 });
-      const id = path.match(/consulta3\/(\d+)$/)?.[1];
-      return new Response(fixture(id!));
-    };
-    const records = await adapterFor(source('pla-de-palau'), {
-      fetch: fetch as typeof globalThis.fetch,
-      sleep: async () => {},
-    }).fetchRecords(source('pla-de-palau'));
+      return fixture(path.match(/consulta3\/(\d+)$/)![1]!);
+    });
+    const records = await adapterFor(
+      source('pla-de-palau'),
+      options,
+    ).fetchRecords(source('pla-de-palau'));
     expect(records.map((r) => r.externalId)).toEqual(['15733']);
-    expect(requested).toEqual([
+    expect(requests.map(pathOf)).toEqual([
       '/robots.txt',
       '/si/activitats/consulta',
       '/si/activitats/consulta2/181',

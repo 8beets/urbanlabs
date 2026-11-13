@@ -5,8 +5,11 @@ import {
   isTimeZone,
   localDateIn,
   parseIsoDate,
+  weekdayNames,
 } from '../../src/lib/time/dates';
 import {
+  dmyDate,
+  euroCents,
   localDate,
   parseDateRange,
 } from '../../src/lib/ingestion/normalization/values';
@@ -104,5 +107,40 @@ describe('time zones', () => {
     expect(isTimeZone('UTC')).toBe(true);
     expect(isTimeZone('Madrid')).toBe(false);
     expect(isTimeZone('TODO: IANA time zone')).toBe(false);
+  });
+});
+
+describe('shared source values', () => {
+  it('reads dd/mm/yyyy dates only when they exist', () => {
+    expect(dmyDate('06/10/2026')).toBe('2026-10-06');
+    expect(dmyDate(' 1/2/2027 ')).toBe('2027-02-01');
+    for (const value of ['31/02/2026', '2026-10-06', '06/10/26', ''])
+      expect(dmyDate(value)).toBeNull();
+  });
+
+  it('turns euro amounts into exact cents', () => {
+    expect(euroCents('37')).toBe(3700);
+    expect(euroCents('12,5')).toBe(1250);
+    expect(euroCents('33.19')).toBe(3319);
+    // 0.29 * 100 is 28.999… in floating point; the cents must still be exact.
+    expect(euroCents('0,29')).toBe(29);
+    for (const value of ['', '12,345', '1.234,56', '€5', '-3'])
+      expect(euroCents(value)).toBeNull();
+  });
+});
+
+describe('weekday names', () => {
+  it('come from the runtime locale data, Monday first', () => {
+    expect(weekdayNames('es')).toEqual([
+      'lunes',
+      'martes',
+      'miércoles',
+      'jueves',
+      'viernes',
+      'sábado',
+      'domingo',
+    ]);
+    expect(weekdayNames('ca')[0]).toBe('dilluns');
+    expect(weekdayNames('ca')[6]).toBe('diumenge');
   });
 });

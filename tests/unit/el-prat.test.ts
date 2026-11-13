@@ -1,5 +1,10 @@
-import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
+import {
+  existsFixture,
+  fakeSource,
+  pathOf,
+  readFixture,
+} from '../helpers/source';
 import {
   createElPratAdapter,
   elPratDates,
@@ -12,11 +17,7 @@ import { courseRecordSchema } from '../../src/lib/ingestion/validation/record';
 import { courseTopic } from '../../src/lib/courses/categories';
 import { sources } from '../../src/lib/sources';
 
-const fixture = (name: string) =>
-  readFileSync(
-    new URL(`../fixtures/el-prat-${name}.html`, import.meta.url),
-    'utf8',
-  );
+const fixture = (name: string) => readFixture(`el-prat-${name}.html`);
 const santJordi = sources.find(
   (s) => s.id === 'el-prat-cursos-sant-jordi-ribera-baixa',
 )!;
@@ -143,29 +144,14 @@ describe('El Prat adapter', () => {
     '/la-ciutat/guia-cursos-i-tallers?page=1': fixture('listing-last'),
   };
   const run = (overrides: Record<string, string> = {}) => {
-    const requests: string[] = [];
-    const adapter = createElPratAdapter({
-      intervalMs: 0,
-      sleep: async () => {},
-      fetch: async (input) => {
-        const url = new URL(String(input));
-        const path = url.pathname + url.search;
-        requests.push(path);
-        const slug = url.pathname.match(/guia-cursos-i-tallers\/(.+)$/)?.[1];
-        let body = overrides[path] ?? pages[path];
-        if (body === undefined && slug) {
-          try {
-            body = fixture(slug);
-          } catch {
-            body = undefined;
-          }
-        }
-        return body === undefined
-          ? new Response('', { status: 404 })
-          : new Response(body);
-      },
+    const { options, requests } = fakeSource((url) => {
+      const path = pathOf(url.href);
+      const slug = url.pathname.match(/guia-cursos-i-tallers\/(.+)$/)?.[1];
+      // Course pages are the saved ones; any other course page is a 404.
+      const saved = slug && existsFixture(`el-prat-${slug}.html`);
+      return overrides[path] ?? pages[path] ?? (saved ? fixture(slug) : null);
     });
-    return { adapter, requests };
+    return { adapter: createElPratAdapter(options), requests };
   };
 
   it('reads every guide page and only the centre’s course pages', async () => {
@@ -181,7 +167,7 @@ describe('El Prat adapter', () => {
       true,
     );
     // Other centres' course pages are never requested.
-    expect(requests).not.toContain(
+    expect(requests.map(pathOf)).not.toContain(
       '/la-ciutat/guia-cursos-i-tallers/sexy-style-batxata',
     );
   });

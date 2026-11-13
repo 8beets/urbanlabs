@@ -1,9 +1,12 @@
 import { load } from 'cheerio';
-import { format, isValid, parse } from 'date-fns';
-import { catalanMonthNumber, cleanText } from '../normalization/values';
+import {
+  catalanMonthNumber,
+  cleanText,
+  euroCents,
+  localDate,
+} from '../normalization/values';
 import { createSourceFetcher, type FetchOptions } from '../http';
 import { assertRobotsAllowAll } from '../robots';
-import { ISO_DATE } from '../../time/dates';
 import type { CourseRecord, SourceAdapter, SourceConfig } from '../types';
 
 // Tarragona's municipal civic-centre network. The programme is published on
@@ -22,12 +25,7 @@ const MAX_ACTIVITIES = 300;
 
 function activityDates(line: string): [string | null, string | null] {
   const dates = [...line.matchAll(/(\d{1,2})\s+([\p{L}]+)\s+(\d{4})/gu)].map(
-    (m) => {
-      const month = catalanMonthNumber(m[2]!);
-      if (!month) return null;
-      const date = parse(`${m[3]}-${month}-${m[1]}`, 'yyyy-M-d', new Date(0));
-      return isValid(date) ? format(date, ISO_DATE) : null;
-    },
+    (m) => localDate(m[1]!, catalanMonthNumber(m[2]!), m[3]!),
   );
   if (dates.length === 1) return [dates[0]!, dates[0]!];
   if (dates.length === 2) return [dates[0]!, dates[1]!];
@@ -37,7 +35,7 @@ function activityDates(line: string): [string | null, string | null] {
 function priceCents(text: string): number | null {
   if (/^gratu[ïi]t$/iu.test(text)) return 0;
   const match = text.match(/^(\d+(?:[.,]\d{1,2})?)\s*€$/u);
-  return match ? Math.round(Number(match[1]!.replace(',', '.')) * 100) : null;
+  return match ? euroCents(match[1]!) : null;
 }
 
 /** Parses one registration page (schema.org Event plus the visible detail blocks). */
