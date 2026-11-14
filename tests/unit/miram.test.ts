@@ -44,6 +44,16 @@ describe('Miram source fixture', () => {
         url,
       ).unpublishedPreviews,
     ).toBe(1);
+    // Can Basté's wording (live 2026-11-14).
+    expect(
+      parseMiramPage(
+        html.replace(
+          'Podreu realitzar les inscripcions en línia',
+          'Podreu realitzar les inscripcions on-line',
+        ),
+        url,
+      ).unpublishedPreviews,
+    ).toBe(1);
     expect(() =>
       parseMiramPage(
         html.replace('Podreu realitzar', 'Unexpected layout'),
@@ -233,9 +243,14 @@ describe('Miram source fixture', () => {
     expect(() =>
       parseMiramPage('<select id="eFamilia"></select>', url),
     ).toThrow('Empty');
-    expect(() =>
+    // Without an id these footers read as previews, so drop them too.
+    const noIdentity = fixture
+      .replaceAll('accordion', 'changed')
+      .replace(/Podreu realitzar les inscripcions on-line[^<]*/gu, '');
+    expect(
       parseMiramPage(fixture.replaceAll('accordion', 'changed'), url),
-    ).toThrow('identifier');
+    ).toMatchObject({ records: [], unpublishedPreviews: 4 });
+    expect(() => parseMiramPage(noIdentity, url)).toThrow('identifier');
   });
   it('does not turn an unknown price or date into zero or today', () => {
     const { records } = parseMiramPage(

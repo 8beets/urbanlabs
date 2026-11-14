@@ -214,6 +214,8 @@ Verified on 2026-11-11 on the shared Miram adapter:
   - **Crawl size:** the host has about 100 listing pages, so the Miram page bound is now 120. Each source crawls the host separately.
 - **Josep Maria Trias i Peitx** now registers through `ccjmtriasipeitx.inscripcionscc.com` (centre code 45), found by a contributor on #37.
 - **La Cadena:** the root page exposes centre code 33, and the `AC` listing is well formed but empty while the winter 2026 workshops are not yet online. The centre is marked `mayBeEmpty`, so an empty run is a normal success.
+- **Fort Pienc and La Sedeta** (2026-11-14): the scheduled run of 2026-11-13 failed on both because their `AC` listings show no categories between the autumn and winter 2026 terms. Both are now `mayBeEmpty`, like La Cadena.
+- **Can Basté** (2026-11-14): the same run failed on nine winter cards with no identifier and the footer "Podreu realitzar les inscripcions on-line a partir del 15/12/2026". This wording is now recognised as an unpublished preview and skipped.
 - Phones, addresses and coordinates come from each centre's `guia.barcelona.cat` entry, and postcodes from the registration footers. The Casinet footer shows only the shared C/ Sants 79 address, so Casinet has no postcode. The shared `cotxeres-casinet@secretariat.cat` email appears both in the guide and in the registration footer, so it is kept for Cotxeres and Casinet. Trias i Peitx and La Cadena emails are omitted because the sources disagree.
 
 ## Alicante — Aula Abierta (municipal culture classes), paused

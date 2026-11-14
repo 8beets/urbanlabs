@@ -15,9 +15,9 @@ import type { CourseRecord, SourceAdapter, SourceConfig } from '../types';
 const fullNotice =
   /^(?:(?:\d+ \d{2}\/\d{2}\/\d{4} )?Places exhaurides\b|En aquests moments no queden places online per aquesta activitat\.$)/iu;
 
-// Advance-preview footers seen live on cards without an identifier (Vil·la Urània, Sant Martí).
+// Advance-preview footers seen live on cards without an identifier (Vil·la Urània, Sant Martí, Can Basté).
 const previewNotice =
-  /^(?:Podreu realitzar les inscripcions en línia a partir del|Les inscripcions on-line les podreu fer a partir del) \d{2}\/\d{2}\/\d{4}$/u;
+  /^(?:Podreu realitzar les inscripcions (?:en línia|on-line) a partir del|Les inscripcions on-line les podreu fer a partir del) \d{2}\/\d{2}\/\d{4}$/u;
 
 const fold = (text: string) =>
   text.normalize('NFD').replace(/\p{M}/gu, '').toLowerCase();

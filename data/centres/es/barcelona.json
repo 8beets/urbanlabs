@@ -399,8 +399,9 @@
       "origin": "https://fortpienc.inscripcionscc.com",
       "centreCode": 5,
       "activityType": "AC",
-      "verifiedAt": "2026-11-08",
-      "robotsTxt": "absent"
+      "verifiedAt": "2026-11-14",
+      "robotsTxt": "absent",
+      "mayBeEmpty": true
     }
   },
   {
@@ -535,8 +536,9 @@
       "origin": "https://cursoslasedeta.inscripcionscc.com",
       "centreCode": 25,
       "activityType": "AC",
-      "verifiedAt": "2026-11-10",
-      "robotsTxt": "absent"
+      "verifiedAt": "2026-11-14",
+      "robotsTxt": "absent",
+      "mayBeEmpty": true
     }
   },
   {
