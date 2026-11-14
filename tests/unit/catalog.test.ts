@@ -200,6 +200,13 @@ describe('course card markup', () => {
     expect(html).toContain('data-topic="idiomes"');
     expect(html).toContain('href="/ca/barcelona/centres/test"');
   });
+  it('names the city only when given one', () => {
+    const params = new URLSearchParams();
+    expect(courseCardHtml(edition({}), 'es', params, 'Zaragoza')).toContain(
+      '</a> · Zaragoza</p>',
+    );
+    expect(courseCardHtml(edition({}), 'es', params)).not.toContain(' · ');
+  });
   it('leaves "altres" and raw categories on the neutral card', () => {
     for (const category of ['altres', 'IDIOMES', null])
       expect(courseCardHtml(edition({ category }), 'es')).not.toContain(
