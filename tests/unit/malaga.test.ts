@@ -32,10 +32,16 @@ describe('Málaga agenda dataset', () => {
   it('publishes the municipal libraries with the dataset credited', () => {
     const malaga = centres.filter((c) => c.cityId === 'malaga');
     expect(malaga).toHaveLength(12);
-    expect(malaga.some((c) => c.pausedReason)).toBe(false);
+    // Two libraries' pages and the city's libraries dataset give different streets.
+    expect(malaga.filter((c) => c.pausedReason).map((c) => c.slug)).toEqual([
+      'biblioteca-vicente-espinel-puerto-de-la-torre',
+      'biblioteca-jorge-guillen-el-perchel',
+    ]);
+    const active = malaga.filter((c) => !c.pausedReason);
+    expect(active.every((c) => c.profile.location)).toBe(true);
     expect(
       sources.filter((s) => s.platform === 'malaga-datos-agenda'),
-    ).toHaveLength(12);
+    ).toHaveLength(10);
     expect(geographyCity('malaga')?.dataCredit).toEqual({
       url: 'https://datosabiertos.malaga.eu/dataset/agenda-2026',
       names: {

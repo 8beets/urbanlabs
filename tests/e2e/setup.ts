@@ -13,6 +13,10 @@ import {
   parseElPratCourse,
   parseElPratListing,
 } from '../../src/lib/ingestion/adapters/el-prat-cursos';
+import {
+  malagaRows,
+  venueRecords,
+} from '../../src/lib/ingestion/adapters/malaga-datos-agenda';
 import { E2E_ALERT_IDS } from './alert-fixtures';
 import { mkdirSync, readFileSync, readdirSync, writeFileSync } from 'node:fs';
 import { exportSnapshot } from '../../src/lib/catalog/export';
@@ -401,6 +405,38 @@ async function setup() {
                   externalId: `test-${source.institution.id}`,
                   title: `TEST workshop ${source.institution.name}`,
                   officialUrl: source.institution.url,
+                },
+          ],
+        },
+        source,
+      );
+    }
+    // Málaga: the saved Manuel Altolaguirre library course, and one explicitly synthetic
+    // course for every other library so each active source has a centre page and marker.
+    const malagaFixture = malagaRows(
+      readFileSync(
+        new URL('../fixtures/malaga-agenda.csv', import.meta.url),
+        'utf8',
+      ),
+    );
+    for (const source of sources.filter(
+      (s) => s.platform === 'malaga-datos-agenda',
+    )) {
+      const record = {
+        ...venueRecords(malagaFixture, { ...source, centreCode: 116 })[0]!,
+        startDate: '2099-01-01',
+        endDate: '2099-01-01',
+      };
+      await runIngestion(
+        db,
+        {
+          fetchRecords: async () => [
+            source.centreCode === 116
+              ? record
+              : {
+                  ...record,
+                  externalId: `99${source.centreCode}`,
+                  title: `TEST workshop ${source.institution.name}`,
                 },
           ],
         },

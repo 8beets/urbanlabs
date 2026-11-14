@@ -61,6 +61,7 @@ test('reports invalid input accessibly before any verification', async ({
     'Barcelona',
     'El Prat de Llobregat',
     'Girona',
+    'Màlaga',
     'Saragossa',
   ]);
   // Without the (blocked) Turnstile widget there is no token, so nothing is stored or sent.

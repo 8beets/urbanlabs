@@ -13,7 +13,13 @@
       "phone": "951 926 176",
       "email": "biblio.maltolaguirre@malaga.eu",
       "detailsSourceUrl": "https://bibliotecas.malaga.eu/es/nuestras-bibliotecas/biblioteca-manuel-altolaguirre-cruz-del-humilladero/",
-      "detailsVerifiedAt": "2026-11-14"
+      "detailsVerifiedAt": "2026-11-14",
+      "location": {
+        "latitude": 36.713524,
+        "longitude": -4.437786,
+        "sourceUrl": "https://datosabiertos.malaga.eu/dataset/bibliotecas",
+        "verifiedAt": "2026-11-14"
+      }
     },
     "registration": {
       "platform": "malaga-datos-agenda",
@@ -38,7 +44,13 @@
       "phone": "951 926 184",
       "email": "biblio.ccuevas@malaga.eu",
       "detailsSourceUrl": "https://bibliotecas.malaga.eu/es/nuestras-bibliotecas/biblioteca-cristobal-cuevas-bailen-miraflores/",
-      "detailsVerifiedAt": "2026-11-14"
+      "detailsVerifiedAt": "2026-11-14",
+      "location": {
+        "latitude": 36.72958,
+        "longitude": -4.436303,
+        "sourceUrl": "https://datosabiertos.malaga.eu/dataset/bibliotecas",
+        "verifiedAt": "2026-11-14"
+      }
     },
     "registration": {
       "platform": "malaga-datos-agenda",
@@ -65,6 +77,7 @@
       "detailsSourceUrl": "https://bibliotecas.malaga.eu/es/nuestras-bibliotecas/biblioteca-vicente-espinel-puerto-de-la-torre/",
       "detailsVerifiedAt": "2026-11-14"
     },
+    "pausedReason": "Location unconfirmed: the library's page gives Calle Escritora Matilde del Nido, 1, 29190 Puerto de la Torre, Málaga, while the municipal libraries dataset (datosabiertos.malaga.eu/dataset/bibliotecas) places it at Calle Compositor Enrique Aranda, 2; held until the address and map point are confirmed.",
     "registration": {
       "platform": "malaga-datos-agenda",
       "origin": "https://datosabiertos.malaga.eu",
@@ -88,7 +101,13 @@
       "phone": "951 92 61 02",
       "email": "biblio.eprados@malaga.eu",
       "detailsSourceUrl": "https://bibliotecas.malaga.eu/es/nuestras-bibliotecas/biblioteca-emilio-prados-el-palo-/",
-      "detailsVerifiedAt": "2026-11-14"
+      "detailsVerifiedAt": "2026-11-14",
+      "location": {
+        "latitude": 36.720715,
+        "longitude": -4.356356,
+        "sourceUrl": "https://datosabiertos.malaga.eu/dataset/bibliotecas",
+        "verifiedAt": "2026-11-14"
+      }
     },
     "registration": {
       "platform": "malaga-datos-agenda",
@@ -115,6 +134,7 @@
       "detailsSourceUrl": "https://bibliotecas.malaga.eu/es/nuestras-bibliotecas/biblioteca-jorge-guillen-perchel/",
       "detailsVerifiedAt": "2026-11-14"
     },
+    "pausedReason": "Location unconfirmed: the library's page gives Calle Eslava, 8-10, 29002 Málaga, while the municipal libraries dataset (datosabiertos.malaga.eu/dataset/bibliotecas) places it at Calle Malpica, 11; held until the address and map point are confirmed.",
     "registration": {
       "platform": "malaga-datos-agenda",
       "origin": "https://datosabiertos.malaga.eu",
@@ -138,7 +158,13 @@
       "phone": "951 92 61 03",
       "email": "biblio.dalonso@malaga.eu",
       "detailsSourceUrl": "https://bibliotecas.malaga.eu/es/nuestras-bibliotecas/biblioteca-damaso-alonso-jardin-de-malaga/",
-      "detailsVerifiedAt": "2026-11-14"
+      "detailsVerifiedAt": "2026-11-14",
+      "location": {
+        "latitude": 36.749241,
+        "longitude": -4.417489,
+        "sourceUrl": "https://datosabiertos.malaga.eu/dataset/bibliotecas",
+        "verifiedAt": "2026-11-14"
+      }
     },
     "registration": {
       "platform": "malaga-datos-agenda",
@@ -163,7 +189,13 @@
       "phone": "951 926 104",
       "email": "biblio.cervantes@malaga.eu",
       "detailsSourceUrl": "https://bibliotecas.malaga.eu/es/nuestras-bibliotecas/biblioteca-miguel-de-cervantes-bailen-las-chapas/",
-      "detailsVerifiedAt": "2026-11-14"
+      "detailsVerifiedAt": "2026-11-14",
+      "location": {
+        "latitude": 36.721933,
+        "longitude": -4.438773,
+        "sourceUrl": "https://datosabiertos.malaga.eu/dataset/bibliotecas",
+        "verifiedAt": "2026-11-14"
+      }
     },
     "registration": {
       "platform": "malaga-datos-agenda",
@@ -188,7 +220,13 @@
       "phone": "951 926 177",
       "email": "biblio.jmorenovilla@malaga.eu",
       "detailsSourceUrl": "https://bibliotecas.malaga.eu/es/nuestras-bibliotecas/biblioteca-jose-moreno-villa-churriana/",
-      "detailsVerifiedAt": "2026-11-14"
+      "detailsVerifiedAt": "2026-11-14",
+      "location": {
+        "latitude": 36.665689,
+        "longitude": -4.50154,
+        "sourceUrl": "https://datosabiertos.malaga.eu/dataset/bibliotecas",
+        "verifiedAt": "2026-11-14"
+      }
     },
     "registration": {
       "platform": "malaga-datos-agenda",
@@ -213,7 +251,13 @@
       "phone": "951 92 61 09",
       "email": "biblio.jlborges@malaga.eu",
       "detailsSourceUrl": "https://bibliotecas.malaga.eu/es/nuestras-bibliotecas/biblioteca-jorge-luis-borges-campanillas/",
-      "detailsVerifiedAt": "2026-11-14"
+      "detailsVerifiedAt": "2026-11-14",
+      "location": {
+        "latitude": 36.727731,
+        "longitude": -4.544865,
+        "sourceUrl": "https://datosabiertos.malaga.eu/dataset/bibliotecas",
+        "verifiedAt": "2026-11-14"
+      }
     },
     "registration": {
       "platform": "malaga-datos-agenda",
@@ -238,7 +282,13 @@
       "phone": "951 92 61 05",
       "email": "biblio.ajimenezfraud@malaga.eu",
       "detailsSourceUrl": "https://bibliotecas.malaga.eu/es/nuestras-bibliotecas/biblioteca-alberto-jimenez-fraud-palma-palmilla/",
-      "detailsVerifiedAt": "2026-11-14"
+      "detailsVerifiedAt": "2026-11-14",
+      "location": {
+        "latitude": 36.739437,
+        "longitude": -4.429003,
+        "sourceUrl": "https://datosabiertos.malaga.eu/dataset/bibliotecas",
+        "verifiedAt": "2026-11-14"
+      }
     },
     "registration": {
       "platform": "malaga-datos-agenda",
@@ -263,7 +313,13 @@
       "phone": "951 926 186",
       "email": "biblio.secalderon@malaga.eu",
       "detailsSourceUrl": "https://bibliotecas.malaga.eu/es/nuestras-bibliotecas/biblioteca-serafin-estebanez-calderon-santa-rosalia/",
-      "detailsVerifiedAt": "2026-11-14"
+      "detailsVerifiedAt": "2026-11-14",
+      "location": {
+        "latitude": 36.732474,
+        "longitude": -4.567439,
+        "sourceUrl": "https://datosabiertos.malaga.eu/dataset/bibliotecas",
+        "verifiedAt": "2026-11-14"
+      }
     },
     "registration": {
       "platform": "malaga-datos-agenda",
@@ -288,7 +344,13 @@
       "phone": "951 92 61 07",
       "email": "biblio.mzambrano@malaga.eu",
       "detailsSourceUrl": "https://bibliotecas.malaga.eu/es/nuestras-bibliotecas/biblioteca-maria-zambrano-huelin/",
-      "detailsVerifiedAt": "2026-11-14"
+      "detailsVerifiedAt": "2026-11-14",
+      "location": {
+        "latitude": 36.701527,
+        "longitude": -4.437625,
+        "sourceUrl": "https://datosabiertos.malaga.eu/dataset/bibliotecas",
+        "verifiedAt": "2026-11-14"
+      }
     },
     "registration": {
       "platform": "malaga-datos-agenda",

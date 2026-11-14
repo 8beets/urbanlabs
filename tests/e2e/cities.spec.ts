@@ -13,6 +13,7 @@ test('the course and centre menus list the cities and work without JavaScript', 
     'Barcelona',
     'El Prat de Llobregat',
     'Girona',
+    'Málaga',
     'Zaragoza',
     'Todas las ciudades',
   ]);
@@ -39,7 +40,7 @@ test('city lists, city pages and topic pages link into each city', async ({
   page,
 }) => {
   await page.goto('/es/cursos');
-  await expect(page.locator('.city-list a')).toHaveCount(4);
+  await expect(page.locator('.city-list a')).toHaveCount(5);
   await page.locator('.city-list a', { hasText: 'Zaragoza' }).click();
   await expect(page).toHaveURL(/\/es\/zaragoza\/cursos$/);
   await page.goto('/es/zaragoza');
