@@ -40,7 +40,10 @@ export function enhanceFilters(
   form.addEventListener('change', (event) => {
     const target = event.target;
     if (
-      !(target instanceof HTMLSelectElement) ||
+      !(
+        target instanceof HTMLSelectElement ||
+        target instanceof HTMLInputElement
+      ) ||
       !['centre', 'cancellation'].includes(target.name)
     )
       return;

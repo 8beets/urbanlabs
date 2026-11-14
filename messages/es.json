@@ -1,7 +1,5 @@
 {
   "cancelled": "Cancelado",
-  "cancellationFilter": "Cancelación",
-  "allCancellation": "Todos los cursos",
   "hideCancelled": "Ocultar cancelados",
   "onlyCancelled": "Solo cancelados",
   "pageNotFound": "Página no encontrada",
@@ -48,8 +46,6 @@
   "searchCentres": "Buscar centro por nombre o dirección",
   "noMatchingCentres": "Ningún centro coincide con la búsqueda.",
   "soldOut": "Sin plazas",
-  "placesFilter": "Plazas",
-  "allPlaces": "Todos los cursos",
   "hideSoldOut": "Ocultar sin plazas",
   "closureNotice": "La guía municipal indica que este equipamiento está cerrado temporalmente. Confirma con el centro dónde se realizan sus actividades.",
   "title": "Aprende cerca de casa",
