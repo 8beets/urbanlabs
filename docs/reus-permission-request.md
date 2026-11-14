@@ -1,9 +1,9 @@
 # Draft: permission request to the Ajuntament de Reus
 
-Not sent. To be reviewed and sent by a maintainer.
+Not sent. To be reviewed and sent by a maintainer, preferably through the council's electronic office (sede electrónica) or registry, so that the 20-day period of article 10.3 of Ley 37/2007 applies. Article 10.2 requires the applicant's identification data (article 66.1 of Ley 39/2015), which the maintainer adds when filing. Article 4.1 c) allows the procedure to follow regional rules instead, so check whether Catalan rules set a different period before relying on it.
 
 **Per a:** Ajuntament de Reus, Xarxa de Centres Cívics
-**Assumpte:** Sol·licitud d'autorització per mostrar l'oferta de cursos i tallers dels centres cívics en un directori obert i sense ànim de lucre
+**Assumpte:** Sol·licitud d'autorització per mostrar l'oferta de cursos i tallers dels centres cívics en un directori obert i sense ànim de lucre (Llei 37/2007, article 10)
 
 Bon dia:
 
@@ -12,5 +12,7 @@ Som els responsables d'UrbanLabs (https://urbanlabs.fyi, codi obert a https://gi
 Ens agradaria mostrar al directori les activitats dels centres cívics publicades a https://inscripcions.reus.cat (títol, dates, horari, centre, preu i si queden places), sempre citant la font i enllaçant a la fitxa oficial de cada activitat per consultar-ne els detalls i inscriure-s'hi. Consultaríem les pàgines un cop al dia com a màxim, a poc a poc, sense modificar-ne el contingut i sense guardar-ne les descripcions ni dades personals.
 
 L'avís legal de reus.cat només permet l'ús personal, privat i no lucratiu dels continguts i demana autorització prèvia i expressa per a qualsevol altre ús; per això us demanem el vostre permís per a aquesta reutilització. Si preferiu una altra via (per exemple, un conjunt de dades obertes) o unes condicions concretes, les atendrem.
+
+D'acord amb la Llei 37/2007, de 16 de novembre, sobre reutilització de la informació del sector públic, segons la qual els documents de les administracions són reutilitzables (article 4.1), us presentem aquesta sol·licitud de reutilització d'acord amb el seu article 10. La finalitat és no comercial. Complirem les condicions de l'article 8: no alterar-ne el contingut ni desnaturalitzar-ne el sentit, citar la font i indicar la data de l'última actualització, sense reutilitzar dades personals.
 
 Moltes gràcies.
