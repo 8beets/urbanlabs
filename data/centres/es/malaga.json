@@ -75,9 +75,14 @@
       "phone": "951 926 187",
       "email": "biblio.vespinel@malaga.eu",
       "detailsSourceUrl": "https://bibliotecas.malaga.eu/es/nuestras-bibliotecas/biblioteca-vicente-espinel-puerto-de-la-torre/",
-      "detailsVerifiedAt": "2026-11-14"
+      "detailsVerifiedAt": "2026-11-14",
+      "location": {
+        "latitude": 36.738012,
+        "longitude": -4.48256,
+        "sourceUrl": "https://datosabiertos.malaga.eu/dataset/bibliotecas",
+        "verifiedAt": "2026-11-14"
+      }
     },
-    "pausedReason": "Location unconfirmed: the library's page gives Calle Escritora Matilde del Nido, 1, 29190 Puerto de la Torre, Málaga, while the municipal libraries dataset (datosabiertos.malaga.eu/dataset/bibliotecas) places it at Calle Compositor Enrique Aranda, 2; held until the address and map point are confirmed.",
     "registration": {
       "platform": "malaga-datos-agenda",
       "origin": "https://datosabiertos.malaga.eu",
@@ -123,7 +128,7 @@
     "slug": "biblioteca-jorge-guillen-el-perchel",
     "name": "Biblioteca Pública Municipal Jorge Guillén (El Perchel)",
     "officialUrl": "https://bibliotecas.malaga.eu/es/nuestras-bibliotecas/biblioteca-jorge-guillen-perchel/",
-    "address": "Calle Eslava, 8-10, 29002 Málaga",
+    "address": "Calle Eslava, 8, 29002 Málaga",
     "country": "ES",
     "city": "Málaga",
     "cityId": "malaga",
@@ -132,9 +137,14 @@
       "phone": "951 926 175",
       "email": "biblio.jguillen@malaga.eu",
       "detailsSourceUrl": "https://bibliotecas.malaga.eu/es/nuestras-bibliotecas/biblioteca-jorge-guillen-perchel/",
-      "detailsVerifiedAt": "2026-11-14"
+      "detailsVerifiedAt": "2026-11-14",
+      "location": {
+        "latitude": 36.713311,
+        "longitude": -4.429916,
+        "sourceUrl": "https://www.openstreetmap.org/node/5282070645",
+        "verifiedAt": "2026-11-14"
+      }
     },
-    "pausedReason": "Location unconfirmed: the library's page gives Calle Eslava, 8-10, 29002 Málaga, while the municipal libraries dataset (datosabiertos.malaga.eu/dataset/bibliotecas) places it at Calle Malpica, 11; held until the address and map point are confirmed.",
     "registration": {
       "platform": "malaga-datos-agenda",
       "origin": "https://datosabiertos.malaga.eu",
