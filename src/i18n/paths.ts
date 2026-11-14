@@ -68,3 +68,15 @@ export function centreDirectoryPath(locale: Locale, city: string): string {
 export function centrePath(locale: Locale, city: string, slug: string): string {
   return `${centreDirectoryPath(locale, city)}/${slug}`;
 }
+
+export function alertPath(
+  locale: Locale,
+  page: 'signup' | 'confirm' | 'unsubscribe' = 'signup',
+): string {
+  const base = `/${locale}/${m.pathAlerts({}, { locale })}`;
+  if (page === 'confirm')
+    return `${base}/${m.pathAlertConfirm({}, { locale })}`;
+  if (page === 'unsubscribe')
+    return `${base}/${m.pathAlertUnsubscribe({}, { locale })}`;
+  return base;
+}

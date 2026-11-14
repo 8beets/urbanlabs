@@ -14,6 +14,10 @@ const MAX_FILE_BYTES = 25 * 1024 * 1024;
 // (or split the city) before raising the budget.
 const SEARCH_DIR = 'search';
 const MAX_LIVE_INDEX_GZIP = 150 * 1024;
+// Leaflet is the largest script (~43 KB). The search script once reached ~80 KB by
+// bundling the whole centre registry and zod; a script over this budget usually
+// imports server-only code.
+const MAX_SCRIPT_GZIP = 50 * 1024;
 
 export const checkBuildCommand = new Command('check-build')
   .description('Check the static build against the Workers Free asset budgets')
@@ -29,6 +33,10 @@ export const checkBuildCommand = new Command('check-build')
       return { path, gzip: gzipSync(readFileSync(join(CLIENT, path))).length };
     });
     if (!liveIndexes.length) throw new Error('No city search index was built');
+    const scripts = all
+      .filter((path) => path.endsWith('.js'))
+      .map((path) => ({ path, gzip: gzipSync(readFileSync(path)).length }))
+      .sort((a, b) => b.gzip - a.gzip);
     const largestIndex = liveIndexes.sort((a, b) => b.gzip - a.gzip)[0]!;
     console.info(
       JSON.stringify({
@@ -41,6 +49,9 @@ export const checkBuildCommand = new Command('check-build')
         largestLiveIndex: largestIndex.path,
         largestLiveIndexGzipBytes: largestIndex.gzip,
         maxLiveIndexGzipBytes: MAX_LIVE_INDEX_GZIP,
+        largestScript: scripts[0]?.path,
+        largestScriptGzipBytes: scripts[0]?.gzip ?? 0,
+        maxScriptGzipBytes: MAX_SCRIPT_GZIP,
       }),
     );
     const failures = [
@@ -53,6 +64,12 @@ export const checkBuildCommand = new Command('check-build')
         .map(
           (index) =>
             `${index.path} is ${index.gzip} bytes gzipped (budget ${MAX_LIVE_INDEX_GZIP})`,
+        ),
+      ...scripts
+        .filter((script) => script.gzip > MAX_SCRIPT_GZIP)
+        .map(
+          (script) =>
+            `${script.path} is ${script.gzip} bytes gzipped (budget ${MAX_SCRIPT_GZIP})`,
         ),
     ].filter(Boolean);
     for (const failure of failures) console.error(failure);

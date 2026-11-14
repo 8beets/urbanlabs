@@ -1,4 +1,6 @@
 import { describe, expect, it } from 'vitest';
+import data from '../../data/categories.json' with { type: 'json' };
+import { reviewedCategoriesSchema } from '../../src/lib/courses/category-tables';
 import {
   TOPICS,
   courseAudience,
@@ -10,6 +12,13 @@ import { parseFilters } from '../../src/lib/courses/discovery';
 
 // Category and title pairs are real production values (issue #95).
 describe('course topics', () => {
+  it('reads reviewed tables that pass their schema', () => {
+    expect(reviewedCategoriesSchema.safeParse(data).error).toBeUndefined();
+    const twice = structuredClone(data);
+    twice.mixed.push(twice.mixed[0]!);
+    expect(reviewedCategoriesSchema.safeParse(twice).success).toBe(false);
+  });
+
   it.each([
     [
       'ESPAI FOTOGRÀFIC PATI LLIMONA',

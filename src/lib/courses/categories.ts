@@ -1,7 +1,7 @@
-import { z } from 'zod';
 import { foldText } from '../catalog/title-match';
 // The explicit attribute is required by the Worker dev runtime (workerd) and Node.
 import data from '../../../data/categories.json' with { type: 'json' };
+import type { ReviewedCategories } from './category-tables';
 
 // Centres label their courses with hundreds of inconsistent categories. Every course
 // is shown under one of these fixed topics instead, chosen deterministically from
@@ -107,7 +107,7 @@ const titleAudienceRules: readonly (readonly [Audience, RegExp])[] = [
   ],
 ];
 
-function comparisonKey(value: string): string {
+export function comparisonKey(value: string): string {
   return value
     .normalize('NFC')
     .trim()
@@ -115,38 +115,9 @@ function comparisonKey(value: string): string {
     .toLocaleUpperCase('ca');
 }
 
-const categories = z.array(z.string().trim().min(1).max(200));
-
-/**
- * Reviewed source categories (data/categories.json), matched by `comparisonKey`:
- * - `topics`: categories whose courses all belong to one topic.
- * - `mixed`: categories that mix topics or name an audience, format or programme;
- *   their courses are classified by title. Audience categories are listed here too.
- * - `audiences`: categories that name who the courses are for.
- * - `refinements`: categories that name a topic but also hold courses of the listed
- *   topics (Zaragoza's "Música" includes dance); a title rule for one of those topics
- *   wins, otherwise the category's topic stands.
- */
-const reviewed = z
-  .strictObject({
-    topics: z.record(z.enum(TOPICS).exclude(['altres']), categories),
-    mixed: categories,
-    audiences: z.record(z.enum(AUDIENCES), categories),
-    refinements: z.record(z.string(), z.array(z.enum(TOPICS))),
-  })
-  .superRefine((tables, ctx) => {
-    // A category listed twice would silently take whichever entry comes last.
-    const keys = [...Object.values(tables.topics).flat(), ...tables.mixed].map(
-      comparisonKey,
-    );
-    for (const [index, key] of keys.entries())
-      if (keys.indexOf(key) !== index)
-        ctx.addIssue({
-          code: 'custom',
-          message: `Category listed twice: ${key}`,
-        });
-  })
-  .parse(data);
+// data/categories.json, described in category-tables.ts. tests/unit/categories.test.ts
+// validates it there, so zod stays out of the browser bundle.
+const reviewed = data as ReviewedCategories;
 
 /** Source category key → topic, or null when the title decides. */
 const categoryTopics = new Map<string, Topic | null>([

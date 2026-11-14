@@ -13,13 +13,13 @@ import {
   purgePendingSubscriptions,
 } from '../db/subscriptions';
 import {
-  alertPath,
   confirmationEmail,
   describeTarget,
   digestEmail,
   searchUrl,
   type CityName,
 } from './emails';
+import { alertPath } from '../../i18n/paths';
 import { EmailSendError, type EmailSender } from './email-sender';
 import {
   CONFIRMATIONS_PER_EMAIL_PER_DAY,

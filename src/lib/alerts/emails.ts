@@ -12,18 +12,6 @@ export interface CityName {
 }
 
 // Built from messages, not astro:i18n, so the GitHub Actions job can render links too.
-export function alertPath(
-  locale: Locale,
-  page: 'signup' | 'confirm' | 'unsubscribe' = 'signup',
-): string {
-  const base = `/${locale}/${m.pathAlerts({}, { locale })}`;
-  if (page === 'confirm')
-    return `${base}/${m.pathAlertConfirm({}, { locale })}`;
-  if (page === 'unsubscribe')
-    return `${base}/${m.pathAlertUnsubscribe({}, { locale })}`;
-  return base;
-}
-
 export function describeTarget(
   target: AlertTarget,
   locale: Locale,
