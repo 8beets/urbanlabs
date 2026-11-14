@@ -31,10 +31,10 @@ test.describe('without JavaScript', () => {
       await expect(page.locator('html')).toHaveAttribute('lang', 'es');
       await expect(page.locator('.hero-photos figure')).toHaveCount(4);
       await expect(page.locator('.hero-photos figcaption')).toHaveText([
-        'Música',
-        'Cerámica',
-        'Electrónica',
-        'Bricolaje',
+        'Música y canto',
+        'Artes plásticas y manualidades',
+        'Tecnología e informática',
+        'Danza y baile',
       ]);
       await expect
         .poll(() =>
@@ -76,10 +76,10 @@ test.describe('without JavaScript', () => {
       ).toHaveAttribute('href', 'https://github.com/8beets/urbanlabs');
       await expect(page.locator('html')).toHaveAttribute('lang', 'ca');
       await expect(page.locator('.hero-photos figcaption')).toHaveText([
-        'Música',
-        'Ceràmica',
-        'Electrònica',
-        'Bricolatge',
+        'Música i cant',
+        'Arts plàstiques i manualitats',
+        'Tecnologia i informàtica',
+        'Dansa i ball',
       ]);
       await expect(page.locator('.schedule').first()).toHaveText(
         /^(Dilluns|Dimarts|Dimecres|Dijous|Divendres|Dissabte|Diumenge)\b/i,

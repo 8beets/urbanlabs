@@ -29,8 +29,9 @@ function priceText(course: CourseListing, locale: Locale): string {
 
 /**
  * Markup of one course card. `filterParams` are the active search filters, kept on
- * the category link so it narrows the current search. `city` is a city label, set
- * where the listing mixes cities (the homepage).
+ * the category link so it narrows the current search. `city` is a city label, shown
+ * as a badge linking to the city's courses where the listing mixes cities (the
+ * homepage).
  */
 export function courseCardHtml(
   course: CourseListing,
@@ -64,11 +65,20 @@ export function courseCardHtml(
     course.is_sold_out === 1
       ? `<p class="sold-out-label">${escapeHtml(m.soldOut({}, { locale }))}</p>`
       : '',
-    course.category
-      ? `<a class="course-category" href="${escapeHtml(`${courseSearchPath(locale, course.city_id)}?${categoryParams}`)}">${escapeHtml(categoryLabel(course.category, locale))}</a>`
+    course.category || city
+      ? [
+          '<div class="course-badges">',
+          course.category
+            ? `<a class="course-category" href="${escapeHtml(`${courseSearchPath(locale, course.city_id)}?${categoryParams}`)}">${escapeHtml(categoryLabel(course.category, locale))}</a>`
+            : '',
+          city
+            ? `<a class="course-city" href="${escapeHtml(courseSearchPath(locale, course.city_id))}">${escapeHtml(city)}</a>`
+            : '',
+          '</div>',
+        ].join('')
       : '',
     `<h3${title !== course.title ? ` title="${escapeHtml(course.title)}"` : ''}>${escapeHtml(title)}</h3>`,
-    `<p class="institution">${iconHtml('pin')}<a href="${escapeHtml(centrePath(locale, course.city_id, course.institution_slug))}">${escapeHtml(course.institution)}</a>${city ? ` · ${escapeHtml(city)}` : ''}</p>`,
+    `<p class="institution">${iconHtml('pin')}<a href="${escapeHtml(centrePath(locale, course.city_id, course.institution_slug))}">${escapeHtml(course.institution)}</a></p>`,
     `<p class="course-date">${iconHtml('calendar')}<span>${escapeHtml(dates)}</span></p>`,
     course.schedule_text
       ? `<p class="schedule">${iconHtml('clock')}<span>${escapeHtml(formatSchedule(course.schedule_text, locale))}</span></p>`

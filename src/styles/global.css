@@ -546,7 +546,14 @@ h3 {
   align-items: flex-start;
   min-width: 0;
 }
-.course-category {
+.course-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  max-width: 100%;
+}
+.course-category,
+.course-city {
   display: inline-flex;
   align-items: center;
   min-height: 32px;
@@ -559,6 +566,12 @@ h3 {
   font-weight: 650;
   text-decoration: none;
   overflow-wrap: anywhere;
+}
+/* Same shape as the category, but neutral so the two are told apart by more than colour. */
+.course-city {
+  background: #fff;
+  color: var(--ink);
+  box-shadow: inset 0 0 0 1px var(--line);
 }
 .course h3 {
   margin-top: 16px;

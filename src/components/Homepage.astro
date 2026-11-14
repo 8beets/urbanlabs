@@ -1,6 +1,6 @@
 ---
 import { m } from '../paraglide/messages.js';
-import { type Locale } from '../i18n/ui';
+import { categoryLabel, type Locale } from '../i18n/ui';
 import { citiesCoursesPath, homePath, localizedPaths } from '../i18n/paths';
 import { coveredCities, sourceCityLabels } from '../i18n/geography';
 import type { CourseListing } from '../lib/catalog/types';
@@ -13,12 +13,13 @@ interface Props {
   data: { courses: CourseListing[] };
 }
 const { locale, data } = Astro.props;
+// Each illustrative photo is captioned with the site category it represents.
 const themes = [
-  { image: 'music', label: m.photoMusic({}, { locale }) },
-  { image: 'pottery', label: m.photoPottery({}, { locale }) },
-  { image: 'electronics', label: m.photoElectronics({}, { locale }) },
-  { image: 'woodworking', label: m.photoWoodworking({}, { locale }) },
-];
+  { image: 'music', category: 'musica' },
+  { image: 'pottery', category: 'arts-i-manualitats' },
+  { image: 'electronics', category: 'tecnologia' },
+  { image: 'dance', category: 'dansa' },
+].map((theme) => ({ ...theme, label: categoryLabel(theme.category, locale) }));
 ---
 
 <SiteLayout

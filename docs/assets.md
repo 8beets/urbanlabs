@@ -6,16 +6,16 @@ Headings and the wordmark use Bricolage Grotesque by Mathieu Triay, distributed 
 
 ## Stock photographs
 
-Retrieved on 2026-11-06 from the free collection on Pexels. The [Pexels license](https://www.pexels.com/license/) permits free website use and modification without required attribution. These photographs retain their separate Pexels license; they are not relicensed as project code. Do not use them as trademarks or imply an endorsement.
+Retrieved on 2026-11-06 (`dance.jpg` on 2026-11-14, replacing a woodworking photo whose subject is not a site category) from the free collection on Pexels. Each photo is captioned with the site category it illustrates. The [Pexels license](https://www.pexels.com/license/) permits free website use and modification without required attribution. These photographs retain their separate Pexels license; they are not relicensed as project code. Do not use them as trademarks or imply an endorsement.
 
-| Local asset under `public/images/categories/` | Photographer   | Original page                                                                                              |
-| --------------------------------------------- | -------------- | ---------------------------------------------------------------------------------------------------------- |
-| `music.jpg`                                   | Gabriella Ally | [Electric guitar](https://www.pexels.com/photo/man-playing-electric-guitar-14020427/)                      |
-| `pottery.jpg`                                 | wal_ 172619    | [Hands crafting clay](https://www.pexels.com/photo/pottery-making-hands-crafting-clay-on-wheel-37635984/)  |
-| `electronics.jpg`                             | Kaboompics     | [Electronics workbench](https://www.pexels.com/photo/tools-on-a-desktop-7286026/)                          |
-| `woodworking.jpg`                             | Pew Nguyen     | [Clamps and hammer](https://www.pexels.com/photo/close-up-of-woodworking-with-clamps-and-hammer-37162556/) |
+| Local asset under `public/images/categories/` | Photographer   | Original page                                                                                             |
+| --------------------------------------------- | -------------- | --------------------------------------------------------------------------------------------------------- |
+| `music.jpg`                                   | Gabriella Ally | [Electric guitar](https://www.pexels.com/photo/man-playing-electric-guitar-14020427/)                     |
+| `pottery.jpg`                                 | wal_ 172619    | [Hands crafting clay](https://www.pexels.com/photo/pottery-making-hands-crafting-clay-on-wheel-37635984/) |
+| `electronics.jpg`                             | Kaboompics     | [Electronics workbench](https://www.pexels.com/photo/tools-on-a-desktop-7286026/)                         |
+| `dance.jpg`                                   | Michael Zittel | [People inside room (dance class)](https://www.pexels.com/photo/people-inside-room-12312/)                |
 
-The downloaded versions are 800 × 600 JPEGs, approximately 240 KB combined, using Pexels' image-resizing endpoint. Images are served locally; browsing does not contact a stock-photo service. The layout reserves their dimensions, uses empty alt text alongside descriptive captions, and lazily loads secondary images. The interface explicitly identifies them as illustrative; they do not depict verified courses, centres, instructors, or availability. They are independent of ingestion data.
+The downloaded versions are 800 × 600 JPEGs, approximately 255 KB combined, using Pexels' image-resizing endpoint. Images are served locally; browsing does not contact a stock-photo service. The layout reserves their dimensions, uses empty alt text alongside descriptive captions, and lazily loads secondary images. The interface explicitly identifies them as illustrative; they do not depict verified courses, centres, instructors, or availability. They are independent of ingestion data.
 
 ## UrbanLabs logo
 

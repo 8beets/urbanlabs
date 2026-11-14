@@ -200,12 +200,23 @@ describe('course card markup', () => {
     expect(html).toContain('data-topic="idiomes"');
     expect(html).toContain('href="/ca/barcelona/centres/test"');
   });
-  it('names the city only when given one', () => {
+  it('shows the city as a badge only when given one', () => {
     const params = new URLSearchParams();
-    expect(courseCardHtml(edition({}), 'es', params, 'Zaragoza')).toContain(
-      '</a> · Zaragoza</p>',
+    const withCity = courseCardHtml(edition({}), 'es', params, 'Barcelona');
+    expect(withCity).toContain(
+      '<a class="course-city" href="/es/barcelona/cursos">Barcelona</a></div>',
     );
-    expect(courseCardHtml(edition({}), 'es', params)).not.toContain(' · ');
+    expect(withCity).toMatch(
+      /<div class="course-badges"><a class="course-category"[^>]*>IDIOMES<\/a><a class="course-city"/,
+    );
+    const withoutCity = courseCardHtml(edition({}), 'es', params);
+    expect(withoutCity).not.toContain('course-city');
+    expect(withoutCity).toContain(
+      '<div class="course-badges"><a class="course-category"',
+    );
+    expect(
+      courseCardHtml(edition({ category: null }), 'es', params),
+    ).not.toContain('course-badges');
   });
   it('leaves "altres" and raw categories on the neutral card', () => {
     for (const category of ['altres', 'IDIOMES', null])
