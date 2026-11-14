@@ -369,6 +369,36 @@ The Tarragona/Reus registration platform was also probed under `inscripcions.<to
 
 No other town on that platform was found.
 
+### Regional and municipal open data — reviewed 2026-11-14
+
+Checked for course feeds in open-data portals and APIs, since the city websites above block automated clients. Read-only requests from a cloud server, with a browser user agent where noted; no block was bypassed and nothing was imported.
+
+**Euskadi cultural events API — usable candidate.** `https://api.euskadi.eus/culture/events/v1.0` (the Kulturklik agenda) is public JSON with no key: about 20,400 events, paginated with `_elements` and `_page`. Type 11 "Formación" (`/events/byType/11`) had 313 events on 2026-11-14. Other types may hold workshops: 14 "Actividad Infantil", 6 "Conferencia". `/eventType` lists them. Filter paths by municipality returned 404, so a city filter would use `municipalityNoraCode` on our side.
+
+- **Fields.** Spanish and Basque name and description (HTML), `startDate`/`endDate` (UTC midnight, the overall range), `openingHoursEs` (free text), `priceEs` (free text), venue (`establishmentEs`), municipality with NORA code and coordinates, `sourceNameEs`/`sourceUrlEs` (the original organiser page) and `language` (`ES`, `EU`, `EN`, `VI`; `VI` is undocumented, possibly bilingual).
+- **Coverage of type 11.** Vitoria-Gasteiz 62 (29 from the city's own agenda: crafts, family and intergenerational workshops), Donostia 61 (35 Tabakalera; Larrotxene, San Telmo, EHU summer courses at Palacio Miramar), Bilbao 60 (Azkuna Zentroa, Guggenheim, Bellas Artes, Museo de Reproducciones, Biblioteca Foral, BilbaoArte, JAZZON), Getxo 8, Pamplona 9, and 1–7 in about 55 other towns, including the French Basque Country. Mostly arts and culture workshops; few are general adult-education courses.
+- **Not suitable as-is.**
+  - The municipal catalogues appear only as single announcements: Bilbao's "Cursos y talleres culturales 2026-2027", "Cursos Donostia Kultura 2026-2027: abierta la matriculación", Pamplona's "CURSOS CIVIVOX".
+  - Enrolment notices and talks are mixed in with courses. A cancellation shows only in the title ("(suspendido) …").
+  - Prices can be non-prices ("Inscripción", "septiembre 2026", "Adulta/o, Menor de 12 años").
+  - Dates are often the enrolment window or the whole programme (ZAWP ukulele: 2023→2033).
+  - Recurring sessions appear as separate events. One course can be listed twice by different organisers.
+  - Vitoria's names carry undecoded HTML entities (`&quot;`). Some events have no venue or municipality.
+- **Before an adapter.** Reuse licence of the API not yet confirmed (the Bilbao agenda dataset below is CC BY 4.0, which does not necessarily cover it). Access from GitHub Actions/Cloudflare not yet verified.
+- **SPARQL.** `https://api.euskadi.eus/sparql/` has no event graph: catalogue (DCAT), legislation, NORA places, directory and heritage. Whole-store scans return HTTP 500.
+
+**Bilbao "Agenda Municipal" dataset.** Listed on Open Data Euskadi (`opendata.euskadi.eus/catalogo/-/agenda-municipal-bilbao/`, CC BY 4.0). Its XML and JSON distributions are on `www.bilbao.eus`, whose F5 firewall answered HTTP 403 to every request from this server, robots.txt and home page included.
+
+**Donostia.** Open Data Euskadi lists only Donostia's contract registers. The city's CKAN portal `www.donostia.eus/datosabiertos` (143 datasets) returns 429 unless requests are spaced about 20 seconds apart. Its only related dataset, `actividades-dk`, has no title, licence or description and is a 28-row count of bilingual activities by type and audience (Aug 2025): statistics, not courses. Donostia Kultura (623 courses for 2026–27 by its own announcement) is still behind the Cloudflare block in the table above.
+
+**València.** The city's CKAN portal `opendata.vlci.valencia.es` (268 datasets) has no agenda or course dataset; it resets connections when requests are close together. Venue layers exist (`joventut-juventud`, `centros-educativos-en-valencia`, `majors-mayores`; CC BY, via `geoportal.valencia.es`). The city agenda is HTML only.
+
+**Galicia.**
+
+- Vigo's CKAN `datos-ckan.vigo.org` (172 datasets, ODC-BY) has `agenda-cultura`, but its only file is `https://datos.vigo.org/data/axenda/agenda-hoy.json`. It is today's agenda only (44 entries on 2026-11-14, 26 permanent), with title, dates, category code and venue. There is no description, price, link or time, and courses appear only as programme umbrellas (library and Casa das Mulleres programmes). Vigo publishes useful venue datasets (`centros-culturales`, `distritos-bibliotecas`, `sociedad-centros-*`, `educacion-centros-*`).
+- No course or agenda datasets were found for A Coruña, Santiago, Lugo, Ourense, Pontevedra or Ferrol. Listing their datasets on datos.gob.es by publisher code returned 0 for all, but the codes were not verified, so this is inconclusive.
+- `abertos.xunta.gal` reset every connection and was not inspected.
+
 ## Adding an institution
 
 A centre is one JSON record in `data/centres/<country>/<city>.json` (lower-case ISO country, seeded city ID; for example `es/barcelona.json`). The registry (`src/lib/centres/registry.ts`) validates every record with Zod when it loads, and the approved sources and reviewed profiles are generated from it. No per-centre code is needed for a platform that already has an adapter.
