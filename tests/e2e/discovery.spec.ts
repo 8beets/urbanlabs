@@ -103,10 +103,8 @@ test('search uses shareable URL filters and an honest empty state', async ({
 }) => {
   await page.goto('/es/barcelona/cursos');
   await page.getByLabel('Buscar por título').fill('no-such-course-abc123');
-  await page.getByLabel('Precio máximo (€)').fill('20');
   await submit(page);
   expect(query(page).get('q')).toBe('no-such-course-abc123');
-  expect(query(page).get('maxPrice')).toBe('20');
   await expect(
     page.getByRole('heading', {
       name: 'Todavía no hay cursos que coincidan con tu búsqueda.',
@@ -188,8 +186,7 @@ test('categories compose with search, pagination, and locale switching', async (
     'idiomes',
   );
   expect(query(page).get('page')).toBe('2');
-  await page.getByLabel('Cerca per títol').fill('ANGLÈS');
-  await page.getByLabel('Preu màxim (€)').fill('20');
+  await page.getByLabel('Cerca per títol').fill('Tertúlia literària en anglès');
   await submit(page);
   await expect(page.locator('article.course')).toHaveCount(1);
   await expect(page.locator('article.course h3')).toHaveText(
@@ -450,7 +447,7 @@ test('applied filters can be removed individually or cleared, preserving other U
   await expect(page.locator('#q')).toHaveValue('');
   await expect(page.locator('#centre')).toHaveValue('');
   await expect(page.locator('#category')).toHaveValue('');
-  await expect(page.locator('#maxPrice')).toHaveValue('');
+  await expect(page.locator('#maxPrice')).toHaveCount(0);
 });
 
 test('incompatible selected categories remain visible and removable', async ({
@@ -676,7 +673,7 @@ test('places filter keeps its value in the URL and shows an applied chip', async
   page,
 }) => {
   await page.goto('/es/barcelona/cursos?places=available');
-  await expect(page.locator('#places')).toHaveValue('available');
+  await expect(page.locator('#places')).toBeChecked();
   await expect(
     page.getByRole('link', { name: 'Quitar filtro: Ocultar sin plazas' }),
   ).toBeVisible();

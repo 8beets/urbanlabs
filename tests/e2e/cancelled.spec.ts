@@ -25,17 +25,22 @@ test.describe('cancelled course discovery', () => {
       await expect(cancelled.locator('.source-link')).toHaveCount(2);
       if (page.viewportSize()!.width < 800)
         await page.locator('#filter-panel summary').click();
-      await page.locator('#cancellation').selectOption('only');
+      await page.locator('#cancellation').check();
       await page.locator('button[type="submit"]').click();
-      expect(new URL(page.url()).searchParams.get('cancellation')).toBe('only');
+      expect(new URL(page.url()).searchParams.get('cancellation')).toBe('hide');
+      await expect(page.locator('.course')).toHaveCount(3);
+      await expect(page.locator('.cancelled-label')).toHaveCount(0);
+      // "Only cancelled" has no control but stays a valid shareable URL.
+      await page.goto(`${search}?centre=cc-pati-llimona&cancellation=only`);
       await expect(page.locator('.course')).toHaveCount(2);
+      await expect(page.locator('#cancellation')).not.toBeChecked();
       await page
         .getByRole('link', {
           name: locale === 'es' ? 'Català' : 'Español',
           exact: true,
         })
         .click();
-      await expect(page.locator('#cancellation')).toHaveValue('only');
+      expect(new URL(page.url()).searchParams.get('cancellation')).toBe('only');
       await expect(page.locator('.cancelled-label')).toHaveText(
         locale === 'es'
           ? ['Cancel·lat', 'Cancel·lat']
@@ -69,18 +74,22 @@ test('changing cancellation updates dependent options before explicit submission
   await page.goto('/es/barcelona/cursos');
   if (page.viewportSize()!.width < 800)
     await page.locator('#filter-panel summary').click();
-  await page.locator('#cancellation').selectOption('only');
-  await expect(page.locator('#centre option')).toHaveCount(3);
+  await expect(
+    page.locator('#centre option[value="fab-casa-del-mig"]'),
+  ).toHaveCount(1);
+  await page.locator('#cancellation').check();
+  await expect(
+    page.locator('#centre option[value="fab-casa-del-mig"]'),
+  ).toHaveCount(0);
   expect(new URL(page.url()).searchParams.has('cancellation')).toBe(false);
-  await page.locator('#centre').selectOption('fab-casa-del-mig');
-  await expect(page.locator('button[type="submit"]')).toBeEnabled();
   await page.locator('button[type="submit"]').click();
-  await expect(page.locator('.cancelled-label')).toHaveText('Cancelado');
+  await expect(page.locator('#cancellation')).toBeChecked();
+  await expect(page.locator('.cancelled-label')).toHaveCount(0);
   const chip = page.getByRole('link', {
-    name: 'Quitar filtro: Solo cancelados',
+    name: 'Quitar filtro: Ocultar cancelados',
     exact: true,
   });
   await chip.click();
   expect(new URL(page.url()).searchParams.has('cancellation')).toBe(false);
-  await expect(page.locator('#cancellation')).toHaveValue('');
+  await expect(page.locator('#cancellation')).not.toBeChecked();
 });

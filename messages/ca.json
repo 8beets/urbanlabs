@@ -1,7 +1,5 @@
 {
   "cancelled": "Cancel·lat",
-  "cancellationFilter": "Cancel·lació",
-  "allCancellation": "Tots els cursos",
   "hideCancelled": "Amagar cancel·lats",
   "onlyCancelled": "Només cancel·lats",
   "pageNotFound": "Pàgina no trobada",
@@ -48,8 +46,6 @@
   "searchCentres": "Cerca centre per nom o adreça",
   "noMatchingCentres": "Cap centre coincideix amb la cerca.",
   "soldOut": "Sense places",
-  "placesFilter": "Places",
-  "allPlaces": "Tots els cursos",
   "hideSoldOut": "Amaga els cursos sense places",
   "closureNotice": "La guia municipal indica que aquest equipament està tancat temporalment. Confirma amb el centre on es fan les seves activitats.",
   "title": "Aprèn a prop de casa",

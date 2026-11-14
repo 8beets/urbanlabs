@@ -81,7 +81,9 @@ function applyToForm(
   const current = m.currentSelection({}, { locale });
   const set = (name: string, value: string) => {
     const element = form.elements.namedItem(name);
-    if (
+    if (element instanceof HTMLInputElement && element.type === 'checkbox')
+      element.checked = element.value === value;
+    else if (
       element instanceof HTMLInputElement ||
       element instanceof HTMLSelectElement
     )
@@ -91,10 +93,6 @@ function applyToForm(
   set('cancellation', filters.cancellation ?? '');
   set('places', filters.places ?? '');
   set('audience', filters.audience ?? '');
-  set(
-    'maxPrice',
-    filters.maxPriceCents === null ? '' : String(filters.maxPriceCents / 100),
-  );
   setOptions(
     select(form, 'centre'),
     data.centres.map((row) => ({ value: row.id, label: row.name })),

@@ -24,14 +24,13 @@ const formFields = new Set([
   'centre',
   'category',
   'audience',
-  'maxPrice',
   'start',
   'page',
   'cancellation',
   'places',
 ]);
 // The page is static: the browser search adds hidden inputs for other parameters
-// (such as `archive`) so a submission keeps them.
+// (such as `archive`, or `maxPrice` from older links) so a submission keeps them.
 ---
 
 <aside class="filter-sidebar" aria-label={m.filters({}, { locale })}>
@@ -66,33 +65,6 @@ const formFields = new Set([
       </div>
       <fieldset class="filter-group">
         <legend>{m.refine({}, { locale })}</legend>
-        <div>
-          <label for="cancellation">
-            {m.cancellationFilter({}, { locale })}
-          </label>
-          <select id="cancellation" name="cancellation">
-            <option value="" selected={!filters.cancellation}>
-              {m.allCancellation({}, { locale })}
-            </option>
-            <option value="hide" selected={filters.cancellation === 'hide'}>
-              {m.hideCancelled({}, { locale })}
-            </option>
-            <option value="only" selected={filters.cancellation === 'only'}>
-              {m.onlyCancelled({}, { locale })}
-            </option>
-          </select>
-        </div>
-        <div>
-          <label for="places">{m.placesFilter({}, { locale })}</label>
-          <select id="places" name="places">
-            <option value="" selected={!filters.places}>
-              {m.allPlaces({}, { locale })}
-            </option>
-            <option value="available" selected={filters.places === 'available'}>
-              {m.hideSoldOut({}, { locale })}
-            </option>
-          </select>
-        </div>
         <div>
           <label for="centre">{m.centre({}, { locale })}</label>
           <select id="centre" name="centre">
@@ -132,19 +104,6 @@ const formFields = new Set([
           </select>
         </div>
         <div>
-          <label for="audience">{m.audience({}, { locale })}</label>
-          <select id="audience" name="audience">
-            <option value="" selected={!filters.audience}>
-              {m.allAudiences({}, { locale })}
-            </option>
-            {AUDIENCES.map((audience) => (
-              <option value={audience} selected={filters.audience === audience}>
-                {audienceLabel(audience, locale)}
-              </option>
-            ))}
-          </select>
-        </div>
-        <div>
           <label for="start">{m.startMonth({}, { locale })}</label>
           <select id="start" name="start">
             <option value="" selected={!filters.startMonth}>
@@ -165,18 +124,37 @@ const formFields = new Set([
           </select>
         </div>
         <div>
-          <label for="maxPrice">{m.price({}, { locale })}</label>
+          <label for="audience">{m.audience({}, { locale })}</label>
+          <select id="audience" name="audience">
+            <option value="" selected={!filters.audience}>
+              {m.allAudiences({}, { locale })}
+            </option>
+            {AUDIENCES.map((audience) => (
+              <option value={audience} selected={filters.audience === audience}>
+                {audienceLabel(audience, locale)}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div class="filter-check">
           <input
-            id="maxPrice"
-            name="maxPrice"
-            type="number"
-            min="0"
-            max="9999.99"
-            step="0.01"
-            value={
-              filters.maxPriceCents === null ? '' : filters.maxPriceCents / 100
-            }
+            id="cancellation"
+            name="cancellation"
+            type="checkbox"
+            value="hide"
+            checked={filters.cancellation === 'hide'}
           />
+          <label for="cancellation">{m.hideCancelled({}, { locale })}</label>
+        </div>
+        <div class="filter-check">
+          <input
+            id="places"
+            name="places"
+            type="checkbox"
+            value="available"
+            checked={filters.places === 'available'}
+          />
+          <label for="places">{m.hideSoldOut({}, { locale })}</label>
         </div>
       </fieldset>
       <p
