@@ -8,6 +8,7 @@ import { createElPratAdapter } from './el-prat-cursos';
 import { createSabadellAdapter } from './sabadell-centres-civics';
 import { createReusAdapter } from './reus-inscripcions';
 import { createMadridAdapter } from './madrid-datos-cursos';
+import { createMalagaAdapter } from './malaga-datos-agenda';
 import type { FetchOptions } from '../http';
 import type { SourceAdapter, SourceConfig } from '../types';
 
@@ -37,5 +38,7 @@ export function adapterFor(
       return createReusAdapter(options);
     case 'madrid-datos-cursos':
       return createMadridAdapter(options);
+    case 'malaga-datos-agenda':
+      return createMalagaAdapter(options);
   }
 }

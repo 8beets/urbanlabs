@@ -1,0 +1,314 @@
+[
+  {
+    "id": "bib-mlg-manuel-altolaguirre",
+    "slug": "biblioteca-manuel-altolaguirre-cruz-del-humilladero",
+    "name": "Biblioteca Pública Municipal Manuel Altolaguirre (Cruz del Humilladero)",
+    "officialUrl": "https://bibliotecas.malaga.eu/es/nuestras-bibliotecas/biblioteca-manuel-altolaguirre-cruz-del-humilladero/",
+    "address": "Calle Calatrava, 6, 29006 Málaga",
+    "country": "ES",
+    "city": "Málaga",
+    "cityId": "malaga",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "phone": "951 926 176",
+      "email": "biblio.maltolaguirre@malaga.eu",
+      "detailsSourceUrl": "https://bibliotecas.malaga.eu/es/nuestras-bibliotecas/biblioteca-manuel-altolaguirre-cruz-del-humilladero/",
+      "detailsVerifiedAt": "2026-11-14"
+    },
+    "pausedReason": "Awaiting a maintainer decision on the dataset licence: Málaga publishes its agenda under CC BY-SA 4.0, whose share-alike condition may extend to the course data UrbanLabs republishes, so ingestion is held until that is reviewed.",
+    "registration": {
+      "platform": "malaga-datos-agenda",
+      "origin": "https://datosabiertos.malaga.eu",
+      "placeId": 116,
+      "verifiedAt": "2026-11-14",
+      "robotsTxt": "allows-requested-paths",
+      "mayBeEmpty": true
+    }
+  },
+  {
+    "id": "bib-mlg-cristobal-cuevas",
+    "slug": "biblioteca-cristobal-cuevas-bailen-miraflores",
+    "name": "Biblioteca Pública Municipal Cristóbal Cuevas (Bailén-Miraflores)",
+    "officialUrl": "https://bibliotecas.malaga.eu/es/nuestras-bibliotecas/biblioteca-cristobal-cuevas-bailen-miraflores/",
+    "address": "Plaza Eduardo Dato, s/n, 29011 Málaga",
+    "country": "ES",
+    "city": "Málaga",
+    "cityId": "malaga",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "phone": "951 926 184",
+      "email": "biblio.ccuevas@malaga.eu",
+      "detailsSourceUrl": "https://bibliotecas.malaga.eu/es/nuestras-bibliotecas/biblioteca-cristobal-cuevas-bailen-miraflores/",
+      "detailsVerifiedAt": "2026-11-14"
+    },
+    "pausedReason": "Awaiting a maintainer decision on the dataset licence: Málaga publishes its agenda under CC BY-SA 4.0, whose share-alike condition may extend to the course data UrbanLabs republishes, so ingestion is held until that is reviewed.",
+    "registration": {
+      "platform": "malaga-datos-agenda",
+      "origin": "https://datosabiertos.malaga.eu",
+      "placeId": 3011,
+      "verifiedAt": "2026-11-14",
+      "robotsTxt": "allows-requested-paths",
+      "mayBeEmpty": true
+    }
+  },
+  {
+    "id": "bib-mlg-vicente-espinel",
+    "slug": "biblioteca-vicente-espinel-puerto-de-la-torre",
+    "name": "Biblioteca Pública Municipal Vicente Espinel (Puerto de la Torre)",
+    "officialUrl": "https://bibliotecas.malaga.eu/es/nuestras-bibliotecas/biblioteca-vicente-espinel-puerto-de-la-torre/",
+    "address": "Calle Escritora Matilde del Nido, 1, 29190 Puerto de la Torre, Málaga",
+    "country": "ES",
+    "city": "Málaga",
+    "cityId": "malaga",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "phone": "951 926 187",
+      "email": "biblio.vespinel@malaga.eu",
+      "detailsSourceUrl": "https://bibliotecas.malaga.eu/es/nuestras-bibliotecas/biblioteca-vicente-espinel-puerto-de-la-torre/",
+      "detailsVerifiedAt": "2026-11-14"
+    },
+    "pausedReason": "Awaiting a maintainer decision on the dataset licence: Málaga publishes its agenda under CC BY-SA 4.0, whose share-alike condition may extend to the course data UrbanLabs republishes, so ingestion is held until that is reviewed.",
+    "registration": {
+      "platform": "malaga-datos-agenda",
+      "origin": "https://datosabiertos.malaga.eu",
+      "placeId": 120,
+      "verifiedAt": "2026-11-14",
+      "robotsTxt": "allows-requested-paths",
+      "mayBeEmpty": true
+    }
+  },
+  {
+    "id": "bib-mlg-emilio-prados",
+    "slug": "biblioteca-emilio-prados-el-palo",
+    "name": "Biblioteca Pública Municipal Emilio Prados (El Palo)",
+    "officialUrl": "https://bibliotecas.malaga.eu/es/nuestras-bibliotecas/biblioteca-emilio-prados-el-palo-/",
+    "address": "Calle Almería, 43-45, 29018 Málaga",
+    "country": "ES",
+    "city": "Málaga",
+    "cityId": "malaga",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "phone": "951 92 61 02",
+      "email": "biblio.eprados@malaga.eu",
+      "detailsSourceUrl": "https://bibliotecas.malaga.eu/es/nuestras-bibliotecas/biblioteca-emilio-prados-el-palo-/",
+      "detailsVerifiedAt": "2026-11-14"
+    },
+    "pausedReason": "Awaiting a maintainer decision on the dataset licence: Málaga publishes its agenda under CC BY-SA 4.0, whose share-alike condition may extend to the course data UrbanLabs republishes, so ingestion is held until that is reviewed.",
+    "registration": {
+      "platform": "malaga-datos-agenda",
+      "origin": "https://datosabiertos.malaga.eu",
+      "placeId": 109,
+      "verifiedAt": "2026-11-14",
+      "robotsTxt": "allows-requested-paths",
+      "mayBeEmpty": true
+    }
+  },
+  {
+    "id": "bib-mlg-jorge-guillen",
+    "slug": "biblioteca-jorge-guillen-el-perchel",
+    "name": "Biblioteca Pública Municipal Jorge Guillén (El Perchel)",
+    "officialUrl": "https://bibliotecas.malaga.eu/es/nuestras-bibliotecas/biblioteca-jorge-guillen-perchel/",
+    "address": "Calle Eslava, 8-10, 29002 Málaga",
+    "country": "ES",
+    "city": "Málaga",
+    "cityId": "malaga",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "phone": "951 926 175",
+      "email": "biblio.jguillen@malaga.eu",
+      "detailsSourceUrl": "https://bibliotecas.malaga.eu/es/nuestras-bibliotecas/biblioteca-jorge-guillen-perchel/",
+      "detailsVerifiedAt": "2026-11-14"
+    },
+    "pausedReason": "Awaiting a maintainer decision on the dataset licence: Málaga publishes its agenda under CC BY-SA 4.0, whose share-alike condition may extend to the course data UrbanLabs republishes, so ingestion is held until that is reviewed.",
+    "registration": {
+      "platform": "malaga-datos-agenda",
+      "origin": "https://datosabiertos.malaga.eu",
+      "placeId": 107,
+      "verifiedAt": "2026-11-14",
+      "robotsTxt": "allows-requested-paths",
+      "mayBeEmpty": true
+    }
+  },
+  {
+    "id": "bib-mlg-damaso-alonso",
+    "slug": "biblioteca-damaso-alonso-jardin-de-malaga",
+    "name": "Biblioteca Pública Municipal Dámaso Alonso (Jardín de Málaga)",
+    "officialUrl": "https://bibliotecas.malaga.eu/es/nuestras-bibliotecas/biblioteca-damaso-alonso-jardin-de-malaga/",
+    "address": "Calle Alcalde Nicolás Maroto, 18, 29014 Málaga",
+    "country": "ES",
+    "city": "Málaga",
+    "cityId": "malaga",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "phone": "951 92 61 03",
+      "email": "biblio.dalonso@malaga.eu",
+      "detailsSourceUrl": "https://bibliotecas.malaga.eu/es/nuestras-bibliotecas/biblioteca-damaso-alonso-jardin-de-malaga/",
+      "detailsVerifiedAt": "2026-11-14"
+    },
+    "pausedReason": "Awaiting a maintainer decision on the dataset licence: Málaga publishes its agenda under CC BY-SA 4.0, whose share-alike condition may extend to the course data UrbanLabs republishes, so ingestion is held until that is reviewed.",
+    "registration": {
+      "platform": "malaga-datos-agenda",
+      "origin": "https://datosabiertos.malaga.eu",
+      "placeId": 112,
+      "verifiedAt": "2026-11-14",
+      "robotsTxt": "allows-requested-paths",
+      "mayBeEmpty": true
+    }
+  },
+  {
+    "id": "bib-mlg-miguel-de-cervantes",
+    "slug": "biblioteca-miguel-de-cervantes-bailen-las-chapas",
+    "name": "Biblioteca Pública Municipal Miguel de Cervantes (Bailén-Las Chapas)",
+    "officialUrl": "https://bibliotecas.malaga.eu/es/nuestras-bibliotecas/biblioteca-miguel-de-cervantes-bailen-las-chapas/",
+    "address": "Calle Juan Fernández Suria, 2, 29010 Málaga",
+    "country": "ES",
+    "city": "Málaga",
+    "cityId": "malaga",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "phone": "951 926 104",
+      "email": "biblio.cervantes@malaga.eu",
+      "detailsSourceUrl": "https://bibliotecas.malaga.eu/es/nuestras-bibliotecas/biblioteca-miguel-de-cervantes-bailen-las-chapas/",
+      "detailsVerifiedAt": "2026-11-14"
+    },
+    "pausedReason": "Awaiting a maintainer decision on the dataset licence: Málaga publishes its agenda under CC BY-SA 4.0, whose share-alike condition may extend to the course data UrbanLabs republishes, so ingestion is held until that is reviewed.",
+    "registration": {
+      "platform": "malaga-datos-agenda",
+      "origin": "https://datosabiertos.malaga.eu",
+      "placeId": 110,
+      "verifiedAt": "2026-11-14",
+      "robotsTxt": "allows-requested-paths",
+      "mayBeEmpty": true
+    }
+  },
+  {
+    "id": "bib-mlg-jose-moreno-villa",
+    "slug": "biblioteca-jose-moreno-villa-churriana",
+    "name": "Biblioteca Pública Municipal José Moreno Villa (Churriana)",
+    "officialUrl": "https://bibliotecas.malaga.eu/es/nuestras-bibliotecas/biblioteca-jose-moreno-villa-churriana/",
+    "address": "Calle Maestro Vert, 21, 29140 Málaga",
+    "country": "ES",
+    "city": "Málaga",
+    "cityId": "malaga",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "phone": "951 926 177",
+      "email": "biblio.jmorenovilla@malaga.eu",
+      "detailsSourceUrl": "https://bibliotecas.malaga.eu/es/nuestras-bibliotecas/biblioteca-jose-moreno-villa-churriana/",
+      "detailsVerifiedAt": "2026-11-14"
+    },
+    "pausedReason": "Awaiting a maintainer decision on the dataset licence: Málaga publishes its agenda under CC BY-SA 4.0, whose share-alike condition may extend to the course data UrbanLabs republishes, so ingestion is held until that is reviewed.",
+    "registration": {
+      "platform": "malaga-datos-agenda",
+      "origin": "https://datosabiertos.malaga.eu",
+      "placeId": 118,
+      "verifiedAt": "2026-11-14",
+      "robotsTxt": "allows-requested-paths",
+      "mayBeEmpty": true
+    }
+  },
+  {
+    "id": "bib-mlg-jorge-luis-borges",
+    "slug": "biblioteca-jorge-luis-borges-campanillas",
+    "name": "Biblioteca Pública Municipal Jorge Luis Borges (Campanillas)",
+    "officialUrl": "https://bibliotecas.malaga.eu/es/nuestras-bibliotecas/biblioteca-jorge-luis-borges-campanillas/",
+    "address": "Calle Ramírez Arcas, 2, 29590 Málaga",
+    "country": "ES",
+    "city": "Málaga",
+    "cityId": "malaga",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "phone": "951 92 61 09",
+      "email": "biblio.jlborges@malaga.eu",
+      "detailsSourceUrl": "https://bibliotecas.malaga.eu/es/nuestras-bibliotecas/biblioteca-jorge-luis-borges-campanillas/",
+      "detailsVerifiedAt": "2026-11-14"
+    },
+    "pausedReason": "Awaiting a maintainer decision on the dataset licence: Málaga publishes its agenda under CC BY-SA 4.0, whose share-alike condition may extend to the course data UrbanLabs republishes, so ingestion is held until that is reviewed.",
+    "registration": {
+      "platform": "malaga-datos-agenda",
+      "origin": "https://datosabiertos.malaga.eu",
+      "placeId": 122,
+      "verifiedAt": "2026-11-14",
+      "robotsTxt": "allows-requested-paths",
+      "mayBeEmpty": true
+    }
+  },
+  {
+    "id": "bib-mlg-alberto-jimenez-fraud",
+    "slug": "biblioteca-alberto-jimenez-fraud-palma-palmilla",
+    "name": "Biblioteca Pública Municipal Alberto Jiménez Fraud (Palma-Palmilla)",
+    "officialUrl": "https://bibliotecas.malaga.eu/es/nuestras-bibliotecas/biblioteca-alberto-jimenez-fraud-palma-palmilla/",
+    "address": "Calle Doctor Gálvez Moll, 15, 29011 Málaga",
+    "country": "ES",
+    "city": "Málaga",
+    "cityId": "malaga",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "phone": "951 92 61 05",
+      "email": "biblio.ajimenezfraud@malaga.eu",
+      "detailsSourceUrl": "https://bibliotecas.malaga.eu/es/nuestras-bibliotecas/biblioteca-alberto-jimenez-fraud-palma-palmilla/",
+      "detailsVerifiedAt": "2026-11-14"
+    },
+    "pausedReason": "Awaiting a maintainer decision on the dataset licence: Málaga publishes its agenda under CC BY-SA 4.0, whose share-alike condition may extend to the course data UrbanLabs republishes, so ingestion is held until that is reviewed.",
+    "registration": {
+      "platform": "malaga-datos-agenda",
+      "origin": "https://datosabiertos.malaga.eu",
+      "placeId": 111,
+      "verifiedAt": "2026-11-14",
+      "robotsTxt": "allows-requested-paths",
+      "mayBeEmpty": true
+    }
+  },
+  {
+    "id": "bib-mlg-serafin-estebanez-calderon",
+    "slug": "biblioteca-serafin-estebanez-calderon-santa-rosalia",
+    "name": "Biblioteca Pública Municipal Serafín Estébanez Calderón (Santa Rosalía)",
+    "officialUrl": "https://bibliotecas.malaga.eu/es/nuestras-bibliotecas/biblioteca-serafin-estebanez-calderon-santa-rosalia/",
+    "address": "Calle Ronda del Norte, 11-13, 29591 Málaga",
+    "country": "ES",
+    "city": "Málaga",
+    "cityId": "malaga",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "phone": "951 926 186",
+      "email": "biblio.secalderon@malaga.eu",
+      "detailsSourceUrl": "https://bibliotecas.malaga.eu/es/nuestras-bibliotecas/biblioteca-serafin-estebanez-calderon-santa-rosalia/",
+      "detailsVerifiedAt": "2026-11-14"
+    },
+    "pausedReason": "Awaiting a maintainer decision on the dataset licence: Málaga publishes its agenda under CC BY-SA 4.0, whose share-alike condition may extend to the course data UrbanLabs republishes, so ingestion is held until that is reviewed.",
+    "registration": {
+      "platform": "malaga-datos-agenda",
+      "origin": "https://datosabiertos.malaga.eu",
+      "placeId": 121,
+      "verifiedAt": "2026-11-14",
+      "robotsTxt": "allows-requested-paths",
+      "mayBeEmpty": true
+    }
+  },
+  {
+    "id": "bib-mlg-maria-zambrano",
+    "slug": "biblioteca-maria-zambrano-huelin",
+    "name": "Biblioteca Pública Municipal María Zambrano (Huelin)",
+    "officialUrl": "https://bibliotecas.malaga.eu/es/nuestras-bibliotecas/biblioteca-maria-zambrano-huelin/",
+    "address": "Calle Guadalete, 6, 1º, 29002 Málaga",
+    "country": "ES",
+    "city": "Málaga",
+    "cityId": "malaga",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "phone": "951 92 61 07",
+      "email": "biblio.mzambrano@malaga.eu",
+      "detailsSourceUrl": "https://bibliotecas.malaga.eu/es/nuestras-bibliotecas/biblioteca-maria-zambrano-huelin/",
+      "detailsVerifiedAt": "2026-11-14"
+    },
+    "pausedReason": "Awaiting a maintainer decision on the dataset licence: Málaga publishes its agenda under CC BY-SA 4.0, whose share-alike condition may extend to the course data UrbanLabs republishes, so ingestion is held until that is reviewed.",
+    "registration": {
+      "platform": "malaga-datos-agenda",
+      "origin": "https://datosabiertos.malaga.eu",
+      "placeId": 117,
+      "verifiedAt": "2026-11-14",
+      "robotsTxt": "allows-requested-paths",
+      "mayBeEmpty": true
+    }
+  }
+]

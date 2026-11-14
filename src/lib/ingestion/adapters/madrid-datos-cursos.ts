@@ -2,6 +2,7 @@ import { createHash } from 'node:crypto';
 import { z } from 'zod';
 import { createSourceFetcher, type FetchOptions } from '../http';
 import { assertRobotsAllowPath } from '../robots';
+import { parseCsv } from '../normalization/csv';
 import { MADRID_ORIGIN } from '../../centres/schema';
 import { weekdayNames } from '../../time/dates';
 import type { CourseRecord, SourceAdapter, SourceConfig } from '../types';
@@ -57,35 +58,7 @@ export function newestCsvPath(json: string): string {
   return url.pathname;
 }
 
-/** Rows of a semicolon CSV with double-quoted fields ("" escapes a quote). */
-export function parseCsv(text: string): string[][] {
-  const rows: string[][] = [];
-  let row: string[] = [];
-  let field = '';
-  let quoted = false;
-  const input = text.charCodeAt(0) === 0xfeff ? text.slice(1) : text;
-  for (let i = 0; i < input.length; i++) {
-    const char = input[i]!;
-    if (quoted) {
-      if (char !== '"') field += char;
-      else if (input[i + 1] === '"') field += input[++i];
-      else quoted = false;
-    } else if (char === '"') quoted = true;
-    else if (char === ';') {
-      row.push(field);
-      field = '';
-    } else if (char === '\n' || char === '\r') {
-      if (char === '\r' && input[i + 1] === '\n') i++;
-      row.push(field);
-      rows.push(row);
-      row = [];
-      field = '';
-    } else field += char;
-  }
-  if (quoted) throw new Error('Unterminated quoted CSV field');
-  if (field || row.length) rows.push([...row, field]);
-  return rows;
-}
+export { parseCsv };
 
 export type MadridRow = Record<string, string>;
 

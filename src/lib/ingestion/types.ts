@@ -13,7 +13,7 @@ export interface SourceConfig {
   listingUrl: string;
   excludedCategoryCodes?: string[];
   excludedExternalIds?: string[];
-  /** The centre's number on its platform (Tarragona activity codes, Zaragoza `idLugar`, Vitoria `cen`, Sabadell venue id). */
+  /** The centre's number on its platform (Tarragona activity codes, Zaragoza `idLugar`, Vitoria `cen`, Sabadell venue id, Málaga `ID_LUGAR`). */
   centreCode?: number;
   /** Girona and Vitoria-Gasteiz: the centre's venue name (El Prat: its page path); Girona: the activity-code prefix of the courses it runs elsewhere. */
   venue?: string;

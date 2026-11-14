@@ -7,6 +7,7 @@ import esZaragoza from '../../../data/centres/es/zaragoza.json' with { type: 'js
 import esGirona from '../../../data/centres/es/girona.json' with { type: 'json' };
 import esElPrat from '../../../data/centres/es/el-prat-de-llobregat.json' with { type: 'json' };
 import esMadrid from '../../../data/centres/es/madrid.json' with { type: 'json' };
+import esMalaga from '../../../data/centres/es/malaga.json' with { type: 'json' };
 import esReus from '../../../data/centres/es/reus.json' with { type: 'json' };
 import esSabadell from '../../../data/centres/es/sabadell.json' with { type: 'json' };
 import esVitoriaGasteiz from '../../../data/centres/es/vitoria-gasteiz.json' with { type: 'json' };
@@ -23,6 +24,7 @@ export const centreFiles: Record<string, unknown[]> = {
   'es/el-prat-de-llobregat': esElPrat,
   'es/girona': esGirona,
   'es/madrid': esMadrid,
+  'es/malaga': esMalaga,
   'es/reus': esReus,
   'es/sabadell': esSabadell,
   'es/tarragona': esTarragona,

@@ -193,6 +193,23 @@ const reusRegistrationSchema = z.strictObject({
   mayBeEmpty: z.boolean().optional(),
 });
 
+// Málaga's municipal agenda: one open dataset on datosabiertos.malaga.eu (a yearly
+// CSV at a fixed path in the adapter); each row names its venue by ID_LUGAR.
+export const MALAGA_ORIGIN = 'https://datosabiertos.malaga.eu';
+const malagaRegistrationSchema = z.strictObject({
+  platform: z.literal('malaga-datos-agenda'),
+  origin: z.literal(MALAGA_ORIGIN),
+  // The venue's ID_LUGAR in the dataset (the city's facility id), e.g. 116 is the
+  // Manuel Altolaguirre library.
+  placeId: z.number().int().positive(),
+  verifiedAt: z.iso.date(),
+  // Reviewed policy: the `User-agent: *` group disallows /api/ and other CKAN paths,
+  // not the /recursos/ files, and asks for a 10-second crawl delay; the adapter
+  // re-checks the CSV path on every run.
+  robotsTxt: z.literal('allows-requested-paths'),
+  mayBeEmpty: z.boolean().optional(),
+});
+
 // Add new platforms as further members of this union, each with its own adapter
 // (src/lib/ingestion/adapters) and a case in toSourceConfig.
 export const registrationSchema = z.discriminatedUnion('platform', [
@@ -206,6 +223,7 @@ export const registrationSchema = z.discriminatedUnion('platform', [
   sabadellRegistrationSchema,
   madridRegistrationSchema,
   reusRegistrationSchema,
+  malagaRegistrationSchema,
 ]);
 
 export const centreSchema = z.strictObject({
@@ -326,6 +344,14 @@ function platformSource(
         // The centre's page on reus.cat; the adapter reads the network's listing.
         listingUrl: centre.officialUrl,
         venue: registration.venue,
+      };
+    case 'malaga-datos-agenda':
+      return {
+        name: `${centre.name} · Agenda municipal de Málaga`,
+        // The venue's own page (listing URLs are unique); the adapter reads the
+        // city's yearly agenda CSV and keeps this venue's rows.
+        listingUrl: centre.officialUrl,
+        centreCode: registration.placeId,
       };
   }
 }

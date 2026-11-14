@@ -30,6 +30,11 @@
       "id": "comunidad-de-madrid",
       "country": "ES",
       "name": "Comunidad de Madrid"
+    },
+    {
+      "id": "andalucia",
+      "country": "ES",
+      "name": "Andalucía"
     }
   ],
   "cities": [
@@ -149,6 +154,22 @@
       "names": {
         "es": "Reus",
         "ca": "Reus"
+      }
+    },
+    {
+      "id": "malaga",
+      "country": "ES",
+      "region": "andalucia",
+      "names": {
+        "es": "Málaga",
+        "ca": "Màlaga"
+      },
+      "dataCredit": {
+        "url": "https://datosabiertos.malaga.eu/dataset/agenda-2026",
+        "names": {
+          "es": "Ayuntamiento de Málaga – datosabiertos.malaga.eu (CC BY-SA 4.0)",
+          "ca": "Ajuntament de Màlaga – datosabiertos.malaga.eu (CC BY-SA 4.0)"
+        }
       }
     }
   ]

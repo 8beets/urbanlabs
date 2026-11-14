@@ -4,6 +4,8 @@ export interface FetchOptions {
   intervalMs?: number;
   /** Keep the session cookies the source sets and send them back (Girona's listing). */
   session?: boolean;
+  /** Response size limit in bytes (default 2 MB), for whole-dataset downloads. */
+  maxBytes?: number;
 }
 
 export const sleep = (milliseconds: number) =>
@@ -74,6 +76,7 @@ export function createSourceFetcher(
       }
       const reader = response.body?.getReader();
       if (!reader) throw new Error('Empty response body');
+      const limit = options.maxBytes ?? 2_000_000;
       const chunks: Uint8Array<ArrayBuffer>[] = [];
       let size = 0;
       try {
@@ -81,8 +84,10 @@ export function createSourceFetcher(
           const { done, value } = await reader.read();
           if (done) break;
           size += value.byteLength;
-          if (size > 2_000_000)
-            throw new Error('Source page exceeds 2 MB limit');
+          if (size > limit)
+            throw new Error(
+              `Source page exceeds ${limit / 1_000_000} MB limit`,
+            );
           chunks.push(value);
         }
       } finally {
