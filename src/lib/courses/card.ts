@@ -29,12 +29,14 @@ function priceText(course: CourseListing, locale: Locale): string {
 
 /**
  * Markup of one course card. `filterParams` are the active search filters, kept on
- * the category link so it narrows the current search.
+ * the category link so it narrows the current search. `city` is a city label, set
+ * where the listing mixes cities (the homepage).
  */
 export function courseCardHtml(
   course: CourseListing,
   locale: Locale,
   filterParams: URLSearchParams = new URLSearchParams(),
+  city?: string,
 ): string {
   const title = course.title_reviewed
     ? course.title
@@ -66,7 +68,7 @@ export function courseCardHtml(
       ? `<a class="course-category" href="${escapeHtml(`${courseSearchPath(locale, course.city_id)}?${categoryParams}`)}">${escapeHtml(categoryLabel(course.category, locale))}</a>`
       : '',
     `<h3${title !== course.title ? ` title="${escapeHtml(course.title)}"` : ''}>${escapeHtml(title)}</h3>`,
-    `<p class="institution">${iconHtml('pin')}<a href="${escapeHtml(centrePath(locale, course.city_id, course.institution_slug))}">${escapeHtml(course.institution)}</a></p>`,
+    `<p class="institution">${iconHtml('pin')}<a href="${escapeHtml(centrePath(locale, course.city_id, course.institution_slug))}">${escapeHtml(course.institution)}</a>${city ? ` · ${escapeHtml(city)}` : ''}</p>`,
     `<p class="course-date">${iconHtml('calendar')}<span>${escapeHtml(dates)}</span></p>`,
     course.schedule_text
       ? `<p class="schedule">${iconHtml('clock')}<span>${escapeHtml(formatSchedule(course.schedule_text, locale))}</span></p>`
