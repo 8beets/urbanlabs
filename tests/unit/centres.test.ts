@@ -51,7 +51,11 @@ describe('centre registry', () => {
       const url = new URL(source.listingUrl);
       expect(url.protocol).toBe('https:');
       if (centre.registration.platform === 'miram') {
-        expect(source.listingUrl).toBe(miramListingUrl(centre.registration));
+        // A centre sharing its host with another is told apart by a fragment.
+        expect(source.listingUrl).toBe(
+          miramListingUrl(centre.registration) +
+            (centre.registration.venues ? `#${centre.slug}` : ''),
+        );
         expect(url.pathname).toBe('/MiramModular/buscador/buscador.jsp');
         expect([...url.searchParams.keys()]).toEqual(['g', 'c', 't']);
       }

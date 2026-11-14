@@ -349,9 +349,9 @@ describe('bounded fetching', () => {
       },
     });
     await expect(adapter.fetchRecords(santAndreu)).rejects.toThrow(
-      '60-page limit',
+      '120-page limit',
     );
-    expect(calls).toBe(60);
+    expect(calls).toBe(120);
   });
   it('excludes reviewed non-course records using institution configuration', async () => {
     const adapter = createMiramAdapter({
@@ -368,6 +368,28 @@ describe('bounded fetching', () => {
     });
     expect(records).toHaveLength(3);
     expect(records.some((record) => record.externalId === '1725')).toBe(false);
+  });
+  it('splits a shared host between its centres by the card venue', async () => {
+    const shared = readFixture('miram-cotxeres-casinet-venues.html');
+    const run = async (id: string) => {
+      const source = getSource(id);
+      const { options, requests } = fakeSource(({ pathname }) =>
+        pathname === '/robots.txt' ? null : shared,
+      );
+      const ids = (await createMiramAdapter(options).fetchRecords(source)).map(
+        (record) => record.externalId,
+      );
+      return { ids, requests, source };
+    };
+    const casinet = await run('miram-casinet-d-hostafrancs');
+    const cotxeres = await run('miram-cotxeres-de-sants');
+    expect(casinet.ids.sort()).toEqual(['14729', '14730']);
+    expect(cotxeres.ids).toEqual(['14896']);
+    // Both read the same listing; the fragment only keeps listing URLs unique.
+    expect(casinet.source.listingUrl).not.toBe(cotxeres.source.listingUrl);
+    expect(casinet.requests[1]).not.toContain('#');
+    // Institut Montserrat (14885) is neither centre's building and stays out.
+    expect(parseMiramPage(shared, url, false, ['Nowhere']).otherVenues).toBe(4);
   });
   it('retries a rate limit and respects Retry-After', async () => {
     const delays: number[] = [];

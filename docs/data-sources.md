@@ -191,13 +191,30 @@ Verified on 2026-11-11 on the shared Miram adapter:
 - Phone numbers, addresses and coordinates come from each centre's `guia.barcelona.cat` entry (`loadmapdetall` configuration), respecting its 10-second crawl delay. Postcodes come from the registration footers. Official URLs are the municipal `ajuntament.barcelona.cat/ccivics/…` page, or the centre's own site where the guide lists one (Can Felipa, Casa Orlandai, Convent de Sant Agustí, Cotxeres Borrell, Sagrada Família).
 - Parser: Cotxeres Borrell prints its full-card notice as "0 20/07/2026 Places exhaurides…", and Sant Martí shows an ID-less preview reading "Les inscripcions on-line les podreu fer a partir del …". Both exact forms are now recognised; any other identifier-less card still stops ingestion. Sant Andreu shows a similar "Podreu realitzar les inscripcions on-line…" footer on cards that do have IDs, so that wording is deliberately not treated as a preview.
 - Exclusions: Guinardó categories `sm` (adult planetarium and telescope sessions), `GE` (stage performances) and `XP` (exhibition events), its family planetarium sessions `3861`–`3863`, `3874`, `3907`–`3909` and round table `3912` (the two family astronomy workshops stay); Sagrada Família category `RP` ("Parlem…" talks); Drassanes category `BD` (Barcelona Districte Cultural shows, including an ID-less preview); Sant Martí `2633` (children's film screening). Guided walks and itineraries (Sagrada Família `IT`, Pere Quart `SO`, Font de la Guatlla `09`) are kept, as at Navas.
-- Not added yet:
-  - **Can Verdaguer (#22)**: `canverdaguer.inscripcionscc.com` (centre code 24) currently publishes only the `CE` shows-and-talks type, so there is no course catalogue to verify.
-  - **Cotxeres de Sants (#28) and Casinet d'Hostafrancs (#25)**: both register through one combined host, `cotxerescasinet.inscripcionscc.com` ("Centre Cívic Cotxeres-Casinet", centre code 34). Splitting its editions between the two venues needs a modelling decision.
-  - **Josep Maria Trias i Peitx (#37)**: older programmes point to `inscripcions.ccrierablanca.com`, which does not resolve, and the host is outside the approved Miram suffixes.
-  - **La Cadena (#39)**: `lacadena.inscripcionscc.com` currently exposes no navigation or centre code.
+- Not added yet: **Can Verdaguer (#22)**. `canverdaguer.inscripcionscc.com` (centre code 24) publishes only the `CE` shows-and-talks type. Re-checked on 2026-11-13: `CE` mixes talks and presentations with one-off workshops, and the `AC` listing is empty and not linked from the navigation. No course catalogue exists to import, and cultural events are not substituted for courses.
 - Emails are omitted because the registration and municipal pages were not cross-checked.
 - The same metadata-only collection, unknown availability/language, base-price and reuse-review limitations described above apply.
+
+### Remaining Barcelona civic centres (issues #25, #28, #37, #39) — verified 2026-11-13
+
+| Centre                                 | Source ID                         | Editions | Verified registration root                                                                  |
+| -------------------------------------- | --------------------------------- | -------: | ------------------------------------------------------------------------------------------- |
+| Centre Cívic Cotxeres de Sants         | `miram-cotxeres-de-sants`         |      218 | https://cotxerescasinet.inscripcionscc.com/MiramModular/buscador/buscador.jsp?g=1&c=34&t=AC |
+| Centre Cívic Casinet d'Hostafrancs     | `miram-casinet-d-hostafrancs`     |      103 | https://cotxerescasinet.inscripcionscc.com/MiramModular/buscador/buscador.jsp?g=1&c=34&t=AC |
+| Centre Cívic Josep Maria Trias i Peitx | `miram-josep-maria-trias-i-peitx` |       66 | https://ccjmtriasipeitx.inscripcionscc.com/MiramModular/buscador/buscador.jsp?g=1&c=45&t=AC |
+| Centre Cívic La Cadena                 | `miram-la-cadena`                 |        0 | https://lacadena.inscripcionscc.com/MiramModular/buscador/buscador.jsp?g=1&c=33&t=AC        |
+
+- Edition counts come from a live `source:verify` run (nothing stored). Every host returned HTTP 404 for `robots.txt`, and each was confirmed by its page title and footer.
+- **Cotxeres-Casinet** is one Miram host for both centres. They are run under one municipal agreement by the Secretariat d'Entitats de Sants, Hostafrancs i la Bordeta. Every card names its room and building on an "Espai:" line, and the `venues` registration field keeps only the cards whose line contains one of the centre's texts:
+  - **Casinet:** "Rector Triadó, 53", 103 cards.
+  - **Cotxeres:** "Sants, 79" or "Bonet i Muixí", 218 cards. The barcelona.cat guide gives Plaça Bonet i Muixí 7 for Cotxeres, so its "Edifici C" and the Masia del Rellotge are counted as Cotxeres.
+  - **Neither centre:** 56 cards held elsewhere are left out because their building belongs to neither centre: Institut Montserrat (C/ Cros 6-8), C/ Sant Roc 28, Mercat de Sants, C/ Mir i Geribert 8, MNAC, Plaça Cerdà, and the "Aula virtual" online sessions.
+  - **Excluded category:** `20` (online workshops).
+  - **Listing URL:** both sources read the same listing, so each `listingUrl` carries the centre slug as a fragment to stay unique. The adapter drops it.
+  - **Crawl size:** the host has about 100 listing pages, so the Miram page bound is now 120. Each source crawls the host separately.
+- **Josep Maria Trias i Peitx** now registers through `ccjmtriasipeitx.inscripcionscc.com` (centre code 45), found by a contributor on #37.
+- **La Cadena:** the root page exposes centre code 33, and the `AC` listing is well formed but empty while the winter 2026 workshops are not yet online. The centre is marked `mayBeEmpty`, so an empty run is a normal success.
+- Phones, addresses and coordinates come from each centre's `guia.barcelona.cat` entry, and postcodes from the registration footers. The Casinet footer shows only the shared C/ Sants 79 address, so Casinet has no postcode. The shared `cotxeres-casinet@secretariat.cat` email appears both in the guide and in the registration footer, so it is kept for Cotxeres and Casinet. Trias i Peitx and La Cadena emails are omitted because the sources disagree.
 
 ## Alicante — Aula Abierta (municipal culture classes), paused
 

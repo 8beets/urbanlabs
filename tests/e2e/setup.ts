@@ -278,6 +278,10 @@ async function setup() {
       'miram-teixonera',
       'miram-tomasa-cuevas-les-corts',
       'miram-torre-llobeta',
+      'miram-cotxeres-de-sants',
+      'miram-casinet-d-hostafrancs',
+      'miram-josep-maria-trias-i-peitx',
+      'miram-la-cadena',
     ].entries()) {
       const source = getSource(id);
       await runIngestion(

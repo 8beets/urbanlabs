@@ -19,15 +19,20 @@ const fullNotice =
 const previewNotice =
   /^(?:Podreu realitzar les inscripcions en línia a partir del|Les inscripcions on-line les podreu fer a partir del) \d{2}\/\d{2}\/\d{4}$/u;
 
+const fold = (text: string) =>
+  text.normalize('NFD').replace(/\p{M}/gu, '').toLowerCase();
+
 export function parseMiramPage(
   html: string,
   pageUrl: string,
   allowEmpty = false,
+  venues?: string[],
 ): {
   records: CourseRecord[];
   links: string[];
   unpublishedPreviews: number;
   fullWithoutId: number;
+  otherVenues: number;
 } {
   const $ = load(html);
   if (!$('#eFamilia').length)
@@ -39,6 +44,7 @@ export function parseMiramPage(
   const records: CourseRecord[] = [];
   let unpublishedPreviews = 0;
   let fullWithoutId = 0;
+  let otherVenues = 0;
   $('.card.overh').each((_, element) => {
     const card = $(element);
     // Single-session cards have no session accordion; their registration form still
@@ -71,6 +77,12 @@ export function parseMiramPage(
       .children('p.card-text')
       .map((_, p) => cleanText($(p).text()))
       .get();
+    // A shared host lists several centres' cards; keep only this centre's venues.
+    const venue = fold(paragraphs.find((p) => /^Espai:/u.test(p)) ?? '');
+    if (venues && !venues.some((v) => venue.includes(fold(v)))) {
+      otherVenues++;
+      return;
+    }
     const range = paragraphs.find((p) => /^(?:Del )?\d{1,2}\s+d[e’']/u.test(p));
     const [startDate, endDate] = parseDateRange(range ?? '');
     const priceCents = parseEuroPrice(
@@ -117,7 +129,8 @@ export function parseMiramPage(
     !records.length &&
     !links.length &&
     !unpublishedPreviews &&
-    !fullWithoutId
+    !fullWithoutId &&
+    !otherVenues
   )
     throw new Error('Empty Miram listing; manual review required');
   return {
@@ -125,6 +138,7 @@ export function parseMiramPage(
     links: [...new Set(links)],
     unpublishedPreviews,
     fullWithoutId,
+    otherVenues,
   };
 }
 
@@ -167,11 +181,16 @@ export function createMiramAdapter(options: FetchOptions = {}): SourceAdapter {
         const url = canonicalPage(queue.shift()!);
         if (visited.has(url)) continue;
         if (!approvedPage(url, root)) throw new Error('Unapproved source page');
-        // Can Basté has nine eligible categories and six photography pages alone.
-        if (visited.size >= 60)
-          throw new Error('Miram pagination exceeded 60-page limit');
+        // Cotxeres-Casinet lists ~400 cards four per page (~100 pages) for two centres.
+        if (visited.size >= 120)
+          throw new Error('Miram pagination exceeded 120-page limit');
         visited.add(url);
-        const page = parseMiramPage((await get(url))!, url, source.mayBeEmpty);
+        const page = parseMiramPage(
+          (await get(url))!,
+          url,
+          source.mayBeEmpty,
+          source.venues,
+        );
         if (page.unpublishedPreviews)
           console.info(
             JSON.stringify({
