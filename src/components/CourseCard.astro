@@ -1,14 +1,19 @@
 ---
 import { courseCardHtml } from '../lib/courses/card';
 import type { Locale } from '../i18n/ui';
+import { cityLabel } from '../i18n/geography';
 import type { CourseListing } from '../lib/catalog/types';
 interface Props {
   locale: Locale;
   course: CourseListing;
   filterParams?: URLSearchParams;
+  showCity?: boolean;
 }
-const { locale, course, filterParams } = Astro.props;
+const { locale, course, filterParams, showCity } = Astro.props;
+const city = showCity
+  ? cityLabel({ id: course.city_id, name: course.city_id }, locale)
+  : undefined;
 // The browser search renders cards with the same function (src/lib/courses/card.ts).
 ---
 
-<Fragment set:html={courseCardHtml(course, locale, filterParams)} />
+<Fragment set:html={courseCardHtml(course, locale, filterParams, city)} />
