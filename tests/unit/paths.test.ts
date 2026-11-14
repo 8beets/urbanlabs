@@ -40,6 +40,7 @@ it('lists the cities with an approved source; no city id is a fixed section', ()
     'barcelona',
     'el-prat-de-llobregat',
     'girona',
+    'malaga',
     'zaragoza',
   ]);
   // Every fixed section's localized segment is reserved.

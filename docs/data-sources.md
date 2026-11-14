@@ -319,7 +319,7 @@ Researched 2026-11-13; the 7 civic centres registered in `data/centres/es/reus.j
 - **Profiles.** Address, phone, email and coordinates come from the network page on reus.cat ([Centres Cívics](https://www.reus.cat/centres-civics)); Gregal has no page of its own there, so its official URL is that network page.
 - **Permission pending.** The [avís legal](https://www.reus.cat/avis-legal) allows the content only "exclusivament per al seu ús personal, privat i no lucratiu" and subjects any other use to "prèvia i expressa autorització". All 7 centres carry `pausedReason`: validated but **not ingested, scheduled or published** until written permission is granted. A draft request is in `docs/reus-permission-request.md`.
 
-## Málaga — Bibliotecas Públicas Municipales (open dataset), paused
+## Málaga — Bibliotecas Públicas Municipales (open dataset)
 
 Researched 2026-11-14; 12 municipal libraries registered in `data/centres/es/malaga.json`. Adapter `malaga-datos-agenda`.
 
@@ -330,7 +330,7 @@ Researched 2026-11-14; 12 municipal libraries registered in `data/centres/es/mal
 - **Empty venues.** The yearly file starts again each January, so every library carries `mayBeEmpty`; a malformed file (missing columns, wrong field counts) still fails the run.
 - **Access.** robots.txt disallows `/api/`, `/revision/` and some dataset paths for `User-agent: *` and sets `Crawl-delay: 10`; the adapter checks the file path on every run and waits 10 seconds between requests.
 - **Profiles.** Address, phone and email come from each library's page on `bibliotecas.malaga.eu` (no coordinates are published there).
-- **Paused.** The CC BY-SA 4.0 share-alike condition may extend to the course data UrbanLabs republishes. All 12 libraries carry `pausedReason`: validated but **not ingested, scheduled or published** until a maintainer decides. `data/geography.json` gives Málaga a `dataCredit` for the attribution.
+- **Reuse.** The dataset is CC BY-SA 4.0. UrbanLabs publishes course facts only (title, dates, schedule, explicit free price; no descriptions or contacts), links each course to its library's page and credits "Ayuntamiento de Málaga – datosabiertos.malaga.eu (CC BY-SA 4.0)" in the footer, linking the dataset (`dataCredit` in `data/geography.json`). Published from 2026-11-14 at the maintainer's decision; the libraries are active.
 
 ## Investigated and deferred
 
@@ -422,7 +422,7 @@ Checked for course feeds in open-data portals and APIs, since the city websites 
 - No course or agenda datasets were found for A Coruña, Santiago, Lugo, Ourense, Pontevedra or Ferrol. Listing their datasets on datos.gob.es by publisher code returned 0 for all, but the codes were not verified, so this is inconclusive.
 - `abertos.xunta.gal` reset every connection and was not inspected.
 
-**Andalucía — Málaga "Agenda 2026" (adapter added, paused; see the Málaga section above).** `https://datosabiertos.malaga.eu/recursos/cultura/agenda/2026.csv` (CC BY-SA 4.0; earlier years were CC BY 4.0), described as updated daily, with entries through December 2026. The portal's robots.txt disallows `/api/` and sets `Crawl-delay: 10`; the `/recursos/` files are allowed. One CKAN `package_show` request was made before the policy was read; nothing else under `/api/` was requested.
+**Andalucía — Málaga "Agenda 2026" (published; see the Málaga section above).** `https://datosabiertos.malaga.eu/recursos/cultura/agenda/2026.csv` (CC BY-SA 4.0; earlier years were CC BY 4.0), described as updated daily, with entries through December 2026. The portal's robots.txt disallows `/api/` and sets `Crawl-delay: 10`; the `/recursos/` files are allowed. One CKAN `package_show` request was made before the policy was read; nothing else under `/api/` was requested.
 
 - **Shape.** UTF-8, comma-separated, quoted strings, LF line endings, multi-line descriptions. 1,274 rows on 2026-11-14 for 814 activities (`ID_ACTIVIDAD`, the stable external id) in 135 events (`ID_EVENTO`). An activity repeats once per extra category or specialty (and sometimes image), so rows must be grouped by `ID_ACTIVIDAD`.
 - **Fields.** Name (sometimes with HTML), description (HTML), `F_INICIO`/`F_FIN` (`dd/mm/yyyy 00:00:00`, local dates), `HORARIO` (free text), venue name, street and district (`EQP_*`) or `OTROS_LUGARES`, audience, `PRECIO` (free text), registration dates (`F_INICIO_INS`/`F_FIN_INS`, `dd-MON-yy`), website, phone, email. `ORGANIZA` is nearly always empty.

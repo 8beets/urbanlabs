@@ -82,10 +82,10 @@ describe('geographic filters', () => {
     );
     expect(cityLabel({ id: 'oviedo', name: 'Oviedo' }, 'ca')).toBe('Oviedo');
     expect(coveredCities('es')).toBe(
-      'Barcelona, El Prat de Llobregat, Girona y Zaragoza',
+      'Barcelona, El Prat de Llobregat, Girona, Málaga y Zaragoza',
     );
     expect(coveredCities('ca')).toBe(
-      'Barcelona, El Prat de Llobregat, Girona i Saragossa',
+      'Barcelona, El Prat de Llobregat, Girona, Màlaga i Saragossa',
     );
   });
   it('lists every centre city with its region and country', () => {

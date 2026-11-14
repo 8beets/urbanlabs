@@ -16,6 +16,7 @@ import { courseRecordSchema } from '../../src/lib/ingestion/validation/record';
 import { centres } from '../../src/lib/centres/registry';
 import { toSourceConfig } from '../../src/lib/centres/schema';
 import { sources } from '../../src/lib/sources';
+import { geographyCity } from '../../src/lib/locations/registry';
 
 const csv = readFixture('malaga-agenda.csv');
 const rows = malagaRows(csv);
@@ -28,13 +29,20 @@ const cuevas = library('biblioteca-cristobal-cuevas-bailen-miraflores');
 const NOV_14 = new Date('2026-11-14T10:00:00Z');
 
 describe('Málaga agenda dataset', () => {
-  it('registers the municipal libraries, paused pending the licence review', () => {
+  it('publishes the municipal libraries with the dataset credited', () => {
     const malaga = centres.filter((c) => c.cityId === 'malaga');
     expect(malaga).toHaveLength(12);
-    expect(malaga.every((c) => c.pausedReason)).toBe(true);
-    expect(sources.some((s) => s.platform === 'malaga-datos-agenda')).toBe(
-      false,
-    );
+    expect(malaga.some((c) => c.pausedReason)).toBe(false);
+    expect(
+      sources.filter((s) => s.platform === 'malaga-datos-agenda'),
+    ).toHaveLength(12);
+    expect(geographyCity('malaga')?.dataCredit).toEqual({
+      url: 'https://datosabiertos.malaga.eu/dataset/agenda-2026',
+      names: {
+        es: 'Ayuntamiento de Málaga – datosabiertos.malaga.eu (CC BY-SA 4.0)',
+        ca: 'Ajuntament de Màlaga – datosabiertos.malaga.eu (CC BY-SA 4.0)',
+      },
+    });
     expect(altolaguirre.centreCode).toBe(116);
     expect(altolaguirre.listingUrl).toBe(altolaguirre.institution.url);
   });
