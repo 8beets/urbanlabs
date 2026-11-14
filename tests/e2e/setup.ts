@@ -302,6 +302,38 @@ async function setup() {
         source,
       );
     }
+    // Málaga: the saved Manuel Altolaguirre library course, and one explicitly synthetic
+    // course for every other library so each active source has a centre page and marker.
+    const malagaFixture = malagaRows(
+      readFileSync(
+        new URL('../fixtures/malaga-agenda.csv', import.meta.url),
+        'utf8',
+      ),
+    );
+    for (const source of sources.filter(
+      (s) => s.platform === 'malaga-datos-agenda',
+    )) {
+      const record = {
+        ...venueRecords(malagaFixture, { ...source, centreCode: 116 })[0]!,
+        startDate: '2099-01-01',
+        endDate: '2099-01-01',
+      };
+      await runIngestion(
+        db,
+        {
+          fetchRecords: async () => [
+            source.centreCode === 116
+              ? record
+              : {
+                  ...record,
+                  externalId: `99${source.centreCode}`,
+                  title: `TEST workshop ${source.institution.name}`,
+                },
+          ],
+        },
+        source,
+      );
+    }
     // Zaragoza: the saved Universidad listing, and one explicitly synthetic course for
     // every other civic centre so each active source has a centre page and marker.
     const universidad = universidadRecords().map((record) => ({
@@ -405,38 +437,6 @@ async function setup() {
                   externalId: `test-${source.institution.id}`,
                   title: `TEST workshop ${source.institution.name}`,
                   officialUrl: source.institution.url,
-                },
-          ],
-        },
-        source,
-      );
-    }
-    // Málaga: the saved Manuel Altolaguirre library course, and one explicitly synthetic
-    // course for every other library so each active source has a centre page and marker.
-    const malagaFixture = malagaRows(
-      readFileSync(
-        new URL('../fixtures/malaga-agenda.csv', import.meta.url),
-        'utf8',
-      ),
-    );
-    for (const source of sources.filter(
-      (s) => s.platform === 'malaga-datos-agenda',
-    )) {
-      const record = {
-        ...venueRecords(malagaFixture, { ...source, centreCode: 116 })[0]!,
-        startDate: '2099-01-01',
-        endDate: '2099-01-01',
-      };
-      await runIngestion(
-        db,
-        {
-          fetchRecords: async () => [
-            source.centreCode === 116
-              ? record
-              : {
-                  ...record,
-                  externalId: `99${source.centreCode}`,
-                  title: `TEST workshop ${source.institution.name}`,
                 },
           ],
         },
