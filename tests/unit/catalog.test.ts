@@ -12,8 +12,8 @@ import {
 import {
   buildSearchIndexes,
   decodeIndexes,
-  searchIndexSchema,
 } from '../../src/lib/catalog/search-index';
+import { searchIndexSchema } from '../../src/lib/catalog/search-index-schema';
 import {
   snapshotSchema,
   type Snapshot,

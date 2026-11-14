@@ -1,12 +1,15 @@
 import { m } from '../../paraglide/messages.js';
-import { citiesCoursesPath, courseSearchPath } from '../../i18n/paths';
+import {
+  alertPath,
+  citiesCoursesPath,
+  courseSearchPath,
+} from '../../i18n/paths';
 import {
   audienceLabel,
   categoryLabel,
   pageErrorMessage,
   type Locale,
 } from '../../i18n/ui';
-import { alertPath } from '../alerts/emails';
 import { startMonthLabel } from '../courses/start-month';
 import { courseCardHtml } from '../courses/card';
 import { escapeHtml } from '../html';

@@ -10,12 +10,12 @@ import {
   type NewCourse,
 } from '../../src/lib/alerts/subscription';
 import {
-  alertPath,
   confirmationEmail,
   describeTarget,
   digestEmail,
   searchUrl,
 } from '../../src/lib/alerts/emails';
+import { alertPath } from '../../src/i18n/paths';
 import { createBrevoSender } from '../../src/lib/alerts/adapters/brevo';
 import { verifyTurnstile } from '../../src/lib/alerts/adapters/turnstile';
 import { createEmailSender } from '../../src/lib/alerts/sender';
