@@ -57,8 +57,10 @@ jobs:
           if [ -n "$CITY" ]; then args+=(--city "$CITY"); fi
           if [ "$FORCE" = "true" ]; then args+=(--force); fi
           npm run ingest:plan -- "${args[@]}"
-  # One job per batch, strictly one at a time. A failing batch is reported but does
-  # not stop the remaining batches; data from failed sources is preserved.
+  # One job per batch, strictly one at a time; inside a batch, sources are fetched
+  # concurrently behind a single database writer (ADR 0011). A failing batch is
+  # reported but does not stop the remaining batches; data from failed sources is
+  # preserved.
   ingest:
     needs: plan
     if: needs.plan.outputs.batches != '[]'

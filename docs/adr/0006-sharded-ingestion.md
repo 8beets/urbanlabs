@@ -28,4 +28,4 @@ the database briefly unavailable, and `docs/ingestion.md` forbids two importers)
   refreshed every few days instead of daily; raise `--max-sources` if limits allow.
 - `ingestion_runs` grows by one row per source per run; the status lookup is indexed
   per source, but old rows may eventually need pruning.
-- Real parallelism would need a different import path, not just more matrix jobs.
+- Real parallelism would need a different import path, not just more matrix jobs. ADR 0011 adds concurrent fetching inside a batch behind a single database writer.

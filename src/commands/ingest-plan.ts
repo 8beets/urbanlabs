@@ -17,7 +17,7 @@ export const ingestPlanCommand = withSourceOptions(
   new Command('ingest-plan')
     .description('Print the batches of sources to refresh, as JSON')
     .option('--force', 'refresh every selected source regardless of recency')
-    .option('--batch-size <n>', 'sources per batch', integer, 8)
+    .option('--batch-size <n>', 'sources per batch', integer, 16)
     .option(
       '--min-age-hours <n>',
       'skip sources refreshed more recently',
