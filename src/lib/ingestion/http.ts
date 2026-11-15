@@ -8,6 +8,13 @@ export interface FetchOptions {
   maxBytes?: number;
 }
 
+/**
+ * Sent with every source request: names the project and where to find it, so a source
+ * can see who is reading and how to reach the maintainers. Never a browser string.
+ */
+export const USER_AGENT =
+  'UrbanLabs/0.1 (+https://urbanlabs.fyi; https://github.com/8beets/urbanlabs)';
+
 export const sleep = (milliseconds: number) =>
   new Promise<void>((resolve) => setTimeout(resolve, milliseconds));
 
@@ -29,7 +36,7 @@ export function createSourceFetcher(
           signal: AbortSignal.timeout(15000),
           redirect: 'error',
           headers: {
-            'User-Agent': 'LearnAprop/0.1 (local course metadata research)',
+            'User-Agent': USER_AGENT,
             Accept: 'text/html,text/plain;q=0.9',
             ...(cookies.size
               ? {
