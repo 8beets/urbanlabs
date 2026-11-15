@@ -9,6 +9,7 @@ import { createSabadellAdapter } from './sabadell-centres-civics';
 import { createReusAdapter } from './reus-inscripcions';
 import { createMadridAdapter } from './madrid-datos-cursos';
 import { createMalagaAdapter } from './malaga-datos-agenda';
+import { createOpenDataAdapter } from './open-courses-data';
 import type { FetchOptions } from '../http';
 import type { SourceAdapter, SourceConfig } from '../types';
 
@@ -40,5 +41,7 @@ export function adapterFor(
       return createMadridAdapter(options);
     case 'malaga-datos-agenda':
       return createMalagaAdapter(options);
+    case 'open-courses-data':
+      return createOpenDataAdapter(options);
   }
 }

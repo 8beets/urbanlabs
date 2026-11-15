@@ -20,6 +20,8 @@ export interface SourceConfig {
   /** Miram hosts shared by several centres: texts one of which the card's "Espai" line must contain. */
   venues?: string[];
   codePrefix?: string;
+  /** UrbanLabs open data: the city folder in the data repository, e.g. "es/catalunya/barcelona". */
+  dataFolder?: string;
   /** An empty listing is a valid, successful snapshot (seasonal centres). */
   mayBeEmpty?: boolean;
   institution: {

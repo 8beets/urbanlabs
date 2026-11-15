@@ -6,6 +6,7 @@ import { checkBuildCommand } from './check-build';
 import { freshnessCommand } from './freshness';
 import { ingestCommand } from './ingest';
 import { ingestPlanCommand } from './ingest-plan';
+import { openDataCentresCommand } from './open-data-centres';
 import { snapshotCommand } from './snapshot';
 import { sourceVerifyCommand } from './source-verify';
 
@@ -17,6 +18,7 @@ await new Command('urbanlabs')
   .addCommand(sourceVerifyCommand)
   .addCommand(centreProbeCommand)
   .addCommand(centresSyncCommand)
+  .addCommand(openDataCentresCommand)
   .addCommand(snapshotCommand)
   .addCommand(freshnessCommand)
   .addCommand(alertsSendCommand)

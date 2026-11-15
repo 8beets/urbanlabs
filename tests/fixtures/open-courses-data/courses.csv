@@ -1,0 +1,5 @@
+centre_id,course_id,title,official_url,category,start_date,end_date,schedule,price_eur,status,notes
+test-centre,2026-ceramica-1,"TEST Cerámica, nivel 1",https://example.org/ceramica,Artes plásticas,2026-10-05,2026-12-14,"Lunes, 18:00–20:00",45.50,,a free-text column the importer ignores
+test-centre,2026-yoga,TEST Yoga,https://example.org/yoga,,2026-10-06,,,0,sold-out,
+other-centre,2026-ingles,TEST Inglés,https://example.org/ingles,Idiomas,,,,,cancelled,
+

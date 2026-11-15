@@ -66,6 +66,16 @@ for (const centre of centres)
       `Centre ${centre.id} is in ${centre.country}/${centre.cityId}, which data/geography.json does not list`,
     );
 
+for (const centre of centres) {
+  const registration = centre.registration;
+  if (registration.platform !== 'open-courses-data') continue;
+  const [country, , city] = registration.folder.split('/');
+  if (country !== centre.country.toLowerCase() || city !== centre.cityId)
+    throw new Error(
+      `Centre ${centre.id} reads open data from ${registration.folder}, which is not ${centre.country.toLowerCase()}/…/${centre.cityId}`,
+    );
+}
+
 export const centreProfiles: Record<string, CentreProfile> = Object.fromEntries(
   centres.map((c) => [c.id, { slug: c.slug, ...c.profile }]),
 );

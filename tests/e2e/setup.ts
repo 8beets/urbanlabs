@@ -17,6 +17,7 @@ import {
   malagaRows,
   venueRecords,
 } from '../../src/lib/ingestion/adapters/malaga-datos-agenda';
+import { cityRecords } from '../../src/lib/ingestion/adapters/open-courses-data';
 import { E2E_ALERT_IDS } from './alert-fixtures';
 import { mkdirSync, readFileSync, readdirSync, writeFileSync } from 'node:fs';
 import { exportSnapshot } from '../../src/lib/catalog/export';
@@ -334,6 +335,32 @@ async function setup() {
         source,
       );
     }
+    // Open data (8beets/urban-open-courses-data): one explicitly synthetic course per
+    // registered centre, from the synthetic fixture, so each has a page and marker.
+    const openDataCourse = cityRecords(
+      readFileSync(
+        new URL('../fixtures/open-courses-data/courses.csv', import.meta.url),
+        'utf8',
+      ),
+    )[0]!.record;
+    for (const source of sources.filter(
+      (s) => s.platform === 'open-courses-data',
+    ))
+      await runIngestion(
+        db,
+        {
+          fetchRecords: async () => [
+            {
+              ...openDataCourse,
+              externalId: `test-${source.institution.id}`,
+              title: `TEST workshop ${source.institution.name}`,
+              startDate: '2099-01-01',
+              endDate: '2099-01-01',
+            },
+          ],
+        },
+        source,
+      );
     // Zaragoza: the saved Universidad listing, and one explicitly synthetic course for
     // every other civic centre so each active source has a centre page and marker.
     const universidad = universidadRecords().map((record) => ({

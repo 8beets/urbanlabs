@@ -36,6 +36,7 @@
     "cli": "tsx src/commands/index.ts",
     "source:verify": "tsx src/commands/index.ts source-verify",
     "centre:probe": "tsx src/commands/index.ts centre-probe",
+    "open-data:centres": "tsx src/commands/index.ts open-data-centres",
     "ingest": "tsx src/commands/index.ts ingest",
     "ingest:live": "tsx src/commands/index.ts ingest --live",
     "ingest:production": "tsx src/commands/index.ts ingest --remote",

@@ -210,6 +210,37 @@ const malagaRegistrationSchema = z.strictObject({
   mayBeEmpty: z.boolean().optional(),
 });
 
+// UrbanLabs' own open data: course and centre files maintained by hand in the public
+// repository 8beets/urban-open-courses-data, one folder per city
+// (<country>/<region>/<city>/courses.csv), read from GitHub's raw file host.
+export const OPEN_DATA_ORIGIN = 'https://raw.githubusercontent.com';
+export const OPEN_DATA_REPO = '8beets/urban-open-courses-data';
+export const OPEN_DATA_BRANCH = 'main';
+const openDataRegistrationSchema = z.strictObject({
+  platform: z.literal('open-courses-data'),
+  origin: z.literal(OPEN_DATA_ORIGIN),
+  // The city folder in the data repository, e.g. "es/catalunya/barcelona". The
+  // registry checks that it ends with the centre's country and city IDs.
+  folder: z.string().regex(/^[a-z]{2}\/[a-z0-9-]+\/[a-z0-9-]+$/),
+  // The centre's `id` in that folder's centres.csv; courses.csv rows name it in centre_id.
+  centreId: z.string().regex(/^[a-z0-9-]{1,100}$/),
+  verifiedAt: z.iso.date(),
+  // raw.githubusercontent.com has no robots.txt (404); the adapter honours one if it
+  // appears.
+  robotsTxt: z.literal('absent'),
+  mayBeEmpty: z.boolean().optional(),
+});
+
+/** The web page of a file in the data repository, for people to read and edit. */
+export function openDataFileUrl(folder: string, file: string): string {
+  return `https://github.com/${OPEN_DATA_REPO}/blob/${OPEN_DATA_BRANCH}/${folder}/${file}`;
+}
+
+/** The raw file path on OPEN_DATA_ORIGIN that the adapter fetches. */
+export function openDataRawPath(folder: string, file: string): string {
+  return `/${OPEN_DATA_REPO}/${OPEN_DATA_BRANCH}/${folder}/${file}`;
+}
+
 // Add new platforms as further members of this union, each with its own adapter
 // (src/lib/ingestion/adapters) and a case in toSourceConfig.
 export const registrationSchema = z.discriminatedUnion('platform', [
@@ -224,6 +255,7 @@ export const registrationSchema = z.discriminatedUnion('platform', [
   madridRegistrationSchema,
   reusRegistrationSchema,
   malagaRegistrationSchema,
+  openDataRegistrationSchema,
 ]);
 
 export const centreSchema = z.strictObject({
@@ -265,7 +297,13 @@ function platformSource(
   registration: Centre['registration'],
 ): Pick<
   SourceConfig,
-  'name' | 'listingUrl' | 'centreCode' | 'venue' | 'venues' | 'codePrefix'
+  | 'name'
+  | 'listingUrl'
+  | 'centreCode'
+  | 'venue'
+  | 'venues'
+  | 'codePrefix'
+  | 'dataFolder'
 > {
   switch (registration.platform) {
     case 'miram':
@@ -344,6 +382,15 @@ function platformSource(
         // The centre's page on reus.cat; the adapter reads the network's listing.
         listingUrl: centre.officialUrl,
         venue: registration.venue,
+      };
+    case 'open-courses-data':
+      return {
+        name: `${centre.name} · UrbanLabs open data`,
+        // The city's courses.csv on GitHub, with the centre as fragment so listing URLs
+        // stay unique; the adapter reads the raw file.
+        listingUrl: `${openDataFileUrl(registration.folder, 'courses.csv')}#${registration.centreId}`,
+        venue: registration.centreId,
+        dataFolder: registration.folder,
       };
     case 'malaga-datos-agenda':
       return {
