@@ -9,7 +9,7 @@ The typed adapter contract lives in `src/lib/ingestion/types.ts`. Miram-specific
 ## Bounds and failures
 
 - Sequential requests, at least one second apart.
-- Every request names the project in its `User-Agent`: `UrbanLabs/0.1 (+https://urbanlabs.fyi; https://github.com/8beets/urbanlabs)` (`USER_AGENT` in `src/lib/ingestion/http.ts`). It never imitates a browser. Rules for `User-agent: *` in robots.txt still apply to it.
+- Every request names the project in its `User-Agent`: `UrbanLabs/<version> (+https://urbanlabs.fyi; https://github.com/8beets/urbanlabs)`, with the version from `package.json` (`USER_AGENT` in `src/lib/ingestion/http.ts`). It never imitates a browser. Rules for `User-agent: *` in robots.txt still apply to it.
 - Fifteen-second request timeout, three attempts for connection errors, HTTP 429, and HTTP 5xx.
 - Exponential backoff and bounded `Retry-After`; delays beyond 60 seconds abort for a later run.
 - Maximum 2 MB per page (a source can raise this for a whole-dataset download, e.g. 8 MB for Málaga's yearly agenda), 60 pages, and 1,000 records per snapshot.

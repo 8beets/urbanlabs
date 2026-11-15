@@ -1,3 +1,6 @@
+// The explicit attribute is required by the Worker dev runtime (workerd) and Node.
+import packageJson from '../../../package.json' with { type: 'json' };
+
 export interface FetchOptions {
   fetch?: typeof fetch;
   sleep?: (milliseconds: number) => Promise<void>;
@@ -12,8 +15,7 @@ export interface FetchOptions {
  * Sent with every source request: names the project and where to find it, so a source
  * can see who is reading and how to reach the maintainers. Never a browser string.
  */
-export const USER_AGENT =
-  'UrbanLabs/0.1 (+https://urbanlabs.fyi; https://github.com/8beets/urbanlabs)';
+export const USER_AGENT = `UrbanLabs/${packageJson.version} (+https://urbanlabs.fyi; https://github.com/8beets/urbanlabs)`;
 
 export const sleep = (milliseconds: number) =>
   new Promise<void>((resolve) => setTimeout(resolve, milliseconds));
