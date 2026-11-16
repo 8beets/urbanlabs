@@ -24,7 +24,7 @@ for (const locale of ['es', 'ca'] as const) {
   const base = directory('barcelona');
   const barcelona = sources.filter((s) => s.institution.cityId === 'barcelona');
   test(
-    `${locale}: directory links to all centres and exact verified Leaflet markers`,
+    `${locale}: directory links to all Barcelona centres`,
     { tag: '@mobile' },
     async ({ page }) => {
       await page.goto(locale === 'es' ? '/es/' : '/ca/');
@@ -54,50 +54,62 @@ for (const locale of ['es', 'ca'] as const) {
           }),
         );
       }
-      for (const source of sources) {
-        const profile = centreProfile(source.institution.id);
-        const centrePage = `${directory(source.institution.cityId)}/${profile.slug}`;
-        await page.goto(centrePage);
-        await expect(page.getByRole('heading', { level: 1 })).toHaveText(
-          source.institution.name,
-        );
-        const map = page.locator('.centre-map [data-centre-map]');
-        await map.scrollIntoViewIfNeeded();
-        await expect(map).toHaveAttribute('data-map-ready', 'true');
-        await expect(map.locator('.centre-map-marker')).toHaveCount(1);
-        const points = JSON.parse((await map.getAttribute('data-centres'))!);
-        expect(points).toEqual([
-          {
-            id: source.institution.id,
-            slug: profile.slug,
-            name: source.institution.name,
-            latitude: profile.location!.latitude,
-            longitude: profile.location!.longitude,
-          },
-        ]);
-        await expect(map.getByRole('region')).toHaveAttribute(
-          'aria-label',
-          `Mapa de ${source.institution.name}`,
-        );
-        await expect(
-          page.locator('.centre-map > p a').filter({
-            hasText:
-              locale === 'es'
-                ? 'Colaboradores de OpenStreetMap'
-                : 'Col·laboradors d’OpenStreetMap',
-          }),
-        ).toHaveAttribute('href', 'https://www.openstreetmap.org/copyright');
-        await expect(
-          page.locator('.course .institution a').first(),
-        ).toHaveAttribute('href', centrePage);
-        expect(
-          await page.evaluate(
-            () => document.documentElement.scrollWidth <= window.innerWidth,
-          ),
-        ).toBe(true);
-      }
     },
   );
+  // One test per city, its timeout scaled to the city's centres (Madrid has 83).
+  for (const city of new Set(sources.map((s) => s.institution.cityId)))
+    test(
+      `${locale}: ${city} centre pages show their exact verified Leaflet marker`,
+      { tag: '@mobile' },
+      async ({ page }) => {
+        const cityCentres = sources.filter(
+          (s) => s.institution.cityId === city,
+        );
+        test.setTimeout(30_000 + cityCentres.length * 3_000);
+        for (const source of cityCentres) {
+          const profile = centreProfile(source.institution.id);
+          const centrePage = `${directory(source.institution.cityId)}/${profile.slug}`;
+          await page.goto(centrePage);
+          await expect(page.getByRole('heading', { level: 1 })).toHaveText(
+            source.institution.name,
+          );
+          const map = page.locator('.centre-map [data-centre-map]');
+          await map.scrollIntoViewIfNeeded();
+          await expect(map).toHaveAttribute('data-map-ready', 'true');
+          await expect(map.locator('.centre-map-marker')).toHaveCount(1);
+          const points = JSON.parse((await map.getAttribute('data-centres'))!);
+          expect(points).toEqual([
+            {
+              id: source.institution.id,
+              slug: profile.slug,
+              name: source.institution.name,
+              latitude: profile.location!.latitude,
+              longitude: profile.location!.longitude,
+            },
+          ]);
+          await expect(map.getByRole('region')).toHaveAttribute(
+            'aria-label',
+            `Mapa de ${source.institution.name}`,
+          );
+          await expect(
+            page.locator('.centre-map > p a').filter({
+              hasText:
+                locale === 'es'
+                  ? 'Colaboradores de OpenStreetMap'
+                  : 'Col·laboradors d’OpenStreetMap',
+            }),
+          ).toHaveAttribute('href', 'https://www.openstreetmap.org/copyright');
+          await expect(
+            page.locator('.course .institution a').first(),
+          ).toHaveAttribute('href', centrePage);
+          expect(
+            await page.evaluate(
+              () => document.documentElement.scrollWidth <= window.innerWidth,
+            ),
+          ).toBe(true);
+        }
+      },
+    );
   test(`${locale}: locale switching preserves centre, pagination is scoped, and unknown location has no fake marker`, async ({
     page,
   }) => {
