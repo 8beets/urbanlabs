@@ -1,22 +1,27 @@
 import { createHash } from 'node:crypto';
-import { z } from 'zod';
+import { differenceInCalendarDays, parseISO } from 'date-fns';
 import { createSourceFetcher, type FetchOptions } from '../http';
-import { assertRobotsAllowPath } from '../robots';
 import { parseCsv } from '../normalization/csv';
-import { MADRID_ORIGIN } from '../../centres/schema';
+import { dmyDate } from '../normalization/values';
 import { weekdayNames } from '../../time/dates';
 import type { CourseRecord, SourceAdapter, SourceConfig } from '../types';
 
 // Madrid publishes the courses and workshops of its district cultural centres as one
-// open dataset (CC BY 4.0) on datos.madrid.es: CKAN lists dated CSV snapshots, one row
-// per course group. The whole snapshot is read once per process and shared by the
-// centres' sources, each keeping the rows whose ORGANISMO_DESC is its `organism`.
+// open dataset (CC BY 4.0) on datos.madrid.es, one row per course group. Its robots.txt
+// disallows automated downloads, so a person downloads the CSV by hand and commits it
+// unchanged to the urban-open-courses-data repository, which this adapter reads. The
+// whole snapshot is read once per process and shared by the centres' sources, each
+// keeping the rows whose ORGANISMO_DESC is its `organism`.
 // The dataset has no course dates, prices, pages or ids: dates and price stay unknown,
 // the course links to its centre's page, and the identity is documented below.
 // NUM_PLAZAS_LIBRES is the snapshot's count, so "0" is an explicit "no places left".
 
-const DATASET = '50064-0-talleres-culturales-cursos';
-const PACKAGE = `/api/3/action/package_show?id=${DATASET}`;
+export const MIRROR_ORIGIN = 'https://raw.githubusercontent.com';
+export const MIRROR_PATH =
+  '/8beets/urban-open-courses-data/main/es/comunidad-de-madrid/madrid/50064-45-talleres-culturales-cursos.csv';
+// A hand-downloaded file only changes when someone updates it, so a run would always
+// succeed; an old snapshot fails instead, which the freshness report then flags.
+export const MAX_SNAPSHOT_AGE_DAYS = 31;
 const CACHE_MS = 60 * 60 * 1000;
 const DAYS = [
   'LUNES',
@@ -30,34 +35,6 @@ const DAYS = [
 const DAY_NAMES = weekdayNames('es');
 const dayList = new Intl.ListFormat('es', { type: 'conjunction' });
 
-const packageSchema = z.object({
-  success: z.literal(true),
-  result: z.object({
-    resources: z.array(
-      z.object({
-        format: z.string(),
-        url: z.url(),
-        last_modified: z.string().nullable(),
-      }),
-    ),
-  }),
-});
-
-/** The newest CSV snapshot's path on datos.madrid.es. */
-export function newestCsvPath(json: string): string {
-  const csv = packageSchema
-    .parse(JSON.parse(json))
-    .result.resources.filter((r) => r.format.toUpperCase() === 'CSV')
-    .sort((a, b) =>
-      (b.last_modified ?? '').localeCompare(a.last_modified ?? ''),
-    )[0];
-  if (!csv) throw new Error('Madrid dataset has no CSV resource');
-  const url = new URL(csv.url);
-  if (url.origin !== MADRID_ORIGIN)
-    throw new Error(`Unexpected Madrid resource URL: ${url.href}`);
-  return url.pathname;
-}
-
 export { parseCsv };
 
 export type MadridRow = Record<string, string>;
@@ -70,6 +47,7 @@ export function madridRows(csv: string): MadridRow[] {
     'GRUPO_DESC',
     'DESTINATARIO_DESC',
     'NUM_PLAZAS_LIBRES',
+    'FECHA_DATOS_FIN',
     ...DAYS.flatMap((d) => [`DURACION_ACTIVIDAD_${d}`, `HORA_INICIO_${d}`]),
   ];
   for (const column of required)
@@ -145,17 +123,31 @@ export function madridRecord(
   };
 }
 
+/** Throws when the snapshot's newest FECHA_DATOS_FIN is too old (or unreadable). */
+export function assertRecentSnapshot(
+  rows: MadridRow[],
+  now = new Date(),
+): void {
+  const dates = rows.map((row) => dmyDate(row.FECHA_DATOS_FIN!));
+  if (!dates.length || dates.some((date) => date === null))
+    throw new Error('Madrid CSV has no readable FECHA_DATOS_FIN');
+  const newest = (dates as string[]).sort().at(-1)!;
+  const age = differenceInCalendarDays(now, parseISO(newest));
+  if (age > MAX_SNAPSHOT_AGE_DAYS)
+    throw new Error(
+      `Madrid snapshot is ${age} days old (FECHA_DATOS_FIN ${newest}); download a new one`,
+    );
+}
+
 async function readSnapshot(options: FetchOptions): Promise<MadridRow[]> {
-  const site = createSourceFetcher(MADRID_ORIGIN, {
-    // robots.txt asks for a 10-second crawl delay.
-    intervalMs: 10_000,
+  const site = createSourceFetcher(MIRROR_ORIGIN, {
+    // The file was 1.4 MB in November 2026.
+    maxBytes: 8_000_000,
     ...options,
   });
-  const robots = await site(`${MADRID_ORIGIN}/robots.txt`, true);
-  if (robots !== null) assertRobotsAllowPath(robots, PACKAGE);
-  const csvPath = newestCsvPath((await site(`${MADRID_ORIGIN}${PACKAGE}`))!);
-  if (robots !== null) assertRobotsAllowPath(robots, csvPath);
-  return madridRows((await site(`${MADRID_ORIGIN}${csvPath}`))!);
+  const rows = madridRows((await site(`${MIRROR_ORIGIN}${MIRROR_PATH}`))!);
+  assertRecentSnapshot(rows);
+  return rows;
 }
 
 let shared: { at: number; rows: Promise<MadridRow[]> } | null = null;

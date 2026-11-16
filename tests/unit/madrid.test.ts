@@ -1,12 +1,13 @@
-import { describe, expect, it } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { fakeSource, pathOf, readFixture } from '../helpers/source';
 import {
+  assertRecentSnapshot,
   createMadridAdapter,
   madridExternalId,
   madridRecord,
   madridRows,
   madridSchedule,
-  newestCsvPath,
+  MIRROR_PATH,
   parseCsv,
 } from '../../src/lib/ingestion/adapters/madrid-datos-cursos';
 import { courseRecordSchema } from '../../src/lib/ingestion/validation/record';
@@ -15,29 +16,33 @@ import { toSourceConfig } from '../../src/lib/centres/schema';
 import { sources } from '../../src/lib/sources';
 
 const csv = readFixture('madrid-talleres.csv');
-const pkg = readFixture('madrid-package.json');
 const rows = madridRows(csv);
 const source = (slug: string) =>
   toSourceConfig(centres.find((c) => c.id === `cc-mad-${slug}`)!);
 const clara = source('centro-cultural-clara-del-rey-museo-abc');
-const CSV_PATH =
-  '/dataset/50064-0-talleres-culturales-cursos/resource/50064-45-talleres-culturales-cursos/download/50064-0-talleres-culturales-cursos_134_20261111_195807.csv';
+// The fixture's FECHA_DATOS_FIN is 10/11/2026.
+const SNAPSHOT_DAY = new Date('2026-11-10T12:00:00Z');
 
 describe('Madrid cultural-centre courses dataset', () => {
-  it('is paused until automated access is allowed', () => {
+  it('is ingested from the hand-downloaded copy', () => {
     const madrid = centres.filter((c) => c.cityId === 'madrid');
     expect(madrid).toHaveLength(83);
-    expect(madrid.every((c) => c.pausedReason)).toBe(true);
-    expect(sources.some((s) => s.platform === 'madrid-datos-cursos')).toBe(
-      false,
-    );
+    expect(madrid.some((c) => c.pausedReason)).toBe(false);
+    expect(
+      sources.filter((s) => s.platform === 'madrid-datos-cursos'),
+    ).toHaveLength(83);
   });
 
-  it('picks the newest CSV snapshot', () => {
-    expect(newestCsvPath(pkg)).toBe(CSV_PATH);
-    const parsed = JSON.parse(pkg);
-    parsed.result.resources.reverse();
-    expect(newestCsvPath(JSON.stringify(parsed))).toBe(CSV_PATH);
+  it('rejects a snapshot older than a month', () => {
+    const day = (iso: string) => new Date(`${iso}T12:00:00Z`);
+    expect(() => assertRecentSnapshot(rows, day('2026-12-11'))).not.toThrow();
+    expect(() => assertRecentSnapshot(rows, day('2026-12-12'))).toThrow(
+      '32 days old (FECHA_DATOS_FIN 2026-11-10)',
+    );
+    expect(() =>
+      assertRecentSnapshot([{ ...rows[0]!, FECHA_DATOS_FIN: '' }]),
+    ).toThrow('no readable FECHA_DATOS_FIN');
+    expect(() => assertRecentSnapshot([])).toThrow('no readable');
   });
 
   it('parses quoted semicolon CSV', () => {
@@ -86,14 +91,19 @@ describe('Madrid cultural-centre courses dataset', () => {
 });
 
 describe('Madrid adapter', () => {
-  const run = (robots: string | null = null) => {
-    const { options, requests } = fakeSource((url) => {
-      const path = pathOf(url.href);
-      if (path === '/robots.txt') return robots;
-      if (path.startsWith('/api/3/action/package_show')) return pkg;
-      if (path === CSV_PATH) return csv;
-      return null;
-    });
+  beforeEach(() => {
+    vi.useFakeTimers({ toFake: ['Date'] });
+    vi.setSystemTime(SNAPSHOT_DAY);
+  });
+  afterEach(() => vi.useRealTimers());
+
+  const run = () => {
+    const { options, requests } = fakeSource((url) =>
+      url.origin === 'https://raw.githubusercontent.com' &&
+      url.pathname === MIRROR_PATH
+        ? csv
+        : null,
+    );
     return { adapter: createMadridAdapter(options), requests };
   };
 
@@ -112,14 +122,13 @@ describe('Madrid adapter', () => {
         source('centro-dotacional-integrado-arganzuela-angel-del-rio'),
       ),
     ).toHaveLength(2);
-    expect(requests.map(pathOf)).toContain(CSV_PATH);
+    // Only the data repository's copy is read, nothing from datos.madrid.es.
+    expect(new Set(requests.map(pathOf))).toEqual(new Set([MIRROR_PATH]));
   });
 
-  it('stops when robots.txt disallows the API, as it does since 2026-11-13', async () => {
-    const { adapter, requests } = run(
-      'User-agent: *\nDisallow: /api/\nDisallow: /dataset/*/resource/*\n',
-    );
-    await expect(adapter.fetchRecords(clara)).rejects.toThrow('robots.txt');
-    expect(requests.map(pathOf)).toEqual(['/robots.txt']);
+  it('fails instead of serving an old snapshot', async () => {
+    vi.setSystemTime(new Date('2027-01-15T12:00:00Z'));
+    const { adapter } = run();
+    await expect(adapter.fetchRecords(clara)).rejects.toThrow('days old');
   });
 });
