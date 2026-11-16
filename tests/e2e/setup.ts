@@ -14,6 +14,10 @@ import {
   parseElPratListing,
 } from '../../src/lib/ingestion/adapters/el-prat-cursos';
 import {
+  madridRecord,
+  madridRows,
+} from '../../src/lib/ingestion/adapters/madrid-datos-cursos';
+import {
   malagaRows,
   venueRecords,
 } from '../../src/lib/ingestion/adapters/malaga-datos-agenda';
@@ -331,6 +335,36 @@ async function setup() {
                 },
           ],
         },
+        source,
+      );
+    }
+    // Madrid: the saved dataset rows of the centres they name, and one explicitly
+    // synthetic course for every other centre so each active source has a centre page
+    // and marker.
+    const madridFixture = madridRows(
+      readFileSync(
+        new URL('../fixtures/madrid-talleres.csv', import.meta.url),
+        'utf8',
+      ),
+    );
+    for (const [index, source] of sources
+      .filter((s) => s.platform === 'madrid-datos-cursos')
+      .entries()) {
+      const rows = madridFixture.filter(
+        (row) => row.ORGANISMO_DESC === source.venue,
+      );
+      const madridRecords = rows.length
+        ? rows.map((row) => madridRecord(row, source))
+        : [
+            {
+              ...madridRecord(madridFixture[0]!, source),
+              externalId: `test-${index}`,
+              title: `TEST workshop ${source.institution.name}`,
+            },
+          ];
+      await runIngestion(
+        db,
+        { fetchRecords: async () => madridRecords },
         source,
       );
     }

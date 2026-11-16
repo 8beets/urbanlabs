@@ -54,6 +54,7 @@
     "@tailwindcss/vite": "^4.3.4",
     "astro": "^7.4.12",
     "cheerio": "^1.2.0",
+    "csv-parse": "^7.0.3",
     "date-fns": "^4.4.0",
     "leaflet": "^1.9.4",
     "tailwindcss": "^4.3.4",

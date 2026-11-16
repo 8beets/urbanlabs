@@ -61,6 +61,7 @@ test('reports invalid input accessibly before any verification', async ({
     'Barcelona',
     'El Prat de Llobregat',
     'Girona',
+    'Madrid',
     'Màlaga',
     'Saragossa',
   ]);
