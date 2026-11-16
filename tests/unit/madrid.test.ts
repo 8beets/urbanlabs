@@ -50,7 +50,7 @@ describe('Madrid cultural-centre courses dataset', () => {
       ['a', 'b "c"', 'd;e'],
       ['1', '', 'x\ny'],
     ]);
-    expect(() => parseCsv('"open')).toThrow('Unterminated');
+    expect(() => parseCsv('"open')).toThrow('Quote Not Closed');
     expect(() => madridRows('A;B\r\n1;2\r\n')).toThrow('lacks column');
   });
 
