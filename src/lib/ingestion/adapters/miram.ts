@@ -32,6 +32,8 @@ export function parseMiramPage(
   links: string[];
   unpublishedPreviews: number;
   fullWithoutId: number;
+  /** Footers of other cards without an identifier, skipped for review. */
+  unidentified: string[];
   otherVenues: number;
 } {
   const $ = load(html);
@@ -44,8 +46,10 @@ export function parseMiramPage(
   const records: CourseRecord[] = [];
   let unpublishedPreviews = 0;
   let fullWithoutId = 0;
+  const unidentified: string[] = [];
   let otherVenues = 0;
-  $('.card.overh').each((_, element) => {
+  const cards = $('.card.overh');
+  cards.each((_, element) => {
     const card = $(element);
     // Single-session cards have no session accordion; their registration form still
     // carries the same stable activity identifier.
@@ -69,8 +73,21 @@ export function parseMiramPage(
       fullWithoutId++;
       return;
     }
-    if (!externalId)
-      throw new Error('Course card has no stable activity identifier');
+    if (!externalId) {
+      // Other cards without an identifier (a new footer wording, seen live at Cotxeres
+      // Borrell and Joan Oliver in November 2026) are skipped and logged with their
+      // title and footer for review, rather than failing the whole centre. No
+      // identifier is invented. A page where no card has one fails below.
+      unidentified.push(
+        [
+          cleanText(card.find('h5.card-header').first().text()),
+          cleanText(card.find('.card-footer').text()),
+        ]
+          .filter(Boolean)
+          .join(' | '),
+      );
+      return;
+    }
     const paragraphs = card
       .find('.card-body')
       .first()
@@ -111,6 +128,8 @@ export function parseMiramPage(
       }),
     );
   });
+  if (unidentified.length && unidentified.length === cards.length)
+    throw new Error('Course card has no stable activity identifier');
   const links = $('a.card[href], .pagination a[href], a[rel="next"][href]')
     .map((_, a) => new URL($(a).attr('href')!, pageUrl).href)
     .get();
@@ -138,6 +157,7 @@ export function parseMiramPage(
     links: [...new Set(links)],
     unpublishedPreviews,
     fullWithoutId,
+    unidentified,
     otherVenues,
   };
 }
@@ -207,6 +227,16 @@ export function createMiramAdapter(options: FetchOptions = {}): SourceAdapter {
               source: source.id,
               page: url,
               count: page.fullWithoutId,
+            }),
+          );
+        if (page.unidentified.length)
+          console.warn(
+            JSON.stringify({
+              event: 'ingestion_unidentified_skipped',
+              source: source.id,
+              page: url,
+              count: page.unidentified.length,
+              cards: page.unidentified.map((card) => card.slice(0, 200)),
             }),
           );
         for (const record of page.records) {

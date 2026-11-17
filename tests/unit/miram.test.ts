@@ -91,9 +91,24 @@ describe('Miram source fixture', () => {
         url,
       ).fullWithoutId,
     ).toBe(1);
-    // Any other identifier-less card still stops ingestion for review.
+    // Any other identifier-less card is skipped and reported for review, keeping the
+    // centre's other courses (Cotxeres Borrell and Joan Oliver, November 2026).
+    const other = parseMiramPage(
+      html.replace('Places exhaurides', 'Unexpected'),
+      url,
+    );
+    expect(other.records.map((r) => r.externalId)).toEqual(['1603']);
+    expect(other.fullWithoutId).toBe(0);
+    expect(other.unidentified).toHaveLength(1);
+    expect(other.unidentified[0]).toContain('Unexpected');
+    // A page where no card has an identifier means the layout changed.
     expect(() =>
-      parseMiramPage(html.replace('Places exhaurides', 'Unexpected'), url),
+      parseMiramPage(
+        html
+          .replace('Places exhaurides', 'Unexpected')
+          .replaceAll(/id="accordion\d+"|name="activitat"/gu, ''),
+        url,
+      ),
     ).toThrow('identifier');
   });
   it('extracts the explicit free price and single date of a real family cooking workshop', () => {
