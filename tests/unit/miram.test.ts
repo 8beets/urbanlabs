@@ -54,6 +54,16 @@ describe('Miram source fixture', () => {
         url,
       ).unpublishedPreviews,
     ).toBe(1);
+    // Cotxeres Borrell's wording, with in-person registration and an hour (live 2026-11-17).
+    expect(
+      parseMiramPage(
+        html.replace(
+          'Podreu realitzar les inscripcions en línia a partir del 14/12/2026',
+          'Podreu realitzar les inscripcions presencials i on-line a partir de 09/12/2026 a les 9h',
+        ),
+        url,
+      ).unpublishedPreviews,
+    ).toBe(1);
     expect(() =>
       parseMiramPage(
         html.replace('Podreu realitzar', 'Unexpected layout'),
@@ -101,6 +111,16 @@ describe('Miram source fixture', () => {
     expect(other.fullWithoutId).toBe(0);
     expect(other.unidentified).toHaveLength(1);
     expect(other.unidentified[0]).toContain('Unexpected');
+    // Free-entry exhibitions without booking are not courses (Joan Oliver, live 2026-11-17).
+    const exhibition = parseMiramPage(
+      html.replace(
+        /Places exhaurides[^<]*/u,
+        'Per aquesta activitat no cal reservar',
+      ),
+      url,
+    );
+    expect(exhibition).toMatchObject({ noBooking: 1, unidentified: [] });
+    expect(exhibition.records).toHaveLength(1);
     // A page where no card has an identifier means the layout changed.
     expect(() =>
       parseMiramPage(
