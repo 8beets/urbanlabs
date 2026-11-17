@@ -159,6 +159,8 @@ Verified on 2026-11-10 on the shared Miram adapter:
 
 ## Barcelona civic centres batch (issues #19–#49)
 
+- Attribution: the Ajuntament de Barcelona's legal notice (https://ajuntament.barcelona.cat/ca/avis-legal, read 2026-11-17) allows reuse of the information on its websites provided it is not altered or distorted, the source is cited, and no municipal endorsement is implied. The footer and the project page therefore credit "Ajuntament de Barcelona" with a link to that notice (`dataCredit` in `data/geography.json`).
+
 Verified on 2026-11-11 on the shared Miram adapter:
 
 | Centre                                 | Source ID                       | Editions | Verified registration root                                                                 |

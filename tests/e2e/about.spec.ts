@@ -34,3 +34,19 @@ test('the project page has a Catalan version', async ({ page }) => {
     'Ajuntament de Saragossa',
   );
 });
+
+test('the footer credits each city whose data licence asks for it', async ({
+  page,
+}) => {
+  await page.goto('/es/');
+  const sources = page.getByRole('region', { name: 'Origen de los datos' });
+  const barcelona = sources.getByRole('listitem').filter({
+    hasText: 'Barcelona',
+  });
+  await expect(
+    barcelona.getByRole('link', { name: 'Ayuntamiento de Barcelona' }),
+  ).toHaveAttribute('href', 'https://ajuntament.barcelona.cat/ca/avis-legal');
+  await expect(
+    sources.getByRole('link', { name: /Ayuntamiento de Zaragoza/ }),
+  ).toBeVisible();
+});
