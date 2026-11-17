@@ -1,11 +1,10 @@
-import { load } from 'cheerio';
 import { z } from 'zod';
 import { cleanText } from '../normalization/values';
+import { plainText } from '../normalization/html';
 import { createSourceFetcher, type FetchOptions } from '../http';
 import { assertRobotsAllowPath } from '../robots';
-import { isIsoDate } from '../../time/dates';
 import { ZARAGOZA_ORIGIN } from '../../centres/schema';
-import { weekdayNames } from '../../time/dates';
+import { isIsoDate, weekdayNames } from '../../time/dates';
 import type { CourseRecord, SourceAdapter, SourceConfig } from '../types';
 
 // Zaragoza's municipal civic centres (Centros Cívicos). The city's public events API
@@ -114,9 +113,7 @@ export function parseZaragozaList(
         )
         .map((h) => `${h.dayOfWeek} ${h.startTime}–${h.endTime}`);
       // Notes such as "1 jueves al mes" qualify the weekly sessions; keep them verbatim.
-      const note = event.description
-        ? cleanText(load(event.description).text())
-        : '';
+      const note = event.description ? plainText(event.description) : '';
       const schedule = [weekly.join(' · '), note].filter(Boolean).join('. ');
       return {
         externalId: String(event.id),

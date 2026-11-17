@@ -1,5 +1,6 @@
 import { createHash } from 'node:crypto';
 import { differenceInCalendarDays, parseISO } from 'date-fns';
+import { createSnapshotCache } from '../shared-snapshot';
 import { createSourceFetcher, type FetchOptions } from '../http';
 import { parseCsv } from '../normalization/csv';
 import { dmyDate } from '../normalization/values';
@@ -22,7 +23,6 @@ export const MIRROR_PATH =
 // A hand-downloaded file only changes when someone updates it, so a run would always
 // succeed; an old snapshot fails instead, which the freshness report then flags.
 export const MAX_SNAPSHOT_AGE_DAYS = 31;
-const CACHE_MS = 60 * 60 * 1000;
 const DAYS = [
   'LUNES',
   'MARTES',
@@ -150,20 +150,10 @@ async function readSnapshot(options: FetchOptions): Promise<MadridRow[]> {
   return rows;
 }
 
-let shared: { at: number; rows: Promise<MadridRow[]> } | null = null;
+const sharedSnapshot = createSnapshotCache<MadridRow[]>();
 
 function snapshotFor(options: FetchOptions): Promise<MadridRow[]> {
-  // Injected fetchers (tests) never share the cached snapshot.
-  if (options.fetch) return readSnapshot(options);
-  if (!shared || Date.now() - shared.at > CACHE_MS) {
-    const rows = readSnapshot(options);
-    shared = { at: Date.now(), rows };
-    // A failed read must not be reused by the next source.
-    rows.catch(() => {
-      if (shared?.rows === rows) shared = null;
-    });
-  }
-  return shared.rows;
+  return sharedSnapshot(options, () => readSnapshot(options));
 }
 
 export function createMadridAdapter(options: FetchOptions = {}): SourceAdapter {
