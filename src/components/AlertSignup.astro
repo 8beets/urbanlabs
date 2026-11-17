@@ -24,6 +24,7 @@ const query = Astro.request.method === 'GET' ? Astro.url.search : '';
   locale={locale}
   title={m.alertsPageTitle({}, { locale })}
   section="none"
+  indexable={false}
   languagePaths={localizedPaths((l) => `${alertPath(l)}${query}`)}
 >
   <section class="alert-page" aria-labelledby="title">

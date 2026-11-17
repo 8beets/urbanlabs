@@ -20,7 +20,10 @@ const title = m.cityCentresTitle({ city: cityLabel(city, locale) }, { locale });
 <SiteLayout
   locale={locale}
   title={`${title} · UrbanLabs`}
-  description={m.directoryIntro({}, { locale })}
+  description={m.directoryDescription(
+    { city: cityLabel(city, locale) },
+    { locale },
+  )}
   section="centres"
   languagePaths={localizedPaths((l) => centreDirectoryPath(l, city.id))}
 >

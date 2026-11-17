@@ -156,6 +156,6 @@ system dependencies, use Docker or follow Playwright's browser installation guid
 
 ## Not implemented yet
 
-Individual course detail pages, normalized individual sessions, scheduled ingestion, stale-record policies, administration, submissions, full-text/accent-insensitive search, and public SEO configuration. The public preview deliberately retains `noindex` while canonical URLs, sitemaps, source reuse conditions, and complete expired-edition behavior remain under review. Cloudflare Workers and D1 are deployed with Free-plan-compatible configuration; no paid services or plan upgrades were enabled. See [deployment instructions](docs/deployment.md).
+Individual course detail pages (and `Course` structured data with them), normalized individual sessions, stale-record policies, administration, submissions, and full-text/accent-insensitive search. The site is open to search engines with canonical URLs, `hreflang`, a sitemap and robots.txt ([ADR 0012](docs/adr/0012-public-indexing.md)). Cloudflare Workers and D1 are deployed with Free-plan-compatible configuration; no paid services or plan upgrades were enabled. See [deployment instructions](docs/deployment.md).
 
 Licensed under the [MIT License](LICENSE). Third-party photographs and icons retain their respective licenses; see [asset credits](docs/assets.md).

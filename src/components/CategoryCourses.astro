@@ -27,12 +27,23 @@ const name = cityLabel(city, locale);
 const suffix = page.currentPage > 1 ? `/${page.currentPage}` : '';
 const path = (target: Locale) => `${topicPath(target, city.id, slug)}${suffix}`;
 const filterParams = new URLSearchParams({ category });
+// Numbered pages are separate URLs, so each needs its own title.
+const pageNumber =
+  page.currentPage > 1
+    ? m.pageNumber({ page: page.currentPage }, { locale })
+    : '';
+const pageLabel = pageNumber && ` · ${pageNumber}`;
+const pageSentence =
+  pageNumber && ` ${pageNumber[0]!.toUpperCase()}${pageNumber.slice(1)}.`;
 ---
 
 <SiteLayout
   locale={locale}
-  title={`${label} · ${name} · UrbanLabs`}
-  description={m.categoryPageIntro({}, { locale })}
+  title={`${label} · ${name}${pageLabel} · UrbanLabs`}
+  description={`${m.categoryPageDescription(
+    { category: label, city: name },
+    { locale },
+  )}${pageSentence}`}
   section="courses"
   languagePaths={localizedPaths(path)}
 >
