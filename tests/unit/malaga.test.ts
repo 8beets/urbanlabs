@@ -8,10 +8,10 @@ import {
   groupActivities,
   malagaRecord,
   malagaRows,
-  plainText,
   venueRecords,
 } from '../../src/lib/ingestion/adapters/malaga-datos-agenda';
 import { createSourceFetcher } from '../../src/lib/ingestion/http';
+import { plainText } from '../../src/lib/ingestion/normalization/html';
 import { courseRecordSchema } from '../../src/lib/ingestion/validation/record';
 import { centres } from '../../src/lib/centres/registry';
 import { toSourceConfig } from '../../src/lib/centres/schema';

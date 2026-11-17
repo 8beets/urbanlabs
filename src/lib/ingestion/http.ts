@@ -17,6 +17,24 @@ export interface FetchOptions {
  */
 export const USER_AGENT = `UrbanLabs/${packageJson.version} (+https://urbanlabs.fyi; https://github.com/8beets/urbanlabs)`;
 
+/**
+ * How long to wait before retrying: the server's `Retry-After` (seconds or an HTTP date)
+ * when it gives a valid one, otherwise exponential backoff (2 s, 4 s…). Callers apply
+ * their own upper bound.
+ */
+export function retryDelayMs(
+  retryAfter: string | null,
+  attempt: number,
+  now = Date.now(),
+): number {
+  const value = retryAfter?.trim() ?? '';
+  if (/^\d+$/.test(value)) return Number(value) * 1000;
+  // An HTTP date always names a day or month; Date.parse alone would also accept
+  // values such as "-3" (a year).
+  const at = /[a-z]/i.test(value) ? Date.parse(value) : NaN;
+  return Number.isFinite(at) ? Math.max(0, at - now) : 1000 * 2 ** attempt;
+}
+
 export const sleep = (milliseconds: number) =>
   new Promise<void>((resolve) => setTimeout(resolve, milliseconds));
 
@@ -67,14 +85,11 @@ export function createSourceFetcher(
       }
       if (response.status === 429 || response.status >= 500) {
         await response.body?.cancel();
-        const retryAfter = response.headers.get('retry-after');
-        const delay =
-          retryAfter === null
-            ? 1000 * 2 ** attempt
-            : /^\d+$/.test(retryAfter)
-              ? Number(retryAfter) * 1000
-              : Math.max(0, Date.parse(retryAfter) - Date.now());
-        if (attempt === 2 || !Number.isFinite(delay) || delay > 60000)
+        const delay = retryDelayMs(
+          response.headers.get('retry-after'),
+          attempt,
+        );
+        if (attempt === 2 || delay > 60000)
           throw new Error(`Source HTTP ${response.status}; retry later`);
         await pause(delay);
         continue;

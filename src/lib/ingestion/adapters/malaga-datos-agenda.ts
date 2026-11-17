@@ -1,8 +1,9 @@
-import { load } from 'cheerio';
+import { createSnapshotCache } from '../shared-snapshot';
 import { createSourceFetcher, type FetchOptions } from '../http';
 import { assertRobotsAllowPath } from '../robots';
+import { plainText } from '../normalization/html';
 import { parseCsv } from '../normalization/csv';
-import { cleanText, dmyDate } from '../normalization/values';
+import { dmyDate } from '../normalization/values';
 import { hasCancellationNotice } from '../normalization/cancellation';
 import { MALAGA_ORIGIN } from '../../centres/schema';
 import { localDateIn } from '../../time/dates';
@@ -19,7 +20,6 @@ import type { CourseRecord, SourceAdapter, SourceConfig } from '../types';
 // The file starts empty each January, so the venues are registered with mayBeEmpty.
 
 export const COURSE_CATEGORY = 'Cursos y talleres';
-const CACHE_MS = 60 * 60 * 1000;
 // The 2026 file was 1.9 MB in November and grows through the year.
 const MAX_BYTES = 8_000_000;
 
@@ -58,9 +58,6 @@ export function malagaRows(csv: string): MalagaRow[] {
     });
 }
 
-/** Text of a field that may contain HTML (<b>, <br>, entities), whitespace collapsed. */
-export const plainText = (value: string) => cleanText(load(value).text());
-
 /** "dd/mm/yyyy 00:00:00", the dataset's form for local dates, as an ISO date. */
 export function agendaDate(value: string): string | null {
   const match = /^(\d{2}\/\d{2}\/\d{4}) 00:00:00$/u.exec(value.trim());
@@ -80,15 +77,10 @@ export function agendaPriceCents(value: string): number | null {
 
 /** The rows of each activity, by ID_ACTIVIDAD, in file order. */
 export function groupActivities(rows: MalagaRow[]): MalagaRow[][] {
-  const groups = new Map<string, MalagaRow[]>();
-  for (const row of rows) {
+  for (const row of rows)
     if (!/^\d{1,10}$/u.test(row.ID_ACTIVIDAD))
       throw new Error(`Málaga activity id is not numeric: ${row.ID_ACTIVIDAD}`);
-    const group = groups.get(row.ID_ACTIVIDAD);
-    if (group) group.push(row);
-    else groups.set(row.ID_ACTIVIDAD, [row]);
-  }
-  return [...groups.values()];
+  return [...Map.groupBy(rows, (row) => row.ID_ACTIVIDAD).values()];
 }
 
 /**
@@ -161,21 +153,10 @@ async function readAgenda(options: FetchOptions, year: string) {
   return malagaRows((await site(`${MALAGA_ORIGIN}${path}`))!);
 }
 
-let shared: { at: number; year: string; rows: Promise<MalagaRow[]> } | null =
-  null;
+const sharedAgenda = createSnapshotCache<MalagaRow[]>();
 
 function agendaFor(options: FetchOptions, year: string): Promise<MalagaRow[]> {
-  // Injected fetchers (tests) never share the cached file.
-  if (options.fetch) return readAgenda(options, year);
-  if (!shared || shared.year !== year || Date.now() - shared.at > CACHE_MS) {
-    const rows = readAgenda(options, year);
-    shared = { at: Date.now(), year, rows };
-    // A failed read must not be reused by the next source.
-    rows.catch(() => {
-      if (shared?.rows === rows) shared = null;
-    });
-  }
-  return shared.rows;
+  return sharedAgenda(options, () => readAgenda(options, year), year);
 }
 
 export function createMalagaAdapter(

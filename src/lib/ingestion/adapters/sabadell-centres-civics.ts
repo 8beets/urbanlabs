@@ -1,5 +1,6 @@
 import { load } from 'cheerio';
 import { cleanText, parseDateRange } from '../normalization/values';
+import { createSnapshotCache } from '../shared-snapshot';
 import { createSourceFetcher, type FetchOptions } from '../http';
 import { assertRobotsAllowPath } from '../robots';
 import { SABADELL_ORIGIN } from '../../centres/schema';
@@ -18,7 +19,6 @@ const LISTING =
 const PAGE_SIZE = 10;
 const MAX_PAGES = 80;
 // The catalogue is shared by every centre's source within one run.
-const CACHE_MS = 60 * 60 * 1000;
 
 export interface SabadellActivity {
   id: string;
@@ -145,23 +145,12 @@ async function readCatalogue(
   return activities;
 }
 
-let shared: { at: number; catalogue: Promise<SabadellActivity[]> } | null =
-  null;
+const sharedCatalogue = createSnapshotCache<SabadellActivity[]>();
 
 function catalogueFor(options: FetchOptions): Promise<SabadellActivity[]> {
-  const read = () =>
-    readCatalogue(createSourceFetcher(SABADELL_ORIGIN, options));
-  // Injected fetchers (tests) never share the cached catalogue.
-  if (options.fetch) return read();
-  if (!shared || Date.now() - shared.at > CACHE_MS) {
-    const catalogue = read();
-    shared = { at: Date.now(), catalogue };
-    // A failed read must not be reused by the next source.
-    catalogue.catch(() => {
-      if (shared?.catalogue === catalogue) shared = null;
-    });
-  }
-  return shared.catalogue;
+  return sharedCatalogue(options, () =>
+    readCatalogue(createSourceFetcher(SABADELL_ORIGIN, options)),
+  );
 }
 
 export function createSabadellAdapter(

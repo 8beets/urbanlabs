@@ -1,4 +1,4 @@
-import { sleep } from '../../ingestion/http';
+import { retryDelayMs, sleep } from '../../ingestion/http';
 import {
   EmailSendError,
   type EmailMessage,
@@ -60,11 +60,11 @@ export function createBrevoSender(options: BrevoOptions): EmailSender {
         const retryable = response.status === 429 || response.status >= 500;
         if (!retryable || attempt === ATTEMPTS)
           throw new EmailSendError(`Brevo HTTP ${response.status}`, retryable);
-        const retryAfter = Number(response.headers.get('retry-after'));
         await pause(
-          Number.isFinite(retryAfter) && retryAfter > 0
-            ? Math.min(retryAfter, 30) * 1000
-            : 1000 * 2 ** attempt,
+          Math.min(
+            retryDelayMs(response.headers.get('retry-after'), attempt),
+            30_000,
+          ),
         );
       }
     },

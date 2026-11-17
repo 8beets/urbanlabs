@@ -1,5 +1,6 @@
 import { load } from 'cheerio';
 import { cleanText } from '../ingestion/normalization/values';
+import { plainText } from '../ingestion/normalization/html';
 import { MIRAM_HOST_SUFFIXES } from './schema';
 
 export interface ProbedCategory {
@@ -73,7 +74,7 @@ export function parseMiramRoot(html: string, pageUrl: string): MiramProbe {
   const lines = addressParagraph
     .html()
     ?.split(/<br\s*\/?>/i)
-    .map((line) => cleanText(load(line).text()))
+    .map(plainText)
     .filter(Boolean);
   // Footer contact lines (phone, email) are deliberately not reported.
   const address = lines?.length
