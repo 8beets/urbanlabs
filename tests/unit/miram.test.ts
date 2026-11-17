@@ -54,6 +54,16 @@ describe('Miram source fixture', () => {
         url,
       ).unpublishedPreviews,
     ).toBe(1);
+    // Cotxeres Borrell's wording, with in-person registration and an hour (live 2026-11-17).
+    expect(
+      parseMiramPage(
+        html.replace(
+          'Podreu realitzar les inscripcions en línia a partir del 14/12/2026',
+          'Podreu realitzar les inscripcions presencials i on-line a partir de 09/12/2026 a les 9h',
+        ),
+        url,
+      ).unpublishedPreviews,
+    ).toBe(1);
     expect(() =>
       parseMiramPage(
         html.replace('Podreu realitzar', 'Unexpected layout'),
@@ -91,9 +101,34 @@ describe('Miram source fixture', () => {
         url,
       ).fullWithoutId,
     ).toBe(1);
-    // Any other identifier-less card still stops ingestion for review.
+    // Any other identifier-less card is skipped and reported for review, keeping the
+    // centre's other courses (Cotxeres Borrell and Joan Oliver, November 2026).
+    const other = parseMiramPage(
+      html.replace('Places exhaurides', 'Unexpected'),
+      url,
+    );
+    expect(other.records.map((r) => r.externalId)).toEqual(['1603']);
+    expect(other.fullWithoutId).toBe(0);
+    expect(other.unidentified).toHaveLength(1);
+    expect(other.unidentified[0]).toContain('Unexpected');
+    // Free-entry exhibitions without booking are not courses (Joan Oliver, live 2026-11-17).
+    const exhibition = parseMiramPage(
+      html.replace(
+        /Places exhaurides[^<]*/u,
+        'Per aquesta activitat no cal reservar',
+      ),
+      url,
+    );
+    expect(exhibition).toMatchObject({ noBooking: 1, unidentified: [] });
+    expect(exhibition.records).toHaveLength(1);
+    // A page where no card has an identifier means the layout changed.
     expect(() =>
-      parseMiramPage(html.replace('Places exhaurides', 'Unexpected'), url),
+      parseMiramPage(
+        html
+          .replace('Places exhaurides', 'Unexpected')
+          .replaceAll(/id="accordion\d+"|name="activitat"/gu, ''),
+        url,
+      ),
     ).toThrow('identifier');
   });
   it('extracts the explicit free price and single date of a real family cooking workshop', () => {

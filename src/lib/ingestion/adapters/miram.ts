@@ -15,9 +15,14 @@ import type { CourseRecord, SourceAdapter, SourceConfig } from '../types';
 const fullNotice =
   /^(?:(?:\d+ \d{2}\/\d{2}\/\d{4} )?Places exhaurides\b|En aquests moments no queden places online per aquesta activitat\.$)/iu;
 
-// Advance-preview footers seen live on cards without an identifier (Vil·la Urània, Sant Martí, Can Basté).
+// Advance-preview footers seen live on cards without an identifier (Vil·la Urània, Sant Martí,
+// Can Basté, and Cotxeres Borrell's "presencials i on-line a partir de 09/12/2026 a les 9h").
 const previewNotice =
-  /^(?:Podreu realitzar les inscripcions (?:en línia|on-line) a partir del|Les inscripcions on-line les podreu fer a partir del) \d{2}\/\d{2}\/\d{4}$/u;
+  /^(?:Podreu realitzar les inscripcions (?:en línia|on-line|presencials i on-line) a partir d(?:el|e)|Les inscripcions on-line les podreu fer a partir del) \d{2}\/\d{2}\/\d{4}(?: a les \d{1,2}(?:[.:]\d{2})?h)?$/u;
+
+// Free-entry activities without booking (exhibitions, talks) carry no identifier and
+// are not courses (Joan Oliver - Pere Quart, live 2026-11-17).
+const noBookingNotice = /^Per aquesta activitat no cal reservar\.?$/iu;
 
 const fold = (text: string) =>
   text.normalize('NFD').replace(/\p{M}/gu, '').toLowerCase();
@@ -32,6 +37,9 @@ export function parseMiramPage(
   links: string[];
   unpublishedPreviews: number;
   fullWithoutId: number;
+  noBooking: number;
+  /** Footers of other cards without an identifier, skipped for review. */
+  unidentified: string[];
   otherVenues: number;
 } {
   const $ = load(html);
@@ -44,8 +52,11 @@ export function parseMiramPage(
   const records: CourseRecord[] = [];
   let unpublishedPreviews = 0;
   let fullWithoutId = 0;
+  let noBooking = 0;
+  const unidentified: string[] = [];
   let otherVenues = 0;
-  $('.card.overh').each((_, element) => {
+  const cards = $('.card.overh');
+  cards.each((_, element) => {
     const card = $(element);
     // Single-session cards have no session accordion; their registration form still
     // carries the same stable activity identifier.
@@ -62,6 +73,13 @@ export function parseMiramPage(
     }
     if (
       !externalId &&
+      noBookingNotice.test(cleanText(card.find('.card-footer').text()))
+    ) {
+      noBooking++;
+      return;
+    }
+    if (
+      !externalId &&
       fullNotice.test(cleanText(card.find('.card-footer').text()))
     ) {
       // Full single-session cards drop both the session accordion and the registration
@@ -69,8 +87,20 @@ export function parseMiramPage(
       fullWithoutId++;
       return;
     }
-    if (!externalId)
-      throw new Error('Course card has no stable activity identifier');
+    if (!externalId) {
+      // Any other card without an identifier (e.g. a new footer wording) is skipped and
+      // logged with its title and footer for review, rather than failing the whole
+      // centre. No identifier is invented. A page where no card has one fails below.
+      unidentified.push(
+        [
+          cleanText(card.find('h5.card-header').first().text()),
+          cleanText(card.find('.card-footer').text()),
+        ]
+          .filter(Boolean)
+          .join(' | '),
+      );
+      return;
+    }
     const paragraphs = card
       .find('.card-body')
       .first()
@@ -111,6 +141,8 @@ export function parseMiramPage(
       }),
     );
   });
+  if (unidentified.length && unidentified.length === cards.length)
+    throw new Error('Course card has no stable activity identifier');
   const links = $('a.card[href], .pagination a[href], a[rel="next"][href]')
     .map((_, a) => new URL($(a).attr('href')!, pageUrl).href)
     .get();
@@ -130,6 +162,7 @@ export function parseMiramPage(
     !links.length &&
     !unpublishedPreviews &&
     !fullWithoutId &&
+    !noBooking &&
     !otherVenues
   )
     throw new Error('Empty Miram listing; manual review required');
@@ -138,6 +171,8 @@ export function parseMiramPage(
     links: [...new Set(links)],
     unpublishedPreviews,
     fullWithoutId,
+    noBooking,
+    unidentified,
     otherVenues,
   };
 }
@@ -207,6 +242,16 @@ export function createMiramAdapter(options: FetchOptions = {}): SourceAdapter {
               source: source.id,
               page: url,
               count: page.fullWithoutId,
+            }),
+          );
+        if (page.unidentified.length)
+          console.warn(
+            JSON.stringify({
+              event: 'ingestion_unidentified_skipped',
+              source: source.id,
+              page: url,
+              count: page.unidentified.length,
+              cards: page.unidentified.map((card) => card.slice(0, 200)),
             }),
           );
         for (const record of page.records) {
