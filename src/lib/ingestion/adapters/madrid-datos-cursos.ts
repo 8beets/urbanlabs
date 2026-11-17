@@ -1,27 +1,33 @@
 import { createHash } from 'node:crypto';
 import { differenceInCalendarDays, parseISO } from 'date-fns';
+import { z } from 'zod';
 import { createSnapshotCache } from '../shared-snapshot';
 import { createSourceFetcher, type FetchOptions } from '../http';
 import { parseCsv } from '../normalization/csv';
 import { dmyDate } from '../normalization/values';
+import { MADRID_ORIGIN } from '../../centres/schema';
 import { weekdayNames } from '../../time/dates';
 import type { CourseRecord, SourceAdapter, SourceConfig } from '../types';
 
 // Madrid publishes the courses and workshops of its district cultural centres as one
-// open dataset (CC BY 4.0) on datos.madrid.es, one row per course group. Its robots.txt
-// disallows automated downloads, so a person downloads the CSV by hand and commits it
-// unchanged to the urban-open-courses-data repository, which this adapter reads. The
-// whole snapshot is read once per process and shared by the centres' sources, each
-// keeping the rows whose ORGANISMO_DESC is its `organism`.
+// open dataset (CC BY 4.0) on datos.madrid.es: CKAN lists dated CSV snapshots, one row
+// per course group. The whole snapshot is read once per process and shared by the
+// centres' sources, each keeping the rows whose ORGANISMO_DESC is its `organism`.
 // The dataset has no course dates, prices, pages or ids: dates and price stay unknown,
 // the course links to its centre's page, and the identity is documented below.
 // NUM_PLAZAS_LIBRES is the snapshot's count, so "0" is an explicit "no places left".
+//
+// Authorised access: datos.madrid.es/robots.txt disallows `/api/` and resource
+// downloads for every agent, but on 2026-11-17 the portal's team (Portal de datos
+// abiertos del Ayuntamiento de Madrid) answered by email that those rules target
+// search-engine crawlers and that automated reuse should use the CKAN API and the
+// resources' download URLs. This adapter therefore does not check robots.txt; it
+// still waits its `Crawl-delay` of 10 seconds between requests.
 
-export const MIRROR_ORIGIN = 'https://raw.githubusercontent.com';
-export const MIRROR_PATH =
-  '/8beets/urban-open-courses-data/main/es/comunidad-de-madrid/madrid/50064-45-talleres-culturales-cursos.csv';
-// A hand-downloaded file only changes when someone updates it, so a run would always
-// succeed; an old snapshot fails instead, which the freshness report then flags.
+const DATASET = '50064-0-talleres-culturales-cursos';
+const PACKAGE = `/api/3/action/package_show?id=${DATASET}`;
+// The portal publishes a snapshot every day; an old newest snapshot means the dataset
+// stopped updating, so the run fails instead and the freshness report flags it.
 export const MAX_SNAPSHOT_AGE_DAYS = 31;
 const DAYS = [
   'LUNES',
@@ -34,6 +40,34 @@ const DAYS = [
 ] as const;
 const DAY_NAMES = weekdayNames('es');
 const dayList = new Intl.ListFormat('es', { type: 'conjunction' });
+
+const packageSchema = z.object({
+  success: z.literal(true),
+  result: z.object({
+    resources: z.array(
+      z.object({
+        format: z.string(),
+        url: z.url(),
+        last_modified: z.string().nullable(),
+      }),
+    ),
+  }),
+});
+
+/** The newest CSV snapshot's path on datos.madrid.es. */
+export function newestCsvPath(json: string): string {
+  const csv = packageSchema
+    .parse(JSON.parse(json))
+    .result.resources.filter((r) => r.format.toUpperCase() === 'CSV')
+    .sort((a, b) =>
+      (b.last_modified ?? '').localeCompare(a.last_modified ?? ''),
+    )[0];
+  if (!csv) throw new Error('Madrid dataset has no CSV resource');
+  const url = new URL(csv.url);
+  if (url.origin !== MADRID_ORIGIN)
+    throw new Error(`Unexpected Madrid resource URL: ${url.href}`);
+  return url.pathname;
+}
 
 export { parseCsv };
 
@@ -135,17 +169,20 @@ export function assertRecentSnapshot(
   const age = differenceInCalendarDays(now, parseISO(newest));
   if (age > MAX_SNAPSHOT_AGE_DAYS)
     throw new Error(
-      `Madrid snapshot is ${age} days old (FECHA_DATOS_FIN ${newest}); download a new one`,
+      `Madrid snapshot is ${age} days old (FECHA_DATOS_FIN ${newest}); the dataset has stopped updating`,
     );
 }
 
 async function readSnapshot(options: FetchOptions): Promise<MadridRow[]> {
-  const site = createSourceFetcher(MIRROR_ORIGIN, {
-    // The file was 1.4 MB in November 2026.
+  const site = createSourceFetcher(MADRID_ORIGIN, {
+    // robots.txt asks for a 10-second crawl delay.
+    intervalMs: 10_000,
+    // The CSV was 1.4 MB in November 2026.
     maxBytes: 8_000_000,
     ...options,
   });
-  const rows = madridRows((await site(`${MIRROR_ORIGIN}${MIRROR_PATH}`))!);
+  const csvPath = newestCsvPath((await site(`${MADRID_ORIGIN}${PACKAGE}`))!);
+  const rows = madridRows((await site(`${MADRID_ORIGIN}${csvPath}`))!);
   assertRecentSnapshot(rows);
   return rows;
 }
