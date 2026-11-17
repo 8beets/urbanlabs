@@ -22,6 +22,7 @@ const query = data.token ? `?token=${encodeURIComponent(data.token)}` : '';
   locale={locale}
   title={`${title} · UrbanLabs`}
   section="none"
+  indexable={false}
   languagePaths={localizedPaths((l) => `${alertPath(l, purpose)}${query}`)}
 >
   <section class="alert-page" aria-labelledby="title">

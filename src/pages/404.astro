@@ -20,6 +20,7 @@ Astro.response.status = 404;
   locale={locale}
   title={`404 · ${m.pageNotFound({}, { locale })} · UrbanLabs`}
   description={m.pageNotFoundIntro({}, { locale })}
+  indexable={false}
   section="none"
   languagePaths={localizedPaths((l) => `/${l}/404`)}
 >

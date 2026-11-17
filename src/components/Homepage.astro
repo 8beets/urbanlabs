@@ -3,6 +3,7 @@ import { m } from '../paraglide/messages.js';
 import { categoryLabel, type Locale } from '../i18n/ui';
 import { citiesCoursesPath, homePath, localizedPaths } from '../i18n/paths';
 import { coveredCities, sourceCityLabels } from '../i18n/geography';
+import { absoluteUrl, websiteData } from '../lib/seo';
 import type { CourseListing } from '../lib/catalog/types';
 import SiteLayout from '../layouts/SiteLayout.astro';
 import CourseCard from './CourseCard.astro';
@@ -27,6 +28,11 @@ const themes = [
   title={m.pageTitle({}, { locale })}
   section="home"
   languagePaths={localizedPaths(homePath)}
+  structuredData={websiteData(
+    locale,
+    absoluteUrl(homePath(locale)),
+    m.description({ cities: coveredCities(locale) }, { locale }),
+  )}
 >
   <section class="hero" aria-labelledby="title">
     <div class="hero-copy">

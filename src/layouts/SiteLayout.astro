@@ -12,6 +12,7 @@ import {
 import { coveredCities, sourceCityLabels } from '../i18n/geography';
 import { geographyCity } from '../lib/locations/registry';
 import { type Locale } from '../i18n/ui';
+import { jsonLd, OG_LOCALES, pageLinks } from '../lib/seo';
 import '../styles/global.css';
 interface Props {
   locale: Locale;
@@ -19,6 +20,13 @@ interface Props {
   description?: string;
   languagePaths: Record<Locale, string>;
   section?: 'home' | 'courses' | 'centres' | 'none';
+  /**
+   * False for pages that must stay out of search results (alert sign-up and token
+   * pages, the 404): they get noindex and no canonical or hreflang links.
+   */
+  indexable?: boolean;
+  /** schema.org JSON-LD, only with facts the page actually shows. */
+  structuredData?: object;
 }
 const {
   locale,
@@ -26,7 +34,12 @@ const {
   description,
   languagePaths,
   section = 'home',
+  indexable = true,
+  structuredData,
 } = Astro.props;
+const metaDescription =
+  description ?? m.description({ cities: coveredCities(locale) }, { locale });
+const links = indexable ? pageLinks(locale, languagePaths) : null;
 const base = homePath(locale);
 // "Cursos" and "Centros" open a list of cities (docs/adr/0010-city-sections.md).
 const cities = sourceCityLabels(locale);
@@ -58,14 +71,38 @@ const menus = [
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta
-      name="description"
-      content={
-        description ??
-        m.description({ cities: coveredCities(locale) }, { locale })
-      }
-    />
-    <meta name="robots" content="noindex,follow" />
+    <meta name="description" content={metaDescription} />
+    {!indexable && <meta name="robots" content="noindex,follow" />}
+    {links && (
+      <>
+        <link rel="canonical" href={links.canonical} />
+        {links.alternates.map((alternate) => (
+          <link
+            rel="alternate"
+            hreflang={alternate.hreflang}
+            href={alternate.href}
+          />
+        ))}
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content="UrbanLabs" />
+        <meta property="og:title" content={title} />
+        <meta property="og:description" content={metaDescription} />
+        <meta property="og:url" content={links.canonical} />
+        <meta property="og:locale" content={OG_LOCALES[locale]} />
+        {locales
+          .filter((other) => other !== locale)
+          .map((other) => (
+            <meta property="og:locale:alternate" content={OG_LOCALES[other]} />
+          ))}
+      </>
+    )}
+    {indexable && structuredData && (
+      <script
+        is:inline
+        type="application/ld+json"
+        set:html={jsonLd(structuredData)}
+      />
+    )}
     <link
       rel="icon"
       type="image/png"

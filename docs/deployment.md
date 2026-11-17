@@ -6,7 +6,7 @@ URL: https://learnaprop.learnaprop.workers.dev/
 
 First deployed with explicit user approval on 2026-11-06. Worker: `learnaprop`. Cloudflare environment: `production`. D1: `learnaprop` (`1b9916a8-60ff-4d90-8e10-94216c4e9723`), created in Western Europe. Initial Worker version: `cd1613a8-547f-4b5c-be35-c36a047d267c`.
 
-The preview is public and retains `noindex`. It is not a production-readiness claim: custom domains, canonical URLs, sitemaps, comprehensive expired-edition handling, source reuse review, and scheduled refresh remain incomplete. No paid service, plan upgrade, or automatic deployment workflow was enabled.
+The site is public and served at https://urbanlabs.fyi. It is open to search engines: canonical URLs point to `urbanlabs.fyi` (also for pages reached through the `workers.dev` address), with `hreflang`, a sitemap at `/sitemap-index.xml` and `/robots.txt` ([ADR 0012](adr/0012-public-indexing.md)). Alert pages and the 404 keep `noindex`. No paid service, plan upgrade, or automatic deployment workflow was enabled.
 
 ## Explicit deployment commands
 

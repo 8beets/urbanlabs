@@ -1,0 +1,9 @@
+# UrbanLabs: public course directory. Every page is crawlable; pages that must stay out of
+# search results (alert sign-up and token pages, 404) carry noindex instead of being
+# blocked here, so crawlers can read it. The JSON search data and the alert API are not
+# pages.
+User-agent: *
+Disallow: /search/
+Disallow: /alerts/
+
+Sitemap: https://urbanlabs.fyi/sitemap-index.xml
