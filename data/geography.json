@@ -54,6 +54,13 @@
       "names": {
         "es": "Barcelona",
         "ca": "Barcelona"
+      },
+      "dataCredit": {
+        "url": "https://ajuntament.barcelona.cat/ca/avis-legal",
+        "names": {
+          "es": "Ayuntamiento de Barcelona",
+          "ca": "Ajuntament de Barcelona"
+        }
       }
     },
     {

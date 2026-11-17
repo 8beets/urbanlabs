@@ -679,15 +679,17 @@ h3 {
   margin-top: 2px;
 }
 .footer {
-  display: flex;
-  justify-content: space-between;
-  align-items: start;
-  gap: 24px 64px;
   margin-top: 56px;
   padding-block: 32px 40px;
   border-top: 1px solid var(--line);
   font-size: 0.875rem;
   color: var(--muted);
+}
+.footer-main {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  gap: 16px 64px;
 }
 .footer-about {
   max-width: 52ch;
@@ -708,9 +710,6 @@ h3 {
   align-items: center;
   gap: 4px 24px;
 }
-.footer-links .photo-credit {
-  flex-basis: 100%;
-}
 .github-link {
   display: inline-flex;
   align-items: center;
@@ -718,9 +717,42 @@ h3 {
   min-height: 44px;
   font-weight: 650;
 }
-.photo-credit {
+.footer-credits {
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid var(--line);
   font-size: 0.75rem;
-  max-width: 52ch;
+}
+.footer .footer-heading {
+  margin: 0 0 10px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+.credit-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 240px), 1fr));
+  gap: 8px 24px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.credit-list li {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+.credit-city {
+  font-weight: 650;
+  color: var(--ink);
+}
+.credit-list a {
+  overflow-wrap: anywhere;
+}
+.photo-credit {
+  margin: 16px 0 0;
 }
 .skip {
   position: absolute;
@@ -869,12 +901,16 @@ h3 {
     justify-content: flex-end;
     gap: 12px;
   }
-  .footer {
+  .footer-main {
     flex-direction: column;
-    gap: 16px;
+    gap: 8px;
   }
 }
 @media (max-width: 480px) {
+  .credit-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px 16px;
+  }
   .header {
     padding-block: 14px;
   }

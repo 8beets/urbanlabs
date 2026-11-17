@@ -169,27 +169,40 @@ const menus = [
       <slot />
     </main>
     <footer class="shell footer">
-      <div class="footer-about">
-        <p class="footer-brand">UrbanLabs</p>
-        <p>{m.footer({}, { locale })}</p>
+      <div class="footer-main">
+        <div class="footer-about">
+          <p class="footer-brand">UrbanLabs</p>
+          <p>{m.footer({}, { locale })}</p>
+        </div>
+        <div class="footer-links">
+          <a href={aboutPath(locale)}>{m.aboutNav({}, { locale })}</a>
+          <a class="github-link" href="https://github.com/8beets/urbanlabs">
+            <img src="/icons/github.svg" alt="" width="20" height="20" />
+            {m.githubRepo({}, { locale })}
+          </a>
+        </div>
       </div>
-      <div class="footer-links">
-        <a href={aboutPath(locale)}>{m.aboutNav({}, { locale })}</a>
-        <a class="github-link" href="https://github.com/8beets/urbanlabs">
-          <img src="/icons/github.svg" alt="" width="20" height="20" />
-          {m.githubRepo({}, { locale })}
-        </a>
+      <div class="footer-credits">
+        {credits.length > 0 && (
+          <section aria-labelledby="footer-data-sources">
+            <h2 id="footer-data-sources" class="footer-heading">
+              {m.dataSources({}, { locale })}
+            </h2>
+            <ul class="credit-list">
+              {credits.map((credit) => (
+                <li>
+                  <span class="credit-city">{credit.city}</span>
+                  <a href={credit.url}>{credit.name}</a>
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
         <p class="photo-credit">
           {m.photoNote({}, { locale })}{' '}
           <a href="https://www.pexels.com/">{m.photoCredits({}, { locale })}</a>
           .
         </p>
-        {credits.map((credit) => (
-          <p class="photo-credit">
-            {m.cityDataNote({ city: credit.city }, { locale })}{' '}
-            <a href={credit.url}>{credit.name}</a>.
-          </p>
-        ))}
       </div>
     </footer>
   </body>
