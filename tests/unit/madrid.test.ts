@@ -7,7 +7,7 @@ import {
   madridRecord,
   madridRows,
   madridSchedule,
-  MIRROR_PATH,
+  newestCsvPath,
   parseCsv,
 } from '../../src/lib/ingestion/adapters/madrid-datos-cursos';
 import { courseRecordSchema } from '../../src/lib/ingestion/validation/record';
@@ -16,21 +16,33 @@ import { toSourceConfig } from '../../src/lib/centres/schema';
 import { sources } from '../../src/lib/sources';
 
 const csv = readFixture('madrid-talleres.csv');
+const pkg = readFixture('madrid-package.json');
 const rows = madridRows(csv);
 const source = (slug: string) =>
   toSourceConfig(centres.find((c) => c.id === `cc-mad-${slug}`)!);
 const clara = source('centro-cultural-clara-del-rey-museo-abc');
 // The fixture's FECHA_DATOS_FIN is 10/11/2026.
 const SNAPSHOT_DAY = new Date('2026-11-10T12:00:00Z');
+const PACKAGE_PATH =
+  '/api/3/action/package_show?id=50064-0-talleres-culturales-cursos';
+const CSV_PATH =
+  '/dataset/50064-0-talleres-culturales-cursos/resource/50064-45-talleres-culturales-cursos/download/50064-0-talleres-culturales-cursos_134_20261111_195807.csv';
 
 describe('Madrid cultural-centre courses dataset', () => {
-  it('is ingested from the hand-downloaded copy', () => {
+  it('is ingested from datos.madrid.es', () => {
     const madrid = centres.filter((c) => c.cityId === 'madrid');
     expect(madrid).toHaveLength(83);
     expect(madrid.some((c) => c.pausedReason)).toBe(false);
     expect(
       sources.filter((s) => s.platform === 'madrid-datos-cursos'),
     ).toHaveLength(83);
+  });
+
+  it('picks the newest CSV snapshot', () => {
+    expect(newestCsvPath(pkg)).toBe(CSV_PATH);
+    const parsed = JSON.parse(pkg);
+    parsed.result.resources.reverse();
+    expect(newestCsvPath(JSON.stringify(parsed))).toBe(CSV_PATH);
   });
 
   it('rejects a snapshot older than a month', () => {
@@ -98,12 +110,13 @@ describe('Madrid adapter', () => {
   afterEach(() => vi.useRealTimers());
 
   const run = () => {
-    const { options, requests } = fakeSource((url) =>
-      url.origin === 'https://raw.githubusercontent.com' &&
-      url.pathname === MIRROR_PATH
-        ? csv
-        : null,
-    );
+    const { options, requests } = fakeSource((url) => {
+      if (url.origin !== 'https://datos.madrid.es') return null;
+      const path = pathOf(url.href);
+      if (path === PACKAGE_PATH) return pkg;
+      if (path === CSV_PATH) return csv;
+      return null;
+    });
     return { adapter: createMadridAdapter(options), requests };
   };
 
@@ -122,8 +135,11 @@ describe('Madrid adapter', () => {
         source('centro-dotacional-integrado-arganzuela-angel-del-rio'),
       ),
     ).toHaveLength(2);
-    // Only the data repository's copy is read, nothing from datos.madrid.es.
-    expect(new Set(requests.map(pathOf))).toEqual(new Set([MIRROR_PATH]));
+    // The portal authorised API and download access by email on 2026-11-17, so
+    // robots.txt is not read: only the dataset record and its newest CSV.
+    expect(new Set(requests.map(pathOf))).toEqual(
+      new Set([PACKAGE_PATH, CSV_PATH]),
+    );
   });
 
   it('fails instead of serving an old snapshot', async () => {

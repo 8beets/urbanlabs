@@ -1,5 +1,7 @@
 # Draft: access request to the Ayuntamiento de Madrid
 
+> **Answered, no longer needed.** On 2026-11-17 the open-data portal's team answered by email that the robots.txt rules target search-engine crawlers, that automated reuse should use the CKAN API and the resources' download URLs, and that the dataset is CC BY 4.0. UrbanLabs reads datos.madrid.es directly again; see `docs/data-sources.md`.
+
 Not sent. To be reviewed and sent by a maintainer, preferably through the council's electronic office (sede electrónica) or registry rather than the contact form of the open-data portal (datos.madrid.es) or the Dirección General de Transparencia, so that the 20-day period of article 10.3 of Ley 37/2007 applies. Article 10.2 requires the applicant's identification data (article 66.1 of Ley 39/2015), which the maintainer adds when filing.
 
 **Para:** Ayuntamiento de Madrid, portal de datos abiertos (datos.madrid.es)
