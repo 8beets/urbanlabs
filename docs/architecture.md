@@ -214,8 +214,10 @@ Decided in [ADR 0008](adr/0008-static-site.md) (issue #89).
   (`/es/<city>/centros/[slug]`, `/[slug]/2`, …) and topic pages
   (`/es/<city>/cursos/[topic]`, …) that keep the catalogue browsable without JavaScript.
 - The build also writes `/search/<city>/live.json` and `/search/<city>/archive.json`
-  (`src/lib/catalog/search-index.ts`). `src/lib/catalog/search-page.ts` loads them,
-  runs `discover()` for the URL query and renders results with
+  with what filtering needs, and the card details in `/search/<city>/details/<n>.json`
+  (`src/lib/catalog/search-index.ts`, [ADR 0013](adr/0013-split-search-index.md)).
+  `src/lib/catalog/search-page.ts` loads the index, runs `discover()` for the URL
+  query, loads the details of the cards on the page and renders results with
   `discoveryResultsHtml()` and `courseCardHtml()`, the same functions the build uses.
   While a filtered search loads, the prerendered unfiltered results stay hidden.
 - Invalid filters show the accessible error message (no HTTP 400 on a static page);

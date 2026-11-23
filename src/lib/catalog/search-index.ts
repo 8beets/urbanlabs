@@ -1,44 +1,67 @@
-import { isLive } from './query';
+import { compareArchive, compareLive, isLive } from './query';
 import type { Catalog, CourseListing, Snapshot } from './types';
 // Type-only, so zod stays out of the browser bundle.
 import type {
+  DetailChunk,
+  EncodedDetails,
   EncodedEdition,
   OfficialSource,
   SearchIndex,
 } from './search-index-schema';
 
-export type { OfficialSource, SearchIndex };
+export type { DetailChunk, OfficialSource, SearchIndex };
 
-// The browser search downloads these files instead of querying D1, one pair per city
-// (docs/adr/0010-city-sections.md). The live file is what almost every search needs;
-// past editions only load for the archive view.
+// The browser search downloads these files instead of querying D1, one set per city
+// (docs/adr/0010-city-sections.md, docs/adr/0013-split-search-index.md):
+// - live.json: every live edition with only what filtering and sorting need. Almost
+//   every search reads it, so it carries the size budget.
+// - archive.json: the same for ended editions, loaded only for the archive view.
+// - details/<n>.json: what only a card shows (schedule, source link, organiser,
+//   verification date…), DETAIL_CHUNK_SIZE editions per file, loaded for the cards
+//   on screen.
 //
-// Editions are compact tuples. Their 64-character ids were half of the compressed
-// size but only break ties when sorting, so each edition gets its position in id
-// order instead (the same order across both files), and centre names and slugs are
-// listed once. `decodeIndexes` turns the files back into ordinary course listings.
+// Editions are compact tuples. Their 64-character ids only break ties when sorting,
+// so each edition gets a position instead: live editions first in default listing
+// order, then ended ones in archive order. Position order keeps every tie-break of
+// the id order, and it puts the first pages of an unfiltered search in one detail
+// file. Centre names and slugs are listed once. `decodeIndexes` and `withDetails` turn
+// the files back into ordinary course listings.
 
-export const SEARCH_INDEX_VERSION = 4;
+export const SEARCH_INDEX_VERSION = 5;
+export const DETAIL_CHUNK_SIZE = 100;
 export const liveIndexPath = (city: string) => `/search/${city}/live.json`;
 export const archiveIndexPath = (city: string) =>
   `/search/${city}/archive.json`;
+export const detailChunkPath = (city: string, chunk: number) =>
+  `/search/${city}/details/${chunk}.json`;
 
 // Fixed width keeps string order equal to numeric order for the tie-break.
 const ID_WIDTH = 7;
 
-/**
- * One city's live and archive search files at the build date. Positions follow the id
- * order of the city's editions, so they are consistent across its two files.
- */
+export interface CitySearchFiles {
+  live: SearchIndex;
+  archive: SearchIndex;
+  details: DetailChunk[];
+}
+
+/** One city's search files at the build date. */
 export function buildSearchIndexes(
   snapshot: Snapshot,
   sources: OfficialSource[],
   today: string,
   city: string,
-): { live: SearchIndex; archive: SearchIndex } {
-  const ordered = snapshot.editions
-    .filter((edition) => edition.city_id === city)
-    .toSorted((a, b) => (a.id < b.id ? -1 : a.id > b.id ? 1 : 0));
+): CitySearchFiles {
+  const editions = snapshot.editions.filter(
+    (edition) => edition.city_id === city,
+  );
+  const ordered = [
+    ...editions
+      .filter((edition) => isLive(edition, today))
+      .toSorted(compareLive),
+    ...editions
+      .filter((edition) => !isLive(edition, today))
+      .toSorted(compareArchive),
+  ];
   const institutions: [string, string, string, string][] = [];
   const institutionIndex = new Map<string, number>();
   const encode = (edition: CourseListing, position: number): EncodedEdition => {
@@ -56,38 +79,60 @@ export function buildSearchIndexes(
     return [
       position,
       edition.title,
-      edition.title_reviewed,
       edition.category,
       institution,
       edition.start_date,
       edition.end_date,
-      edition.schedule_text,
       edition.price_cents,
-      edition.currency,
       edition.is_cancelled,
       edition.is_sold_out,
-      edition.organizer,
-      edition.official_url,
-      edition.last_successfully_verified_at.slice(0, 10),
     ];
   };
+  const details = (edition: CourseListing): EncodedDetails => [
+    edition.title_reviewed,
+    edition.schedule_text,
+    edition.currency,
+    edition.organizer,
+    edition.official_url,
+    edition.last_successfully_verified_at.slice(0, 10),
+  ];
   const live: EncodedEdition[] = [];
   const archive: EncodedEdition[] = [];
   ordered.forEach((edition, position) =>
     (isLive(edition, today) ? live : archive).push(encode(edition, position)),
   );
+  // Only the city's own rows: its search never filters by another place.
+  const locations = snapshot.locations.filter((row) => row.city_id === city);
+  const cityRow = snapshot.geography.cities.filter((row) => row.id === city);
+  const geography = {
+    countries: snapshot.geography.countries.filter((row) =>
+      cityRow.some((c) => c.country_code === row.code),
+    ),
+    regions: snapshot.geography.regions.filter((row) =>
+      cityRow.some((c) => c.region_id === row.id),
+    ),
+    cities: cityRow,
+  };
   const base = {
     version: SEARCH_INDEX_VERSION,
     generatedAt: snapshot.generatedAt,
     timeZones: snapshot.timeZones,
-    geography: snapshot.geography,
-    locations: snapshot.locations,
+    geography,
+    locations,
     sources: sources.filter((source) => source.cityId === city),
     institutions,
   } as const;
+  const chunks: DetailChunk[] = [];
+  for (let start = 0; start < ordered.length; start += DETAIL_CHUNK_SIZE)
+    chunks.push({
+      version: SEARCH_INDEX_VERSION,
+      generatedAt: snapshot.generatedAt,
+      editions: ordered.slice(start, start + DETAIL_CHUNK_SIZE).map(details),
+    });
   return {
     live: { ...base, editions: live },
     archive: { ...base, editions: archive },
+    details: chunks,
   };
 }
 
@@ -95,19 +140,13 @@ function decode(
   [
     position,
     title,
-    titleReviewed,
     category,
     institution,
     startDate,
     endDate,
-    schedule,
     price,
-    currency,
     cancelled,
     soldOut,
-    organizer,
-    url,
-    verified,
   ]: EncodedEdition,
   institutions: SearchIndex['institutions'],
 ): CourseListing {
@@ -115,7 +154,6 @@ function decode(
   return {
     id: String(position).padStart(ID_WIDTH, '0'),
     title,
-    title_reviewed: titleReviewed,
     category,
     institution: name,
     institution_id: id,
@@ -123,18 +161,23 @@ function decode(
     city_id: city,
     start_date: startDate,
     end_date: endDate,
-    schedule_text: schedule,
     price_cents: price,
-    currency,
     is_cancelled: cancelled,
     is_sold_out: soldOut,
-    organizer,
-    official_url: url,
-    last_successfully_verified_at: verified,
+    // Card details arrive with `withDetails` for the editions shown.
+    title_reviewed: 0,
+    schedule_text: null,
+    currency: null,
+    organizer: null,
+    official_url: '',
+    last_successfully_verified_at: '',
   };
 }
 
-/** Joins downloaded files into one catalog; an edition appears in exactly one file. */
+/**
+ * Joins downloaded files into one catalog for filtering; an edition appears in exactly
+ * one file. Its card details are empty until `withDetails` fills them.
+ */
 export function decodeIndexes(indexes: SearchIndex[]): Catalog & {
   sources: OfficialSource[];
 } {
@@ -148,5 +191,39 @@ export function decodeIndexes(indexes: SearchIndex[]): Catalog & {
     editions: indexes.flatMap((index) =>
       index.editions.map((edition) => decode(edition, index.institutions)),
     ),
+  };
+}
+
+/** The detail files that hold these decoded editions, in ascending order. */
+export function detailChunksFor(
+  courses: Pick<CourseListing, 'id'>[],
+): number[] {
+  return [
+    ...new Set(
+      courses.map((course) =>
+        Math.floor(Number(course.id) / DETAIL_CHUNK_SIZE),
+      ),
+    ),
+  ].sort((a, b) => a - b);
+}
+
+/** A decoded edition with its card details from the loaded detail files. */
+export function withDetails<T extends CourseListing>(
+  course: T,
+  chunks: ReadonlyMap<number, DetailChunk>,
+): T {
+  const position = Number(course.id);
+  const details = chunks.get(Math.floor(position / DETAIL_CHUNK_SIZE))
+    ?.editions[position % DETAIL_CHUNK_SIZE];
+  if (!details) throw new Error(`Search details missing for ${course.id}`);
+  const [reviewed, schedule, currency, organizer, url, verified] = details;
+  return {
+    ...course,
+    title_reviewed: reviewed,
+    schedule_text: schedule,
+    currency,
+    organizer,
+    official_url: url,
+    last_successfully_verified_at: verified,
   };
 }

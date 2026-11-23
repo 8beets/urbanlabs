@@ -15,24 +15,30 @@ export type OfficialSource = z.infer<typeof officialSourceSchema>;
 
 const text = z.string().nullable();
 const flag = z.union([z.literal(0), z.literal(1)]);
+// What filtering and sorting need; positions follow listing order (see search-index.ts).
 const encodedEdition = z.tuple([
-  z.number().int().nonnegative(), // position in id order
+  z.number().int().nonnegative(), // position
   z.string(), // title (reviewed title when there is one)
-  flag, // title reviewed
   text, // raw source category
   z.number().int().nonnegative(), // index into `institutions`
   text, // start date
   text, // end date
-  text, // schedule text
   z.number().int().nullable(), // price in cents
-  text, // currency
   flag, // cancelled
   flag, // sold out
+]);
+export type EncodedEdition = z.infer<typeof encodedEdition>;
+
+// What only a rendered card needs, loaded for the editions on screen.
+const encodedDetails = z.tuple([
+  flag, // title reviewed
+  text, // schedule text
+  text, // currency
   text, // organiser
   z.string().regex(/^https?:\/\/\S+$/), // official URL
   z.string(), // last verified date (yyyy-MM-dd)
 ]);
-export type EncodedEdition = z.infer<typeof encodedEdition>;
+export type EncodedDetails = z.infer<typeof encodedDetails>;
 
 export const searchIndexSchema = z.object({
   version: z.literal(SEARCH_INDEX_VERSION),
@@ -48,3 +54,11 @@ export const searchIndexSchema = z.object({
   editions: z.array(encodedEdition),
 });
 export type SearchIndex = z.infer<typeof searchIndexSchema>;
+
+/** Card details of positions `chunk * DETAIL_CHUNK_SIZE` onwards, in position order. */
+export const detailChunkSchema = z.object({
+  version: z.literal(SEARCH_INDEX_VERSION),
+  generatedAt: z.string(),
+  editions: z.array(encodedDetails),
+});
+export type DetailChunk = z.infer<typeof detailChunkSchema>;

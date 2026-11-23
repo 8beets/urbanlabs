@@ -21,8 +21,12 @@ import { catalogToday } from './query';
 import {
   SEARCH_INDEX_VERSION,
   archiveIndexPath,
-  liveIndexPath,
   decodeIndexes,
+  detailChunkPath,
+  detailChunksFor,
+  liveIndexPath,
+  withDetails,
+  type DetailChunk,
   type SearchIndex,
 } from './search-index';
 
@@ -31,23 +35,86 @@ import {
 // the build prerenders. Submitting the GET form reloads the page with the new query.
 // The city comes from the page path, never from the query (docs/adr/0010-city-sections.md).
 
-async function fetchIndex(path: string): Promise<SearchIndex> {
+async function fetchSearchFile(
+  path: string,
+  reload: boolean,
+): Promise<{ generatedAt: string; editions: unknown[] }> {
   const response = await fetch(path, {
     headers: { Accept: 'application/json' },
+    cache: reload ? 'reload' : 'default',
   });
   if (!response.ok)
     throw new Error(`Search index unavailable: ${response.status}`);
-  const index: unknown = await response.json();
+  const file: unknown = await response.json();
   if (
-    typeof index !== 'object' ||
-    index === null ||
-    !('version' in index) ||
-    index.version !== SEARCH_INDEX_VERSION ||
-    !('editions' in index) ||
-    !Array.isArray(index.editions)
+    typeof file !== 'object' ||
+    file === null ||
+    !('version' in file) ||
+    file.version !== SEARCH_INDEX_VERSION ||
+    !('generatedAt' in file) ||
+    typeof file.generatedAt !== 'string' ||
+    !('editions' in file) ||
+    !Array.isArray(file.editions)
   )
     throw new Error('Unexpected search index format');
-  return index as SearchIndex;
+  return file as { generatedAt: string; editions: unknown[] };
+}
+
+/** Files of two different builds (a deploy between two requests). */
+class MixedBuilds extends Error {}
+
+/** The city's index decoded and filtered: enough for the filter form. */
+async function loadIndexes(
+  city: string,
+  archive: boolean,
+  params: URLSearchParams,
+  reload: boolean,
+) {
+  const indexes = (await Promise.all(
+    [liveIndexPath(city), ...(archive ? [archiveIndexPath(city)] : [])].map(
+      (path) => fetchSearchFile(path, reload),
+    ),
+  )) as SearchIndex[];
+  const build = indexes[0]!.generatedAt;
+  if (indexes.some((index) => index.generatedAt !== build))
+    throw new MixedBuilds('Search files come from different builds');
+  const catalog = decodeIndexes(indexes);
+  const today = catalogToday(catalog);
+  return { catalog, today, build, found: discover(catalog, params, today) };
+}
+
+/**
+ * The card details of the editions on screen (docs/adr/0013-split-search-index.md).
+ * Positions only mean something within one build, so every file must match it.
+ */
+async function withCardDetails(
+  city: string,
+  found: DiscoveryPageData,
+  build: string,
+  reload: boolean,
+  prefetched: Map<number, Promise<DetailChunk>>,
+): Promise<DiscoveryPageData> {
+  const chunks = new Map(
+    await Promise.all(
+      detailChunksFor(found.courses).map(
+        async (chunk) =>
+          [
+            chunk,
+            await ((!reload && prefetched.get(chunk)) ||
+              (fetchSearchFile(
+                detailChunkPath(city, chunk),
+                reload,
+              ) as Promise<DetailChunk>)),
+          ] as const,
+      ),
+    ),
+  );
+  if ([...chunks.values()].some((chunk) => chunk.generatedAt !== build))
+    throw new MixedBuilds('Search files come from different builds');
+  return {
+    ...found,
+    courses: found.courses.map((course) => withDetails(course, chunks)),
+  };
 }
 
 function select(form: HTMLFormElement, name: string) {
@@ -193,24 +260,29 @@ export async function startSearchPage(root: HTMLElement): Promise<void> {
   };
   results.setAttribute('aria-busy', 'true');
   try {
-    const indexes = await Promise.all(
-      [liveIndexPath(city), ...(archive ? [archiveIndexPath(city)] : [])].map(
-        fetchIndex,
-      ),
+    const scoped = withCity(params);
+    // The first detail file holds the first pages of the default listing; fetch it
+    // alongside the index. A failed prefetch only matters if that file is needed.
+    const prefetched = new Map<number, Promise<DetailChunk>>();
+    if (!archive) {
+      const first = fetchSearchFile(
+        detailChunkPath(city, 0),
+        false,
+      ) as Promise<DetailChunk>;
+      first.catch(() => undefined);
+      prefetched.set(0, first);
+    }
+    let loaded = await loadIndexes(city, archive, scoped, false).catch(
+      (error: unknown) => {
+        if (error instanceof MixedBuilds)
+          return loadIndexes(city, archive, scoped, true);
+        throw error;
+      },
     );
-    const catalog = decodeIndexes(indexes);
-    const today = catalogToday(catalog);
-    const data = discover(catalog, withCity(params), today);
-    results.innerHTML = discoveryResultsHtml({
-      locale,
-      data,
-      params,
-      sources: catalog.sources,
-      alerts,
-    });
-    updatePage(locale, city, params, data.filters.archive === true);
+    const { catalog, today } = loaded;
+    // The form works as soon as the index is filtered, before the cards load.
     if (form) {
-      applyToForm(form, locale, data, params);
+      applyToForm(form, locale, loaded.found, params);
       enhanceFilters(form, (choiceParams) => {
         const choices = filterOptions(catalog, withCity(choiceParams), today);
         return {
@@ -226,6 +298,32 @@ export async function startSearchPage(root: HTMLElement): Promise<void> {
         };
       });
     }
+    // A deploy between two requests mixes builds; fetch everything afresh once.
+    const data = await withCardDetails(
+      city,
+      loaded.found,
+      loaded.build,
+      false,
+      prefetched,
+    ).catch(async (error: unknown) => {
+      if (!(error instanceof MixedBuilds)) throw error;
+      loaded = await loadIndexes(city, archive, scoped, true);
+      return withCardDetails(
+        city,
+        loaded.found,
+        loaded.build,
+        true,
+        prefetched,
+      );
+    });
+    results.innerHTML = discoveryResultsHtml({
+      locale,
+      data,
+      params,
+      sources: loaded.catalog.sources,
+      alerts,
+    });
+    updatePage(locale, city, params, data.filters.archive === true);
   } catch (error) {
     console.error(
       JSON.stringify({

@@ -87,7 +87,7 @@ function matchesState(
   return filters.archive ? !isLive(edition, today) : isLive(edition, today);
 }
 
-function compareLive(a: CourseListing, b: CourseListing): number {
+export function compareLive(a: CourseListing, b: CourseListing): number {
   return (
     a.is_cancelled - b.is_cancelled ||
     a.is_sold_out - b.is_sold_out ||
@@ -97,7 +97,7 @@ function compareLive(a: CourseListing, b: CourseListing): number {
   );
 }
 
-function compareArchive(a: CourseListing, b: CourseListing): number {
+export function compareArchive(a: CourseListing, b: CourseListing): number {
   return binary(liveUntil(b), liveUntil(a)) || binary(a.id, b.id);
 }
 
