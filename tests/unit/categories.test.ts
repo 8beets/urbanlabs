@@ -114,6 +114,36 @@ describe('course topics', () => {
       unmappedCategories(['IDIOMES', 'Idiomes', 'Monografics', 'NOVA', 'NOVA']),
     ).toEqual(['NOVA']);
   });
+
+  it('reviews the categories reported in issue #136', () => {
+    expect(
+      unmappedCategories([
+        "ACTIVITATS A L'AIRE LLIURE",
+        'ACTIVITATS EN FAMÍLIA',
+        'ARTS I ARTESANIES',
+        'BALLS I DANCES',
+        'BENESTAR EMOCIONAL',
+        "ESPAI D'INFORMÀTICA",
+        'EXPRESSIO PLASTICA',
+        'HUMAN. I CIENC. SOC.',
+        'INFORM. I COMUNIC.',
+        'MUSICALS',
+        'PROJECCIONS DE CINEMA',
+        'RACO INF. I JUV.',
+        'SALUT I CREIX. PERS.',
+        'TALLERS DE MÚSICA CLÀSSICA',
+        'TALLERS DE TARDOR 26',
+        'Tallers infantils',
+        "Tallers nous d'hivern",
+      ]),
+    ).toEqual([]);
+    expect(
+      courseTopic({ category: 'BALLS I DANCES', title: 'Sevillanes' }),
+    ).toBe('dansa');
+    expect(
+      courseAudience({ category: 'RACO INF. I JUV.', title: 'Jocs de taula' }),
+    ).toBe('infants-i-joves');
+  });
 });
 
 describe('course audiences', () => {
