@@ -361,6 +361,27 @@ https://opendata-ajuntament.barcelona.cat/data/dataset/centres-civics-formacio
 
 The dataset metadata describes annual aggregate statistics (activities, attendance, available area), not bookable course editions. It is unsuitable as a course feed. Its robots policy also disallows API paths and query-string crawling; no automated importer was implemented.
 
+### Barcelona casals de barri comunitaris (issue #144) — reviewed 2026-11-23
+
+https://ajuntament.barcelona.cat/casalsdebarri/ca
+
+- **Usefulness:** high. The network has 44 community centres (Servei de Benestar i Cures Comunitàries), separate from the civic centres already ingested through Miram. On 2026-11-23 its agenda listed 856 activities, 644 of them under "Cursos i tallers", many free (498 free, 358 paid across all types).
+- **Casal websites:** 23 casals link their own website, each on a different platform (e.g. `ateneuelpoblet.cat`, `cblapau.org`, `elmercatcultural.cat`, a webador.es site). The others link none. There is no shared registration platform like Miram, so per-site adapters would not be maintainable.
+- **Casal pages on ajuntament.barcelona.cat:** address and description only; no activity list.
+- **Hub agenda (`/casalsdebarri/ca/agenda`):**
+  - The HTML shows the first 10 results.
+  - "Mostra'n més" loads the rest from `/casalsdebarri/ca/api/guia/show_more/…?pg=search&…`, which `ajuntament.barcelona.cat/robots.txt` disallows (`*?pg=search&`, also `*/search/`, `*/llistat/`).
+  - Filtered links (`?code0=…`) return the same first 10 results.
+  - Not used.
+- **guia.barcelona.cat** (the municipal guide behind the agenda):
+  - Detail pages are allowed, with a 10-second crawl delay.
+  - Every listing is disallowed (`/search/`, `*/llistat`, `/*pg=search`), so activities cannot be discovered there.
+  - Not used.
+- **Barcelona Open Data portal:** the city agenda is published as open data on `opendata-ajuntament.barcelona.cat`, the natural source. From the cloud development environment the server answered HTTP 403 to every request, including `robots.txt`, with or without the project user agent. The datos.gob.es federation answered with an Incapsula bot challenge. Neither block was bypassed. Whether the files can be read from GitHub Actions is unverified.
+- **Not yet verified:** whether the open-data agenda files name the venue (so activities can be matched to casals), carry the "Cursos i tallers" category and prices, and what licence applies.
+- **Next step:** read one agenda file from a regular browser and check those points. If they hold, add an adapter like Málaga's (one shared file filtered per venue, credited to the Ajuntament de Barcelona), or, if the portal stays unreachable from CI, use a manual mirror in `urban-open-courses-data` as for Madrid.
+- **Status:** no adapter implemented.
+
 ### Other cities — reviewed 2026-11-13
 
 One request per site (robots.txt and the listing page) with curl's default user agent. No block was bypassed, and nothing was imported. Revisit when the site or its policy changes.
