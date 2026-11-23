@@ -77,6 +77,9 @@ test('unsupported locale routes return 404 and the search index is available', a
   expect(response.status()).toBe(200);
   expect(response.headers()['content-type']).toContain('application/json');
   expect((await response.json()).editions.length).toBeGreaterThan(0);
+  const details = await request.get('/search/barcelona/details/0.json');
+  expect(details.status()).toBe(200);
+  expect((await details.json()).editions.length).toBeGreaterThan(0);
 });
 
 test('prerendered pages carry their own language and set no cookies', async ({

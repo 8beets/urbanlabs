@@ -1,19 +1,26 @@
 import { describe, expect, it } from 'vitest';
 import { courseCardHtml } from '../../src/lib/courses/card';
 import { escapeHtml } from '../../src/lib/html';
-import { discover } from '../../src/lib/catalog/discovery';
+import { defaultFilters, discover } from '../../src/lib/catalog/discovery';
 import { discoveryResultsHtml } from '../../src/lib/catalog/discovery-view';
 import { categoryPagesFrom } from '../../src/lib/catalog/pages';
 import {
   canonicalListing,
   catalogToday,
+  listCourses,
   liveUntil,
 } from '../../src/lib/catalog/query';
 import {
+  DETAIL_CHUNK_SIZE,
   buildSearchIndexes,
   decodeIndexes,
+  detailChunksFor,
+  withDetails,
 } from '../../src/lib/catalog/search-index';
-import { searchIndexSchema } from '../../src/lib/catalog/search-index-schema';
+import {
+  detailChunkSchema,
+  searchIndexSchema,
+} from '../../src/lib/catalog/search-index-schema';
 import {
   snapshotSchema,
   type Snapshot,
@@ -83,20 +90,28 @@ const snapshot: Snapshot = {
 
 describe('search index files', () => {
   it('split live and past editions at the build date, each edition once', () => {
-    const { live, archive } = buildSearchIndexes(
+    const { live, archive, details } = buildSearchIndexes(
       snapshot,
       [],
       '2026-11-11',
       'barcelona',
     );
     expect(searchIndexSchema.parse(live)).toEqual(live);
-    const titles = (index: typeof live) =>
+    expect(detailChunkSchema.parse(details[0])).toEqual(details[0]);
+    const ids = (index: typeof live) =>
       decodeIndexes([index]).editions.map((e) => e.id);
-    // Ids become positions in id order ('ended' < 'live' < 'open-ended').
-    expect(titles(live)).toEqual(['0000001', '0000002']);
-    expect(titles(archive)).toEqual(['0000000']);
+    // Live editions come first, in listing order; ended ones follow.
+    expect(ids(live)).toEqual(['0000000', '0000001']);
+    expect(ids(archive)).toEqual(['0000002']);
     const decoded = decodeIndexes([live, archive]).editions;
     expect(decoded).toHaveLength(3);
+    // Filtering fields only, until the card details are joined.
+    expect(decoded[0]).toMatchObject({
+      official_url: '',
+      schedule_text: null,
+    });
+    const chunks = new Map(details.map((chunk, n) => [n, chunk]));
+    expect(detailChunksFor(decoded)).toEqual([0]);
     // Everything a card or filter needs survives; provenance ordering stays behind.
     const dropped = [
       'id',
@@ -105,16 +120,55 @@ describe('search index files', () => {
       'source_id',
       'external_id',
     ];
-    expect(decoded[0]).toMatchObject({
+    const source = snapshot.editions.find((e) => e.id === 'live')!;
+    // 'live' and 'open-ended' tie on the start date; the id order breaks the tie.
+    const card = withDetails(decoded[0]!, chunks);
+    expect(card).toMatchObject({
       ...Object.fromEntries(
-        Object.entries(snapshot.editions[0]!).filter(
-          ([key]) => !dropped.includes(key),
-        ),
+        Object.entries(source).filter(([key]) => !dropped.includes(key)),
       ),
       last_successfully_verified_at: '2026-11-10',
     });
-    expect(decoded[0]).not.toHaveProperty('first_seen_at');
+    expect(card).not.toHaveProperty('first_seen_at');
   });
+
+  it('order positions like the listing, so a first page needs one detail file', () => {
+    const many = {
+      ...snapshot,
+      editions: Array.from({ length: DETAIL_CHUNK_SIZE + 5 }, (_, i) =>
+        edition({
+          id: `e${String(i).padStart(3, '0')}`,
+          // Later ids start sooner, so listing order differs from id order.
+          start_date: `2099-01-${String(28 - (i % 28)).padStart(2, '0')}`,
+          end_date: '2099-12-31',
+          official_url: `https://example.org/${i}`,
+        }),
+      ),
+    };
+    const { live, details } = buildSearchIndexes(
+      many,
+      [],
+      '2026-11-11',
+      'barcelona',
+    );
+    expect(details).toHaveLength(2);
+    const catalog = decodeIndexes([live]);
+    const page = listCourses(catalog, { ...defaultFilters }, '2026-11-11');
+    expect(detailChunksFor(page.courses)).toEqual([0]);
+    // Ties on the start date still break by the original id order.
+    const chunks = new Map(details.map((chunk, n) => [n, chunk]));
+    const urls = page.courses.map((c) => withDetails(c, chunks).official_url);
+    const expected = listCourses(
+      many,
+      { ...defaultFilters },
+      '2026-11-11',
+    ).courses.map((c) => c.official_url);
+    expect(urls).toEqual(expected);
+    expect(() =>
+      withDetails({ ...catalog.editions[0]!, id: '0009999' }, chunks),
+    ).toThrow('details missing');
+  });
+
   it('hold only their own city’s editions and sources', () => {
     const elsewhere = {
       ...snapshot,

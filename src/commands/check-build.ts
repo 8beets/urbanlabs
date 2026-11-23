@@ -10,10 +10,12 @@ const CLIENT = 'dist/client';
 const MAX_FILES = 20_000;
 const MAX_FILE_BYTES = 25 * 1024 * 1024;
 // The browser downloads its city's live index for every search; keep each one small
-// (docs/adr/0010-city-sections.md). If one fails, look at that city's index size
+// (docs/adr/0010-city-sections.md, 0013-split-search-index.md). If one fails, look at that city's index size
 // (or split the city) before raising the budget.
 const SEARCH_DIR = 'search';
 const MAX_LIVE_INDEX_GZIP = 150 * 1024;
+// A results page loads one to a few detail files (docs/adr/0013-split-search-index.md).
+const MAX_DETAIL_CHUNK_GZIP = 20 * 1024;
 // Leaflet is the largest script (~43 KB). The search script once reached ~80 KB by
 // bundling the whole centre registry and zod; a script over this budget usually
 // imports server-only code.
@@ -33,6 +35,19 @@ export const checkBuildCommand = new Command('check-build')
       return { path, gzip: gzipSync(readFileSync(join(CLIENT, path))).length };
     });
     if (!liveIndexes.length) throw new Error('No city search index was built');
+    const detailChunks = readdirSync(join(CLIENT, SEARCH_DIR)).flatMap(
+      (city) => {
+        const dir = join(SEARCH_DIR, city, 'details');
+        return readdirSync(join(CLIENT, dir)).map((name) => {
+          const path = join(dir, name);
+          return {
+            path,
+            gzip: gzipSync(readFileSync(join(CLIENT, path))).length,
+          };
+        });
+      },
+    );
+    const largestChunk = detailChunks.sort((a, b) => b.gzip - a.gzip)[0];
     const scripts = all
       .filter((path) => path.endsWith('.js'))
       .map((path) => ({ path, gzip: gzipSync(readFileSync(path)).length }))
@@ -49,6 +64,10 @@ export const checkBuildCommand = new Command('check-build')
         largestLiveIndex: largestIndex.path,
         largestLiveIndexGzipBytes: largestIndex.gzip,
         maxLiveIndexGzipBytes: MAX_LIVE_INDEX_GZIP,
+        detailChunks: detailChunks.length,
+        largestDetailChunk: largestChunk?.path,
+        largestDetailChunkGzipBytes: largestChunk?.gzip ?? 0,
+        maxDetailChunkGzipBytes: MAX_DETAIL_CHUNK_GZIP,
         largestScript: scripts[0]?.path,
         largestScriptGzipBytes: scripts[0]?.gzip ?? 0,
         maxScriptGzipBytes: MAX_SCRIPT_GZIP,
@@ -64,6 +83,12 @@ export const checkBuildCommand = new Command('check-build')
         .map(
           (index) =>
             `${index.path} is ${index.gzip} bytes gzipped (budget ${MAX_LIVE_INDEX_GZIP})`,
+        ),
+      ...detailChunks
+        .filter((chunk) => chunk.gzip > MAX_DETAIL_CHUNK_GZIP)
+        .map(
+          (chunk) =>
+            `${chunk.path} is ${chunk.gzip} bytes gzipped (budget ${MAX_DETAIL_CHUNK_GZIP})`,
         ),
       ...scripts
         .filter((script) => script.gzip > MAX_SCRIPT_GZIP)

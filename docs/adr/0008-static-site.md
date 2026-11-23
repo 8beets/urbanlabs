@@ -34,7 +34,7 @@ remove_diacritics 2` prefix query (`title-match.ts`). The integration tests that
   with the same markup function the build uses (`src/lib/courses/card.ts`). The GET
   form, shareable URLs and dependent options work as before, without `/api/filters`.
   CI fails the build if the gzipped live index exceeds 150 KB; the first remedy is to
-  split it by region.
+  split it by region. (Split by city in ADR 0010; card details split out in ADR 0013.)
 - **Alerts stay on demand.** The alert pages (`/es/alertas*`, `/ca/alertes*`) and
   the 404 page set `prerender = false` and run on the Worker with D1, Turnstile and
   Brevo, unchanged (ADR 0007). Whether static pages link to alerts is decided at

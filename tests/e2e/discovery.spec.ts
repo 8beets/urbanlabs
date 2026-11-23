@@ -652,6 +652,16 @@ test.describe('dynamic filter options', () => {
     await expect(page.getByRole('alert')).toBeVisible();
     await expect(page.locator('article.course')).toHaveCount(0);
   });
+  test('missing card details are reported instead of cards without links', async ({
+    page,
+  }) => {
+    await page.route('**/search/barcelona/details/*.json', (route) =>
+      route.fulfill({ status: 404, body: '' }),
+    );
+    await page.goto('/es/barcelona/cursos?q=TEST');
+    await expect(page.getByRole('alert')).toBeVisible();
+    await expect(page.locator('article.course')).toHaveCount(0);
+  });
   test('a search script that never loads stops showing the loading message', async ({
     page,
   }) => {

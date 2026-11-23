@@ -13,8 +13,8 @@ import {
 } from './query';
 import {
   buildSearchIndexes,
+  type CitySearchFiles,
   type OfficialSource,
-  type SearchIndex,
 } from './search-index';
 import type { City } from '../locations/geography';
 import type {
@@ -110,12 +110,20 @@ export function officialSources(): OfficialSource[] {
   }));
 }
 
-export function searchIndexes(city: string): {
-  live: SearchIndex;
-  archive: SearchIndex;
-} {
+// Keyed by the loaded snapshot, so a new snapshot (in development) rebuilds them.
+const searchFiles = new WeakMap<Snapshot, Map<string, CitySearchFiles>>();
+
+/** A city's search files, built once per snapshot (the detail routes ask per file). */
+export function searchIndexes(city: string): CitySearchFiles {
   const { snapshot, today } = context();
-  return buildSearchIndexes(snapshot, officialSources(), today, city);
+  let byCity = searchFiles.get(snapshot);
+  if (!byCity) searchFiles.set(snapshot, (byCity = new Map()));
+  let files = byCity.get(city);
+  if (!files) {
+    files = buildSearchIndexes(snapshot, officialSources(), today, city);
+    byCity.set(city, files);
+  }
+  return files;
 }
 
 export interface CentrePage {
