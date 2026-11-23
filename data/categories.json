@@ -28,7 +28,9 @@
       "Manualitats - monogràfics",
       "Manualitats",
       "Dibuix, pintura i escultura",
-      "Disseny"
+      "Disseny",
+      "ARTS I ARTESANIES",
+      "EXPRESSIO PLASTICA"
     ],
     "fotografia-i-audiovisual": [
       "FOTOGRAFIA",
@@ -43,14 +45,16 @@
       "Cine",
       "Imagen y sonido",
       "Fotografia i audiovisual",
-      "Fotografia i audiovisuals"
+      "Fotografia i audiovisuals",
+      "PROJECCIONS DE CINEMA"
     ],
     "musica": [
       "MÚSICA",
       "MÚSICA I VEU",
       "MUSICA I VEU",
       "Música i cant",
-      "EXPRESSIÓ MUSICAL"
+      "EXPRESSIÓ MUSICAL",
+      "TALLERS DE MÚSICA CLÀSSICA"
     ],
     "dansa": [
       "BALL",
@@ -64,7 +68,8 @@
       "MOVIMENT, EXPRESSIÓ I DANSES",
       "7- ARTS ESCÈNIQUES I BALL",
       "Dansa i ball - anuals",
-      "Dansa i ball - monogràfics"
+      "Dansa i ball - monogràfics",
+      "BALLS I DANCES"
     ],
     "teatre": [
       "TEATRE",
@@ -99,7 +104,8 @@
     "benestar": [
       "Creixement personal",
       "SALUT I BENESTAR EMOCIONAL",
-      "Desarrollo personal"
+      "Desarrollo personal",
+      "BENESTAR EMOCIONAL"
     ],
     "cuina": [
       "CUINA",
@@ -136,7 +142,8 @@
       "VISITES CULTURALS,VISITES GUIADES, SORTIDES i EXCURSIONS",
       "Espai Dona",
       "Ciència, literatura i pensament",
-      "Lectura i escriptura"
+      "Lectura i escriptura",
+      "HUMAN. I CIENC. SOC."
     ],
     "tecnologia": [
       "NOVES TECNOLOGIES",
@@ -152,7 +159,9 @@
       "4_Tallers d'informàtica per a gent gran",
       "3_Tallers de fabricació digital i robòtica per infants, adolescents i joves",
       "Comunicació, noves tecnologies i robòtica",
-      "Informàtica, internet i noves tecnologies"
+      "Informàtica, internet i noves tecnologies",
+      "ESPAI D'INFORMÀTICA",
+      "INFORM. I COMUNIC."
     ],
     "natura": [
       "Medi ambient",
@@ -256,7 +265,15 @@
     "ESPECIAL GENT GRAN",
     "Escacs i jocs de taula",
     "Memòria i reforç de la llengua",
-    "Nadons (0-3 anys)"
+    "Nadons (0-3 anys)",
+    "ACTIVITATS A L'AIRE LLIURE",
+    "ACTIVITATS EN FAMÍLIA",
+    "MUSICALS",
+    "RACO INF. I JUV.",
+    "SALUT I CREIX. PERS.",
+    "TALLERS DE TARDOR 26",
+    "Tallers infantils",
+    "Tallers nous d'hivern"
   ],
   "audiences": {
     "families": [
@@ -272,7 +289,8 @@
       "Tallers per a infants i families",
       "Infantil i familiar",
       "Sessions de Planetari | Familiars",
-      "Nadons (0-3 anys)"
+      "Nadons (0-3 anys)",
+      "ACTIVITATS EN FAMÍLIA"
     ],
     "infants-i-joves": [
       "Infants",
@@ -289,7 +307,9 @@
       "Joves",
       "Tallers Joves",
       "Escola d'Arts Escèniques Tísner (4 a 17 anys)",
-      "3_Tallers de fabricació digital i robòtica per infants, adolescents i joves"
+      "3_Tallers de fabricació digital i robòtica per infants, adolescents i joves",
+      "RACO INF. I JUV.",
+      "Tallers infantils"
     ],
     "gent-gran": [
       "GENT GRAN",
