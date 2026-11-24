@@ -67,13 +67,38 @@ const formFields = new Set([
         <legend>{m.refine({}, { locale })}</legend>
         <div>
           <label for="centre">{m.centre({}, { locale })}</label>
+          {/* Shown by the script: it narrows the options below, and has no name, so it
+              never changes the submitted search. */}
+          <input
+            id="centre-search"
+            class="option-search"
+            type="search"
+            maxlength="100"
+            autocomplete="off"
+            hidden
+            aria-label={m.centreFilterSearch({}, { locale })}
+            placeholder={m.centreFilterSearch({}, { locale })}
+            aria-controls="centre"
+            aria-describedby="centre-search-status"
+            data-narrows="centre"
+            data-count-template={m.centreSearchResults(
+              { count: '{count}' },
+              { locale },
+            )}
+          />
+          <p
+            id="centre-search-status"
+            class="visually-hidden"
+            aria-live="polite"
+            data-search-status="centre-search"
+          ></p>
           <select id="centre" name="centre">
             <option value="" selected={!filters.centre}>
               {m.allCentres({}, { locale })}
             </option>
             {filters.centre &&
               !centres.some((centre) => centre.id === filters.centre) && (
-                <option value={filters.centre} selected>
+                <option value={filters.centre} selected data-fallback="true">
                   {m.currentSelection({}, { locale })}
                 </option>
               )}
@@ -173,6 +198,11 @@ const formFields = new Set([
 </aside>
 
 <script>
+  import { enhanceOptionSearch } from '../lib/courses/filter-controls';
+
+  for (const input of document.querySelectorAll('input[data-narrows]'))
+    if (input instanceof HTMLInputElement) enhanceOptionSearch(input);
+
   const panel = document.querySelector<HTMLDetailsElement>('#filter-panel');
   if (panel) {
     const desktop = window.matchMedia('(min-width: 800px)');

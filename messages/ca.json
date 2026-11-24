@@ -78,6 +78,8 @@
   "explore": "Troba el teu pròxim taller",
   "centres": "Explora per centre",
   "allCentres": "Tots els centres",
+  "centreFilterSearch": "Cerca un centre",
+  "centreSearchResults": "Centres trobats: {count}",
   "githubRepo": "Codi a GitHub",
   "programming": "Programació oficial",
   "empty": "Encara no hi ha cursos que coincideixin amb la teva cerca.",

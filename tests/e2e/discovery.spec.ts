@@ -677,6 +677,65 @@ test.describe('dynamic filter options', () => {
       page.getByRole('link', { name: 'Explorar por categoría' }),
     ).toBeVisible();
   });
+
+  test('the centre search narrows the options without changing the search', async ({
+    page,
+  }) => {
+    await page.goto('/es/barcelona/cursos');
+    const search = page.getByRole('searchbox', { name: 'Buscar centro' });
+    await expect(search).toBeVisible();
+    const url = page.url();
+    const all =
+      sources.filter((s) => s.institution.cityId === 'barcelona').length + 1;
+    await expect(page.locator('#centre option')).toHaveCount(all);
+
+    // Case and accents are ignored; the match count is announced.
+    await search.fill('GENIS');
+    await expect(page.locator('#centre option')).toHaveText([
+      'Todos los centros',
+      'Espai de Persones Grans de Sant Genís dels Agudells',
+    ]);
+    await expect(page.locator('#centre-search-status')).toHaveText(
+      'Centros encontrados: 1',
+    );
+
+    // Enter picks the only match instead of submitting the form.
+    await search.fill('llacuna');
+    await search.press('Enter');
+    await expect(page.locator('#centre')).toHaveValue(
+      'casal-de-barri-comunitari-la-llacuna',
+    );
+    expect(page.url()).toBe(url);
+
+    // The selected centre stays while another search narrows the list.
+    await search.fill('pati llimona');
+    await expect(page.locator('#centre option')).toHaveText([
+      'Todos los centros',
+      'Casal de Barri Comunitari La Llacuna',
+      'Centre Cívic Pati Llimona',
+    ]);
+    await expect(page.locator('#centre')).toHaveValue(
+      'casal-de-barri-comunitari-la-llacuna',
+    );
+
+    await search.fill('');
+    await expect(page.locator('#centre option')).toHaveCount(all);
+    await expect(page.locator('#centre-search-status')).toHaveText('');
+    await submit(page);
+    await expect(page).toHaveURL(/centre=casal-de-barri-comunitari-la-llacuna/);
+    expect(new URL(page.url()).searchParams.has('centre-search')).toBe(false);
+    await expect(
+      page.locator('article.course .institution').first(),
+    ).toHaveText('Casal de Barri Comunitari La Llacuna');
+
+    await page.goto('/ca/barcelona/cursos');
+    await page
+      .getByRole('searchbox', { name: 'Cerca un centre' })
+      .fill('llacuna');
+    await expect(page.locator('#centre-search-status')).toHaveText(
+      'Centres trobats: 1',
+    );
+  });
 });
 
 test('places filter keeps its value in the URL and shows an applied chip', async ({
@@ -738,4 +797,17 @@ test('finished courses only appear in the archive, which keeps the filters and h
   await expect(page.locator('article.course')).toHaveCount(0);
   await page.goto('/es/barcelona/cursos?archive=2');
   await expect(page.getByRole('alert')).toContainText('Revisa los filtros');
+});
+
+test.describe('centre search without JavaScript', () => {
+  test.use({ javaScriptEnabled: false });
+  test('stays hidden and leaves the native select complete', async ({
+    page,
+  }) => {
+    await page.goto('/es/barcelona/cursos');
+    await expect(page.locator('#centre-search')).toBeHidden();
+    await expect(page.locator('#centre option')).toHaveCount(
+      sources.filter((s) => s.institution.cityId === 'barcelona').length + 1,
+    );
+  });
 });

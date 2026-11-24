@@ -133,7 +133,9 @@ function setOptions(
   replaceOptions(select, options, allLabel, value);
   // A selection unavailable here stays visible and removable, as on the server.
   if (value && !options.some((option) => option.value === value)) {
-    select.add(new Option(fallbackLabel, value, true, true), 1);
+    const fallback = new Option(fallbackLabel, value, true, true);
+    fallback.dataset.fallback = 'true';
+    select.add(fallback, 1);
     select.value = value;
   }
 }
