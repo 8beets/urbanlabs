@@ -359,6 +359,9 @@ h1 {
   border: 0;
   min-width: 0;
 }
+.option-search {
+  margin-bottom: 8px;
+}
 .filter-check {
   display: flex;
   align-items: center;
