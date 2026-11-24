@@ -9,6 +9,8 @@ export interface FetchOptions {
   session?: boolean;
   /** Response size limit in bytes (default 2 MB), for whole-dataset downloads. */
   maxBytes?: number;
+  /** Text encoding of the response (default UTF-8), e.g. Barcelona's UTF-16LE agenda. */
+  encoding?: string;
 }
 
 /**
@@ -117,7 +119,10 @@ export function createSourceFetcher(
       } finally {
         await reader.cancel();
       }
-      return new Blob(chunks).text();
+      // TextDecoder drops a leading byte-order mark, as Blob.text() does for UTF-8.
+      return new TextDecoder(options.encoding ?? 'utf-8').decode(
+        await new Blob(chunks).arrayBuffer(),
+      );
     }
     throw new Error('Source retries exhausted');
   };

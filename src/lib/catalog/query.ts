@@ -16,7 +16,9 @@ import type {
 
 export const PAGE_SIZE = 30;
 export const LATEST_COURSES_LIMIT = 20;
-const OPTIONS_LIMIT = 100;
+// Every centre of a city must stay selectable (Barcelona had 118 in November 2026); the
+// bound matches the snapshot's MAP_CENTRES_LIMIT.
+const OPTIONS_LIMIT = 500;
 
 /** Unknown end dates mean "not known to have ended" (see migration 0009). */
 export function liveUntil(edition: Pick<CourseListing, 'end_date'>): string {

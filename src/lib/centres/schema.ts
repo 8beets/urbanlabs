@@ -210,6 +210,21 @@ const malagaRegistrationSchema = z.strictObject({
   mayBeEmpty: z.boolean().optional(),
 });
 
+// Barcelona's city agenda: one open dataset on opendata-ajuntament.barcelona.cat
+// (agenda-diaria). The portal answers 403 to GitHub Actions, so the adapter reads a
+// filtered hand-made copy in urban-open-courses-data (fixed path in the adapter).
+export const BARCELONA_OPENDATA_ORIGIN =
+  'https://opendata-ajuntament.barcelona.cat';
+const barcelonaAgendaRegistrationSchema = z.strictObject({
+  platform: z.literal('barcelona-agenda'),
+  origin: z.literal(BARCELONA_OPENDATA_ORIGIN),
+  // Every spelling of the venue in the agenda's addresses_place, matched exactly, e.g.
+  // both "Casal de Barri La Llacuna" and "Casal de Barri Comunitari La Llacuna".
+  places: z.array(z.string().min(3).max(200)).min(1),
+  verifiedAt: z.iso.date(),
+  mayBeEmpty: z.boolean().optional(),
+});
+
 // Add new platforms as further members of this union, each with its own adapter
 // (src/lib/ingestion/adapters) and a case in toSourceConfig.
 export const registrationSchema = z.discriminatedUnion('platform', [
@@ -224,6 +239,7 @@ export const registrationSchema = z.discriminatedUnion('platform', [
   madridRegistrationSchema,
   reusRegistrationSchema,
   malagaRegistrationSchema,
+  barcelonaAgendaRegistrationSchema,
 ]);
 
 export const centreSchema = z.strictObject({
@@ -352,6 +368,14 @@ function platformSource(
         // city's yearly agenda CSV and keeps this venue's rows.
         listingUrl: centre.officialUrl,
         centreCode: registration.placeId,
+      };
+    case 'barcelona-agenda':
+      return {
+        name: `${centre.name} · Agenda de Barcelona`,
+        // The venue's own page (listing URLs are unique); the adapter reads the
+        // mirrored agenda and keeps the rows at this venue's places.
+        listingUrl: centre.officialUrl,
+        venues: registration.places,
       };
   }
 }

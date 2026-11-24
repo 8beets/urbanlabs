@@ -1667,5 +1667,2005 @@
       "robotsTxt": "absent",
       "mayBeEmpty": true
     }
+  },
+  {
+    "id": "associacio-juvenil-casal-de-joves-zona-nord",
+    "slug": "associacio-juvenil-casal-de-joves-zona-nord",
+    "name": "Associació Juvenil Casal de Joves Zona Nord",
+    "officialUrl": "https://guia.barcelona.cat/ca/detall/associacio-juvenil-casal-de-joves-zona-nord_99400712653.html",
+    "address": "Avinguda dels Rasos de Peguera, 61, 08033 Barcelona",
+    "country": "ES",
+    "city": "Barcelona",
+    "cityId": "barcelona",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "detailsSourceUrl": "https://guia.barcelona.cat/ca/detall/associacio-juvenil-casal-de-joves-zona-nord_99400712653.html",
+      "detailsVerifiedAt": "2026-11-24",
+      "location": {
+        "latitude": 41.459917,
+        "longitude": 2.174496,
+        "sourceUrl": "https://guia.barcelona.cat/ca/detall/associacio-juvenil-casal-de-joves-zona-nord_99400712653.html",
+        "verifiedAt": "2026-11-24"
+      }
+    },
+    "registration": {
+      "platform": "barcelona-agenda",
+      "origin": "https://opendata-ajuntament.barcelona.cat",
+      "places": ["Associació Juvenil Casal de Joves Zona Nord"],
+      "verifiedAt": "2026-11-24",
+      "mayBeEmpty": true
+    }
+  },
+  {
+    "id": "ateneu-l-harmonia",
+    "slug": "ateneu-l-harmonia",
+    "name": "Ateneu L'Harmonia",
+    "officialUrl": "https://guia.barcelona.cat/ca/detall/ateneu-l-harmonia_99400370434.html",
+    "address": "Carrer de Sant Adrià, 20, 08030 Barcelona",
+    "country": "ES",
+    "city": "Barcelona",
+    "cityId": "barcelona",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "detailsSourceUrl": "https://guia.barcelona.cat/ca/detall/ateneu-l-harmonia_99400370434.html",
+      "detailsVerifiedAt": "2026-11-24",
+      "location": {
+        "latitude": 41.433794,
+        "longitude": 2.1908326,
+        "sourceUrl": "https://guia.barcelona.cat/ca/detall/ateneu-l-harmonia_99400370434.html",
+        "verifiedAt": "2026-11-24"
+      }
+    },
+    "registration": {
+      "platform": "barcelona-agenda",
+      "origin": "https://opendata-ajuntament.barcelona.cat",
+      "places": ["Ateneu L'Harmonia"],
+      "verifiedAt": "2026-11-24",
+      "mayBeEmpty": true
+    }
+  },
+  {
+    "id": "ateneu-la-bobila-de-porta",
+    "slug": "ateneu-la-bobila-de-porta",
+    "name": "Ateneu La Bòbila de Porta",
+    "officialUrl": "https://guia.barcelona.cat/ca/detall/ateneu-la-bobila-de-porta_99400426213.html",
+    "address": "Carrer de l'Estudiant, 1, 08016 Barcelona",
+    "country": "ES",
+    "city": "Barcelona",
+    "cityId": "barcelona",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "detailsSourceUrl": "https://guia.barcelona.cat/ca/detall/ateneu-la-bobila-de-porta_99400426213.html",
+      "detailsVerifiedAt": "2026-11-24",
+      "location": {
+        "latitude": 41.4326256,
+        "longitude": 2.176396,
+        "sourceUrl": "https://guia.barcelona.cat/ca/detall/ateneu-la-bobila-de-porta_99400426213.html",
+        "verifiedAt": "2026-11-24"
+      }
+    },
+    "registration": {
+      "platform": "barcelona-agenda",
+      "origin": "https://opendata-ajuntament.barcelona.cat",
+      "places": ["Ateneu La Bòbila de Porta"],
+      "verifiedAt": "2026-11-24",
+      "mayBeEmpty": true
+    }
+  },
+  {
+    "id": "ateneu-d-innovacio-digital-i-democratica-canodrom",
+    "slug": "ateneu-d-innovacio-digital-i-democratica-canodrom",
+    "name": "Ateneu d'Innovació Digital i Democràtica - Canòdrom",
+    "officialUrl": "https://guia.barcelona.cat/ca/detall/ateneu-d-innovacio-digital-i-democratica-canodrom_99400407793.html",
+    "address": "Carrer de Concepción Arenal, 165, 08027 Barcelona",
+    "country": "ES",
+    "city": "Barcelona",
+    "cityId": "barcelona",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "detailsSourceUrl": "https://guia.barcelona.cat/ca/detall/ateneu-d-innovacio-digital-i-democratica-canodrom_99400407793.html",
+      "detailsVerifiedAt": "2026-11-24",
+      "location": {
+        "latitude": 41.4272866,
+        "longitude": 2.1841198,
+        "sourceUrl": "https://guia.barcelona.cat/ca/detall/ateneu-d-innovacio-digital-i-democratica-canodrom_99400407793.html",
+        "verifiedAt": "2026-11-24"
+      }
+    },
+    "registration": {
+      "platform": "barcelona-agenda",
+      "origin": "https://opendata-ajuntament.barcelona.cat",
+      "places": ["Ateneu d'Innovació Digital i Democràtica - Canòdrom"],
+      "verifiedAt": "2026-11-24",
+      "mayBeEmpty": true
+    }
+  },
+  {
+    "id": "ateneu-de-fabricacio-de-gracia",
+    "slug": "ateneu-de-fabricacio-de-gracia",
+    "name": "Ateneu de Fabricació de Gràcia",
+    "officialUrl": "https://guia.barcelona.cat/ca/detall/ateneu-de-fabricacio-de-gracia_99400649012.html",
+    "address": "C Perill, 8, 08012 Barcelona",
+    "country": "ES",
+    "city": "Barcelona",
+    "cityId": "barcelona",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "detailsSourceUrl": "https://guia.barcelona.cat/ca/detall/ateneu-de-fabricacio-de-gracia_99400649012.html",
+      "detailsVerifiedAt": "2026-11-24",
+      "location": {
+        "latitude": 41.3992394,
+        "longitude": 2.1612144,
+        "sourceUrl": "https://guia.barcelona.cat/ca/detall/ateneu-de-fabricacio-de-gracia_99400649012.html",
+        "verifiedAt": "2026-11-24"
+      }
+    },
+    "registration": {
+      "platform": "barcelona-agenda",
+      "origin": "https://opendata-ajuntament.barcelona.cat",
+      "places": ["Ateneu de Fabricació de Gràcia"],
+      "verifiedAt": "2026-11-24",
+      "mayBeEmpty": true
+    }
+  },
+  {
+    "id": "biblioteca-collserola-josep-miracle",
+    "slug": "biblioteca-collserola-josep-miracle",
+    "name": "Biblioteca Collserola - Josep Miracle",
+    "officialUrl": "https://guia.barcelona.cat/ca/detall/biblioteca-collserola-josep-miracle_99400010089.html",
+    "address": "Carrer d'Elisa Moragas i Badia, 16, 08017 Barcelona",
+    "country": "ES",
+    "city": "Barcelona",
+    "cityId": "barcelona",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "detailsSourceUrl": "https://guia.barcelona.cat/ca/detall/biblioteca-collserola-josep-miracle_99400010089.html",
+      "detailsVerifiedAt": "2026-11-24",
+      "location": {
+        "latitude": 41.4153897,
+        "longitude": 2.1025468,
+        "sourceUrl": "https://guia.barcelona.cat/ca/detall/biblioteca-collserola-josep-miracle_99400010089.html",
+        "verifiedAt": "2026-11-24"
+      }
+    },
+    "registration": {
+      "platform": "barcelona-agenda",
+      "origin": "https://opendata-ajuntament.barcelona.cat",
+      "places": ["Biblioteca Collserola - Josep Miracle"],
+      "verifiedAt": "2026-11-24",
+      "mayBeEmpty": true
+    }
+  },
+  {
+    "id": "biblioteca-el-camp-de-l-arpa-caterina-albert",
+    "slug": "biblioteca-el-camp-de-l-arpa-caterina-albert",
+    "name": "Biblioteca El Camp de l'Arpa - Caterina Albert",
+    "officialUrl": "https://guia.barcelona.cat/ca/detall/biblioteca-el-camp-de-l-arpa-caterina-albert_99400299968.html",
+    "address": "Carrer de la Indústria, 295, 08041 Barcelona",
+    "country": "ES",
+    "city": "Barcelona",
+    "cityId": "barcelona",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "detailsSourceUrl": "https://guia.barcelona.cat/ca/detall/biblioteca-el-camp-de-l-arpa-caterina-albert_99400299968.html",
+      "detailsVerifiedAt": "2026-11-24",
+      "location": {
+        "latitude": 41.4157974,
+        "longitude": 2.1822981,
+        "sourceUrl": "https://guia.barcelona.cat/ca/detall/biblioteca-el-camp-de-l-arpa-caterina-albert_99400299968.html",
+        "verifiedAt": "2026-11-24"
+      }
+    },
+    "registration": {
+      "platform": "barcelona-agenda",
+      "origin": "https://opendata-ajuntament.barcelona.cat",
+      "places": ["Biblioteca El Camp de l'Arpa - Caterina Albert"],
+      "verifiedAt": "2026-11-24",
+      "mayBeEmpty": true
+    }
+  },
+  {
+    "id": "biblioteca-el-carmel-juan-marse",
+    "slug": "biblioteca-el-carmel-juan-marse",
+    "name": "Biblioteca El Carmel - Juan Marsé",
+    "officialUrl": "https://guia.barcelona.cat/ca/detall/biblioteca-el-carmel-juan-marse_99400061992.html",
+    "address": "Carrer de la Murtra, 135, 08032 Barcelona",
+    "country": "ES",
+    "city": "Barcelona",
+    "cityId": "barcelona",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "detailsSourceUrl": "https://guia.barcelona.cat/ca/detall/biblioteca-el-carmel-juan-marse_99400061992.html",
+      "detailsVerifiedAt": "2026-11-24",
+      "location": {
+        "latitude": 41.4210278,
+        "longitude": 2.155116,
+        "sourceUrl": "https://guia.barcelona.cat/ca/detall/biblioteca-el-carmel-juan-marse_99400061992.html",
+        "verifiedAt": "2026-11-24"
+      }
+    },
+    "registration": {
+      "platform": "barcelona-agenda",
+      "origin": "https://opendata-ajuntament.barcelona.cat",
+      "places": ["Biblioteca El Carmel - Juan Marsé"],
+      "verifiedAt": "2026-11-24",
+      "mayBeEmpty": true
+    }
+  },
+  {
+    "id": "biblioteca-el-fort-pienc-ana-maria-moix",
+    "slug": "biblioteca-el-fort-pienc-ana-maria-moix",
+    "name": "Biblioteca El Fort Pienc – Ana María Moix",
+    "officialUrl": "https://guia.barcelona.cat/ca/detall/biblioteca-el-fort-pienc-ana-maria-moix_99400037765.html",
+    "address": "Plaça de Fort Pienc, 4, 08007 Barcelona",
+    "country": "ES",
+    "city": "Barcelona",
+    "cityId": "barcelona",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "detailsSourceUrl": "https://guia.barcelona.cat/ca/detall/biblioteca-el-fort-pienc-ana-maria-moix_99400037765.html",
+      "detailsVerifiedAt": "2026-11-24",
+      "location": {
+        "latitude": 41.3955866,
+        "longitude": 2.1824651,
+        "sourceUrl": "https://guia.barcelona.cat/ca/detall/biblioteca-el-fort-pienc-ana-maria-moix_99400037765.html",
+        "verifiedAt": "2026-11-24"
+      }
+    },
+    "registration": {
+      "platform": "barcelona-agenda",
+      "origin": "https://opendata-ajuntament.barcelona.cat",
+      "places": ["Biblioteca El Fort Pienc – Ana María Moix"],
+      "verifiedAt": "2026-11-24",
+      "mayBeEmpty": true
+    }
+  },
+  {
+    "id": "biblioteca-francesca-bonnemaison",
+    "slug": "biblioteca-francesca-bonnemaison",
+    "name": "Biblioteca Francesca Bonnemaison",
+    "officialUrl": "https://guia.barcelona.cat/ca/detall/biblioteca-francesca-bonnemaison_92086001171.html",
+    "address": "Carrer de Sant Pere Més Baix, 7, 08003 Barcelona",
+    "country": "ES",
+    "city": "Barcelona",
+    "cityId": "barcelona",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "detailsSourceUrl": "https://guia.barcelona.cat/ca/detall/biblioteca-francesca-bonnemaison_92086001171.html",
+      "detailsVerifiedAt": "2026-11-24",
+      "location": {
+        "latitude": 41.386968,
+        "longitude": 2.1758076,
+        "sourceUrl": "https://guia.barcelona.cat/ca/detall/biblioteca-francesca-bonnemaison_92086001171.html",
+        "verifiedAt": "2026-11-24"
+      }
+    },
+    "registration": {
+      "platform": "barcelona-agenda",
+      "origin": "https://opendata-ajuntament.barcelona.cat",
+      "places": ["Biblioteca Francesca Bonnemaison"],
+      "verifiedAt": "2026-11-24",
+      "mayBeEmpty": true
+    }
+  },
+  {
+    "id": "biblioteca-jaume-fuster",
+    "slug": "biblioteca-jaume-fuster",
+    "name": "Biblioteca Jaume Fuster",
+    "officialUrl": "https://guia.barcelona.cat/ca/detall/biblioteca-jaume-fuster_99400143851.html",
+    "address": "Plaça de Lesseps, 20, 08023 Barcelona",
+    "country": "ES",
+    "city": "Barcelona",
+    "cityId": "barcelona",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "detailsSourceUrl": "https://guia.barcelona.cat/ca/detall/biblioteca-jaume-fuster_99400143851.html",
+      "detailsVerifiedAt": "2026-11-24",
+      "location": {
+        "latitude": 41.407491,
+        "longitude": 2.1497752,
+        "sourceUrl": "https://guia.barcelona.cat/ca/detall/biblioteca-jaume-fuster_99400143851.html",
+        "verifiedAt": "2026-11-24"
+      }
+    },
+    "registration": {
+      "platform": "barcelona-agenda",
+      "origin": "https://opendata-ajuntament.barcelona.cat",
+      "places": ["Biblioteca Jaume Fuster"],
+      "verifiedAt": "2026-11-24",
+      "mayBeEmpty": true
+    }
+  },
+  {
+    "id": "biblioteca-joan-maragall",
+    "slug": "biblioteca-joan-maragall",
+    "name": "Biblioteca Joan Maragall",
+    "officialUrl": "https://guia.barcelona.cat/ca/detall/biblioteca-joan-maragall_99400342694.html",
+    "address": "Carrer de Sant Gervasi de Cassoles, 85, 08022 Barcelona",
+    "country": "ES",
+    "city": "Barcelona",
+    "cityId": "barcelona",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "detailsSourceUrl": "https://guia.barcelona.cat/ca/detall/biblioteca-joan-maragall_99400342694.html",
+      "detailsVerifiedAt": "2026-11-24",
+      "location": {
+        "latitude": 41.4059553,
+        "longitude": 2.1359932,
+        "sourceUrl": "https://guia.barcelona.cat/ca/detall/biblioteca-joan-maragall_99400342694.html",
+        "verifiedAt": "2026-11-24"
+      }
+    },
+    "registration": {
+      "platform": "barcelona-agenda",
+      "origin": "https://opendata-ajuntament.barcelona.cat",
+      "places": [
+        "Biblioteca Joan Maragall",
+        "Biblioteca Sant Gervasi - Joan Maragall"
+      ],
+      "verifiedAt": "2026-11-24",
+      "mayBeEmpty": true
+    }
+  },
+  {
+    "id": "biblioteca-joan-miro",
+    "slug": "biblioteca-joan-miro",
+    "name": "Biblioteca Joan Miró",
+    "officialUrl": "https://guia.barcelona.cat/ca/detall/biblioteca-joan-miro_92168151705.html",
+    "address": "Carrer de Vilamarí, 61, 08015 Barcelona",
+    "country": "ES",
+    "city": "Barcelona",
+    "cityId": "barcelona",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "detailsSourceUrl": "https://guia.barcelona.cat/ca/detall/biblioteca-joan-miro_92168151705.html",
+      "detailsVerifiedAt": "2026-11-24",
+      "location": {
+        "latitude": 41.3788482,
+        "longitude": 2.1492484,
+        "sourceUrl": "https://guia.barcelona.cat/ca/detall/biblioteca-joan-miro_92168151705.html",
+        "verifiedAt": "2026-11-24"
+      }
+    },
+    "registration": {
+      "platform": "barcelona-agenda",
+      "origin": "https://opendata-ajuntament.barcelona.cat",
+      "places": ["Biblioteca Joan Miró"],
+      "verifiedAt": "2026-11-24",
+      "mayBeEmpty": true
+    }
+  },
+  {
+    "id": "biblioteca-la-vila-olimpica-xavier-benguerel",
+    "slug": "biblioteca-la-vila-olimpica-xavier-benguerel",
+    "name": "Biblioteca La Vila Olímpica - Xavier Benguerel",
+    "officialUrl": "https://guia.barcelona.cat/ca/detall/biblioteca-la-vila-olimpica-xavier-benguerel_92086031155.html",
+    "address": "Avinguda del Bogatell, 17, 08005 Barcelona",
+    "country": "ES",
+    "city": "Barcelona",
+    "cityId": "barcelona",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "detailsSourceUrl": "https://guia.barcelona.cat/ca/detall/biblioteca-la-vila-olimpica-xavier-benguerel_92086031155.html",
+      "detailsVerifiedAt": "2026-11-24",
+      "location": {
+        "latitude": 41.3924389,
+        "longitude": 2.1977274,
+        "sourceUrl": "https://guia.barcelona.cat/ca/detall/biblioteca-la-vila-olimpica-xavier-benguerel_92086031155.html",
+        "verifiedAt": "2026-11-24"
+      }
+    },
+    "registration": {
+      "platform": "barcelona-agenda",
+      "origin": "https://opendata-ajuntament.barcelona.cat",
+      "places": ["Biblioteca La Vila Olímpica - Xavier Benguerel"],
+      "verifiedAt": "2026-11-24",
+      "mayBeEmpty": true
+    }
+  },
+  {
+    "id": "biblioteca-montbau-albert-perez-baro",
+    "slug": "biblioteca-montbau-albert-perez-baro",
+    "name": "Biblioteca Montbau - Albert Pérez Baró",
+    "officialUrl": "https://guia.barcelona.cat/ca/detall/biblioteca-montbau-albert-perez-baro_94286172503.html",
+    "address": "Carrer de l'Arquitectura, 8, 08035 Barcelona",
+    "country": "ES",
+    "city": "Barcelona",
+    "cityId": "barcelona",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "detailsSourceUrl": "https://guia.barcelona.cat/ca/detall/biblioteca-montbau-albert-perez-baro_94286172503.html",
+      "detailsVerifiedAt": "2026-11-24",
+      "location": {
+        "latitude": 41.4291825,
+        "longitude": 2.1419696,
+        "sourceUrl": "https://guia.barcelona.cat/ca/detall/biblioteca-montbau-albert-perez-baro_94286172503.html",
+        "verifiedAt": "2026-11-24"
+      }
+    },
+    "registration": {
+      "platform": "barcelona-agenda",
+      "origin": "https://opendata-ajuntament.barcelona.cat",
+      "places": ["Biblioteca Montbau - Albert Pérez Baró"],
+      "verifiedAt": "2026-11-24",
+      "mayBeEmpty": true
+    }
+  },
+  {
+    "id": "biblioteca-montserrat-abello",
+    "slug": "biblioteca-montserrat-abello",
+    "name": "Biblioteca Montserrat Abelló",
+    "officialUrl": "https://guia.barcelona.cat/ca/detall/biblioteca-montserrat-abello_92086002115.html",
+    "address": "Carrer dels Comtes de Bell-lloc, 192, 08014 Barcelona",
+    "country": "ES",
+    "city": "Barcelona",
+    "cityId": "barcelona",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "detailsSourceUrl": "https://guia.barcelona.cat/ca/detall/biblioteca-montserrat-abello_92086002115.html",
+      "detailsVerifiedAt": "2026-11-24",
+      "location": {
+        "latitude": 41.3837313,
+        "longitude": 2.1353058,
+        "sourceUrl": "https://guia.barcelona.cat/ca/detall/biblioteca-montserrat-abello_92086002115.html",
+        "verifiedAt": "2026-11-24"
+      }
+    },
+    "registration": {
+      "platform": "barcelona-agenda",
+      "origin": "https://opendata-ajuntament.barcelona.cat",
+      "places": ["Biblioteca Montserrat Abelló"],
+      "verifiedAt": "2026-11-24",
+      "mayBeEmpty": true
+    }
+  },
+  {
+    "id": "biblioteca-nou-barris-aurora-diaz-plaja",
+    "slug": "biblioteca-nou-barris-aurora-diaz-plaja",
+    "name": "Biblioteca Nou Barris - Aurora Díaz Plaja",
+    "officialUrl": "https://guia.barcelona.cat/ca/detall/biblioteca-nou-barris-aurora-diaz-plaja_97135114148.html",
+    "address": "Plaça Major de Nou Barris, 2, 080 Barcelona",
+    "country": "ES",
+    "city": "Barcelona",
+    "cityId": "barcelona",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "detailsSourceUrl": "https://guia.barcelona.cat/ca/detall/biblioteca-nou-barris-aurora-diaz-plaja_97135114148.html",
+      "detailsVerifiedAt": "2026-11-24",
+      "location": {
+        "latitude": 41.4368446,
+        "longitude": 2.1712296,
+        "sourceUrl": "https://guia.barcelona.cat/ca/detall/biblioteca-nou-barris-aurora-diaz-plaja_97135114148.html",
+        "verifiedAt": "2026-11-24"
+      }
+    },
+    "registration": {
+      "platform": "barcelona-agenda",
+      "origin": "https://opendata-ajuntament.barcelona.cat",
+      "places": ["Biblioteca Nou Barris - Aurora Díaz Plaja"],
+      "verifiedAt": "2026-11-24",
+      "mayBeEmpty": true
+    }
+  },
+  {
+    "id": "biblioteca-zona-nord-maria-sanchez",
+    "slug": "biblioteca-zona-nord-maria-sanchez",
+    "name": "Biblioteca Zona Nord - Mària Sánchez",
+    "officialUrl": "https://guia.barcelona.cat/ca/detall/biblioteca-zona-nord-maria-sanchez_99400236720.html",
+    "address": "Carrer de Vallcivera, 3, 08033 Barcelona",
+    "country": "ES",
+    "city": "Barcelona",
+    "cityId": "barcelona",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "detailsSourceUrl": "https://guia.barcelona.cat/ca/detall/biblioteca-zona-nord-maria-sanchez_99400236720.html",
+      "detailsVerifiedAt": "2026-11-24",
+      "location": {
+        "latitude": 41.4612681,
+        "longitude": 2.1798926,
+        "sourceUrl": "https://guia.barcelona.cat/ca/detall/biblioteca-zona-nord-maria-sanchez_99400236720.html",
+        "verifiedAt": "2026-11-24"
+      }
+    },
+    "registration": {
+      "platform": "barcelona-agenda",
+      "origin": "https://opendata-ajuntament.barcelona.cat",
+      "places": ["Biblioteca Zona Nord - Mària Sánchez"],
+      "verifiedAt": "2026-11-24",
+      "mayBeEmpty": true
+    }
+  },
+  {
+    "id": "casal-mas-guinardo",
+    "slug": "casal-mas-guinardo",
+    "name": "Casal Mas Guinardó",
+    "officialUrl": "https://guia.barcelona.cat/ca/detall/casal-mas-guinardo_99400265137.html",
+    "address": "Plaça de Salvador Riera, 2, 08041 Barcelona",
+    "country": "ES",
+    "city": "Barcelona",
+    "cityId": "barcelona",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "detailsSourceUrl": "https://guia.barcelona.cat/ca/detall/casal-mas-guinardo_99400265137.html",
+      "detailsVerifiedAt": "2026-11-24",
+      "location": {
+        "latitude": 41.4181692,
+        "longitude": 2.1744079,
+        "sourceUrl": "https://guia.barcelona.cat/ca/detall/casal-mas-guinardo_99400265137.html",
+        "verifiedAt": "2026-11-24"
+      }
+    },
+    "registration": {
+      "platform": "barcelona-agenda",
+      "origin": "https://opendata-ajuntament.barcelona.cat",
+      "places": ["Casal  Mas Guinardó", "Casal Mas Guinardó"],
+      "verifiedAt": "2026-11-24",
+      "mayBeEmpty": true
+    }
+  },
+  {
+    "id": "casal-ca-l-isidret",
+    "slug": "casal-ca-l-isidret",
+    "name": "Casal Ca l'Isidret",
+    "officialUrl": "https://guia.barcelona.cat/ca/detall/casal-ca-l-isidret_99400549066.html",
+    "address": "Carrer de Josep Pla, 174, 08020 Barcelona",
+    "country": "ES",
+    "city": "Barcelona",
+    "cityId": "barcelona",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "detailsSourceUrl": "https://guia.barcelona.cat/ca/detall/casal-ca-l-isidret_99400549066.html",
+      "detailsVerifiedAt": "2026-11-24",
+      "location": {
+        "latitude": 41.4158691,
+        "longitude": 2.2068362,
+        "sourceUrl": "https://guia.barcelona.cat/ca/detall/casal-ca-l-isidret_99400549066.html",
+        "verifiedAt": "2026-11-24"
+      }
+    },
+    "registration": {
+      "platform": "barcelona-agenda",
+      "origin": "https://opendata-ajuntament.barcelona.cat",
+      "places": ["Casal Ca l'Isidret"],
+      "verifiedAt": "2026-11-24",
+      "mayBeEmpty": true
+    }
+  },
+  {
+    "id": "casal-infantil-el-coll",
+    "slug": "casal-infantil-el-coll",
+    "name": "Casal Infantil El Coll",
+    "officialUrl": "https://guia.barcelona.cat/ca/detall/casal-infantil-el-coll_93020140123.html",
+    "address": "C Aldea, 15, 08023 Barcelona",
+    "country": "ES",
+    "city": "Barcelona",
+    "cityId": "barcelona",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "detailsSourceUrl": "https://guia.barcelona.cat/ca/detall/casal-infantil-el-coll_93020140123.html",
+      "detailsVerifiedAt": "2026-11-24",
+      "location": {
+        "latitude": 41.4186065,
+        "longitude": 2.1499153,
+        "sourceUrl": "https://guia.barcelona.cat/ca/detall/casal-infantil-el-coll_93020140123.html",
+        "verifiedAt": "2026-11-24"
+      }
+    },
+    "registration": {
+      "platform": "barcelona-agenda",
+      "origin": "https://opendata-ajuntament.barcelona.cat",
+      "places": ["Casal Infantil El Coll"],
+      "verifiedAt": "2026-11-24",
+      "mayBeEmpty": true
+    }
+  },
+  {
+    "id": "casal-infantil-guinardo",
+    "slug": "casal-infantil-guinardo",
+    "name": "Casal Infantil Guinardó",
+    "officialUrl": "https://guia.barcelona.cat/ca/detall/casal-infantil-guinardo_92086003456.html",
+    "address": "Carrer de Gènova, 1, 08041 Barcelona",
+    "country": "ES",
+    "city": "Barcelona",
+    "cityId": "barcelona",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "detailsSourceUrl": "https://guia.barcelona.cat/ca/detall/casal-infantil-guinardo_92086003456.html",
+      "detailsVerifiedAt": "2026-11-24",
+      "location": {
+        "latitude": 41.4169252,
+        "longitude": 2.1719024,
+        "sourceUrl": "https://guia.barcelona.cat/ca/detall/casal-infantil-guinardo_92086003456.html",
+        "verifiedAt": "2026-11-24"
+      }
+    },
+    "registration": {
+      "platform": "barcelona-agenda",
+      "origin": "https://opendata-ajuntament.barcelona.cat",
+      "places": ["Casal Infantil Guinardó"],
+      "verifiedAt": "2026-11-24",
+      "mayBeEmpty": true
+    }
+  },
+  {
+    "id": "casal-infantil-sant-marti",
+    "slug": "casal-infantil-sant-marti",
+    "name": "Casal Infantil Sant Martí",
+    "officialUrl": "https://guia.barcelona.cat/ca/detall/casal-infantil-sant-marti_92086005094.html",
+    "address": "Carrer de la Selva de Mar, 215, 08020 Barcelona",
+    "country": "ES",
+    "city": "Barcelona",
+    "cityId": "barcelona",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "detailsSourceUrl": "https://guia.barcelona.cat/ca/detall/casal-infantil-sant-marti_92086005094.html",
+      "detailsVerifiedAt": "2026-11-24",
+      "location": {
+        "latitude": 41.4166552,
+        "longitude": 2.1985817,
+        "sourceUrl": "https://guia.barcelona.cat/ca/detall/casal-infantil-sant-marti_92086005094.html",
+        "verifiedAt": "2026-11-24"
+      }
+    },
+    "registration": {
+      "platform": "barcelona-agenda",
+      "origin": "https://opendata-ajuntament.barcelona.cat",
+      "places": ["Casal Infantil Sant Martí"],
+      "verifiedAt": "2026-11-24",
+      "mayBeEmpty": true
+    }
+  },
+  {
+    "id": "casal-de-barri-comunitari-bac-de-roda-poblenou",
+    "slug": "casal-de-barri-comunitari-bac-de-roda-poblenou",
+    "name": "Casal de Barri Comunitari Bac de Roda - Poblenou",
+    "officialUrl": "https://guia.barcelona.cat/ca/detall/casal-de-barri-comunitari-bac-de-roda-poblenou_99400239106.html",
+    "address": "Camí Antic de València, 106, 08005 Barcelona",
+    "country": "ES",
+    "city": "Barcelona",
+    "cityId": "barcelona",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "detailsSourceUrl": "https://guia.barcelona.cat/ca/detall/casal-de-barri-comunitari-bac-de-roda-poblenou_99400239106.html",
+      "detailsVerifiedAt": "2026-11-24",
+      "location": {
+        "latitude": 41.4068058,
+        "longitude": 2.2039755,
+        "sourceUrl": "https://guia.barcelona.cat/ca/detall/casal-de-barri-comunitari-bac-de-roda-poblenou_99400239106.html",
+        "verifiedAt": "2026-11-24"
+      }
+    },
+    "registration": {
+      "platform": "barcelona-agenda",
+      "origin": "https://opendata-ajuntament.barcelona.cat",
+      "places": [
+        "Casal de Barri Bac de Roda - Poblenou",
+        "Casal de Barri Comunitari Bac de Roda - Poblenou"
+      ],
+      "verifiedAt": "2026-11-24",
+      "mayBeEmpty": true
+    }
+  },
+  {
+    "id": "casal-de-barri-comunitari-can-baro-el-pirineu",
+    "slug": "casal-de-barri-comunitari-can-baro-el-pirineu",
+    "name": "Casal de Barri Comunitari Can Baró - El Pirineu",
+    "officialUrl": "https://guia.barcelona.cat/ca/detall/casal-de-barri-comunitari-can-baro-el-pirineu_99400184358.html",
+    "address": "Carrer de Josep Serrano, 59, 08024 Barcelona",
+    "country": "ES",
+    "city": "Barcelona",
+    "cityId": "barcelona",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "detailsSourceUrl": "https://guia.barcelona.cat/ca/detall/casal-de-barri-comunitari-can-baro-el-pirineu_99400184358.html",
+      "detailsVerifiedAt": "2026-11-24",
+      "location": {
+        "latitude": 41.4172001,
+        "longitude": 2.1624084,
+        "sourceUrl": "https://guia.barcelona.cat/ca/detall/casal-de-barri-comunitari-can-baro-el-pirineu_99400184358.html",
+        "verifiedAt": "2026-11-24"
+      }
+    },
+    "registration": {
+      "platform": "barcelona-agenda",
+      "origin": "https://opendata-ajuntament.barcelona.cat",
+      "places": [
+        "Casal de Barri Can Baró - El Pirineu",
+        "Casal de Barri Comunitari Can Baró - El Pirineu"
+      ],
+      "verifiedAt": "2026-11-24",
+      "mayBeEmpty": true
+    }
+  },
+  {
+    "id": "casal-de-barri-comunitari-can-carol",
+    "slug": "casal-de-barri-comunitari-can-carol",
+    "name": "Casal de Barri Comunitari Can Carol",
+    "officialUrl": "https://guia.barcelona.cat/ca/detall/casal-de-barri-comunitari-can-carol_99400647227.html",
+    "address": "Carrer de Cambrils, 28, 08023 Barcelona",
+    "country": "ES",
+    "city": "Barcelona",
+    "cityId": "barcelona",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "detailsSourceUrl": "https://guia.barcelona.cat/ca/detall/casal-de-barri-comunitari-can-carol_99400647227.html",
+      "detailsVerifiedAt": "2026-11-24",
+      "location": {
+        "latitude": 41.412364,
+        "longitude": 2.145773,
+        "sourceUrl": "https://guia.barcelona.cat/ca/detall/casal-de-barri-comunitari-can-carol_99400647227.html",
+        "verifiedAt": "2026-11-24"
+      }
+    },
+    "registration": {
+      "platform": "barcelona-agenda",
+      "origin": "https://opendata-ajuntament.barcelona.cat",
+      "places": [
+        "Casal de Barri Can Carol",
+        "Casal de Barri Comunitari Can Carol"
+      ],
+      "verifiedAt": "2026-11-24",
+      "mayBeEmpty": true
+    }
+  },
+  {
+    "id": "casal-de-barri-comunitari-can-portabella",
+    "slug": "casal-de-barri-comunitari-can-portabella",
+    "name": "Casal de Barri Comunitari Can Portabella",
+    "officialUrl": "https://guia.barcelona.cat/ca/detall/casal-de-barri-comunitari-can-portabella_99400143980.html",
+    "address": "C Virgili, 18, 08030 Barcelona",
+    "country": "ES",
+    "city": "Barcelona",
+    "cityId": "barcelona",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "detailsSourceUrl": "https://guia.barcelona.cat/ca/detall/casal-de-barri-comunitari-can-portabella_99400143980.html",
+      "detailsVerifiedAt": "2026-11-24",
+      "location": {
+        "latitude": 41.4291309,
+        "longitude": 2.1939367,
+        "sourceUrl": "https://guia.barcelona.cat/ca/detall/casal-de-barri-comunitari-can-portabella_99400143980.html",
+        "verifiedAt": "2026-11-24"
+      }
+    },
+    "registration": {
+      "platform": "barcelona-agenda",
+      "origin": "https://opendata-ajuntament.barcelona.cat",
+      "places": [
+        "Casal de Barri Can Portabella",
+        "Casal de Barri Comunitari Can Portabella"
+      ],
+      "verifiedAt": "2026-11-24",
+      "mayBeEmpty": true
+    }
+  },
+  {
+    "id": "casal-de-barri-comunitari-can-rectoret",
+    "slug": "casal-de-barri-comunitari-can-rectoret",
+    "name": "Casal de Barri Comunitari Can Rectoret",
+    "officialUrl": "https://guia.barcelona.cat/ca/detall/casal-de-barri-comunitari-can-rectoret_99400272566.html",
+    "address": "C Via Làctia, 4, 08017 Barcelona",
+    "country": "ES",
+    "city": "Barcelona",
+    "cityId": "barcelona",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "detailsSourceUrl": "https://guia.barcelona.cat/ca/detall/casal-de-barri-comunitari-can-rectoret_99400272566.html",
+      "detailsVerifiedAt": "2026-11-24",
+      "location": {
+        "latitude": 41.4294323,
+        "longitude": 2.0991872,
+        "sourceUrl": "https://guia.barcelona.cat/ca/detall/casal-de-barri-comunitari-can-rectoret_99400272566.html",
+        "verifiedAt": "2026-11-24"
+      }
+    },
+    "registration": {
+      "platform": "barcelona-agenda",
+      "origin": "https://opendata-ajuntament.barcelona.cat",
+      "places": [
+        "Casal de Barri Can Rectoret",
+        "Casal de Barri Comunitari Can Rectoret"
+      ],
+      "verifiedAt": "2026-11-24",
+      "mayBeEmpty": true
+    }
+  },
+  {
+    "id": "casal-de-barri-comunitari-can-travi-de-la-vall-d-hebron",
+    "slug": "casal-de-barri-comunitari-can-travi-de-la-vall-d-hebron",
+    "name": "Casal de Barri Comunitari Can Travi de la Vall d'Hebron",
+    "officialUrl": "https://guia.barcelona.cat/ca/detall/casal-de-barri-comunitari-can-travi-de-la-vall-d-hebron_99400234295.html",
+    "address": "Av Cardenal Vidal Barraquer, 45, 08000 Barcelona",
+    "country": "ES",
+    "city": "Barcelona",
+    "cityId": "barcelona",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "detailsSourceUrl": "https://guia.barcelona.cat/ca/detall/casal-de-barri-comunitari-can-travi-de-la-vall-d-hebron_99400234295.html",
+      "detailsVerifiedAt": "2026-11-24",
+      "location": {
+        "latitude": 41.4329062,
+        "longitude": 2.1514917,
+        "sourceUrl": "https://guia.barcelona.cat/ca/detall/casal-de-barri-comunitari-can-travi-de-la-vall-d-hebron_99400234295.html",
+        "verifiedAt": "2026-11-24"
+      }
+    },
+    "registration": {
+      "platform": "barcelona-agenda",
+      "origin": "https://opendata-ajuntament.barcelona.cat",
+      "places": [
+        "Casal de Barri Can Travi de la Vall d'Hebron",
+        "Casal de Barri Comunitari Can Travi de la Vall d'Hebron"
+      ],
+      "verifiedAt": "2026-11-24",
+      "mayBeEmpty": true
+    }
+  },
+  {
+    "id": "casal-de-barri-comunitari-cardener",
+    "slug": "casal-de-barri-comunitari-cardener",
+    "name": "Casal de Barri Comunitari Cardener",
+    "officialUrl": "https://guia.barcelona.cat/ca/detall/casal-de-barri-comunitari-cardener_99400006116.html",
+    "address": "Carrer del Cardener, 45, 08024 Barcelona",
+    "country": "ES",
+    "city": "Barcelona",
+    "cityId": "barcelona",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "detailsSourceUrl": "https://guia.barcelona.cat/ca/detall/casal-de-barri-comunitari-cardener_99400006116.html",
+      "detailsVerifiedAt": "2026-11-24",
+      "location": {
+        "latitude": 41.4101161,
+        "longitude": 2.1570346,
+        "sourceUrl": "https://guia.barcelona.cat/ca/detall/casal-de-barri-comunitari-cardener_99400006116.html",
+        "verifiedAt": "2026-11-24"
+      }
+    },
+    "registration": {
+      "platform": "barcelona-agenda",
+      "origin": "https://opendata-ajuntament.barcelona.cat",
+      "places": [
+        "Casal de Barri Cardener",
+        "Casal de Barri Comunitari Cardener"
+      ],
+      "verifiedAt": "2026-11-24",
+      "mayBeEmpty": true
+    }
+  },
+  {
+    "id": "casal-de-barri-comunitari-congres-indians",
+    "slug": "casal-de-barri-comunitari-congres-indians",
+    "name": "Casal de Barri Comunitari Congrés-Indians",
+    "officialUrl": "https://guia.barcelona.cat/ca/detall/casal-de-barri-comunitari-congres-indians_92086034049.html",
+    "address": "C Manigua, 25, 08027 Barcelona",
+    "country": "ES",
+    "city": "Barcelona",
+    "cityId": "barcelona",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "detailsSourceUrl": "https://guia.barcelona.cat/ca/detall/casal-de-barri-comunitari-congres-indians_92086034049.html",
+      "detailsVerifiedAt": "2026-11-24",
+      "location": {
+        "latitude": 41.4240148,
+        "longitude": 2.1794378,
+        "sourceUrl": "https://guia.barcelona.cat/ca/detall/casal-de-barri-comunitari-congres-indians_92086034049.html",
+        "verifiedAt": "2026-11-24"
+      }
+    },
+    "registration": {
+      "platform": "barcelona-agenda",
+      "origin": "https://opendata-ajuntament.barcelona.cat",
+      "places": [
+        "Casal de Barri Comunitari Congrés-Indians",
+        "Casal de Barri Congrés-Indians"
+      ],
+      "verifiedAt": "2026-11-24",
+      "mayBeEmpty": true
+    }
+  },
+  {
+    "id": "casal-de-barri-comunitari-diagonal-mar",
+    "slug": "casal-de-barri-comunitari-diagonal-mar",
+    "name": "Casal de Barri Comunitari Diagonal Mar",
+    "officialUrl": "https://guia.barcelona.cat/ca/detall/casal-de-barri-comunitari-diagonal-mar_99400165142.html",
+    "address": "C Selva de Mar, 22, 08019 Barcelona",
+    "country": "ES",
+    "city": "Barcelona",
+    "cityId": "barcelona",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "detailsSourceUrl": "https://guia.barcelona.cat/ca/detall/casal-de-barri-comunitari-diagonal-mar_99400165142.html",
+      "detailsVerifiedAt": "2026-11-24",
+      "location": {
+        "latitude": 41.4079978,
+        "longitude": 2.2104847,
+        "sourceUrl": "https://guia.barcelona.cat/ca/detall/casal-de-barri-comunitari-diagonal-mar_99400165142.html",
+        "verifiedAt": "2026-11-24"
+      }
+    },
+    "registration": {
+      "platform": "barcelona-agenda",
+      "origin": "https://opendata-ajuntament.barcelona.cat",
+      "places": [
+        "Casal de Barri Comunitari Diagonal Mar",
+        "Casal de Barri Diagonal Mar"
+      ],
+      "verifiedAt": "2026-11-24",
+      "mayBeEmpty": true
+    }
+  },
+  {
+    "id": "casal-de-barri-comunitari-el-mercat-cultural",
+    "slug": "casal-de-barri-comunitari-el-mercat-cultural",
+    "name": "Casal de Barri Comunitari El Mercat Cultural",
+    "officialUrl": "https://guia.barcelona.cat/ca/detall/casal-de-barri-comunitari-el-mercat-cultural_99400659692.html",
+    "address": "Carrer d'Elisa Moragas i Badia, 2, 08017 Barcelona",
+    "country": "ES",
+    "city": "Barcelona",
+    "cityId": "barcelona",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "detailsSourceUrl": "https://guia.barcelona.cat/ca/detall/casal-de-barri-comunitari-el-mercat-cultural_99400659692.html",
+      "detailsVerifiedAt": "2026-11-24",
+      "location": {
+        "latitude": 41.4138483,
+        "longitude": 2.1041821,
+        "sourceUrl": "https://guia.barcelona.cat/ca/detall/casal-de-barri-comunitari-el-mercat-cultural_99400659692.html",
+        "verifiedAt": "2026-11-24"
+      }
+    },
+    "registration": {
+      "platform": "barcelona-agenda",
+      "origin": "https://opendata-ajuntament.barcelona.cat",
+      "places": [
+        "Casal de Barri Comunitari El Mercat Cultural",
+        "Casal de Barri El Mercat Cultural"
+      ],
+      "verifiedAt": "2026-11-24",
+      "mayBeEmpty": true
+    }
+  },
+  {
+    "id": "casal-de-barri-comunitari-espai-antoni-miro-peris",
+    "slug": "casal-de-barri-comunitari-espai-antoni-miro-peris",
+    "name": "Casal de Barri Comunitari Espai Antoni Miró Peris",
+    "officialUrl": "https://guia.barcelona.cat/ca/detall/casal-de-barri-comunitari-espai-antoni-miro-peris_99400201447.html",
+    "address": "Plaça de Carme Montoriol, 10, 08026 Barcelona",
+    "country": "ES",
+    "city": "Barcelona",
+    "cityId": "barcelona",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "detailsSourceUrl": "https://guia.barcelona.cat/ca/detall/casal-de-barri-comunitari-espai-antoni-miro-peris_99400201447.html",
+      "detailsVerifiedAt": "2026-11-24",
+      "location": {
+        "latitude": 41.4128532,
+        "longitude": 2.1845341,
+        "sourceUrl": "https://guia.barcelona.cat/ca/detall/casal-de-barri-comunitari-espai-antoni-miro-peris_99400201447.html",
+        "verifiedAt": "2026-11-24"
+      }
+    },
+    "registration": {
+      "platform": "barcelona-agenda",
+      "origin": "https://opendata-ajuntament.barcelona.cat",
+      "places": [
+        "Casal de Barri Comunitari Espai Antoni Miró Peris",
+        "Casal de Barri Espai Antoni Miró Peris"
+      ],
+      "verifiedAt": "2026-11-24",
+      "mayBeEmpty": true
+    }
+  },
+  {
+    "id": "casal-de-barri-comunitari-espai-putxet",
+    "slug": "casal-de-barri-comunitari-espai-putxet",
+    "name": "Casal de Barri Comunitari Espai Putxet",
+    "officialUrl": "https://guia.barcelona.cat/ca/detall/casal-de-barri-comunitari-espai-putxet_99400219650.html",
+    "address": "Carrer de Marmellà, 13, 08023 Barcelona",
+    "country": "ES",
+    "city": "Barcelona",
+    "cityId": "barcelona",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "detailsSourceUrl": "https://guia.barcelona.cat/ca/detall/casal-de-barri-comunitari-espai-putxet_99400219650.html",
+      "detailsVerifiedAt": "2026-11-24",
+      "location": {
+        "latitude": 41.4100757,
+        "longitude": 2.1416861,
+        "sourceUrl": "https://guia.barcelona.cat/ca/detall/casal-de-barri-comunitari-espai-putxet_99400219650.html",
+        "verifiedAt": "2026-11-24"
+      }
+    },
+    "registration": {
+      "platform": "barcelona-agenda",
+      "origin": "https://opendata-ajuntament.barcelona.cat",
+      "places": [
+        "Casal de Barri Comunitari Espai Putxet",
+        "Casal de Barri Espai Putxet"
+      ],
+      "verifiedAt": "2026-11-24",
+      "mayBeEmpty": true
+    }
+  },
+  {
+    "id": "casal-de-barri-comunitari-font-d-en-fargues",
+    "slug": "casal-de-barri-comunitari-font-d-en-fargues",
+    "name": "Casal de Barri Comunitari Font d'en Fargues",
+    "officialUrl": "https://guia.barcelona.cat/ca/detall/casal-de-barri-comunitari-font-d-en-fargues_92086003483.html",
+    "address": "Carrer de Pedrell, 67, 08032 Barcelona",
+    "country": "ES",
+    "city": "Barcelona",
+    "cityId": "barcelona",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "detailsSourceUrl": "https://guia.barcelona.cat/ca/detall/casal-de-barri-comunitari-font-d-en-fargues_92086003483.html",
+      "detailsVerifiedAt": "2026-11-24",
+      "location": {
+        "latitude": 41.4243037,
+        "longitude": 2.1652164,
+        "sourceUrl": "https://guia.barcelona.cat/ca/detall/casal-de-barri-comunitari-font-d-en-fargues_92086003483.html",
+        "verifiedAt": "2026-11-24"
+      }
+    },
+    "registration": {
+      "platform": "barcelona-agenda",
+      "origin": "https://opendata-ajuntament.barcelona.cat",
+      "places": [
+        "Casal de Barri Comunitari Font d'en Fargues",
+        "Casal de Barri Font d'en Fargues"
+      ],
+      "verifiedAt": "2026-11-24",
+      "mayBeEmpty": true
+    }
+  },
+  {
+    "id": "casal-de-barri-comunitari-la-barraca-del-carmel",
+    "slug": "casal-de-barri-comunitari-la-barraca-del-carmel",
+    "name": "Casal de Barri Comunitari La Barraca del Carmel",
+    "officialUrl": "https://guia.barcelona.cat/ca/detall/casal-de-barri-comunitari-la-barraca-del-carmel_99400618157.html",
+    "address": "Carrer del Llobregós, 107, 08032 Barcelona",
+    "country": "ES",
+    "city": "Barcelona",
+    "cityId": "barcelona",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "detailsSourceUrl": "https://guia.barcelona.cat/ca/detall/casal-de-barri-comunitari-la-barraca-del-carmel_99400618157.html",
+      "detailsVerifiedAt": "2026-11-24",
+      "location": {
+        "latitude": 41.4248527,
+        "longitude": 2.1573624,
+        "sourceUrl": "https://guia.barcelona.cat/ca/detall/casal-de-barri-comunitari-la-barraca-del-carmel_99400618157.html",
+        "verifiedAt": "2026-11-24"
+      }
+    },
+    "registration": {
+      "platform": "barcelona-agenda",
+      "origin": "https://opendata-ajuntament.barcelona.cat",
+      "places": [
+        "Casal de Barri Comunitari La Barraca del Carmel",
+        "Casal de Barri La Barraca del Carmel"
+      ],
+      "verifiedAt": "2026-11-24",
+      "mayBeEmpty": true
+    }
+  },
+  {
+    "id": "casal-de-barri-comunitari-la-cosa-nostra",
+    "slug": "casal-de-barri-comunitari-la-cosa-nostra",
+    "name": "Casal de Barri Comunitari La Cosa Nostra",
+    "officialUrl": "https://guia.barcelona.cat/ca/detall/casal-de-barri-comunitari-la-cosa-nostra_99400143979.html",
+    "address": "C Biure, 1, 08031 Barcelona",
+    "country": "ES",
+    "city": "Barcelona",
+    "cityId": "barcelona",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "detailsSourceUrl": "https://guia.barcelona.cat/ca/detall/casal-de-barri-comunitari-la-cosa-nostra_99400143979.html",
+      "detailsVerifiedAt": "2026-11-24",
+      "location": {
+        "latitude": 41.4337316,
+        "longitude": 2.1680513,
+        "sourceUrl": "https://guia.barcelona.cat/ca/detall/casal-de-barri-comunitari-la-cosa-nostra_99400143979.html",
+        "verifiedAt": "2026-11-24"
+      }
+    },
+    "registration": {
+      "platform": "barcelona-agenda",
+      "origin": "https://opendata-ajuntament.barcelona.cat",
+      "places": [
+        "Casal de Barri Comunitari La Cosa Nostra",
+        "Casal de Barri La Cosa Nostra"
+      ],
+      "verifiedAt": "2026-11-24",
+      "mayBeEmpty": true
+    }
+  },
+  {
+    "id": "casal-de-barri-comunitari-la-llacuna",
+    "slug": "casal-de-barri-comunitari-la-llacuna",
+    "name": "Casal de Barri Comunitari La Llacuna",
+    "officialUrl": "https://guia.barcelona.cat/ca/detall/casal-de-barri-comunitari-la-llacuna_99400579089.html",
+    "address": "Carrer de Bolívia, 49, 08018 Barcelona",
+    "country": "ES",
+    "city": "Barcelona",
+    "cityId": "barcelona",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "detailsSourceUrl": "https://guia.barcelona.cat/ca/detall/casal-de-barri-comunitari-la-llacuna_99400579089.html",
+      "detailsVerifiedAt": "2026-11-24",
+      "location": {
+        "latitude": 41.4028474,
+        "longitude": 2.1906642,
+        "sourceUrl": "https://guia.barcelona.cat/ca/detall/casal-de-barri-comunitari-la-llacuna_99400579089.html",
+        "verifiedAt": "2026-11-24"
+      }
+    },
+    "registration": {
+      "platform": "barcelona-agenda",
+      "origin": "https://opendata-ajuntament.barcelona.cat",
+      "places": [
+        "Casal de Barri Comunitari La Llacuna",
+        "Casal de Barri La Llacuna"
+      ],
+      "verifiedAt": "2026-11-24",
+      "mayBeEmpty": true
+    }
+  },
+  {
+    "id": "casal-de-barri-comunitari-la-palmera",
+    "slug": "casal-de-barri-comunitari-la-palmera",
+    "name": "Casal de Barri Comunitari La Palmera",
+    "officialUrl": "https://guia.barcelona.cat/ca/detall/casal-de-barri-comunitari-la-palmera_92086015165.html",
+    "address": "C Duoda, 6, 08020 Barcelona",
+    "country": "ES",
+    "city": "Barcelona",
+    "cityId": "barcelona",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "detailsSourceUrl": "https://guia.barcelona.cat/ca/detall/casal-de-barri-comunitari-la-palmera_92086015165.html",
+      "detailsVerifiedAt": "2026-11-24",
+      "location": {
+        "latitude": 41.4206173,
+        "longitude": 2.2060654,
+        "sourceUrl": "https://guia.barcelona.cat/ca/detall/casal-de-barri-comunitari-la-palmera_92086015165.html",
+        "verifiedAt": "2026-11-24"
+      }
+    },
+    "registration": {
+      "platform": "barcelona-agenda",
+      "origin": "https://opendata-ajuntament.barcelona.cat",
+      "places": [
+        "Casal de Barri Comunitari La Palmera",
+        "Casal de Barri La Palmera"
+      ],
+      "verifiedAt": "2026-11-24",
+      "mayBeEmpty": true
+    }
+  },
+  {
+    "id": "casal-de-barri-comunitari-la-vinya",
+    "slug": "casal-de-barri-comunitari-la-vinya",
+    "name": "Casal de Barri Comunitari La Vinya",
+    "officialUrl": "https://guia.barcelona.cat/ca/detall/casal-de-barri-comunitari-la-vinya_92086000047.html",
+    "address": "Carrer dels Alts Forns, 87, 08038 Barcelona",
+    "country": "ES",
+    "city": "Barcelona",
+    "cityId": "barcelona",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "detailsSourceUrl": "https://guia.barcelona.cat/ca/detall/casal-de-barri-comunitari-la-vinya_92086000047.html",
+      "detailsVerifiedAt": "2026-11-24",
+      "location": {
+        "latitude": 41.3601343,
+        "longitude": 2.1425804,
+        "sourceUrl": "https://guia.barcelona.cat/ca/detall/casal-de-barri-comunitari-la-vinya_92086000047.html",
+        "verifiedAt": "2026-11-24"
+      }
+    },
+    "registration": {
+      "platform": "barcelona-agenda",
+      "origin": "https://opendata-ajuntament.barcelona.cat",
+      "places": [
+        "Casal de Barri Comunitari La Vinya",
+        "Casal de Barri La Vinya"
+      ],
+      "verifiedAt": "2026-11-24",
+      "mayBeEmpty": true
+    }
+  },
+  {
+    "id": "casal-de-barri-comunitari-torre-de-la-sagrera",
+    "slug": "casal-de-barri-comunitari-torre-de-la-sagrera",
+    "name": "Casal de Barri Comunitari Torre de la Sagrera",
+    "officialUrl": "https://guia.barcelona.cat/ca/detall/casal-de-barri-comunitari-torre-de-la-sagrera_99400549439.html",
+    "address": "Carrer de Berenguer de Palou, 64, 08027 Barcelona",
+    "country": "ES",
+    "city": "Barcelona",
+    "cityId": "barcelona",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "detailsSourceUrl": "https://guia.barcelona.cat/ca/detall/casal-de-barri-comunitari-torre-de-la-sagrera_99400549439.html",
+      "detailsVerifiedAt": "2026-11-24",
+      "location": {
+        "latitude": 41.4237067,
+        "longitude": 2.1919319,
+        "sourceUrl": "https://guia.barcelona.cat/ca/detall/casal-de-barri-comunitari-torre-de-la-sagrera_99400549439.html",
+        "verifiedAt": "2026-11-24"
+      }
+    },
+    "registration": {
+      "platform": "barcelona-agenda",
+      "origin": "https://opendata-ajuntament.barcelona.cat",
+      "places": [
+        "Casal de Barri Comunitari Torre de la Sagrera",
+        "Casal de Barri Torre de la Sagrera"
+      ],
+      "verifiedAt": "2026-11-24",
+      "mayBeEmpty": true
+    }
+  },
+  {
+    "id": "casal-de-barri-comunitari-verdun",
+    "slug": "casal-de-barri-comunitari-verdun",
+    "name": "Casal de Barri Comunitari Verdun",
+    "officialUrl": "https://guia.barcelona.cat/ca/detall/casal-de-barri-comunitari-verdun_99400246329.html",
+    "address": "Carrer de Luz Casanova, 4, 08042 Barcelona",
+    "country": "ES",
+    "city": "Barcelona",
+    "cityId": "barcelona",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "detailsSourceUrl": "https://guia.barcelona.cat/ca/detall/casal-de-barri-comunitari-verdun_99400246329.html",
+      "detailsVerifiedAt": "2026-11-24",
+      "location": {
+        "latitude": 41.4438451,
+        "longitude": 2.1749797,
+        "sourceUrl": "https://guia.barcelona.cat/ca/detall/casal-de-barri-comunitari-verdun_99400246329.html",
+        "verifiedAt": "2026-11-24"
+      }
+    },
+    "registration": {
+      "platform": "barcelona-agenda",
+      "origin": "https://opendata-ajuntament.barcelona.cat",
+      "places": ["Casal de Barri Comunitari Verdun", "Casal de Barri Verdun"],
+      "verifiedAt": "2026-11-24",
+      "mayBeEmpty": true
+    }
+  },
+  {
+    "id": "casal-de-barri-comunitari-vila-olimpica-can-gili-nou",
+    "slug": "casal-de-barri-comunitari-vila-olimpica-can-gili-nou",
+    "name": "Casal de Barri Comunitari Vila Olímpica - Can Gili Nou",
+    "officialUrl": "https://guia.barcelona.cat/ca/detall/casal-de-barri-comunitari-vila-olimpica-can-gili-nou_99400261148.html",
+    "address": "Carrer del Taulat, 3, 08005 Barcelona",
+    "country": "ES",
+    "city": "Barcelona",
+    "cityId": "barcelona",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "detailsSourceUrl": "https://guia.barcelona.cat/ca/detall/casal-de-barri-comunitari-vila-olimpica-can-gili-nou_99400261148.html",
+      "detailsVerifiedAt": "2026-11-24",
+      "location": {
+        "latitude": 41.3952345,
+        "longitude": 2.2008304,
+        "sourceUrl": "https://guia.barcelona.cat/ca/detall/casal-de-barri-comunitari-vila-olimpica-can-gili-nou_99400261148.html",
+        "verifiedAt": "2026-11-24"
+      }
+    },
+    "registration": {
+      "platform": "barcelona-agenda",
+      "origin": "https://opendata-ajuntament.barcelona.cat",
+      "places": [
+        "Casal de Barri Comunitari Vila Olímpica - Can Gili Nou",
+        "Casal de Barri Vila Olímpica - Can Gili Nou",
+        "Casal de Barri Vila Olímpica-Can Gili Nou"
+      ],
+      "verifiedAt": "2026-11-24",
+      "mayBeEmpty": true
+    }
+  },
+  {
+    "id": "casal-de-barri-comunitari-de-prosperitat",
+    "slug": "casal-de-barri-comunitari-de-prosperitat",
+    "name": "Casal de Barri Comunitari de Prosperitat",
+    "officialUrl": "https://guia.barcelona.cat/ca/detall/casal-de-barri-comunitari-de-prosperitat_92086025446.html",
+    "address": "Pl Àngel Pestaña, 1, 08016 Barcelona",
+    "country": "ES",
+    "city": "Barcelona",
+    "cityId": "barcelona",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "detailsSourceUrl": "https://guia.barcelona.cat/ca/detall/casal-de-barri-comunitari-de-prosperitat_92086025446.html",
+      "detailsVerifiedAt": "2026-11-24",
+      "location": {
+        "latitude": 41.4417128,
+        "longitude": 2.1799268,
+        "sourceUrl": "https://guia.barcelona.cat/ca/detall/casal-de-barri-comunitari-de-prosperitat_92086025446.html",
+        "verifiedAt": "2026-11-24"
+      }
+    },
+    "registration": {
+      "platform": "barcelona-agenda",
+      "origin": "https://opendata-ajuntament.barcelona.cat",
+      "places": [
+        "Casal de Barri Comunitari de Prosperitat",
+        "Casal de Barri de Prosperitat"
+      ],
+      "verifiedAt": "2026-11-24",
+      "mayBeEmpty": true
+    }
+  },
+  {
+    "id": "casal-de-barri-comunitari-de-trinitat-nova",
+    "slug": "casal-de-barri-comunitari-de-trinitat-nova",
+    "name": "Casal de Barri Comunitari de Trinitat Nova",
+    "officialUrl": "https://guia.barcelona.cat/ca/detall/casal-de-barri-comunitari-de-trinitat-nova_99400582519.html",
+    "address": "C Garbí, 3, 08033 Barcelona",
+    "country": "ES",
+    "city": "Barcelona",
+    "cityId": "barcelona",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "detailsSourceUrl": "https://guia.barcelona.cat/ca/detall/casal-de-barri-comunitari-de-trinitat-nova_99400582519.html",
+      "detailsVerifiedAt": "2026-11-24",
+      "location": {
+        "latitude": 41.4526741,
+        "longitude": 2.1875023,
+        "sourceUrl": "https://guia.barcelona.cat/ca/detall/casal-de-barri-comunitari-de-trinitat-nova_99400582519.html",
+        "verifiedAt": "2026-11-24"
+      }
+    },
+    "registration": {
+      "platform": "barcelona-agenda",
+      "origin": "https://opendata-ajuntament.barcelona.cat",
+      "places": [
+        "Casal de Barri Comunitari de Trinitat Nova",
+        "Casal de Barri de Trinitat Nova"
+      ],
+      "verifiedAt": "2026-11-24",
+      "mayBeEmpty": true
+    }
+  },
+  {
+    "id": "casal-de-barri-comunitari-de-vallbona",
+    "slug": "casal-de-barri-comunitari-de-vallbona",
+    "name": "Casal de Barri Comunitari de Vallbona",
+    "officialUrl": "https://guia.barcelona.cat/ca/detall/casal-de-barri-comunitari-de-vallbona_99026102727.html",
+    "address": "Carrer d'Oristà, 8, 08033 Barcelona",
+    "country": "ES",
+    "city": "Barcelona",
+    "cityId": "barcelona",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "detailsSourceUrl": "https://guia.barcelona.cat/ca/detall/casal-de-barri-comunitari-de-vallbona_99026102727.html",
+      "detailsVerifiedAt": "2026-11-24",
+      "location": {
+        "latitude": 41.463775,
+        "longitude": 2.1852654,
+        "sourceUrl": "https://guia.barcelona.cat/ca/detall/casal-de-barri-comunitari-de-vallbona_99026102727.html",
+        "verifiedAt": "2026-11-24"
+      }
+    },
+    "registration": {
+      "platform": "barcelona-agenda",
+      "origin": "https://opendata-ajuntament.barcelona.cat",
+      "places": [
+        "Casal de Barri Comunitari de Vallbona",
+        "Casal de Barri de Vallbona"
+      ],
+      "verifiedAt": "2026-11-24",
+      "mayBeEmpty": true
+    }
+  },
+  {
+    "id": "casal-de-barri-comunitari-del-raval",
+    "slug": "casal-de-barri-comunitari-del-raval",
+    "name": "Casal de Barri Comunitari del Raval",
+    "officialUrl": "https://guia.barcelona.cat/ca/detall/casal-de-barri-comunitari-del-raval_99400271344.html",
+    "address": "Carrer de la Reina Amàlia, 31, 08001 Barcelona",
+    "country": "ES",
+    "city": "Barcelona",
+    "cityId": "barcelona",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "detailsSourceUrl": "https://guia.barcelona.cat/ca/detall/casal-de-barri-comunitari-del-raval_99400271344.html",
+      "detailsVerifiedAt": "2026-11-24",
+      "location": {
+        "latitude": 41.3769693,
+        "longitude": 2.1672379,
+        "sourceUrl": "https://guia.barcelona.cat/ca/detall/casal-de-barri-comunitari-del-raval_99400271344.html",
+        "verifiedAt": "2026-11-24"
+      }
+    },
+    "registration": {
+      "platform": "barcelona-agenda",
+      "origin": "https://opendata-ajuntament.barcelona.cat",
+      "places": [
+        "Casal de Barri Comunitari del Raval",
+        "Casal de Barri del Raval"
+      ],
+      "verifiedAt": "2026-11-24",
+      "mayBeEmpty": true
+    }
+  },
+  {
+    "id": "casal-de-gent-gran-baro-de-viver",
+    "slug": "casal-de-gent-gran-baro-de-viver",
+    "name": "Casal de Gent Gran Baró de Viver",
+    "officialUrl": "https://guia.barcelona.cat/ca/detall/casal-de-gent-gran-baro-de-viver_92086011152.html",
+    "address": "Carrer de Quito, 8, 08030 Barcelona",
+    "country": "ES",
+    "city": "Barcelona",
+    "cityId": "barcelona",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "detailsSourceUrl": "https://guia.barcelona.cat/ca/detall/casal-de-gent-gran-baro-de-viver_92086011152.html",
+      "detailsVerifiedAt": "2026-11-24",
+      "location": {
+        "latitude": 41.4462918,
+        "longitude": 2.2002902,
+        "sourceUrl": "https://guia.barcelona.cat/ca/detall/casal-de-gent-gran-baro-de-viver_92086011152.html",
+        "verifiedAt": "2026-11-24"
+      }
+    },
+    "registration": {
+      "platform": "barcelona-agenda",
+      "origin": "https://opendata-ajuntament.barcelona.cat",
+      "places": ["Casal de Gent Gran Baró de Viver"],
+      "verifiedAt": "2026-11-24",
+      "mayBeEmpty": true
+    }
+  },
+  {
+    "id": "casal-de-gent-gran-basconia",
+    "slug": "casal-de-gent-gran-basconia",
+    "name": "Casal de Gent Gran Bascònia",
+    "officialUrl": "https://guia.barcelona.cat/ca/detall/casal-de-gent-gran-basconia_92086026574.html",
+    "address": "Carrer de Bascònia, 42, 08030 Barcelona",
+    "country": "ES",
+    "city": "Barcelona",
+    "cityId": "barcelona",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "detailsSourceUrl": "https://guia.barcelona.cat/ca/detall/casal-de-gent-gran-basconia_92086026574.html",
+      "detailsVerifiedAt": "2026-11-24",
+      "location": {
+        "latitude": 41.4361222,
+        "longitude": 2.1870554,
+        "sourceUrl": "https://guia.barcelona.cat/ca/detall/casal-de-gent-gran-basconia_92086026574.html",
+        "verifiedAt": "2026-11-24"
+      }
+    },
+    "registration": {
+      "platform": "barcelona-agenda",
+      "origin": "https://opendata-ajuntament.barcelona.cat",
+      "places": ["Casal de Gent Gran Bascònia"],
+      "verifiedAt": "2026-11-24",
+      "mayBeEmpty": true
+    }
+  },
+  {
+    "id": "casal-de-gent-gran-la-palmera",
+    "slug": "casal-de-gent-gran-la-palmera",
+    "name": "Casal de Gent Gran La Palmera",
+    "officialUrl": "https://guia.barcelona.cat/ca/detall/casal-de-gent-gran-la-palmera_92086011154.html",
+    "address": "Carrer d'Olesa, 41, 08027 Barcelona",
+    "country": "ES",
+    "city": "Barcelona",
+    "cityId": "barcelona",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "detailsSourceUrl": "https://guia.barcelona.cat/ca/detall/casal-de-gent-gran-la-palmera_92086011154.html",
+      "detailsVerifiedAt": "2026-11-24",
+      "location": {
+        "latitude": 41.4227398,
+        "longitude": 2.185017,
+        "sourceUrl": "https://guia.barcelona.cat/ca/detall/casal-de-gent-gran-la-palmera_92086011154.html",
+        "verifiedAt": "2026-11-24"
+      }
+    },
+    "registration": {
+      "platform": "barcelona-agenda",
+      "origin": "https://opendata-ajuntament.barcelona.cat",
+      "places": ["Casal de Gent Gran La Palmera"],
+      "verifiedAt": "2026-11-24",
+      "mayBeEmpty": true
+    }
+  },
+  {
+    "id": "casal-de-joves-del-poblenou-can-ricart",
+    "slug": "casal-de-joves-del-poblenou-can-ricart",
+    "name": "Casal de Joves del Poblenou - Can Ricart",
+    "officialUrl": "https://guia.barcelona.cat/ca/detall/casal-de-joves-del-poblenou-can-ricart_99400479483.html",
+    "address": "Carrer d'Emília Coranty, 5, 08018 Barcelona",
+    "country": "ES",
+    "city": "Barcelona",
+    "cityId": "barcelona",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "detailsSourceUrl": "https://guia.barcelona.cat/ca/detall/casal-de-joves-del-poblenou-can-ricart_99400479483.html",
+      "detailsVerifiedAt": "2026-11-24",
+      "location": {
+        "latitude": 41.4082202,
+        "longitude": 2.1998385,
+        "sourceUrl": "https://guia.barcelona.cat/ca/detall/casal-de-joves-del-poblenou-can-ricart_99400479483.html",
+        "verifiedAt": "2026-11-24"
+      }
+    },
+    "registration": {
+      "platform": "barcelona-agenda",
+      "origin": "https://opendata-ajuntament.barcelona.cat",
+      "places": ["Casal de Joves del Poblenou - Can Ricart"],
+      "verifiedAt": "2026-11-24",
+      "mayBeEmpty": true
+    }
+  },
+  {
+    "id": "espai-de-persones-grans-baix-guinardo",
+    "slug": "espai-de-persones-grans-baix-guinardo",
+    "name": "Espai de Persones Grans Baix Guinardó",
+    "officialUrl": "https://guia.barcelona.cat/ca/detall/espai-de-persones-grans-baix-guinardo_98293140237.html",
+    "address": "C Marina, 380, 08025 Barcelona",
+    "country": "ES",
+    "city": "Barcelona",
+    "cityId": "barcelona",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "detailsSourceUrl": "https://guia.barcelona.cat/ca/detall/espai-de-persones-grans-baix-guinardo_98293140237.html",
+      "detailsVerifiedAt": "2026-11-24",
+      "location": {
+        "latitude": 41.4099633,
+        "longitude": 2.1675454,
+        "sourceUrl": "https://guia.barcelona.cat/ca/detall/espai-de-persones-grans-baix-guinardo_98293140237.html",
+        "verifiedAt": "2026-11-24"
+      }
+    },
+    "registration": {
+      "platform": "barcelona-agenda",
+      "origin": "https://opendata-ajuntament.barcelona.cat",
+      "places": [
+        "Casal de Gent Gran del Baix Guinardó",
+        "Espai de Persones Grans Baix Guinardó"
+      ],
+      "verifiedAt": "2026-11-24",
+      "mayBeEmpty": true
+    }
+  },
+  {
+    "id": "espai-de-persones-grans-vall-d-hebron",
+    "slug": "espai-de-persones-grans-vall-d-hebron",
+    "name": "Espai de Persones Grans Vall d'Hebron",
+    "officialUrl": "https://guia.barcelona.cat/ca/detall/espai-de-persones-grans-vall-d-hebron_99400215764.html",
+    "address": "C Arquitecte Moragas, 5, 08035 Barcelona",
+    "country": "ES",
+    "city": "Barcelona",
+    "cityId": "barcelona",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "detailsSourceUrl": "https://guia.barcelona.cat/ca/detall/espai-de-persones-grans-vall-d-hebron_99400215764.html",
+      "detailsVerifiedAt": "2026-11-24",
+      "location": {
+        "latitude": 41.432809,
+        "longitude": 2.14713,
+        "sourceUrl": "https://guia.barcelona.cat/ca/detall/espai-de-persones-grans-vall-d-hebron_99400215764.html",
+        "verifiedAt": "2026-11-24"
+      }
+    },
+    "registration": {
+      "platform": "barcelona-agenda",
+      "origin": "https://opendata-ajuntament.barcelona.cat",
+      "places": [
+        "Casal de Gent Gran Vall d'Hebron",
+        "Espai de Persones Grans Vall d'Hebron"
+      ],
+      "verifiedAt": "2026-11-24",
+      "mayBeEmpty": true
+    }
+  },
+  {
+    "id": "espai-de-persones-grans-d-horta-feliu-i-codina",
+    "slug": "espai-de-persones-grans-d-horta-feliu-i-codina",
+    "name": "Espai de Persones Grans d'Horta (Feliu i Codina)",
+    "officialUrl": "https://guia.barcelona.cat/ca/detall/espai-de-persones-grans-d-horta-feliu-i-codina_99400079710.html",
+    "address": "Carrer de Feliu i Codina, 43, 08031 Barcelona",
+    "country": "ES",
+    "city": "Barcelona",
+    "cityId": "barcelona",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "detailsSourceUrl": "https://guia.barcelona.cat/ca/detall/espai-de-persones-grans-d-horta-feliu-i-codina_99400079710.html",
+      "detailsVerifiedAt": "2026-11-24",
+      "location": {
+        "latitude": 41.4344576,
+        "longitude": 2.1616916,
+        "sourceUrl": "https://guia.barcelona.cat/ca/detall/espai-de-persones-grans-d-horta-feliu-i-codina_99400079710.html",
+        "verifiedAt": "2026-11-24"
+      }
+    },
+    "registration": {
+      "platform": "barcelona-agenda",
+      "origin": "https://opendata-ajuntament.barcelona.cat",
+      "places": [
+        "Casal de Gent Gran d'Horta *Feliu i Codina",
+        "Espai de Persones Grans d'Horta *Feliu i Codina"
+      ],
+      "verifiedAt": "2026-11-24",
+      "mayBeEmpty": true
+    }
+  },
+  {
+    "id": "espai-de-persones-grans-de-sant-genis-dels-agudells",
+    "slug": "espai-de-persones-grans-de-sant-genis-dels-agudells",
+    "name": "Espai de Persones Grans de Sant Genís dels Agudells",
+    "officialUrl": "https://guia.barcelona.cat/ca/detall/espai-de-persones-grans-de-sant-genis-dels-agudells_99400521766.html",
+    "address": "Carrer de Naïm, 10, 08035 Barcelona",
+    "country": "ES",
+    "city": "Barcelona",
+    "cityId": "barcelona",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "detailsSourceUrl": "https://guia.barcelona.cat/ca/detall/espai-de-persones-grans-de-sant-genis-dels-agudells_99400521766.html",
+      "detailsVerifiedAt": "2026-11-24",
+      "location": {
+        "latitude": 41.4259647,
+        "longitude": 2.1380714,
+        "sourceUrl": "https://guia.barcelona.cat/ca/detall/espai-de-persones-grans-de-sant-genis-dels-agudells_99400521766.html",
+        "verifiedAt": "2026-11-24"
+      }
+    },
+    "registration": {
+      "platform": "barcelona-agenda",
+      "origin": "https://opendata-ajuntament.barcelona.cat",
+      "places": [
+        "Casal de Gent Gran de Sant Genís dels Agudells",
+        "Espai de Persones Grans de Sant Genís dels Agudells"
+      ],
+      "verifiedAt": "2026-11-24",
+      "mayBeEmpty": true
+    }
+  },
+  {
+    "id": "museu-egipci-de-barcelona",
+    "slug": "museu-egipci-de-barcelona",
+    "name": "Museu Egipci de Barcelona",
+    "officialUrl": "https://guia.barcelona.cat/ca/detall/museu-egipci-de-barcelona_90154904.html",
+    "address": "Carrer de València, 284, 08007 Barcelona",
+    "country": "ES",
+    "city": "Barcelona",
+    "cityId": "barcelona",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "detailsSourceUrl": "https://guia.barcelona.cat/ca/detall/museu-egipci-de-barcelona_90154904.html",
+      "detailsVerifiedAt": "2026-11-24",
+      "location": {
+        "latitude": 41.3936576,
+        "longitude": 2.1647542,
+        "sourceUrl": "https://guia.barcelona.cat/ca/detall/museu-egipci-de-barcelona_90154904.html",
+        "verifiedAt": "2026-11-24"
+      }
+    },
+    "registration": {
+      "platform": "barcelona-agenda",
+      "origin": "https://opendata-ajuntament.barcelona.cat",
+      "places": ["Museu Egipci de Barcelona"],
+      "verifiedAt": "2026-11-24",
+      "mayBeEmpty": true
+    }
+  },
+  {
+    "id": "museu-etnologic-i-de-cultures-del-mon-parc-montjuic",
+    "slug": "museu-etnologic-i-de-cultures-del-mon-parc-montjuic",
+    "name": "Museu Etnològic i de Cultures del Món (Parc Montjuïc)",
+    "officialUrl": "https://guia.barcelona.cat/ca/detall/museu-etnologic-i-de-cultures-del-mon-parc-montjuic_92086000174.html",
+    "address": "Passeig de Santa Madrona, 16, 08038 Barcelona",
+    "country": "ES",
+    "city": "Barcelona",
+    "cityId": "barcelona",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "detailsSourceUrl": "https://guia.barcelona.cat/ca/detall/museu-etnologic-i-de-cultures-del-mon-parc-montjuic_92086000174.html",
+      "detailsVerifiedAt": "2026-11-24",
+      "location": {
+        "latitude": 41.3690937,
+        "longitude": 2.1560013,
+        "sourceUrl": "https://guia.barcelona.cat/ca/detall/museu-etnologic-i-de-cultures-del-mon-parc-montjuic_92086000174.html",
+        "verifiedAt": "2026-11-24"
+      }
+    },
+    "registration": {
+      "platform": "barcelona-agenda",
+      "origin": "https://opendata-ajuntament.barcelona.cat",
+      "places": ["Museu Etnològic i de Cultures del Món *Parc Montjuïc"],
+      "verifiedAt": "2026-11-24",
+      "mayBeEmpty": true
+    }
+  },
+  {
+    "id": "museu-maritim-de-barcelona",
+    "slug": "museu-maritim-de-barcelona",
+    "name": "Museu Marítim de Barcelona",
+    "officialUrl": "https://guia.barcelona.cat/ca/detall/museu-maritim-de-barcelona_92086000438.html",
+    "address": "Avinguda de les Drassanes, 1, 08001 Barcelona",
+    "country": "ES",
+    "city": "Barcelona",
+    "cityId": "barcelona",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "detailsSourceUrl": "https://guia.barcelona.cat/ca/detall/museu-maritim-de-barcelona_92086000438.html",
+      "detailsVerifiedAt": "2026-11-24",
+      "location": {
+        "latitude": 41.3759814,
+        "longitude": 2.1760592,
+        "sourceUrl": "https://guia.barcelona.cat/ca/detall/museu-maritim-de-barcelona_92086000438.html",
+        "verifiedAt": "2026-11-24"
+      }
+    },
+    "registration": {
+      "platform": "barcelona-agenda",
+      "origin": "https://opendata-ajuntament.barcelona.cat",
+      "places": ["Museu Marítim de Barcelona"],
+      "verifiedAt": "2026-11-24",
+      "mayBeEmpty": true
+    }
+  },
+  {
+    "id": "museu-nacional-d-art-de-catalunya",
+    "slug": "museu-nacional-d-art-de-catalunya",
+    "name": "Museu Nacional d'Art de Catalunya",
+    "officialUrl": "https://guia.barcelona.cat/ca/detall/museu-nacional-d-art-de-catalunya_94320113711.html",
+    "address": "C Mirador Palau Nacional, 6, 08004 Barcelona",
+    "country": "ES",
+    "city": "Barcelona",
+    "cityId": "barcelona",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "detailsSourceUrl": "https://guia.barcelona.cat/ca/detall/museu-nacional-d-art-de-catalunya_94320113711.html",
+      "detailsVerifiedAt": "2026-11-24",
+      "location": {
+        "latitude": 41.3688851,
+        "longitude": 2.1533812,
+        "sourceUrl": "https://guia.barcelona.cat/ca/detall/museu-nacional-d-art-de-catalunya_94320113711.html",
+        "verifiedAt": "2026-11-24"
+      }
+    },
+    "registration": {
+      "platform": "barcelona-agenda",
+      "origin": "https://opendata-ajuntament.barcelona.cat",
+      "places": ["Museu Nacional d'Art de Catalunya"],
+      "verifiedAt": "2026-11-24",
+      "mayBeEmpty": true
+    }
+  },
+  {
+    "id": "museu-olimpic-i-de-l-esport-joan-antoni-samaranch-de-barcelona",
+    "slug": "museu-olimpic-i-de-l-esport-joan-antoni-samaranch-de-barcelona",
+    "name": "Museu Olímpic i de l'Esport Joan Antoni Samaranch de Barcelona",
+    "officialUrl": "https://guia.barcelona.cat/ca/detall/museu-olimpic-i-de-l-esport-joan-antoni-samaranch-de-barcelona_99400179658.html",
+    "address": "Avinguda de l'Estadi, 60, 08038 Barcelona",
+    "country": "ES",
+    "city": "Barcelona",
+    "cityId": "barcelona",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "detailsSourceUrl": "https://guia.barcelona.cat/ca/detall/museu-olimpic-i-de-l-esport-joan-antoni-samaranch-de-barcelona_99400179658.html",
+      "detailsVerifiedAt": "2026-11-24",
+      "location": {
+        "latitude": 41.3662809,
+        "longitude": 2.1570941,
+        "sourceUrl": "https://guia.barcelona.cat/ca/detall/museu-olimpic-i-de-l-esport-joan-antoni-samaranch-de-barcelona_99400179658.html",
+        "verifiedAt": "2026-11-24"
+      }
+    },
+    "registration": {
+      "platform": "barcelona-agenda",
+      "origin": "https://opendata-ajuntament.barcelona.cat",
+      "places": [
+        "Museu Olímpic i de l'Esport Joan Antoni Samaranch de Barcelona"
+      ],
+      "verifiedAt": "2026-11-24",
+      "mayBeEmpty": true
+    }
+  },
+  {
+    "id": "museu-picasso",
+    "slug": "museu-picasso",
+    "name": "Museu Picasso",
+    "officialUrl": "https://guia.barcelona.cat/ca/detall/museu-picasso_92086001333.html",
+    "address": "Carrer de Montcada, 15, 08003 Barcelona",
+    "country": "ES",
+    "city": "Barcelona",
+    "cityId": "barcelona",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "detailsSourceUrl": "https://guia.barcelona.cat/ca/detall/museu-picasso_92086001333.html",
+      "detailsVerifiedAt": "2026-11-24",
+      "location": {
+        "latitude": 41.3851876,
+        "longitude": 2.1808538,
+        "sourceUrl": "https://guia.barcelona.cat/ca/detall/museu-picasso_92086001333.html",
+        "verifiedAt": "2026-11-24"
+      }
+    },
+    "registration": {
+      "platform": "barcelona-agenda",
+      "origin": "https://opendata-ajuntament.barcelona.cat",
+      "places": ["Museu Picasso"],
+      "verifiedAt": "2026-11-24",
+      "mayBeEmpty": true
+    }
+  },
+  {
+    "id": "museu-reial-monestir-de-santa-maria-de-pedralbes",
+    "slug": "museu-reial-monestir-de-santa-maria-de-pedralbes",
+    "name": "Museu Reial Monestir de Santa Maria de Pedralbes",
+    "officialUrl": "https://guia.barcelona.cat/ca/detall/museu-reial-monestir-de-santa-maria-de-pedralbes_92086005213.html",
+    "address": "Baixada del Monestir, 9, 08034 Barcelona",
+    "country": "ES",
+    "city": "Barcelona",
+    "cityId": "barcelona",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "detailsSourceUrl": "https://guia.barcelona.cat/ca/detall/museu-reial-monestir-de-santa-maria-de-pedralbes_92086005213.html",
+      "detailsVerifiedAt": "2026-11-24",
+      "location": {
+        "latitude": 41.3956052,
+        "longitude": 2.1120751,
+        "sourceUrl": "https://guia.barcelona.cat/ca/detall/museu-reial-monestir-de-santa-maria-de-pedralbes_92086005213.html",
+        "verifiedAt": "2026-11-24"
+      }
+    },
+    "registration": {
+      "platform": "barcelona-agenda",
+      "origin": "https://opendata-ajuntament.barcelona.cat",
+      "places": ["Museu Reial Monestir de Santa Maria de Pedralbes"],
+      "verifiedAt": "2026-11-24",
+      "mayBeEmpty": true
+    }
+  },
+  {
+    "id": "museu-d-arqueologia-de-catalunya",
+    "slug": "museu-d-arqueologia-de-catalunya",
+    "name": "Museu d'Arqueologia de Catalunya",
+    "officialUrl": "https://guia.barcelona.cat/ca/detall/museu-d-arqueologia-de-catalunya_92086000136.html",
+    "address": "Passeig de Santa Madrona, 39, 08038 Barcelona",
+    "country": "ES",
+    "city": "Barcelona",
+    "cityId": "barcelona",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "detailsSourceUrl": "https://guia.barcelona.cat/ca/detall/museu-d-arqueologia-de-catalunya_92086000136.html",
+      "detailsVerifiedAt": "2026-11-24",
+      "location": {
+        "latitude": 41.3701854,
+        "longitude": 2.157664,
+        "sourceUrl": "https://guia.barcelona.cat/ca/detall/museu-d-arqueologia-de-catalunya_92086000136.html",
+        "verifiedAt": "2026-11-24"
+      }
+    },
+    "registration": {
+      "platform": "barcelona-agenda",
+      "origin": "https://opendata-ajuntament.barcelona.cat",
+      "places": ["Museu d'Arqueologia de Catalunya"],
+      "verifiedAt": "2026-11-24",
+      "mayBeEmpty": true
+    }
+  },
+  {
+    "id": "museu-d-historia-de-catalunya",
+    "slug": "museu-d-historia-de-catalunya",
+    "name": "Museu d'Història de Catalunya",
+    "officialUrl": "https://guia.barcelona.cat/ca/detall/museu-d-historia-de-catalunya_96025141508.html",
+    "address": "Plaça de Pau Vila, 3, 08039 Barcelona",
+    "country": "ES",
+    "city": "Barcelona",
+    "cityId": "barcelona",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "detailsSourceUrl": "https://guia.barcelona.cat/ca/detall/museu-d-historia-de-catalunya_96025141508.html",
+      "detailsVerifiedAt": "2026-11-24",
+      "location": {
+        "latitude": 41.3807002,
+        "longitude": 2.1855211,
+        "sourceUrl": "https://guia.barcelona.cat/ca/detall/museu-d-historia-de-catalunya_96025141508.html",
+        "verifiedAt": "2026-11-24"
+      }
+    },
+    "registration": {
+      "platform": "barcelona-agenda",
+      "origin": "https://opendata-ajuntament.barcelona.cat",
+      "places": [
+        "MUSEU HISTORIA DE CATALUNYA",
+        "Museu d'Història de Catalunya"
+      ],
+      "verifiedAt": "2026-11-24",
+      "mayBeEmpty": true
+    }
+  },
+  {
+    "id": "museu-de-ciencies-naturals-de-barcelona",
+    "slug": "museu-de-ciencies-naturals-de-barcelona",
+    "name": "Museu de Ciències Naturals de Barcelona",
+    "officialUrl": "https://guia.barcelona.cat/ca/detall/museu-de-ciencies-naturals-de-barcelona_99400090058.html",
+    "address": "Plaça de Leonardo da Vinci, 4, 08019 Barcelona",
+    "country": "ES",
+    "city": "Barcelona",
+    "cityId": "barcelona",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "detailsSourceUrl": "https://guia.barcelona.cat/ca/detall/museu-de-ciencies-naturals-de-barcelona_99400090058.html",
+      "detailsVerifiedAt": "2026-11-24",
+      "location": {
+        "latitude": 41.4108113,
+        "longitude": 2.2204994,
+        "sourceUrl": "https://guia.barcelona.cat/ca/detall/museu-de-ciencies-naturals-de-barcelona_99400090058.html",
+        "verifiedAt": "2026-11-24"
+      }
+    },
+    "registration": {
+      "platform": "barcelona-agenda",
+      "origin": "https://opendata-ajuntament.barcelona.cat",
+      "places": ["Museu de Ciències Naturals de Barcelona"],
+      "verifiedAt": "2026-11-24",
+      "mayBeEmpty": true
+    }
+  },
+  {
+    "id": "museu-de-la-musica-l-auditori",
+    "slug": "museu-de-la-musica-l-auditori",
+    "name": "Museu de la Música - L'Auditori",
+    "officialUrl": "https://guia.barcelona.cat/ca/detall/museu-de-la-musica-l-auditori_92086004112.html",
+    "address": "Carrer de Lepant, 150, 08013 Barcelona",
+    "country": "ES",
+    "city": "Barcelona",
+    "cityId": "barcelona",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "detailsSourceUrl": "https://guia.barcelona.cat/ca/detall/museu-de-la-musica-l-auditori_92086004112.html",
+      "detailsVerifiedAt": "2026-11-24",
+      "location": {
+        "latitude": 41.398398,
+        "longitude": 2.1848851,
+        "sourceUrl": "https://guia.barcelona.cat/ca/detall/museu-de-la-musica-l-auditori_92086004112.html",
+        "verifiedAt": "2026-11-24"
+      }
+    },
+    "registration": {
+      "platform": "barcelona-agenda",
+      "origin": "https://opendata-ajuntament.barcelona.cat",
+      "places": [
+        "Museu de la Música  -  L'Auditori",
+        "Museu de la Música - L'Auditori"
+      ],
+      "verifiedAt": "2026-11-24",
+      "mayBeEmpty": true
+    }
+  },
+  {
+    "id": "museu-de-la-xocolata",
+    "slug": "museu-de-la-xocolata",
+    "name": "Museu de la Xocolata",
+    "officialUrl": "https://guia.barcelona.cat/ca/detall/museu-de-la-xocolata_276102917.html",
+    "address": "Carrer del Comerç, 36, 08003 Barcelona",
+    "country": "ES",
+    "city": "Barcelona",
+    "cityId": "barcelona",
+    "timezone": "Europe/Madrid",
+    "profile": {
+      "detailsSourceUrl": "https://guia.barcelona.cat/ca/detall/museu-de-la-xocolata_276102917.html",
+      "detailsVerifiedAt": "2026-11-24",
+      "location": {
+        "latitude": 41.3874192,
+        "longitude": 2.181726,
+        "sourceUrl": "https://guia.barcelona.cat/ca/detall/museu-de-la-xocolata_276102917.html",
+        "verifiedAt": "2026-11-24"
+      }
+    },
+    "registration": {
+      "platform": "barcelona-agenda",
+      "origin": "https://opendata-ajuntament.barcelona.cat",
+      "places": ["Museu de la Xocolata"],
+      "verifiedAt": "2026-11-24",
+      "mayBeEmpty": true
+    }
   }
 ]
