@@ -115,6 +115,30 @@ describe('course topics', () => {
     ).toEqual(['NOVA']);
   });
 
+  it('reviews the categories reported in issue #146', () => {
+    expect(
+      unmappedCategories([
+        'ART I EXPRESSIÓ',
+        'FAMILIAR',
+        'INFANTIL',
+        'SOSTENIBILITAT, RECICLATGE I MEDI AMBIENT',
+        'TALLERS EN FAMILIA',
+      ]),
+    ).toEqual([]);
+    expect(
+      courseTopic({
+        category: 'SOSTENIBILITAT, RECICLATGE I MEDI AMBIENT',
+        title: 'Hort urbà',
+      }),
+    ).toBe('natura');
+    expect(
+      courseAudience({ category: 'TALLERS EN FAMILIA', title: 'Titelles' }),
+    ).toBe('families');
+    expect(courseAudience({ category: 'INFANTIL', title: 'Contes' })).toBe(
+      'infants-i-joves',
+    );
+  });
+
   it('reviews the categories reported in issue #136', () => {
     expect(
       unmappedCategories([
