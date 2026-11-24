@@ -175,7 +175,8 @@
       "MÉS ECO",
       "Natura, ecologia i sostenibilitat",
       "Jardineria",
-      "Sostenibilitat"
+      "Sostenibilitat",
+      "SOSTENIBILITAT, RECICLATGE I MEDI AMBIENT"
     ]
   },
   "mixed": [
@@ -273,7 +274,11 @@
     "SALUT I CREIX. PERS.",
     "TALLERS DE TARDOR 26",
     "Tallers infantils",
-    "Tallers nous d'hivern"
+    "Tallers nous d'hivern",
+    "ART I EXPRESSIÓ",
+    "FAMILIAR",
+    "INFANTIL",
+    "TALLERS EN FAMILIA"
   ],
   "audiences": {
     "families": [
@@ -290,7 +295,9 @@
       "Infantil i familiar",
       "Sessions de Planetari | Familiars",
       "Nadons (0-3 anys)",
-      "ACTIVITATS EN FAMÍLIA"
+      "ACTIVITATS EN FAMÍLIA",
+      "FAMILIAR",
+      "TALLERS EN FAMILIA"
     ],
     "infants-i-joves": [
       "Infants",
@@ -309,7 +316,8 @@
       "Escola d'Arts Escèniques Tísner (4 a 17 anys)",
       "3_Tallers de fabricació digital i robòtica per infants, adolescents i joves",
       "RACO INF. I JUV.",
-      "Tallers infantils"
+      "Tallers infantils",
+      "INFANTIL"
     ],
     "gent-gran": [
       "GENT GRAN",
