@@ -102,7 +102,7 @@ async function pickCentre(
   const box = page.locator('#centre-search');
   if (!value) {
     await box.fill('');
-    await box.press('Enter');
+    await box.blur();
     return;
   }
   const label = await page
