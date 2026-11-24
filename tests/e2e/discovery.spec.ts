@@ -94,6 +94,24 @@ async function submit(page: import('@playwright/test').Page) {
     .click();
 }
 
+/** Picks a centre through the combobox; '' clears it (every centre). */
+async function pickCentre(
+  page: import('@playwright/test').Page,
+  value: string,
+) {
+  const box = page.locator('#centre-search');
+  if (!value) {
+    await box.fill('');
+    await box.blur();
+    return;
+  }
+  const label = await page
+    .locator(`#centre option[value="${value}"]`)
+    .textContent();
+  await box.fill(label!);
+  await page.getByRole('option', { name: label!, exact: true }).click();
+}
+
 function query(page: import('@playwright/test').Page) {
   return new URL(page.url()).searchParams;
 }
@@ -205,7 +223,7 @@ test('centre selection composes with categories, keyword, and language switching
   page,
 }) => {
   await page.goto('/es/barcelona/cursos?category=idiomes&page=2');
-  await page.getByLabel('Centro', { exact: true }).selectOption('cc-can-baste');
+  await pickCentre(page, 'cc-can-baste');
   await submit(page);
   expect(query(page).get('centre')).toBe('cc-can-baste');
   expect(query(page).get('category')).toBe('idiomes');
@@ -217,10 +235,8 @@ test('centre selection composes with categories, keyword, and language switching
   await page.getByLabel('Buscar por título').fill('TEST');
   await submit(page);
   await page.getByRole('link', { name: 'Català', exact: true }).click();
-  await expect(page.getByLabel('Centre', { exact: true })).toHaveValue(
-    'cc-can-baste',
-  );
-  await page.getByLabel('Centre', { exact: true }).selectOption('');
+  await expect(page.locator('#centre')).toHaveValue('cc-can-baste');
+  await pickCentre(page, '');
   await submit(page);
   expect(query(page).get('centre')).toBe('');
   expect(query(page).get('category')).toBe('idiomes');
@@ -228,9 +244,7 @@ test('centre selection composes with categories, keyword, and language switching
   await page
     .getByRole('link', { name: 'Neteja els filtres', exact: true })
     .click();
-  await page
-    .getByLabel('Centre', { exact: true })
-    .selectOption('cc-pati-llimona');
+  await pickCentre(page, 'cc-pati-llimona');
   await submit(page);
   await page
     .getByLabel('Categoria', { exact: true })
@@ -257,9 +271,7 @@ test('photography categories share one topic and topics follow the selected cent
   await expect(page.locator('article.course .course-category')).toHaveText(
     Array(5).fill('Fotografía y audiovisual'),
   );
-  await page
-    .getByLabel('Centro', { exact: true })
-    .selectOption('cc-pati-llimona');
+  await pickCentre(page, 'cc-pati-llimona');
   await submit(page);
   await expect(page.locator('#category option')).toHaveText([
     'Todas las categorías',
@@ -275,7 +287,7 @@ test('photography categories share one topic and topics follow the selected cent
     'Dansa i ball',
     'Altres',
   ]);
-  await page.getByLabel('Centre', { exact: true }).selectOption('cc-can-baste');
+  await pickCentre(page, 'cc-can-baste');
   await submit(page);
   await expect(page.locator('#category option')).toHaveText([
     'Totes les categories',
@@ -283,7 +295,7 @@ test('photography categories share one topic and topics follow the selected cent
     'Idiomes',
   ]);
   await expect(page.locator('article.course')).toHaveCount(1);
-  await page.getByLabel('Centre', { exact: true }).selectOption('');
+  await pickCentre(page, '');
   await submit(page);
   await expect(page.locator('#category option[value="dansa"]')).toHaveText(
     'Dansa i ball',
@@ -295,9 +307,7 @@ test('Golferichs filters its own normalized categories and retains official sour
   page,
 }) => {
   await page.goto('/es/barcelona/cursos');
-  await page
-    .getByLabel('Centro', { exact: true })
-    .selectOption('cc-golferichs');
+  await pickCentre(page, 'cc-golferichs');
   await submit(page);
   await expect(page.locator('#category option')).toHaveText([
     'Todas las categorías',
@@ -377,7 +387,7 @@ test('every added centre offers its own categories in both locales', async ({
     ],
   ]) {
     await page.goto('/es/barcelona/cursos');
-    await page.getByLabel('Centro', { exact: true }).selectOption(id!);
+    await pickCentre(page, id!);
     await submit(page);
     await expect(page.locator('article.course')).toHaveCount(1);
     await expect(page.locator('article.course .institution')).toHaveText(name!);
@@ -401,7 +411,7 @@ test('FAB centres retain separate filters and Miram activity types', async ({
     ['fab-casa-del-mig', 'CM', '674'],
   ]) {
     await page.goto('/es/barcelona/cursos');
-    await page.getByLabel('Centro', { exact: true }).selectOption(centre!);
+    await pickCentre(page, centre!);
     await submit(page);
     const link = page
       .locator('article.course')
@@ -617,8 +627,7 @@ test.describe('dynamic filter options', () => {
       const countNavigation = () => navigations++;
       page.on('framenavigated', countNavigation);
       const url = page.url();
-      await page.locator('#centre').focus();
-      await page.locator('#centre').selectOption('cc-pati-llimona');
+      await pickCentre(page, 'cc-pati-llimona');
       await expect(page.locator('#category option')).toHaveText([
         all!,
         photography!,
@@ -626,13 +635,13 @@ test.describe('dynamic filter options', () => {
           ? ['Danza y baile', 'Otros']
           : ['Dansa i ball', 'Altres']),
       ]);
-      await expect(page.locator('#centre')).toBeFocused();
+      await expect(page.locator('#centre-search')).toBeFocused();
       await page.locator('#category').selectOption('fotografia-i-audiovisual');
       // The "all centres" option plus every seeded Barcelona centre, and no other city's.
       await expect(page.locator('#centre option')).toHaveCount(
         sources.filter((s) => s.institution.cityId === 'barcelona').length + 1,
       );
-      await page.locator('#centre').selectOption('');
+      await pickCentre(page, '');
       await expect(page.locator('#category option')).not.toHaveCount(4);
       await expect(page.locator('.filter-form')).not.toHaveAttribute(
         'aria-busy',
@@ -678,60 +687,70 @@ test.describe('dynamic filter options', () => {
     ).toBeVisible();
   });
 
-  test('the centre search narrows the options without changing the search', async ({
+  test('the centre box suggests matching centres as the user types', async ({
     page,
   }) => {
     await page.goto('/es/barcelona/cursos');
-    const search = page.getByRole('searchbox', { name: 'Buscar centro' });
-    await expect(search).toBeVisible();
+    const box = page.getByRole('combobox', { name: 'Centro' });
+    const options = page.getByRole('listbox').getByRole('option');
+    await expect(box).toBeVisible();
+    await expect(page.locator('select#centre')).toBeHidden();
     const url = page.url();
-    const all =
-      sources.filter((s) => s.institution.cityId === 'barcelona').length + 1;
-    await expect(page.locator('#centre option')).toHaveCount(all);
 
     // Case and accents are ignored; the match count is announced.
-    await search.fill('GENIS');
-    await expect(page.locator('#centre option')).toHaveText([
-      'Todos los centros',
+    await box.fill('GENIS');
+    await expect(options).toHaveText([
       'Espai de Persones Grans de Sant Genís dels Agudells',
     ]);
+    await expect(box).toHaveAttribute('aria-expanded', 'true');
     await expect(page.locator('#centre-search-status')).toHaveText(
       'Centros encontrados: 1',
     );
 
     // Enter picks the only match instead of submitting the form.
-    await search.fill('llacuna');
-    await search.press('Enter');
+    await box.fill('llacuna');
+    await box.press('Enter');
     await expect(page.locator('#centre')).toHaveValue(
       'casal-de-barri-comunitari-la-llacuna',
     );
+    await expect(box).toHaveValue('Casal de Barri Comunitari La Llacuna');
+    await expect(page.getByRole('listbox')).toBeHidden();
     expect(page.url()).toBe(url);
 
-    // The selected centre stays while another search narrows the list.
-    await search.fill('pati llimona');
-    await expect(page.locator('#centre option')).toHaveText([
-      'Todos los centros',
-      'Casal de Barri Comunitari La Llacuna',
-      'Centre Cívic Pati Llimona',
-    ]);
-    await expect(page.locator('#centre')).toHaveValue(
-      'casal-de-barri-comunitari-la-llacuna',
-    );
+    // Arrow keys move through the suggestions; Escape keeps the chosen centre.
+    await box.fill('pati llimona');
+    await box.press('ArrowDown');
+    await expect(options.first()).toHaveAttribute('aria-selected', 'true');
+    await box.press('Escape');
+    await expect(box).toHaveValue('Casal de Barri Comunitari La Llacuna');
 
-    await search.fill('');
-    await expect(page.locator('#centre option')).toHaveCount(all);
-    await expect(page.locator('#centre-search-status')).toHaveText('');
+    // A click picks a suggestion.
+    await box.fill('pati llimona');
+    await options.getByText('Centre Cívic Pati Llimona').click();
+    await expect(page.locator('#centre')).toHaveValue('cc-pati-llimona');
+
+    // Free text left in the box never becomes a filter.
+    await box.fill('nothing like this');
+    await page.getByLabel('Categoría').focus();
+    await expect(box).toHaveValue('Centre Cívic Pati Llimona');
+
+    await box.fill('llacuna');
+    await box.press('Enter');
     await submit(page);
     await expect(page).toHaveURL(/centre=casal-de-barri-comunitari-la-llacuna/);
     expect(new URL(page.url()).searchParams.has('centre-search')).toBe(false);
     await expect(
       page.locator('article.course .institution').first(),
     ).toHaveText('Casal de Barri Comunitari La Llacuna');
+    await expect(box).toHaveValue('Casal de Barri Comunitari La Llacuna');
+
+    // Clearing the box selects every centre.
+    await box.fill('');
+    await page.getByLabel('Categoría').focus();
+    await expect(page.locator('#centre')).toHaveValue('');
 
     await page.goto('/ca/barcelona/cursos');
-    await page
-      .getByRole('searchbox', { name: 'Cerca un centre' })
-      .fill('llacuna');
+    await page.getByRole('combobox', { name: 'Centre' }).fill('llacuna');
     await expect(page.locator('#centre-search-status')).toHaveText(
       'Centres trobats: 1',
     );
@@ -806,6 +825,7 @@ test.describe('centre search without JavaScript', () => {
   }) => {
     await page.goto('/es/barcelona/cursos');
     await expect(page.locator('#centre-search')).toBeHidden();
+    await expect(page.locator('select#centre')).toBeVisible();
     await expect(page.locator('#centre option')).toHaveCount(
       sources.filter((s) => s.institution.cityId === 'barcelona').length + 1,
     );
