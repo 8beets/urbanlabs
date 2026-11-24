@@ -67,25 +67,34 @@ const formFields = new Set([
         <legend>{m.refine({}, { locale })}</legend>
         <div>
           <label for="centre">{m.centre({}, { locale })}</label>
-          {/* Shown by the script: it narrows the options below, and has no name, so it
-              never changes the submitted search. */}
+          {/* Shown by the script, which hides the select below and keeps it as the
+              submitted field. The box has no name, so it never changes the URL. */}
           <input
             id="centre-search"
-            class="option-search"
-            type="search"
+            class="combobox-input"
+            type="text"
+            role="combobox"
             maxlength="100"
             autocomplete="off"
             hidden
-            aria-label={m.centreFilterSearch({}, { locale })}
             placeholder={m.centreFilterSearch({}, { locale })}
-            aria-controls="centre"
+            aria-autocomplete="list"
+            aria-expanded="false"
+            aria-controls="centre-options"
             aria-describedby="centre-search-status"
-            data-narrows="centre"
+            data-for="centre"
             data-count-template={m.centreSearchResults(
               { count: '{count}' },
               { locale },
             )}
           />
+          <ul
+            id="centre-options"
+            class="combobox-options"
+            role="listbox"
+            aria-label={m.centre({}, { locale })}
+            hidden
+          ></ul>
           <p
             id="centre-search-status"
             class="visually-hidden"
@@ -98,7 +107,7 @@ const formFields = new Set([
             </option>
             {filters.centre &&
               !centres.some((centre) => centre.id === filters.centre) && (
-                <option value={filters.centre} selected data-fallback="true">
+                <option value={filters.centre} selected>
                   {m.currentSelection({}, { locale })}
                 </option>
               )}
@@ -198,10 +207,10 @@ const formFields = new Set([
 </aside>
 
 <script>
-  import { enhanceOptionSearch } from '../lib/courses/filter-controls';
+  import { enhanceCombobox } from '../lib/courses/filter-controls';
 
-  for (const input of document.querySelectorAll('input[data-narrows]'))
-    if (input instanceof HTMLInputElement) enhanceOptionSearch(input);
+  for (const input of document.querySelectorAll('input[role="combobox"]'))
+    if (input instanceof HTMLInputElement) enhanceCombobox(input);
 
   const panel = document.querySelector<HTMLDetailsElement>('#filter-panel');
   if (panel) {

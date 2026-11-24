@@ -11,17 +11,6 @@ export interface FilterChoices {
   categories: FilterOption[];
 }
 
-// Every option a select offers before a search box narrows it.
-const allOptions = new WeakMap<HTMLSelectElement, FilterOption[]>();
-
-/** The search box that narrows a select (`data-narrows` names the select's id). */
-function searchBoxOf(select: HTMLSelectElement): HTMLInputElement | null {
-  const input = select.form?.querySelector(
-    `input[data-narrows="${select.id}"]`,
-  );
-  return input instanceof HTMLInputElement ? input : null;
-}
-
 /** Whether every typed word appears in the label, ignoring case and accents. */
 export function matchesSearch(label: string, query: string): boolean {
   const text = foldText(label);
@@ -30,81 +19,147 @@ export function matchesSearch(label: string, query: string): boolean {
     .every((word) => text.includes(word));
 }
 
-/**
- * Replaces a select's options, keeping the value when it is still offered. When a
- * search box narrows the select, only matching options (and the selected one) show.
- */
 export function replaceOptions(
   select: HTMLSelectElement,
   options: FilterOption[],
   label: string,
   value: string,
 ) {
-  allOptions.set(select, options);
-  const query = searchBoxOf(select)?.value ?? '';
   select.replaceChildren(
     new Option(label, ''),
-    ...options
-      .filter(
-        (option) =>
-          option.value === value || matchesSearch(option.label, query),
-      )
-      .map((option) => new Option(option.label, option.value)),
+    ...options.map((option) => new Option(option.label, option.value)),
   );
   select.value = options.some((option) => option.value === value) ? value : '';
 }
 
 /**
- * Shows a select's search box (hidden without JavaScript) and narrows the options to
- * those matching what is typed, announcing how many match. Enter picks the only match
- * instead of submitting the form.
+ * Replaces a select (kept hidden as the submitted field, and as the no-JavaScript
+ * fallback) with a text box whose matching options are listed below it as the user
+ * types (ARIA combobox with a listbox popup). Clearing the text selects "all".
  */
-export function enhanceOptionSearch(input: HTMLInputElement) {
-  const select = input.form?.querySelector(
-    `select#${CSS.escape(input.dataset.narrows ?? '')}`,
+export function enhanceCombobox(input: HTMLInputElement) {
+  const form = input.form;
+  const select = form?.querySelector(
+    `select#${CSS.escape(input.dataset.for ?? '')}`,
   );
-  const status = input.form?.querySelector(
-    `[data-search-status="${input.id}"]`,
+  const list = form?.querySelector(
+    `#${CSS.escape(input.getAttribute('aria-controls') ?? '')}`,
   );
-  if (!(select instanceof HTMLSelectElement)) return;
-  // The server-rendered options; "current selection" fallbacks are not real choices.
-  allOptions.set(
-    select,
-    [...select.options]
-      .filter((option) => option.value && !option.dataset.fallback)
-      .map((option) => ({ value: option.value, label: option.text })),
-  );
-  const narrow = () => {
-    const selected = select.selectedOptions[0];
-    const options = allOptions.get(select) ?? [];
-    replaceOptions(
-      select,
-      options,
-      select.options[0]?.text ?? '',
-      select.value,
-    );
-    // A selection outside the offered options stays, as setOptions keeps it.
-    if (selected?.value && select.value !== selected.value) {
-      select.add(selected, 1);
-      select.value = selected.value;
-    }
-    if (status)
-      status.textContent = input.value.trim()
-        ? (input.dataset.countTemplate ?? '').replace(
-            '{count}',
-            String(select.options.length - 1),
-          )
-        : '';
+  const status = form?.querySelector(`[data-search-status="${input.id}"]`);
+  if (!(select instanceof HTMLSelectElement) || !(list instanceof HTMLElement))
+    return;
+  let active = -1;
+
+  const items = () => [
+    ...list.querySelectorAll<HTMLElement>('[role="option"]'),
+  ];
+  const showSelected = () => {
+    input.value = select.value ? (select.selectedOptions[0]?.text ?? '') : '';
   };
-  input.addEventListener('input', narrow);
-  input.addEventListener('keydown', (event) => {
-    if (event.key !== 'Enter') return;
-    event.preventDefault();
-    if (select.options.length === 2 && input.value.trim()) {
-      select.value = select.options[1]!.value;
+  /** Highlights the option at `index` (wrapping around); -1 highlights none. */
+  const setActive = (index: number) => {
+    const all = items();
+    active = index < 0 || !all.length ? -1 : index % all.length;
+    all.forEach((item, i) =>
+      item.setAttribute('aria-selected', String(i === active)),
+    );
+    const current = all[active];
+    if (current) {
+      input.setAttribute('aria-activedescendant', current.id);
+      current.scrollIntoView({ block: 'nearest' });
+    } else input.removeAttribute('aria-activedescendant');
+  };
+  const close = () => {
+    list.hidden = true;
+    if (status) status.textContent = '';
+    input.setAttribute('aria-expanded', 'false');
+    setActive(-1);
+  };
+  const open = () => {
+    const query = input.value;
+    const matches = [...select.options].filter(
+      (option) => option.value && matchesSearch(option.text, query),
+    );
+    list.replaceChildren(
+      ...matches.map((option, index) => {
+        const item = document.createElement('li');
+        item.id = `${list.id}-${index}`;
+        item.role = 'option';
+        item.dataset.value = option.value;
+        item.textContent = option.text;
+        return item;
+      }),
+    );
+    list.hidden = matches.length === 0;
+    input.setAttribute('aria-expanded', String(matches.length > 0));
+    setActive(-1);
+    if (status)
+      status.textContent = (input.dataset.countTemplate ?? '').replace(
+        '{count}',
+        String(matches.length),
+      );
+  };
+  const choose = (value: string) => {
+    close();
+    if (select.value !== value) {
+      select.value = value;
       select.dispatchEvent(new Event('change', { bubbles: true }));
     }
+    showSelected();
+  };
+
+  input.addEventListener('input', open);
+  input.addEventListener('click', () => {
+    if (list.hidden) open();
   });
+  input.addEventListener('keydown', (event) => {
+    const all = items();
+    if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
+      event.preventDefault();
+      if (list.hidden) open();
+      setActive(
+        event.key === 'ArrowDown'
+          ? active + 1
+          : (active <= 0 ? items().length : active) - 1,
+      );
+    } else if (event.key === 'Escape' && !list.hidden) {
+      event.preventDefault();
+      close();
+      showSelected();
+    } else if (event.key === 'Enter') {
+      // Picks the highlighted (or only) match; with nothing to pick, Enter submits.
+      const pick =
+        all[active] ?? (all.length === 1 && !list.hidden ? all[0] : undefined);
+      if (pick) {
+        event.preventDefault();
+        choose(pick.dataset.value ?? '');
+      } else if (!input.value.trim()) choose('');
+    }
+  });
+  // mousedown keeps focus in the box, so blur does not close the list first.
+  list.addEventListener('mousedown', (event) => event.preventDefault());
+  list.addEventListener('click', (event) => {
+    const item =
+      event.target instanceof Element &&
+      event.target.closest('[role="option"]');
+    if (item instanceof HTMLElement) choose(item.dataset.value ?? '');
+  });
+  // Free text never becomes a filter: leaving the box keeps the chosen centre.
+  input.addEventListener('blur', () => {
+    if (input.value.trim()) {
+      close();
+      showSelected();
+    } else choose('');
+  });
+  // Other filters may replace the centre options; keep the text in step.
+  new MutationObserver(() => {
+    if (document.activeElement !== input) showSelected();
+  }).observe(select, { childList: true });
+
+  showSelected();
+  const label = form?.querySelector(`label[for="${select.id}"]`);
+  if (label instanceof HTMLLabelElement) label.htmlFor = input.id;
+  select.hidden = true;
   input.hidden = false;
 }
 

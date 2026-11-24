@@ -359,8 +359,29 @@ h1 {
   border: 0;
   min-width: 0;
 }
-.option-search {
-  margin-bottom: 8px;
+.combobox-input:not([hidden]) + .combobox-options {
+  max-height: 16rem;
+  overflow-y: auto;
+  margin: 4px 0 0;
+  padding: 4px 0;
+  list-style: none;
+  border: 1px solid #8c9faa;
+  border-radius: 7px;
+  background: white;
+}
+.combobox-options[hidden] {
+  display: none;
+}
+.combobox-options [role='option'] {
+  padding: 8px 12px;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+.combobox-options [role='option']:hover,
+.combobox-options [aria-selected='true'] {
+  background: var(--sky);
+  outline: 2px solid var(--blue);
+  outline-offset: -2px;
 }
 .filter-check {
   display: flex;
