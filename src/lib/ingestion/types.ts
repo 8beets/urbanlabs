@@ -17,7 +17,7 @@ export interface SourceConfig {
   centreCode?: number;
   /** Girona and Vitoria-Gasteiz: the centre's venue name (El Prat: its page path); Girona: the activity-code prefix of the courses it runs elsewhere. */
   venue?: string;
-  /** Miram hosts shared by several centres: texts one of which the card's "Espai" line must contain. */
+  /** Miram hosts shared by several centres: texts one of which the card's "Espai" line must contain; Barcelona's agenda: the venue's exact place names. */
   venues?: string[];
   codePrefix?: string;
   /** An empty listing is a valid, successful snapshot (seasonal centres). */

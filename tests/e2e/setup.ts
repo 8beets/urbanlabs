@@ -21,6 +21,10 @@ import {
   malagaRows,
   venueRecords,
 } from '../../src/lib/ingestion/adapters/malaga-datos-agenda';
+import {
+  barcelonaRows,
+  venueRecords as barcelonaVenueRecords,
+} from '../../src/lib/ingestion/adapters/barcelona-agenda';
 import { E2E_ALERT_IDS } from './alert-fixtures';
 import { mkdirSync, readFileSync, readdirSync, writeFileSync } from 'node:fs';
 import { exportSnapshot } from '../../src/lib/catalog/export';
@@ -332,6 +336,48 @@ async function setup() {
                   ...record,
                   externalId: `99${source.centreCode}`,
                   title: `TEST workshop ${source.institution.name}`,
+                },
+          ],
+        },
+        source,
+      );
+    }
+    // Barcelona agenda: the saved Torre de la Sagrera course, and one explicitly
+    // synthetic course for every other venue so each active source has a centre page
+    // and marker.
+    const barcelonaFixture = barcelonaRows(
+      new TextDecoder('utf-16le').decode(
+        readFileSync(
+          new URL('../fixtures/barcelona-agenda.csv', import.meta.url),
+        ),
+      ),
+    );
+    const barcelonaSources = sources.filter(
+      (s) => s.platform === 'barcelona-agenda',
+    );
+    const sagrera = barcelonaVenueRecords(
+      barcelonaFixture,
+      barcelonaSources.find((s) =>
+        s.venues?.includes('Casal de Barri Torre de la Sagrera'),
+      )!,
+    )[0]!;
+    for (const [index, source] of barcelonaSources.entries()) {
+      const record = {
+        ...sagrera,
+        startDate: '2099-01-01',
+        endDate: '2099-12-31',
+      };
+      await runIngestion(
+        db,
+        {
+          fetchRecords: async () => [
+            source.venues?.includes('Casal de Barri Torre de la Sagrera')
+              ? record
+              : {
+                  ...record,
+                  externalId: `9990${index}`,
+                  title: `TEST workshop ${source.institution.name}`,
+                  officialUrl: source.institution.url,
                 },
           ],
         },
