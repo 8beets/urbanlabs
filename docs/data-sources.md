@@ -392,6 +392,39 @@ https://ajuntament.barcelona.cat/casalsdebarri/ca
 - **Barcelona Open Data portal:** the city agenda is published as open data on `opendata-ajuntament.barcelona.cat`, the natural source. From the cloud development environment the server answered HTTP 403 to every request, including `robots.txt`, with or without the project user agent. The datos.gob.es federation answered with an Incapsula bot challenge. Neither block was bypassed. Whether the files can be read from GitHub Actions is unverified.
 - **Resolved 2026-11-24:** the open-data agenda names the venue, category and prices and is CC BY 4.0. It is ingested from a mirror; see [Barcelona — Agenda](#barcelona--agenda-open-dataset-hand-made-mirror).
 
+### Garraf (Vilanova i la Geltrú, Sitges, Sant Pere de Ribes, Cubelles…) — reviewed 2026-11-25
+
+**Diputació de Barcelona library agenda** ("Biblioteques i bibliobusos: agenda d'activitats", dataset `actesbiblioteques_ca`):
+
+- **Source:** `https://do.diba.cat/api/dataset/actesbiblioteques_ca/format/json`, licensed CC BY 4.0 (`llicencia` in the dataset metadata), updated daily (`freq_actualitzacio: 1`), maintained by the Gerència de Serveis de Biblioteques. On 2026-11-25 it held 36,475 events from the municipal libraries of the whole province of Barcelona.
+- **robots.txt:** `do.diba.cat/robots.txt` disallows only `/uploads/` and sets `Crawl-delay: 10`.
+- **Fields:**
+  - `acte_id` (stable), `titol`, `data_inici`, `data_fi`, `acte_organitzadors` (library), `grup_adreca` (address and coordinates);
+  - `rel_municipis` (INE code, municipality, `grup_comarca`; the Garraf is comarca 17);
+  - `tipus` (e.g. `Taller`, `Curs`, `Hora del conte`, `Xerrada`), `public` (e.g. `Infants`), `preu` (e.g. `Gratuït`), `dies`, `observacions_horari`, `inscripcio`, `url_inscripcions`, `acte_url`;
+  - and contact phone and email (library contacts, not to be published).
+- **Filtering:** by municipality with `/camp-rel_municipis/<INE>`.
+- **Garraf coverage** (all events in the dataset / `Taller` or `Curs` in the 12 months to 2026-11-25 / upcoming `Taller` or `Curs`):
+
+  | Municipality (INE)           | Events | Workshops/courses, 12 months | Upcoming |
+  | ---------------------------- | ------ | ---------------------------- | -------- |
+  | Vilanova i la Geltrú (08307) | 365    | 20                           | 1        |
+  | Cubelles (08074)             | 219    | 26                           | 4        |
+  | Sant Pere de Ribes (08231)   | 114    | 17                           | 1        |
+  | Sitges (08270)               | 401    | 12                           | 0        |
+  | Olivella (08145)             | 0      | –                            | –        |
+
+  Canyelles was not checked: the code tried (08044) returned Capellades.
+
+- **Assessment:**
+  - About 75 workshops a year in the Garraf, mostly free one-off library sessions ("Taller infantil…") rather than term courses.
+  - The same adapter would cover every municipal library in the province.
+  - An adapter would keep `Taller` and `Curs` events, map each library (`rel_punt`, e.g. `biblioteca423964`) to a centre, use `preu` and `public`, and never publish the contact fields.
+
+**Town-council courses:** web searches on 2026-11-25 found no online course catalogue or registration platform for Vilanova i la Geltrú, Sitges, Sant Pere de Ribes, Cubelles, Canyelles or Olivella. Only PDF leaflets and fee notices in the provincial gazette (BOP) came up. Each town's website still needs a direct review, including its robots.txt.
+
+**Status:** no adapter implemented.
+
 ### Other cities — reviewed 2026-11-13
 
 One request per site (robots.txt and the listing page) with curl's default user agent. No block was bypassed, and nothing was imported. Revisit when the site or its policy changes.
